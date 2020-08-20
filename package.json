@@ -1,5 +1,6 @@
 {
   "name": "vite-plugin-components",
+  "description": "Vite plugin for components auto importing",
   "version": "0.1.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
