@@ -1,5 +1,35 @@
-import { components } from './generated'
-export { Options } from './options'
-export { VitePluginComponents } from './plugin'
+import type { Plugin } from 'vite'
+import { createRollupPlugin } from './plugins/build'
+import { createServerPlugin } from './plugins/server'
+import { Options, Context } from './types'
+import { VueScriptTransformer } from './transforms/vueScript'
+import { VueTemplateTransformer } from './transforms/vueTemplate'
 
-export default components
+const defaultOptions: Options = {
+  dirs: 'src/components',
+  extensions: 'vue',
+  deep: true,
+}
+
+export type { Options }
+export function VitePluginComponents(options: Partial<Options> = {}): Plugin {
+  const resolvedOptions: Options = Object.assign({}, options, defaultOptions)
+  const ctx: Context = {
+    options: resolvedOptions,
+    importMap: {},
+    components: [],
+  }
+
+  return {
+    configureServer: createServerPlugin(ctx),
+    rollupInputOptions: {
+      plugins: [
+        createRollupPlugin(ctx),
+      ],
+    },
+    transforms: [
+      VueScriptTransformer(ctx),
+      VueTemplateTransformer(ctx),
+    ],
+  }
+}

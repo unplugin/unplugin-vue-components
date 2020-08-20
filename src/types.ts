@@ -18,3 +18,13 @@ export interface Options {
    */
   deep: boolean
 }
+
+export type ComponentsInfo = [string, string]
+export type ComponentsImportMap = Record<string, string[] | undefined>
+
+export interface Context {
+  options: Options
+  importMap: ComponentsImportMap
+  components: ComponentsInfo[]
+  _searchingPromise?: Promise<any>
+}

@@ -1,6 +1,6 @@
 <h1 align='center'>vite-plugin-components</h1>
 
-<p align='center'>Components auto importing for Vite</p>
+<p align='center'>Components auto importing for Vite (on-demand!)</p>
 
 <p align='center'>
 <a href='https://www.npmjs.com/package/vite-plugin-components'>
@@ -22,28 +22,54 @@ Add it to `vite.config.js`
 
 ```ts
 // vite.config.js
-import { VitePluginComponents } from 'vite-plugin-components'
+import ViteComponents from 'vite-plugin-components'
 
 export default {
   plugins: [
-    VitePluginComponents()
+    ViteComponents()
   ]
 }
 ```
 
-Import and install `vite-plugin-components` in your `main.js`
+That's all. 
 
-```ts
-import { createApp } from 'vue'
-import App from './App.vue'
+Use components in templates as you would usually do but NO `import` and `component registration` required anymore! It will import components on demand, code spliting is also possible.
 
-import components from 'vite-plugin-components' // <-- This
+Basically, it automatically turns this
 
-const app = createApp(App)
+```vue
+<template>
+  <div>
+    <HelloWorld msg="Hello Vue 3.0 + Vite" />
+  </div>
+</template>
 
-app.use(components) // <-- and this
+<script>
+export default {
+  name: 'App'
+}
+</script>
+```
 
-app.mount('#app')
+into this
+
+```vue
+<template>
+  <div>
+    <HelloWorld msg="Hello Vue 3.0 + Vite" />
+  </div>
+</template>
+
+<script>
+import HelloWorld from './src/components/HelloWorld.vue'
+
+export default {
+  name: 'App',
+  components: {
+    HelloWorld
+  }
+}
+</script>
 ```
 
 ## Configuration
@@ -51,7 +77,7 @@ app.mount('#app')
 The following show the default values of the configuration
 
 ```ts
-VitePluginComponents({
+ViteComponents({
   // Relative path to the directory to search for components.
   dirs: ['src/components'],
   // Valid file extensions for components.
