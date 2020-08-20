@@ -4,7 +4,9 @@ import { isResolverPath, generateResolver } from '../generator/resolver'
 import { searchComponents } from '../glob'
 
 export function createServerPlugin(context: Context): ServerPlugin {
-  return ({ app }) => {
+  return ({ app, watcher }) => {
+    // TODO: handle HMR use watch
+
     app.use(async(ctx, next) => {
       if (!isResolverPath(ctx.path))
         return next()

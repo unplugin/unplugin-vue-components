@@ -11,6 +11,16 @@ function toArray<T>(arr: T | T[]): T[] {
   return [arr]
 }
 
+/**
+ * This search for components in with the given options.
+ * Will be called multiple times to ensure file loaded,
+ * should normally run only once.
+ *
+ * TODO: watch on file changes for server mode
+ *
+ * @param ctx
+ * @param force
+ */
 export async function searchComponents(ctx: Context, force = false) {
   if (force || !ctx._searchingPromise) {
     ctx._searchingPromise = (async() => {
@@ -45,7 +55,6 @@ export async function searchComponents(ctx: Context, force = false) {
       debug(`[${components.map(i => i).join(', ')}]`)
 
       ctx.components = components
-      ctx._searchingPromise = undefined
     })()
   }
 
