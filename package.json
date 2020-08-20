@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-components",
   "description": "Components auto importing for Vite",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -13,7 +13,9 @@
   },
   "homepage": "https://github.com/antfu/vite-plugin-components",
   "bugs": "https://github.com/antfu/vite-plugin-components/issues",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "npm run build -- --watch",
     "build": "tsup src/index.ts --dts --format cjs,esm",
