@@ -1,0 +1,33 @@
+{
+  "name": "vite-plugin-components",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "author": "antfu <anthonyfu117@hotmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antfu/vite-plugin-components"
+  },
+  "homepage": "https://github.com/antfu/vite-plugin-components",
+  "bugs": "https://github.com/antfu/vite-plugin-components/issues",
+  "files": ["dist"],
+  "scripts": {
+    "dev": "npm run build -- --watch",
+    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config-ts": "^0.3.2",
+    "@typescript-eslint/eslint-plugin": "^3.9.1",
+    "eslint": "^7.7.0",
+    "rollup": "^2.26.4",
+    "tsup": "^3.6.1",
+    "typescript": "^3.9.7",
+    "vite": "^1.0.0-rc.4"
+  },
+  "dependencies": {
+    "fast-glob": "^3.2.4"
+  }
+}
