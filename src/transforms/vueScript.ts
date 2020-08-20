@@ -1,5 +1,5 @@
 import { Transform } from 'vite'
-import { Context } from '../types'
+import { Context } from '../context'
 import { RESOLVER_EXT } from '../constants'
 
 /**

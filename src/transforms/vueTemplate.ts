@@ -1,5 +1,8 @@
-import { Transform } from 'vite'
-import { Context } from '../types'
+import Debug from 'debug'
+import type { Transform } from 'vite'
+import { Context } from '../context'
+
+const debug = Debug('vite-plugin-components:transform:template')
 
 /**
  * This transformer does not actually change the code,
@@ -15,7 +18,9 @@ export function VueTemplateTransformer(ctx: Context): Transform {
     },
     transform({ code, path }) {
       const imports = Array.from(code.matchAll(/_resolveComponent\("(.*)"\)/g)).map(i => i[1])
-      ctx.importMap[path] = imports
+      ctx.setImportMap(path, imports)
+      debug(path)
+      debug(imports)
       return code
     },
   }

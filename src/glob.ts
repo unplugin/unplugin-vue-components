@@ -1,7 +1,8 @@
 import path from 'path'
 import fg from 'fast-glob'
 import Debug from 'debug'
-import { Context, ComponentsInfo } from './types'
+import { ComponentsInfo } from './types'
+import { Context } from './context'
 
 const debug = Debug('vite-plugin-components:glob')
 
@@ -52,11 +53,11 @@ export async function searchComponents(ctx: Context, force = false) {
       const components: ComponentsInfo[] = files.map(f => [path.parse(f).name, `/${f}`])
 
       debug(`${components.length} components found.`)
-      debug(`[${components.map(i => i).join(', ')}]`)
+      debug(components.map(i => i[0]))
 
       ctx.components = components
     })()
   }
 
-  return await ctx._searchingPromise
+  await Promise.resolve(ctx._searchingPromise)
 }
