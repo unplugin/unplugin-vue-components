@@ -1,6 +1,9 @@
 import path from 'path'
 import fg from 'fast-glob'
+import Debug from 'debug'
 import { Context, ComponentsInfo } from './types'
+
+const debug = Debug('vite-plugin-components:glob')
 
 function toArray<T>(arr: T | T[]): T[] {
   if (Array.isArray(arr))
@@ -24,6 +27,8 @@ export async function searchComponents(ctx: Context, force = false) {
           : `${i}/*.${extsGlob}`,
       )
 
+      debug(`searching start with: [${globs.join(', ')}]`)
+
       const files = await fg(globs, {
         ignore: [
           'node_modules',
@@ -35,6 +40,9 @@ export async function searchComponents(ctx: Context, force = false) {
         console.warn('[vite-plugin-components] no components found')
 
       const components: ComponentsInfo[] = files.map(f => [path.parse(f).name, `/${f}`])
+
+      debug(`${components.length} components found.`)
+      debug(`[${components.map(i => i).join(', ')}]`)
 
       ctx.components = components
       ctx._searchingPromise = undefined

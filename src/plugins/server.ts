@@ -10,7 +10,7 @@ export function createServerPlugin(context: Context): ServerPlugin {
         return next()
 
       try {
-        await searchComponents(context, true)
+        await searchComponents(context)
         ctx.body = await generateResolver(context, ctx.path)
         ctx.type = 'js'
         ctx.status = 200
