@@ -11,8 +11,7 @@ const defaultOptions: Options = {
   deep: true,
 }
 
-export type { Options }
-export function VitePluginComponents(options: Partial<Options> = {}): Plugin {
+function VitePluginComponents(options: Partial<Options> = {}): Plugin {
   const resolvedOptions: Options = Object.assign({}, options, defaultOptions)
   const ctx: Context = {
     options: resolvedOptions,
@@ -33,3 +32,6 @@ export function VitePluginComponents(options: Partial<Options> = {}): Plugin {
     ],
   }
 }
+
+export type { Options }
+export default VitePluginComponents
