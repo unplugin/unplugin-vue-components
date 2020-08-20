@@ -1,6 +1,12 @@
 <h1 align='center'>vite-plugin-components</h1>
 
-<p align='center'>Vite plugin for components auto importing</p>
+<p align='center'>Components auto importing for Vite</p>
+
+<p align='center'>
+<a href='https://www.npmjs.com/package/vite-plugin-components'>
+<img src='https://img.shields.io/npm/v/vite-plugin-components?color=222&style=flat-square'>
+</a>
+</p>
 
 <br>
 
