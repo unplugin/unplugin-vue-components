@@ -6,6 +6,18 @@ import { Context } from '../context'
 
 const debug = Debug('vite-plugin-components:glob')
 
+function getNameFromFilePath(filePath: string): string {
+  const parsedFilePath = path.parse(filePath)
+  if (parsedFilePath.name === 'index') {
+    const filePathSegments = filePath.split(path.sep)
+    const parentDirName = filePathSegments[filePathSegments.length - 2]
+    if (parentDirName) {
+      return parentDirName
+    }
+  }
+  return parsedFilePath.name
+}
+
 function toArray<T>(arr: T | T[]): T[] {
   if (Array.isArray(arr))
     return arr
@@ -52,7 +64,7 @@ export async function searchComponents(ctx: Context, force = false) {
 
       const nameSets = new Set<string>()
       const components = files
-        .map((f): ComponentsInfo => [path.parse(f).name, `/${f}`])
+        .map((f): ComponentsInfo => [getNameFromFilePath(f), `/${f}`])
         .filter(([name, path]) => {
           if (nameSets.has(name)) {
             console.warn(`[vite-plugin-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
