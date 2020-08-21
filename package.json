@@ -20,7 +20,7 @@
     "dev": "npm run build -- --watch",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "prepublish": "npm run build",
-    "release": "standard-version && npm publish"
+    "release": "standard-version && npm publish && git push"
   },
   "devDependencies": {
     "@antfu/eslint-config-ts": "^0.3.2",
