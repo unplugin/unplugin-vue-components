@@ -19,7 +19,8 @@
   "scripts": {
     "dev": "npm run build -- --watch",
     "build": "tsup src/index.ts --dts --format cjs,esm",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "release": "standard-version && npm publish"
   },
   "devDependencies": {
     "@antfu/eslint-config-ts": "^0.3.2",
@@ -27,6 +28,7 @@
     "@typescript-eslint/eslint-plugin": "^3.9.1",
     "eslint": "^7.7.0",
     "rollup": "^2.26.4",
+    "standard-version": "^9.0.0",
     "tsup": "^3.6.1",
     "typescript": "^3.9.7",
     "vite": "^1.0.0-rc.4"
