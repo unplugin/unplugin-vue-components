@@ -1,6 +1,6 @@
-<h1 align='center'>vite-plugin-components</h1>
+<h2 align='center'><samp>vite-plugin-components</samp></h2>
 
-<p align='center'>Components auto importing for Vite (on-demand!)</p>
+<p align='center'>On demand components auto importing for Vite</p>
 
 <p align='center'>
 <a href='https://www.npmjs.com/package/vite-plugin-components'>
