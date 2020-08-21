@@ -1,7 +1,7 @@
 import type { Plugin } from 'rollup'
 import { isResolverPath, generateResolver } from '../generator/resolver'
-import { Context } from '../types'
-import { searchComponents } from '../glob'
+import { searchComponents } from '../fs/glob'
+import { Context } from '../context'
 
 export function createRollupPlugin(ctx: Context): Plugin {
   return {

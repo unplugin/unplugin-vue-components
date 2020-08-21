@@ -1,7 +1,7 @@
 import type { ServerPlugin } from 'vite'
-import { Context } from '../types'
 import { isResolverPath, generateResolver } from '../generator/resolver'
-import { searchComponents } from '../glob'
+import { searchComponents } from '../fs/glob'
+import { Context } from '../context'
 
 export function createServerPlugin(context: Context): ServerPlugin {
   return ({ app, watcher }) => {

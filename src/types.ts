@@ -3,7 +3,7 @@
  */
 export interface Options {
   /**
-   * Relative path to the directory to search for components.
+   * Relative paths to the directory to search for components.
    * @default 'src/components'
    */
   dirs: string | string[]

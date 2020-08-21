@@ -1,8 +1,8 @@
 import path from 'path'
 import fg from 'fast-glob'
 import Debug from 'debug'
-import { ComponentsInfo } from './types'
-import { Context } from './context'
+import { ComponentsInfo } from '../types'
+import { Context } from '../context'
 
 const debug = Debug('vite-plugin-components:glob')
 
@@ -50,7 +50,19 @@ export async function searchComponents(ctx: Context, force = false) {
       if (!files.length)
         console.warn('[vite-plugin-components] no components found')
 
-      const components: ComponentsInfo[] = files.map(f => [path.parse(f).name, `/${f}`])
+      const nameSets = new Set<string>()
+      const components = files
+        .map((f): ComponentsInfo => [path.parse(f).name, `/${f}`])
+        .filter(([name, path]) => {
+          if (nameSets.has(name)) {
+            console.warn(`[vite-plugin-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
+            return false
+          }
+          else {
+            nameSets.add(name)
+            return true
+          }
+        })
 
       debug(`${components.length} components found.`)
       debug(components.map(i => i[0]))

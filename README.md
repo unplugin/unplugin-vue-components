@@ -78,7 +78,7 @@ The following show the default values of the configuration
 
 ```ts
 ViteComponents({
-  // Relative path to the directory to search for components.
+  // Relative paths to the directory to search for components.
   dirs: ['src/components'],
   // Valid file extensions for components.
   extensions: ['vue'],
