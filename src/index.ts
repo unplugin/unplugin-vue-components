@@ -13,7 +13,7 @@ const defaultOptions: Options = {
 }
 
 function VitePluginComponents(options: Partial<Options> = {}): Plugin {
-  const resolvedOptions: Options = Object.assign({}, options, defaultOptions)
+  const resolvedOptions: Options = Object.assign({}, defaultOptions, options)
   const ctx: Context = new Context(resolvedOptions)
 
   return {
