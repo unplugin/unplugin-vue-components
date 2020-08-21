@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.7](https://github.com/antfu/vite-plugin-components/compare/v0.2.6...v0.2.7) (2020-08-21)
+
+
+### Features
+
+* use parent directory as name for `index` components ([#2](https://github.com/antfu/vite-plugin-components/issues/2)) ([4e7a704](https://github.com/antfu/vite-plugin-components/commit/4e7a704182d705a59c2e5e680cedcf745b90c4c8))
+
 ### [0.2.6](https://github.com/antfu/vite-plugin-components/compare/v0.2.5...v0.2.6) (2020-08-21)
 
 
