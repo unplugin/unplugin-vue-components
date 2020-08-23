@@ -1,4 +1,5 @@
 import { ComponentsInfo, ComponentsImportMap, Options } from './types'
+import { normalize } from './utils'
 
 export class Context {
   importMap: ComponentsImportMap = {}
@@ -16,7 +17,11 @@ export class Context {
   }
 
   set components(components: ComponentsInfo[]) {
-    this._components = components.map(([name, path]) => [capitalize(camelize(name)), path])
+    this._components = components.map(([name, path]) => [normalize(name), path])
+  }
+
+  searchForComponents(names: string[], excludePaths: string[] = []) {
+    return this.components.filter(i => !excludePaths.includes(i[1]) && names.includes(i[0]))
   }
 
   async getImportMap(key: string) {
@@ -35,17 +40,9 @@ export class Context {
   }
 
   setImportMap(key: string, names: string[]) {
-    const casedNames = names.map(name => capitalize(camelize(name)))
+    const casedNames = names.map(name => normalize(name))
     this.importMap[key] = casedNames
     if (this.importMapPromises[key])
       this.importMapPromises[key][1]?.(casedNames)
   }
-}
-
-function camelize(str: string) {
-  return str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''))
-}
-
-function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
 }
