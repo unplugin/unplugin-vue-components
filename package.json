@@ -23,7 +23,7 @@
     "release": "standard-version && npm publish && git push"
   },
   "devDependencies": {
-    "@antfu/eslint-config-ts": "^0.3.2",
+    "@antfu/eslint-config": "^0.3.2",
     "@types/debug": "^4.1.5",
     "@typescript-eslint/eslint-plugin": "^3.9.1",
     "eslint": "^7.7.0",
