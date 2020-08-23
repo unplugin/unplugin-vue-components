@@ -11,9 +11,8 @@ function getNameFromFilePath(filePath: string): string {
   if (parsedFilePath.name === 'index') {
     const filePathSegments = filePath.split(path.sep)
     const parentDirName = filePathSegments[filePathSegments.length - 2]
-    if (parentDirName) {
+    if (parentDirName)
       return parentDirName
-    }
   }
   return parsedFilePath.name
 }

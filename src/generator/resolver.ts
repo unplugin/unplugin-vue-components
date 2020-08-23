@@ -11,7 +11,7 @@ export function isResolverPath(reqPath: string) {
 export async function generateResolver(ctx: Context, reqPath: string) {
   const sfcPath = reqPath.slice(0, -RESOLVER_EXT.length)
   const names = await ctx.getImportMap(sfcPath) || []
-  const components = ctx.components.filter(i => names.includes(i[0]) && i[1] !== sfcPath)
+  const components = ctx.searchForComponents(names, [sfcPath])
 
   debug(sfcPath)
   debug('using', names, 'imported', components.map(i => i[0]))
