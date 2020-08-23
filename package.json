@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-components",
   "description": "Components auto importing for Vite",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -38,5 +38,5 @@
     "tsup": "^3.6.1",
     "typescript": "^3.9.7",
     "vite": "^1.0.0-rc.4"
-  } 
+  }
 }
