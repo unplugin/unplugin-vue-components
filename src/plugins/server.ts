@@ -1,28 +1,58 @@
 import type { ServerPlugin } from 'vite'
+import Debug from 'debug'
 import { isResolverPath, generateResolver } from '../generator/resolver'
-import { searchComponents } from '../fs/glob'
 import { Context } from '../context'
+import { matchGlobs, relative } from '../utils'
 
-export function createServerPlugin(context: Context): ServerPlugin {
+const debug = {
+  add: Debug('vite-plugin-components:watcher:add'),
+  remove: Debug('vite-plugin-components:watcher:del'),
+  hmr: Debug('vite-plugin-components:watcher:hmr'),
+}
+
+export function createServerPlugin(ctx: Context): ServerPlugin {
   return ({ app, watcher }) => {
-    // TODO: handle HMR use watch
+    function reloadPage() {
+      watcher.send({
+        type: 'full-reload',
+        path: '/',
+      })
+    }
 
-    app.use(async(ctx, next) => {
-      if (!isResolverPath(ctx.path))
+    watcher.on('add', (e) => {
+      const path = relative(e)
+      if (matchGlobs(path, ctx.globs)) {
+        debug.add(path)
+        if (ctx.addComponents(path))
+          reloadPage()
+      }
+    })
+
+    watcher.on('unlink', (e) => {
+      const path = relative(e)
+      if (matchGlobs(path, ctx.globs)) {
+        debug.remove(path)
+        if (ctx.removeComponents(path))
+          reloadPage()
+      }
+    })
+
+    app.use(async(koa, next) => {
+      if (!isResolverPath(koa.path))
         return next()
 
       try {
-        await searchComponents(context)
-        ctx.body = await generateResolver(context, ctx.path)
-        ctx.type = 'js'
-        ctx.status = 200
+        await ctx.searchGlob()
+        koa.body = await generateResolver(ctx, koa.path)
+        koa.type = 'js'
+        koa.status = 200
       }
       catch (e) {
-        ctx.body = {
+        koa.body = {
           error: e.toString(),
         }
-        ctx.type = 'js'
-        ctx.status = 500
+        koa.type = 'json'
+        koa.status = 500
       }
     })
   }

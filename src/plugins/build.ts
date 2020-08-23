@@ -1,6 +1,5 @@
 import type { Plugin } from 'rollup'
 import { isResolverPath, generateResolver } from '../generator/resolver'
-import { searchComponents } from '../fs/glob'
 import { Context } from '../context'
 
 export function createRollupPlugin(ctx: Context): Plugin {
@@ -13,7 +12,7 @@ export function createRollupPlugin(ctx: Context): Plugin {
     },
     async load(id) {
       if (isResolverPath(id)) {
-        await searchComponents(ctx)
+        await ctx.searchGlob()
         return await generateResolver(ctx, id)
       }
       return null

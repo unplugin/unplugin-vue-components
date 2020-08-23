@@ -19,5 +19,8 @@ export interface Options {
   deep: boolean
 }
 
-export type ComponentsInfo = [string, string]
+export interface ComponentsInfo {
+  name: string
+  path: string
+}
 export type ComponentsImportMap = Record<string, string[] | undefined>

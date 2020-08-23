@@ -3,6 +3,7 @@ importers:
     dependencies:
       debug: 4.1.1
       fast-glob: 3.2.4
+      minimatch: 3.0.4
     devDependencies:
       '@antfu/eslint-config': 0.3.3_eslint@7.7.0+typescript@3.9.7
       '@types/debug': 4.1.5
@@ -20,6 +21,7 @@ importers:
       debug: ^4.1.1
       eslint: ^7.7.0
       fast-glob: ^3.2.4
+      minimatch: ^3.0.4
       rollup: ^2.26.4
       standard-version: ^9.0.0
       tsup: ^3.6.1
@@ -30,11 +32,13 @@ importers:
       vue: 3.0.0-rc.6
     devDependencies:
       '@vue/compiler-sfc': 3.0.0-rc.6_vue@3.0.0-rc.6
+      cross-env: 7.0.2
       typescript: 4.0.2
       vite: 1.0.0-rc.4
       vite-plugin-components: 'link:../..'
     specifiers:
       '@vue/compiler-sfc': ^3.0.0-rc.1
+      cross-env: ^7.0.2
       typescript: ^4.0.2
       vite: ^1.0.0-rc.1
       vite-plugin-components: 'workspace:*'
@@ -822,7 +826,6 @@ packages:
     resolution:
       integrity: sha512-ifWaTHQ0ce+448CYop8AdrQiBsGrnC+bMgfyKFdi6EsPLTAWG+QfyDeM6OH+FmWnKvEq5NnBMLvlBUPKQZoDSg==
   /balanced-match/1.0.0:
-    dev: true
     resolution:
       integrity: sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
   /big.js/5.2.2:
@@ -843,7 +846,6 @@ packages:
     dependencies:
       balanced-match: 1.0.0
       concat-map: 0.0.1
-    dev: true
     resolution:
       integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==
   /braces/3.0.2:
@@ -1110,7 +1112,6 @@ packages:
     resolution:
       integrity: sha512-zHig5N+tPWARooBnb0Zx1MFcdfpyJrfTJ3Y5L+IFvUm8rM74hHz66z0gw0x4tijh5CorKkKUCnW82R2vmpeCRA==
   /concat-map/0.0.1:
-    dev: true
     resolution:
       integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
   /concat-stream/2.0.0:
@@ -1360,6 +1361,17 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-H65gsXo1SKjf8zmrJ67eJk8aIRKV5ff2D4uKZIBZShbhGSpEmsQOPW/SKMKYhSTrqR7ufy6RP69rPogdaPh/kA==
+  /cross-env/7.0.2:
+    dependencies:
+      cross-spawn: 7.0.3
+    dev: true
+    engines:
+      node: '>=10.14'
+      npm: '>=6'
+      yarn: '>=1'
+    hasBin: true
+    resolution:
+      integrity: sha512-KZP/bMEOJEDCkDQAyRhu3RL2ZO/SUVrxQVI0G3YEQ+OLbRA3c6zgixe8Mq8a/z7+HKlNEjo8oiLUs8iRijY2Rw==
   /cross-spawn/7.0.3:
     dependencies:
       path-key: 3.1.1
@@ -3215,7 +3227,6 @@ packages:
   /minimatch/3.0.4:
     dependencies:
       brace-expansion: 1.1.11
-    dev: true
     resolution:
       integrity: sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
   /minimist-options/3.0.2:

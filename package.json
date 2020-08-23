@@ -22,9 +22,15 @@
     "prepublish": "npm run build",
     "release": "standard-version && npm publish && git push"
   },
+  "dependencies": {
+    "debug": "^4.1.1",
+    "fast-glob": "^3.2.4",
+    "minimatch": "^3.0.4"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^0.3.2",
     "@types/debug": "^4.1.5",
+    "@types/minimatch": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "^3.9.1",
     "eslint": "^7.7.0",
     "rollup": "^2.26.4",
@@ -32,9 +38,5 @@
     "tsup": "^3.6.1",
     "typescript": "^3.9.7",
     "vite": "^1.0.0-rc.4"
-  },
-  "dependencies": {
-    "debug": "^4.1.1",
-    "fast-glob": "^3.2.4"
-  }
+  } 
 }
