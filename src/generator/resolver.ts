@@ -9,7 +9,7 @@ export function isResolverPath(reqPath: string) {
 }
 
 export async function generateResolver(ctx: Context, reqPath: string) {
-  const sfcPath = reqPath.slice(0, -RESOLVER_EXT.length)
+  const sfcPath = ctx.normalizePath(reqPath.slice(0, -RESOLVER_EXT.length))
   debug(sfcPath)
 
   const names = await ctx.getImports(sfcPath) || []

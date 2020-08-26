@@ -10,6 +10,7 @@ const defaultOptions: Options = {
   dirs: 'src/components',
   extensions: 'vue',
   deep: true,
+  alias: {},
 }
 
 function VitePluginComponents(options: Partial<Options> = {}): Plugin {

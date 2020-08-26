@@ -17,6 +17,11 @@ export interface Options {
    * @default true
    */
   deep: boolean
+  /**
+   * Path alias, same as what you passed to vite root config
+   * @default {}
+   */
+  alias: Record<string, string>
 }
 
 export interface ComponentsInfo {

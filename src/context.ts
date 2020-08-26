@@ -1,6 +1,7 @@
+import { relative } from 'path'
 import Debug from 'debug'
 import { ComponentsInfo, ComponentsImportMap, Options } from './types'
-import { normalize, toArray, getNameFromFilePath } from './utils'
+import { normalize, toArray, getNameFromFilePath, resolveAlias } from './utils'
 import { searchComponents } from './fs/glob'
 
 const debug = {
@@ -89,11 +90,24 @@ export class Context {
       .filter(Boolean) as ComponentsInfo[]
   }
 
+  normalizePath(path: string) {
+    return this.relative(this.resolveAlias(path))
+  }
+
+  resolveAlias(path: string) {
+    return resolveAlias(path, this.options.alias)
+  }
+
+  relative(path: string) {
+    return relative(this.root, path)
+  }
+
   setImports(key: string, names: string[]) {
     const casedNames = names.map(name => normalize(name))
     this._imports[key] = casedNames
     if (this._importsResolveTasks[key])
       this._importsResolveTasks[key][1]?.(casedNames)
+    return key
   }
 
   /**

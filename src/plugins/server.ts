@@ -2,7 +2,7 @@ import type { ServerPlugin } from 'vite'
 import Debug from 'debug'
 import { isResolverPath, generateResolver } from '../generator/resolver'
 import { Context } from '../context'
-import { matchGlobs, relative } from '../utils'
+import { matchGlobs } from '../utils'
 
 const debug = {
   add: Debug('vite-plugin-components:watcher:add'),
@@ -20,7 +20,7 @@ export function createServerPlugin(ctx: Context): ServerPlugin {
     }
 
     watcher.on('add', (e) => {
-      const path = relative(e)
+      const path = ctx.normalizePath(e)
       if (matchGlobs(path, ctx.globs)) {
         debug.add(path)
         if (ctx.addComponents(path))
@@ -29,7 +29,7 @@ export function createServerPlugin(ctx: Context): ServerPlugin {
     })
 
     watcher.on('unlink', (e) => {
-      const path = relative(e)
+      const path = ctx.normalizePath(e)
       if (matchGlobs(path, ctx.globs)) {
         debug.remove(path)
         if (ctx.removeComponents(path))

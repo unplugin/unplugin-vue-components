@@ -39,8 +39,11 @@ export function getNameFromFilePath(filePath: string): string {
   return parsedFilePath.name
 }
 
-const cwd = process.cwd()
-
-export function relative(filepath: string) {
-  return path.relative(cwd, filepath)
+export function resolveAlias(filepath: string, alias: Record<string, string>) {
+  let result = filepath
+  Object.entries(alias).forEach(([k, p]) => {
+    if (k.startsWith('/') && k.endsWith('/') && result.startsWith(k))
+      result = path.join(p, result.replace(k, ''))
+  })
+  return result
 }

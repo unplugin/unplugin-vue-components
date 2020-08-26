@@ -2,7 +2,6 @@ import { Transform } from 'vite'
 import Debug from 'debug'
 import { Context } from '../context'
 import { RESOLVER_EXT } from '../constants'
-import { relative } from '../utils'
 
 const debug = Debug('vite-plugin-components:transform:script')
 
@@ -18,7 +17,7 @@ export function VueScriptTransformer(ctx: Context): Transform {
       return path.endsWith('.vue') && !query.type
     },
     transform({ code, path, isBuild }) {
-      const filepath = relative(path)
+      const filepath = ctx.relative(path)
       debug(filepath)
       const lines = code.split('\n')
 
