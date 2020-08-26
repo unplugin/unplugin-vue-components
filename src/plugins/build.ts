@@ -13,7 +13,7 @@ export function createRollupPlugin(ctx: Context): Plugin {
     async load(id) {
       if (isResolverPath(id)) {
         await ctx.searchGlob()
-        return await generateResolver(ctx, id)
+        return await generateResolver(ctx, id.slice(1)) // remove the heading '/'
       }
       return null
     },
