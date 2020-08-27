@@ -99,7 +99,7 @@ export class Context {
   }
 
   relative(path: string) {
-    return relative(this.root, path)
+    return relative(this.root, path).replace(/\\/g, '/')
   }
 
   setImports(key: string, names: string[]) {
