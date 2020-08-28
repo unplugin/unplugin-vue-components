@@ -83,7 +83,6 @@ export class Context {
     return names
       .map((name) => {
         const info = this._componentNameMap[name]
-        console.log('info', info, excludePaths)
         if (info && !excludePaths.includes(info.path))
           return info
         return undefined
