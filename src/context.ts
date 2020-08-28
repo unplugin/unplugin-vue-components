@@ -99,6 +99,8 @@ export class Context {
   }
 
   relative(path: string) {
+    if (path.startsWith('/') && !path.startsWith(this.root))
+      return path.slice(1).replace(/\\/g, '/')
     return relative(this.root, path).replace(/\\/g, '/')
   }
 
