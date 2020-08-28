@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.11](https://github.com/antfu/vite-plugin-components/compare/v0.2.10...v0.2.11) (2020-08-28)
+
+
+### Bug Fixes
+
+* [#7](https://github.com/antfu/vite-plugin-components/issues/7) ([38716c8](https://github.com/antfu/vite-plugin-components/commit/38716c8dc495697b54092284ba6dc0ea064e9565))
+* windows build ([3590955](https://github.com/antfu/vite-plugin-components/commit/35909556deccc3aefb1ddf114a4bd8ebf468c492))
+
 ### [0.2.10](https://github.com/antfu/vite-plugin-components/compare/v0.2.9...v0.2.10) (2020-08-26)
 
 
