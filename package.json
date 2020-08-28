@@ -18,6 +18,8 @@
   ],
   "scripts": {
     "dev": "npm run build -- --watch",
+    "fixture:dev": "npm -C test/fixture run dev",
+    "fixture:build": "npm -C test/fixture run build",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "prepublish": "npm run build",
     "release": "standard-version && npm publish && git push"

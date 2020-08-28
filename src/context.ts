@@ -38,7 +38,7 @@ export class Context {
 
   addComponents(paths: string | string[]) {
     const size = this._componentPaths.size
-    toArray(paths).forEach(p => this._componentPaths.add(`/${p}`))
+    toArray(paths).forEach(p => this._componentPaths.add(p))
     if (this._componentPaths.size !== size) {
       this.updateComponentNameMap()
       return true
@@ -48,7 +48,7 @@ export class Context {
 
   removeComponents(paths: string | string[]) {
     const size = this._componentPaths.size
-    toArray(paths).forEach(p => this._componentPaths.delete(`/${p}`))
+    toArray(paths).forEach(p => this._componentPaths.delete(p))
     if (this._componentPaths.size !== size) {
       this.updateComponentNameMap()
       return true
@@ -83,6 +83,7 @@ export class Context {
     return names
       .map((name) => {
         const info = this._componentNameMap[name]
+        console.log('info', info, excludePaths)
         if (info && !excludePaths.includes(info.path))
           return info
         return undefined
