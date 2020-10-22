@@ -9,7 +9,6 @@ const debug = {
 }
 
 export class Context {
-  readonly root = process.cwd()
   readonly globs: string[]
 
   private _componentPaths = new Set<string>()
@@ -34,6 +33,10 @@ export class Context {
     )
 
     this.searchGlob()
+  }
+
+  get root() {
+    return this.options.root
   }
 
   addComponents(paths: string | string[]) {

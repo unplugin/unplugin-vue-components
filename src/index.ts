@@ -11,6 +11,7 @@ const defaultOptions: Options = {
   extensions: 'vue',
   deep: true,
   alias: {},
+  root: process.cwd(),
 }
 
 function VitePluginComponents(options: Partial<Options> = {}): Plugin {

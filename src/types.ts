@@ -22,10 +22,16 @@ export interface Options {
    * @default {}
    */
   alias: Record<string, string>
+  /**
+   * Root path of Vite project.
+   * @default 'process.cwd()'
+   */
+  root: string
 }
 
 export interface ComponentsInfo {
   name: string
   path: string
 }
+
 export type ComponentsImportMap = Record<string, string[] | undefined>

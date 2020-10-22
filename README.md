@@ -42,9 +42,9 @@ export default {
 
 That's all. 
 
-Use components in templates as you would usually do but NO `import` and `component registration` required anymore! It will import components on demand, code spliting is also possible.
+Use components in templates as you would usually do but NO `import` and `component registration` required anymore! It will import components on demand, code splitting is also possible.
 
-Basically, it automatically turns this
+Basically, it will automatically turn this
 
 ```vue
 <template>
@@ -87,12 +87,18 @@ The following show the default values of the configuration
 
 ```ts
 ViteComponents({
-  // Relative paths to the directory to search for components.
+  // relative paths to the directory to search for components.
   dirs: ['src/components'],
-  // Valid file extensions for components.
+  // valid file extensions for components.
   extensions: ['vue'],
-  // Search for subdirectories
+  // search for subdirectories
   deep: true,
+
+  // vite config
+  // currently, vite does not provide an API for plugins to get the config https://github.com/vitejs/vite/issues/738
+  // you will need to pass `alias` and `root` if you set them in vite config
+  alias: {},
+  root: process.cwd(),
 })
 ```
 
