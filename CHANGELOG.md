@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.14](https://github.com/antfu/vite-plugin-components/compare/v0.2.7...v0.2.14) (2020-10-22)
+
+
+### Features
+
+* add config `root` for vite ([60ed610](https://github.com/antfu/vite-plugin-components/commit/60ed61054212047b8602819f8a93ef886784e235))
+* auto reload on components change ([547044b](https://github.com/antfu/vite-plugin-components/commit/547044b3c1e51d6967a2497dc9022555d13afbb9))
+* support kebab and capital cased components ([2df99c7](https://github.com/antfu/vite-plugin-components/commit/2df99c73d07d1ede5c17b250d74714efddba7a84))
+
+
+### Bug Fixes
+
+* [#7](https://github.com/antfu/vite-plugin-components/issues/7) ([38716c8](https://github.com/antfu/vite-plugin-components/commit/38716c8dc495697b54092284ba6dc0ea064e9565))
+* absoluate path resolve ([cedb411](https://github.com/antfu/vite-plugin-components/commit/cedb4119cd15edf9d8d643c65c9f85ef4b8e5e8d))
+* build resolving ([8b7a56e](https://github.com/antfu/vite-plugin-components/commit/8b7a56e4dea510f361ef7d328a72a2aae9b7b141))
+* provide a way to resolve alias ([9e1da21](https://github.com/antfu/vite-plugin-components/commit/9e1da21424d110288c163cbe76576d0fa3c3f90d))
+* windows build ([3590955](https://github.com/antfu/vite-plugin-components/commit/35909556deccc3aefb1ddf114a4bd8ebf468c492))
+
 ### [0.2.13](https://github.com/antfu/vite-plugin-components/compare/v0.2.12...v0.2.13) (2020-08-28)
 
 
