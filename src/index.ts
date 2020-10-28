@@ -7,9 +7,14 @@ import { VueTemplateTransformer } from './transforms/vueTemplate'
 import { Context } from './context'
 
 const defaultOptions: Options = {
-  dirs: 'src/components',
+  include_dirs: 'src/components',
+  namespaces: [
+    'global',
+    'partials'
+  ],
   extensions: 'vue',
   deep: true,
+  allowFolderNames: true,
   alias: {},
   root: process.cwd(),
 }
