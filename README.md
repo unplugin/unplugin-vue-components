@@ -16,7 +16,6 @@
   </a>
 </p>
 
-
 <br>
 
 ## Usage
@@ -31,16 +30,14 @@ Add it to `vite.config.js`
 
 ```ts
 // vite.config.js
-import ViteComponents from 'vite-plugin-components'
+import ViteComponents from 'vite-plugin-components';
 
 export default {
-  plugins: [
-    ViteComponents()
-  ]
-}
+	plugins: [ViteComponents()],
+};
 ```
 
-That's all. 
+That's all.
 
 Use components in templates as you would usually do but NO `import` and `component registration` required anymore! It will import components on demand, code splitting is also possible.
 
@@ -48,15 +45,15 @@ Basically, it will automatically turn this
 
 ```vue
 <template>
-  <div>
-    <HelloWorld msg="Hello Vue 3.0 + Vite" />
-  </div>
+	<div>
+		<HelloWorld msg="Hello Vue 3.0 + Vite" />
+	</div>
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+	export default {
+		name: 'App',
+	};
 </script>
 ```
 
@@ -64,20 +61,20 @@ into this
 
 ```vue
 <template>
-  <div>
-    <HelloWorld msg="Hello Vue 3.0 + Vite" />
-  </div>
+	<div>
+		<HelloWorld msg="Hello Vue 3.0 + Vite" />
+	</div>
 </template>
 
 <script>
-import HelloWorld from './src/components/HelloWorld.vue'
+	import HelloWorld from './src/components/HelloWorld.vue';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+	export default {
+		name: 'App',
+		components: {
+			HelloWorld,
+		},
+	};
 </script>
 ```
 
@@ -87,19 +84,20 @@ The following show the default values of the configuration
 
 ```ts
 ViteComponents({
-  // relative paths to the directory to search for components.
-  dirs: ['src/components'],
-  // valid file extensions for components.
-  extensions: ['vue'],
-  // search for subdirectories
-  deep: true,
-
-  // vite config
-  // currently, vite does not provide an API for plugins to get the config https://github.com/vitejs/vite/issues/738
-  // you will need to pass `alias` and `root` if you set them in vite config
-  alias: {},
-  root: process.cwd(),
-})
+	// relative paths to the directory to search for components.
+	include_dirs: ['src/components'],
+	// valid file extensions for components.
+	extensions: ['vue'],
+	// search for subdirectories
+	deep: true,
+	// allow folder as component names
+	allowFolderNames: true,
+	// vite config
+	// currently, vite does not provide an API for plugins to get the config https://github.com/vitejs/vite/issues/738
+	// you will need to pass `alias` and `root` if you set them in vite config
+	alias: {},
+	root: process.cwd(),
+});
 ```
 
 ## Example
