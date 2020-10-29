@@ -14,7 +14,7 @@ const defaultOptions: Options = {
   ],
   extensions: 'vue',
   deep: true,
-  allowFolderNames: true,
+  allowFolderNames: false,
   alias: {},
   root: process.cwd(),
 }
