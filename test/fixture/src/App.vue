@@ -3,11 +3,10 @@
     <component-b msg="b" />
     <ComponentC msg="c" />
     <recursive :data="tree" />
+    <Book />
     <!-- If you allow Folder Names uncomment these Components -->
-    <!-- 
-        <avatar />
-        <ui-Button /> 
-    -->
+    <Avatar />
+    <Uibutton />
 </template>
 
 <script setup lang='ts'>
