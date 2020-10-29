@@ -19,14 +19,18 @@ export class Context {
   constructor(
     public readonly options: Options,
   ) {
-    const { extensions, dirs, deep } = options
+    const { 
+        extensions, 
+        include_dirs, 
+        deep,
+    } = options
     const exts = toArray(extensions)
 
     if (!exts.length)
       throw new Error('[vite-plugin-components] extensions are required to search for components')
 
     const extsGlob = exts.length === 1 ? exts[0] : `{${exts.join(',')}}`
-    this.globs = toArray(dirs).map(i =>
+    this.globs = toArray(include_dirs).map(i =>
       deep
         ? `${i}/**/*.${extsGlob}`
         : `${i}/*.${extsGlob}`,
@@ -73,7 +77,8 @@ export class Context {
     Array
       .from(this._componentPaths)
       .forEach((path) => {
-        const name = normalize(getNameFromFilePath(path))
+        const name = normalize(getNameFromFilePath(path, this.options.include_dirs, this.options.allowFolderNames, this.options.namespaces))
+        console.log(name);
         if (this._componentNameMap[name]) {
           console.warn(`[vite-plugin-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
           return
