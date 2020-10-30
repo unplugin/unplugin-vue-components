@@ -21,19 +21,19 @@ export function toArray<T>(arr: T | T[]): T[] {
 }
 
 export function split(str: string, sep: string) {
-    return str == '' ? [] : str.split(sep);
+    return str == '' ? [] : str.split(sep)
 }
 
 export function join(arr: string[], sep: string) {
-	return arr == null ? '' : Array.prototype.join.call(arr, sep);
+	return arr == null ? '' : Array.prototype.join.call(arr, sep)
 }
 
 export function isEmpty(value: any) {
-    if (!value || value === null || value === undefined || (Array.isArray(value) && Object.keys(value).length <= 0)) {
-        return true;
-    } else {
-        return false;
-    }
+  if (!value || value === null || value === undefined || (Array.isArray(value) && Object.keys(value).length <= 0)) {
+    return true
+  } else {
+    return false
+  }
 }
 
 export function matchGlobs(filepath: string, globs: string[]) {
@@ -45,46 +45,46 @@ export function matchGlobs(filepath: string, globs: string[]) {
 }
 
 export function getNameFromFilePath(filePath: string, includedFrom: string | string[], allowFolderNames: boolean, namespaces: string[]): string {
-    const parsedFilePath = path.parse(filePath);
+  const parsedFilePath = path.parse(filePath)
 
-    let strippedPath = '';
+  let strippedPath = ''
 
-    // remove include directories from filepath
+  // remove include directories from filepath
 
-    if(Array.isArray(includedFrom)) {
-        includedFrom.forEach((inc: string) => {
-            if(parsedFilePath.dir.includes(inc)) {
-                strippedPath = parsedFilePath.dir.replace(inc, '');
-            }
-        });
-    } else {
-        strippedPath = parsedFilePath.dir.replace(includedFrom, '');  
-    }
+  if(Array.isArray(includedFrom)) {
+    includedFrom.forEach((inc: string) => {
+      if(parsedFilePath.dir.includes(inc)) {
+        strippedPath = parsedFilePath.dir.replace(inc, '')
+      }
+    })
+  } else {
+    strippedPath = parsedFilePath.dir.replace(includedFrom, '')
+  }
 
-    let folders = split(strippedPath.slice(1), "/");
-    let filename = parsedFilePath.name;
+  let folders = split(strippedPath.slice(1), "/")
+  let filename = parsedFilePath.name
 
-    // set parent directory as filename if it is index 
-    if(filename === 'index') {
-        filename = `${folders.slice(-1)[0]}`;
-        return filename;
-    }
-
-    if (allowFolderNames) {
-        // remove namesspaces from folder names
-        if (namespaces.some((name: string) => folders.includes(name))) {
-            folders = folders.filter((f) => !namespaces.includes(f));
-        }
-
-        if(!isEmpty(folders)) {
-            // add folders to filename
-            filename = `${join(folders, '')}${filename}`;
-        }
-        
-        return filename;
-    }
-
+  // set parent directory as filename if it is index 
+  if(filename === 'index') {
+    filename = `${folders.slice(-1)[0]}`
     return filename
+  }
+
+  if (allowFolderNames) {
+    // remove namesspaces from folder names
+    if (namespaces.some((name: string) => folders.includes(name))) {
+      folders = folders.filter((f) => !namespaces.includes(f))
+    }
+
+    if(!isEmpty(folders)) {
+      // add folders to filename
+      filename = `${join(folders, '')}${filename}`
+    }
+    
+    return filename;
+  }
+
+  return filename
 }
 
 

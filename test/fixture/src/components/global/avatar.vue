@@ -1,9 +1,9 @@
 <template>
-    <h1>This is a namespaced Component</h1>
+  <h1>This is a namespaced Component</h1>
 </template>
 
 <script>
 export default {
-    name: "avatar",
-};
+  name: "avatar",
+}
 </script>

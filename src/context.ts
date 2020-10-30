@@ -78,7 +78,6 @@ export class Context {
       .from(this._componentPaths)
       .forEach((path) => {
         const name = normalize(getNameFromFilePath(path, this.options.include_dirs, this.options.allowFolderNames, this.options.namespaces))
-        console.log(name);
         if (this._componentNameMap[name]) {
           console.warn(`[vite-plugin-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
           return
