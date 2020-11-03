@@ -19,10 +19,10 @@ export class Context {
   constructor(
     public readonly options: Options,
   ) {
-    const { 
-        extensions, 
-        include_dirs, 
-        deep,
+    const {
+      extensions,
+      dirs,
+      deep,
     } = options
     const exts = toArray(extensions)
 
@@ -30,7 +30,7 @@ export class Context {
       throw new Error('[vite-plugin-components] extensions are required to search for components')
 
     const extsGlob = exts.length === 1 ? exts[0] : `{${exts.join(',')}}`
-    this.globs = toArray(include_dirs).map(i =>
+    this.globs = toArray(dirs).map(i =>
       deep
         ? `${i}/**/*.${extsGlob}`
         : `${i}/*.${extsGlob}`,
