@@ -33,7 +33,9 @@ Add it to `vite.config.js`
 import ViteComponents from 'vite-plugin-components';
 
 export default {
-	plugins: [ViteComponents()],
+	plugins: [
+    ViteComponents()
+  ],
 };
 ```
 
@@ -85,13 +87,16 @@ The following show the default values of the configuration
 ```ts
 ViteComponents({
 	// relative paths to the directory to search for components.
-	include_dirs: ['src/components'],
+  dirs: ['src/components']
+  // Directory names that are ignored as Component names.
+  // Only works if Foldernames are allowed
+  globalNamespaces: ['global', 'partials'],
 	// valid file extensions for components.
 	extensions: ['vue'],
 	// search for subdirectories
 	deep: true,
 	// allow folder as component names
-	allowFolderNames: true,
+	folderNamespace: false,
 	// vite config
 	// currently, vite does not provide an API for plugins to get the config https://github.com/vitejs/vite/issues/738
 	// you will need to pass `alias` and `root` if you set them in vite config
