@@ -1,6 +1,7 @@
 import path from 'path'
 // @ts-ignore
 import minimatch from 'minimatch'
+import { Options } from './types';
 
 export function normalize(str: string) {
   return capitalize(camelize(str))
@@ -21,11 +22,11 @@ export function toArray<T>(arr: T | T[]): T[] {
 }
 
 export function split(str: string, sep: string) {
-    return str == '' ? [] : str.split(sep)
+  return str == '' ? [] : str.split(sep)
 }
 
 export function join(arr: string[], sep: string) {
-	return arr == null ? '' : Array.prototype.join.call(arr, sep)
+  return arr == null ? '' : Array.prototype.join.call(arr, sep)
 }
 
 export function isEmpty(value: any) {
@@ -44,43 +45,45 @@ export function matchGlobs(filepath: string, globs: string[]) {
   return false
 }
 
-export function getNameFromFilePath(filePath: string, includedFrom: string | string[], allowFolderNames: boolean, namespaces: string[]): string {
+export function getNameFromFilePath(filePath: string, options: Options): string {
+  const { dirs, folderNamespace, globalNamespaces } = options;
+
   const parsedFilePath = path.parse(filePath)
 
   let strippedPath = ''
 
   // remove include directories from filepath
 
-  if(Array.isArray(includedFrom)) {
-    includedFrom.forEach((inc: string) => {
-      if(parsedFilePath.dir.includes(inc)) {
+  if (Array.isArray(dirs)) {
+    dirs.forEach((inc: string) => {
+      if (parsedFilePath.dir.includes(inc)) {
         strippedPath = parsedFilePath.dir.replace(inc, '')
       }
     })
   } else {
-    strippedPath = parsedFilePath.dir.replace(includedFrom, '')
+    strippedPath = parsedFilePath.dir.replace(dirs, '')
   }
 
   let folders = split(strippedPath.slice(1), "/")
   let filename = parsedFilePath.name
 
   // set parent directory as filename if it is index 
-  if(filename === 'index') {
+  if (filename === 'index') {
     filename = `${folders.slice(-1)[0]}`
     return filename
   }
 
-  if (allowFolderNames) {
+  if (folderNamespace) {
     // remove namesspaces from folder names
-    if (namespaces.some((name: string) => folders.includes(name))) {
-      folders = folders.filter((f) => !namespaces.includes(f))
+    if (globalNamespaces.some((name: string) => folders.includes(name))) {
+      folders = folders.filter((f) => !globalNamespaces.includes(f))
     }
 
-    if(!isEmpty(folders)) {
+    if (!isEmpty(folders)) {
       // add folders to filename
       filename = `${join(folders, '')}${filename}`
     }
-    
+
     return filename;
   }
 
