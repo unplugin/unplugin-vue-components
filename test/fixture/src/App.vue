@@ -10,13 +10,13 @@
 </template>
 
 <script setup lang='ts'>
-import { ref } from "vue"
+import { ref } from 'vue';
 
 export const tree = ref({
-  label: "Top Level",
-  children: [
-      { label: "First Level" },
-      { label: "First Level", children: [{ label: "Second Level" }] },
-  ],
-})
+    label: 'Top Level',
+    children: [
+        { label: 'First Level' },
+        { label: 'First Level', children: [{ label: 'Second Level' }] },
+    ],
+});
 </script>
