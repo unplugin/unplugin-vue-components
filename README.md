@@ -105,7 +105,7 @@ ViteComponents({
   // you will need to pass `alias` and `root` if you set them in vite config
   alias: {},
   root: process.cwd(),
-});
+})
 ```
 
 ## Example
