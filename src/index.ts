@@ -10,6 +10,10 @@ const defaultOptions: Options = {
   dirs: 'src/components',
   extensions: 'vue',
   deep: true,
+
+  directoryAsNamespace: false,
+  globalNamespaces: [],
+
   alias: {},
   root: process.cwd(),
 }

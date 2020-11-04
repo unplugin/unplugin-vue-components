@@ -2,7 +2,7 @@
   <div>
     <div>{{ data.label }}</div>
     <div class="child">
-      <recursive v-for="item in data.children" :data="item" />
+      <recursive v-for="(item, idx) in data.children" :key="idx" :data="item" />
     </div>
   </div>
 </template>
