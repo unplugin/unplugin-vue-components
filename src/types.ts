@@ -31,8 +31,7 @@ export interface Options {
    * Allow directories as Names for components
    * @default false
    */
-
-  folderNamespace: boolean
+  directoryAsNamespace: boolean
 
   /**
    * Path alias, same as what you passed to vite root config

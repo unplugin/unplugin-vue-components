@@ -1,7 +1,11 @@
 import path from 'path'
-// @ts-ignore
 import minimatch from 'minimatch'
-import { Options } from './types';
+import { Options } from './types'
+
+export interface ResolveComponent {
+  filename: string
+  namespace?: string
+}
 
 export function normalize(str: string) {
   return capitalize(camelize(str))
@@ -21,20 +25,12 @@ export function toArray<T>(arr: T | T[]): T[] {
   return [arr]
 }
 
-export function split(str: string, sep: string) {
-  return str == '' ? [] : str.split(sep)
-}
-
-export function join(arr: string[], sep: string) {
-  return arr == null ? '' : Array.prototype.join.call(arr, sep)
-}
-
 export function isEmpty(value: any) {
-  if (!value || value === null || value === undefined || (Array.isArray(value) && Object.keys(value).length <= 0)) {
+  if (!value || value === null || value === undefined || (Array.isArray(value) && Object.keys(value).length <= 0))
     return true
-  } else {
+
+  else
     return false
-  }
 }
 
 export function matchGlobs(filepath: string, globs: string[]) {
@@ -46,51 +42,48 @@ export function matchGlobs(filepath: string, globs: string[]) {
 }
 
 export function getNameFromFilePath(filePath: string, options: Options): string {
-  const { dirs, folderNamespace, globalNamespaces } = options;
+  const { dirs, directoryAsNamespace, globalNamespaces } = options
 
   const parsedFilePath = path.parse(filePath)
 
   let strippedPath = ''
 
   // remove include directories from filepath
-
-  if (Array.isArray(dirs)) {
-    dirs.forEach((inc: string) => {
-      if (parsedFilePath.dir.includes(inc)) {
-        strippedPath = parsedFilePath.dir.replace(inc, '')
-      }
-    })
-  } else {
-    strippedPath = parsedFilePath.dir.replace(dirs, '')
+  for (const dir of toArray(dirs)) {
+    if (parsedFilePath.dir.startsWith(dir)) {
+      strippedPath = parsedFilePath.dir.slice(dir.length)
+      break
+    }
   }
 
-  let folders = split(strippedPath.slice(1), "/")
+  let folders = strippedPath.slice(1).split('/').filter(Boolean)
   let filename = parsedFilePath.name
 
-  // set parent directory as filename if it is index 
-  if (filename === 'index') {
+  // set parent directory as filename if it is index
+  if (filename === 'index' && !directoryAsNamespace) {
     filename = `${folders.slice(-1)[0]}`
     return filename
   }
 
-  if (folderNamespace) {
+  if (directoryAsNamespace) {
     // remove namesspaces from folder names
-    if (globalNamespaces.some((name: string) => folders.includes(name))) {
-      folders = folders.filter((f) => !globalNamespaces.includes(f))
-    }
+    if (globalNamespaces.some((name: string) => folders.includes(name)))
+      folders = folders.filter(f => !globalNamespaces.includes(f))
+
+    if (filename.toLowerCase() === 'index')
+      filename = ''
 
     if (!isEmpty(folders)) {
       // add folders to filename
-      filename = `${join(folders, '')}${filename}`
+      filename = [...folders, filename].filter(Boolean).join('-')
     }
 
-    return filename;
+    console.log('!!!', filename)
+    return filename
   }
 
   return filename
 }
-
-
 
 export function resolveAlias(filepath: string, alias: Record<string, string>) {
   let result = filepath

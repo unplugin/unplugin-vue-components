@@ -1,9 +1,9 @@
 <template>
-  <h1>This is a namespaced Component</h1>
+  <h3>Global Namespaced Component: <code>global/avatar.vue</code></h3>
 </template>
 
 <script>
 export default {
-  name: "avatar",
+  name: 'Avatar',
 }
 </script>

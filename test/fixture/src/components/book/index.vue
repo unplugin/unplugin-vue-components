@@ -1,9 +1,9 @@
 <template>
-  <h1>This is an Index Component named after its parent directory</h1>
+  <h3>Index Component: <code>book/index.vue</code></h3>
 </template>
 
 <script>
 export default {
-  name: "book",
+  name: 'Book',
 }
 </script>

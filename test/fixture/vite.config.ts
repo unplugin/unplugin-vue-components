@@ -13,6 +13,9 @@ const config: UserConfig = {
   plugins: [
     ViteComponents({
       alias,
+
+      directoryAsNamespace: true,
+      globalNamespaces: ['global'],
     }),
   ],
 }

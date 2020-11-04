@@ -1,9 +1,9 @@
 <template>
-  <h1>This is a folder named Component</h1>
+  <h3>Namespaced Component: <code>iu/button.vue</code></h3>
 </template>
 
 <script>
 export default {
-  name: "ui-button",
+  name: 'UiButton',
 }
 </script>
