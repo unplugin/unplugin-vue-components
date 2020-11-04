@@ -98,7 +98,7 @@ ViteComponents({
   directoryAsNamespace: false,
   // Subdirectory paths for ignoring namespace prefixes
   // works when `directoryAsNamespace: true`
-  globalNamespaces: ['global', 'partials'],
+  globalNamespaces: [],
   
   // vite config
   // currently, vite does not provide an API for plugins to get the config https://github.com/vitejs/vite/issues/738
