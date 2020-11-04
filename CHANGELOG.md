@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.15](https://github.com/antfu/vite-plugin-components/compare/v0.2.14...v0.2.15) (2020-11-04)
+
+
+### Features
+
+* directory namespaces support ([#8](https://github.com/antfu/vite-plugin-components/issues/8)) ([5e9b3ba](https://github.com/antfu/vite-plugin-components/commit/5e9b3bab72b6e7ccb8f4b9a38fa20b7683ae8614))
+
 ### [0.2.14](https://github.com/antfu/vite-plugin-components/compare/v0.2.7...v0.2.14) (2020-10-22)
 
 
