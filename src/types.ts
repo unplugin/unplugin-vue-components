@@ -9,13 +9,6 @@ export interface Options {
   dirs: string | string[]
 
   /**
-   * Directory names that are ignored as Component names.
-   * Only works if Foldernames are allowed
-   * @default "['global', 'partials']"
-   */
-  globalNamespaces: string[]
-
-  /**
    * Valid file extensions for components.
    * @default ['vue']
    */
@@ -28,10 +21,17 @@ export interface Options {
   deep: boolean
 
   /**
-   * Allow directories as Names for components
+   * Allow subdirectories as namespace prefix for components
    * @default false
    */
   directoryAsNamespace: boolean
+
+  /**
+   * Subdirectory paths for ignoring namespace prefixes
+   * works when `directoryAsNamespace: true`
+   * @default "[]"
+   */
+  globalNamespaces: string[]
 
   /**
    * Path alias, same as what you passed to vite root config

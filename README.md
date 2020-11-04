@@ -53,9 +53,9 @@ Basically, it will automatically turn this
 </template>
 
 <script>
-  export default {
-    name: 'App',
-  }
+export default {
+  name: 'App'
+}
 </script>
 ```
 
@@ -69,14 +69,14 @@ into this
 </template>
 
 <script>
-  import HelloWorld from './src/components/HelloWorld.vue'
+import HelloWorld from './src/components/HelloWorld.vue'
 
-  export default {
-    name: 'App',
-    components: {
-      HelloWorld,
-    },
-  };
+export default {
+  name: 'App',
+  components: {
+    HelloWorld
+  }
+}
 </script>
 ```
 
@@ -94,10 +94,10 @@ ViteComponents({
   // search for subdirectories
   deep: true,
 
-  // allow folder as component name prefix
-  folderNamespace: false,
-  // Directory names that are ignored as Component names.
-  // Only works if Foldernames are allowed
+  // Allow subdirectories as namespace prefix for components.
+  directoryAsNamespace: false,
+  // Subdirectory paths for ignoring namespace prefixes
+  // works when `directoryAsNamespace: true`
   globalNamespaces: ['global', 'partials'],
   
   // vite config
