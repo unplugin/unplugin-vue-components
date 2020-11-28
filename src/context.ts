@@ -83,14 +83,16 @@ export class Context {
       })
   }
 
+  findComponent(name: string, excludePaths: string[] = []) {
+    const info = this._componentNameMap[name]
+    if (info && !excludePaths.includes(info.path))
+      return info
+    return undefined
+  }
+
   findComponents(names: string[], excludePaths: string[] = []) {
     return names
-      .map((name) => {
-        const info = this._componentNameMap[name]
-        if (info && !excludePaths.includes(info.path))
-          return info
-        return undefined
-      })
+      .map((name) => this.findComponent(name, excludePaths))
       .filter(Boolean) as ComponentsInfo[]
   }
 

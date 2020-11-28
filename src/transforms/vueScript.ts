@@ -17,8 +17,9 @@ export function VueScriptTransformer(ctx: Context): Transform {
       return path.endsWith('.vue') && !query.type
     },
     transform({ code, path, isBuild }) {
-      const filepath = ctx.relative(path)
+      const filepath = ctx.normalizePath(ctx.relative(path))
       debug(filepath)
+
       const lines = code.split('\n')
 
       // tail is the export expression, should insert before it

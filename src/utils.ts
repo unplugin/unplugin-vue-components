@@ -78,7 +78,7 @@ export function getNameFromFilePath(filePath: string, options: Options): string 
       filename = [...folders, filename].filter(Boolean).join('-')
     }
 
-    console.log('!!!', filename)
+    // console.log('!!!', filename)
     return filename
   }
 
