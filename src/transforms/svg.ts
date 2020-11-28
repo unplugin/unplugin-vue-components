@@ -17,12 +17,11 @@ export function SVGTransformer(ctx: Context): Transform {
     transform({ path }) {
       debug(path)
       const svg = readFileSync(path, 'utf8')
-      let { code } = compileTemplate({
+      const { code } = compileTemplate({
         source: svg,
         transformAssetUrls: false,
       })
-      code = code.replace('export function render', 'export default function render')
-      return `${code}`
+      return code.replace('export function render', 'export default function render')
     },
   }
 }
