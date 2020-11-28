@@ -20,7 +20,7 @@
     "dev": "npm run build -- --watch",
     "fixture:dev": "npm -C test/fixture run dev",
     "fixture:build": "npm -C test/fixture run build",
-    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "build": "tsup src/index.ts --dts --format cjs,esm --external @vue/compiler-sfc",
     "prepare": "npm run build",
     "release": "standard-version && npm publish && git push"
   },
@@ -34,6 +34,7 @@
     "@types/debug": "^4.1.5",
     "@types/minimatch": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@vue/compiler-sfc": "^3.0.3",
     "eslint": "^7.11.0",
     "rollup": "^2.32.1",
     "standard-version": "^9.0.0",

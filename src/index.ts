@@ -4,6 +4,7 @@ import { createServerPlugin } from './plugins/server'
 import { Options } from './types'
 import { VueScriptTransformer } from './transforms/vueScript'
 import { VueTemplateTransformer } from './transforms/vueTemplate'
+import { SVGTransformer } from './transforms/svg'
 import { Context } from './context'
 
 const defaultOptions: Options = {
@@ -32,6 +33,7 @@ function VitePluginComponents(options: Partial<Options> = {}): Plugin {
     transforms: [
       VueScriptTransformer(ctx),
       VueTemplateTransformer(ctx),
+      SVGTransformer(ctx),
     ],
   }
 }

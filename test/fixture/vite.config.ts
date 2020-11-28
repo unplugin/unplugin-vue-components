@@ -13,7 +13,7 @@ const config: UserConfig = {
   plugins: [
     ViteComponents({
       alias,
-
+      extensions: ['vue', 'svg'],
       directoryAsNamespace: true,
       globalNamespaces: ['global'],
     }),

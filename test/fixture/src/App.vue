@@ -16,6 +16,7 @@
     <UiNestedCheckbox />
     <!-- Global -->
     <Avatar />
+    <SvgComponent />
   </div>
 </template>
 
