@@ -8,21 +8,21 @@ const debug = Debug('vite-plugin-components:transform:script-setup')
 export function VueScriptSetupTransformer(ctx: Context): Transform {
   return {
     test({ path, query }) {
-      return path.endsWith('.vue') && query.type === 'script' && !!query.setup
+      return path.endsWith('.vue') && query.type === 'script' && (Boolean(query.setup) || query.setup === '')
     },
     transform({ code, path, isBuild }) {
       const sfcPath = ctx.normalizePath(path)
       debug(sfcPath)
 
-      let head: string[] = []
+      const head: string[] = []
       let id = 0
 
       let transformed = code.replace(/_resolveComponent\("(.+?)"\)/g, (str, match) => {
         if (match) {
-          debug("name: " + match)
+          debug(`name: ${match}`)
           const component = ctx.findComponent(normalize(match), [sfcPath])
           if (component) {
-            let var_name = `__vite_component_${id}`
+            const var_name = `__vite_component_${id}`
             head.push(`import ${var_name} from "/${component.path}"`)
             id += 1
             return var_name
@@ -31,13 +31,12 @@ export function VueScriptSetupTransformer(ctx: Context): Transform {
         return str
       })
 
-      transformed = head.join('\n') + '\n' + transformed
+      transformed = `${head.join('\n')}\n${transformed}`
 
       // debug(transformed)
 
-      if (isBuild) {
+      if (isBuild)
         ctx.setImports(sfcPath, [])
-      }
 
       return transformed
     },
