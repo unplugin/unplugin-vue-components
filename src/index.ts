@@ -5,6 +5,7 @@ import { Options } from './types'
 import { VueScriptTransformer } from './transforms/vueScript'
 import { VueTemplateTransformer } from './transforms/vueTemplate'
 import { Context } from './context'
+import { VueScriptSetupTransformer } from './transforms/vueScriptSetup'
 
 const defaultOptions: Options = {
   dirs: 'src/components',
@@ -25,11 +26,12 @@ function VitePluginComponents(options: Partial<Options> = {}): Plugin {
   return {
     configureServer: createServerPlugin(ctx),
     rollupInputOptions: {
-      plugins: [
+      pluginsPreBuild: [
         createRollupPlugin(ctx),
       ],
     },
     transforms: [
+      VueScriptSetupTransformer(ctx),
       VueScriptTransformer(ctx),
       VueTemplateTransformer(ctx),
     ],

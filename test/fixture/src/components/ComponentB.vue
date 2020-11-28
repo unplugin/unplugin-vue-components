@@ -3,7 +3,9 @@
 </template>
 
 <script setup='props' lang='ts'>
-declare const props: {
-  msg?: string
-}
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  msg: String
+})
 </script>

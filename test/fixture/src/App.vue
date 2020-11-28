@@ -4,6 +4,7 @@
     <ComponentA msg="a" />
     <component-b msg="b" />
     <ComponentC msg="c" />
+    <ComponentD/>
     <h3>Recursive Components</h3>
     <recursive :data="tree" />
   </div>
@@ -22,7 +23,7 @@
 <script setup lang='ts'>
 import { ref } from 'vue'
 
-export const tree = ref({
+const tree = ref({
   label: 'Top Level',
   children: [
     { label: 'First Level' },

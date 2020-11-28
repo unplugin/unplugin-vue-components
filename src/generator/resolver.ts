@@ -4,6 +4,12 @@ import { RESOLVER_EXT } from '../constants'
 
 const debug = Debug('vite-plugin-components:resolver')
 
+function timeoutError(reqPath:string){
+  return new Promise<any>((resolve, reject)=>{
+    setTimeout(()=>{reject("Timeout on resolving " + reqPath)}, 3000)
+  })
+}
+
 export function isResolverPath(reqPath: string) {
   return reqPath.endsWith(RESOLVER_EXT)
 }
@@ -12,7 +18,15 @@ export async function generateResolver(ctx: Context, reqPath: string) {
   const sfcPath = ctx.normalizePath(reqPath.slice(0, -RESOLVER_EXT.length))
   debug(sfcPath)
 
-  const names = await ctx.getImports(sfcPath) || []
+  const names: string[] = await Promise.race([
+     ctx.getImports(sfcPath),
+     timeoutError(reqPath)
+  ]) || []
+
+  if (!names?.length) {
+    return `export default c => c`
+  }
+
   const components = ctx.findComponents(names, [sfcPath])
 
   debug('using', names, 'imported', components.map(i => i.name))
