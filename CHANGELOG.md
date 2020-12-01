@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.2](https://github.com/antfu/vite-plugin-components/compare/v0.4.1...v0.4.2) (2020-12-01)
+
+
+### Features
+
+* tranform for custom component loader ([54893d9](https://github.com/antfu/vite-plugin-components/commit/54893d949293a0e370fef92213a9760a9c68d4a0))
+
 ### [0.4.1](https://github.com/antfu/vite-plugin-components/compare/v0.4.0...v0.4.1) (2020-11-28)
 
 
