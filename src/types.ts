@@ -1,3 +1,5 @@
+import { Transform } from 'vite'
+
 /**
  * Plugin options.
  */
@@ -44,6 +46,13 @@ export interface Options {
    * @default 'process.cwd()'
    */
   root: string
+
+  /**
+   * Auto-import for custom loader (md, svg, etc.). Returns true to enable for certain files.
+   *
+   * @default ()=>false
+   */
+  customLoaderMatcher: Transform['test']
 }
 
 export interface ComponentsInfo {

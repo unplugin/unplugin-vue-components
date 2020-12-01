@@ -4,7 +4,7 @@
     <ComponentA msg="a" />
     <component-b msg="b" />
     <ComponentC msg="c" />
-    <ComponentD/>
+    <ComponentD />
     <h3>Recursive Components</h3>
     <recursive :data="tree" />
   </div>
@@ -17,6 +17,12 @@
     <UiNestedCheckbox />
     <!-- Global -->
     <Avatar />
+  </div>
+
+  <div class="block">
+    <h1>Markdown (2)</h1>
+    <MarkdownA />
+    <MarkdownB />
   </div>
 </template>
 

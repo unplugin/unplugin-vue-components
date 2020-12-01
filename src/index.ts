@@ -6,6 +6,7 @@ import { VueScriptTransformer } from './transforms/vueScript'
 import { VueTemplateTransformer } from './transforms/vueTemplate'
 import { Context } from './context'
 import { VueScriptSetupTransformer } from './transforms/vueScriptSetup'
+import { CustomComponentTransformer } from './transforms/customComponent'
 
 const defaultOptions: Options = {
   dirs: 'src/components',
@@ -17,6 +18,8 @@ const defaultOptions: Options = {
 
   alias: {},
   root: process.cwd(),
+
+  customLoaderMatcher: () => false,
 }
 
 function VitePluginComponents(options: Partial<Options> = {}): Plugin {
@@ -34,6 +37,7 @@ function VitePluginComponents(options: Partial<Options> = {}): Plugin {
       VueScriptSetupTransformer(ctx),
       VueScriptTransformer(ctx),
       VueTemplateTransformer(ctx),
+      CustomComponentTransformer(ctx),
     ],
   }
 }

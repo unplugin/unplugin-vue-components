@@ -29,7 +29,7 @@ importers:
       tsup: ^3.10.1
       typescript: ^4.1.2
       vite: ^1.0.0-rc.13
-  test/fixture:
+  example:
     dependencies:
       vue: 3.0.3
     devDependencies:
@@ -37,13 +37,15 @@ importers:
       cross-env: 7.0.2
       typescript: 4.1.2
       vite: 1.0.0-rc.13
-      vite-plugin-components: 'link:../..'
+      vite-plugin-components: 'link:..'
+      vite-plugin-md: 0.1.2_@vue+compiler-sfc@3.0.3
     specifiers:
       '@vue/compiler-sfc': ^3.0.3
       cross-env: ^7.0.2
       typescript: ^4.1.2
       vite: ^1.0.0-rc.13
       vite-plugin-components: 'workspace:*'
+      vite-plugin-md: ^0.1.2
       vue: ^3.0.3
 lockfileVersion: 5.2
 packages:
@@ -818,6 +820,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==
+  /argparse/2.0.1:
+    dev: true
+    resolution:
+      integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
   /array-find-index/1.0.2:
     dev: true
     engines:
@@ -1469,6 +1475,7 @@ packages:
   /debug/3.2.6:
     dependencies:
       ms: 2.1.2
+    deprecated: 'Debug versions >=3.2.0 <3.2.7 || >=4 <4.3.1 have a low-severity ReDos regression when used in a Node.js environment. It is recommended you upgrade to 3.2.7 or 4.3.1. (https://github.com/visionmedia/debug/issues/797)'
     dev: true
     resolution:
       integrity: sha512-mel+jf7nrtEl5Pn1Qx46zARXKDpBbvzezse7p7LqINmdoIk8PYP5SySaxEmYv6TZ0JyEKA1hsCId6DIhgITtWQ==
@@ -1702,6 +1709,10 @@ packages:
       node: '>=8.6'
     resolution:
       integrity: sha512-yjNnPr315/FjS4zIsUxYguYUPP2e1NK4d7E7ZOLiyYCcbFBiTMyID+2wvm2w6+pZ/odMA7cRkjhsPbltwBOrLg==
+  /entities/2.0.3:
+    dev: true
+    resolution:
+      integrity: sha512-MyoZ0jgnLvB2X3Lg5HqpFmn1kybDiIfEQmKzTb5apr51Rb+T3KdmMiqa70T+bhGnyv7bQ6WMj2QMHpGMmlrUYQ==
   /entities/2.1.0:
     dev: true
     resolution:
@@ -3049,6 +3060,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
+  /linkify-it/3.0.2:
+    dependencies:
+      uc.micro: 1.0.6
+    dev: true
+    resolution:
+      integrity: sha512-gDBO4aHNZS6coiZCKVhSNh43F9ioIL4JwRjLZPkoLIY4yZFwg264Y5lu2x6rb1Js42Gh6Yqm2f6L2AJcnkzinQ==
   /load-json-file/1.1.0:
     dependencies:
       graceful-fs: 4.2.4
@@ -3217,6 +3234,21 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-glc9y00wgtwcDmp7GaE/0b0OnxpNJsVf3ael/An6Fe2Q51LLwN1er6sdomLRzz5h0+yMpiYLhWYF5R7HeqVd4g==
+  /markdown-it/12.0.2:
+    dependencies:
+      argparse: 2.0.1
+      entities: 2.0.3
+      linkify-it: 3.0.2
+      mdurl: 1.0.1
+      uc.micro: 1.0.6
+    dev: true
+    hasBin: true
+    resolution:
+      integrity: sha512-4Lkvjbv2kK+moL9TbeV+6/NHx+1Q+R/NIdUlFlkqkkzUcTod4uiyTJRiBidKR9qXSdkNFkgv+AELY8KN9vSgVA==
+  /mdurl/1.0.1:
+    dev: true
+    resolution:
+      integrity: sha1-/oWy7HWlkDfyrf7BAP1sYBdhFS4=
   /media-typer/0.3.0:
     dev: true
     engines:
@@ -4876,6 +4908,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-thGloWsGH3SOxv1SoY7QojKi0tc+8FnOmiarEGMbd/lar7QOEd3hvlx3Fp5y6FlDUGl9L+pd4n2e+oToGMmhRQ==
+  /uc.micro/1.0.6:
+    dev: true
+    resolution:
+      integrity: sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==
   /uglify-js/3.11.3:
     dev: true
     engines:
@@ -4921,6 +4957,15 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
+  /vite-plugin-md/0.1.2_@vue+compiler-sfc@3.0.3:
+    dependencies:
+      '@vue/compiler-sfc': 3.0.3_vue@3.0.3
+      markdown-it: 12.0.2
+    dev: true
+    peerDependencies:
+      '@vue/compiler-sfc': ^3.0.2
+    resolution:
+      integrity: sha512-Ro4mhJY79g1BG7Iu/NZfn8uFhqEL/QQtN6UqQolnxEmF4NAEFDfPdxZ0W+TZnFxGbDeCaiyczOkLoNZza3PsfA==
   /vite/1.0.0-rc.13:
     dependencies:
       '@babel/parser': 7.12.7
