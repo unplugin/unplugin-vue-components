@@ -5,6 +5,9 @@
     <component-b msg="b" />
     <ComponentC msg="c" />
     <ComponentD />
+    <h1>SVG Component (2)</h1>
+    <SvgComponent />
+    <img src="./components/svg-component.svg" alt="">
     <h3>Recursive Components</h3>
     <recursive :data="tree" />
   </div>

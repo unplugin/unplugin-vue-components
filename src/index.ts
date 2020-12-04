@@ -20,6 +20,7 @@ const defaultOptions: Options = {
   root: process.cwd(),
 
   customLoaderMatcher: () => false,
+  customImportMapper: () => false,
 }
 
 function VitePluginComponents(options: Partial<Options> = {}): Plugin {

@@ -53,6 +53,13 @@ export interface Options {
    * @default ()=>false
    */
   customLoaderMatcher: Transform['test']
+
+  /**
+   * Custom import statement mapper for custom loaders.
+   *
+   * @default ()=>false
+   */
+  customImportMapper: (name: string, path: string) => string | false
 }
 
 export interface ComponentsInfo {

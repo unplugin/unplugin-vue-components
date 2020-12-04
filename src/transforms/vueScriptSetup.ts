@@ -23,7 +23,7 @@ export function VueScriptSetupTransformer(ctx: Context): Transform {
           const component = ctx.findComponent(normalize(match), [sfcPath])
           if (component) {
             const var_name = `__vite_component_${id}`
-            head.push(`import ${var_name} from "/${component.path}"`)
+            head.push(ctx.options.customImportMapper(var_name, component.path) || `import ${var_name} from "/${component.path}"`)
             id += 1
             return var_name
           }
