@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.5](https://github.com/antfu/vite-plugin-components/compare/v0.5.4...v0.5.5) (2020-12-24)
+
+
+### Features
+
+* disabled comment ([56c3637](https://github.com/antfu/vite-plugin-components/commit/56c363759949bfc15323c6034e886d5cf70d3e5b))
+
 ### [0.5.4](https://github.com/antfu/vite-plugin-components/compare/v0.5.3...v0.5.4) (2020-12-24)
 
 
