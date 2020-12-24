@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.1](https://github.com/antfu/vite-plugin-components/compare/v0.5.0...v0.5.1) (2020-12-24)
+
+
+### Features
+
+* new config customComponentResolvers ([3b6cece](https://github.com/antfu/vite-plugin-components/commit/3b6cecee715175c81ae784d6da751c398c285621))
+
 ## [0.5.0](https://github.com/antfu/vite-plugin-components/compare/v0.4.2...v0.5.0) (2020-12-01)
 
 ### [0.4.2](https://github.com/antfu/vite-plugin-components/compare/v0.4.1...v0.4.2) (2020-12-01)
