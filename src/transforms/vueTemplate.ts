@@ -14,8 +14,7 @@ const debug = Debug('vite-plugin-components:transform:template')
 export function VueTemplateTransformer(ctx: Context): Transform {
   return {
     test({ path, query }) {
-      return !path.startsWith('/@')
-        && path.endsWith('.vue')
+      return path.endsWith('.vue')
         && query.type === 'template'
     },
     transform({ code, path }) {
