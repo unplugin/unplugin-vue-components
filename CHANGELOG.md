@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.2](https://github.com/antfu/vite-plugin-components/compare/v0.5.1...v0.5.2) (2020-12-24)
+
+
+### Bug Fixes
+
+* use custom resolver after fs ([e254da8](https://github.com/antfu/vite-plugin-components/commit/e254da8b8d397cbab403bab2aaa3a35f3a0e1f2a))
+
 ### [0.5.1](https://github.com/antfu/vite-plugin-components/compare/v0.5.0...v0.5.1) (2020-12-24)
 
 
