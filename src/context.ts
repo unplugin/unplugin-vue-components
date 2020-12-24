@@ -86,17 +86,17 @@ export class Context {
   }
 
   findComponent(name: string, excludePaths: string[] = []) {
+    // resolve from fs
+    const info = this._componentNameMap[name]
+    if (info && !excludePaths.includes(info.path) && !excludePaths.includes(info.path.slice(1)))
+      return info
+
     // custom resolvers
     for (const resolver of this._resolvers) {
       const path = resolver(name)
       if (path)
         return { name, path }
     }
-
-    // resolve from fs
-    const info = this._componentNameMap[name]
-    if (info && !excludePaths.includes(info.path) && !excludePaths.includes(info.path.slice(1)))
-      return info
 
     return undefined
   }
