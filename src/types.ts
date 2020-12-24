@@ -1,5 +1,7 @@
 import { Transform } from 'vite'
 
+export type ComponentResolver = (name: string) => string | null | undefined
+
 /**
  * Plugin options.
  */
@@ -53,6 +55,11 @@ export interface Options {
    * @default ()=>false
    */
   customLoaderMatcher: Transform['test']
+
+  /**
+   * Pass a custom function to resolve the component importing path from the component name.
+   */
+  customComponentResolvers: ComponentResolver | ComponentResolver[]
 }
 
 export interface ComponentsInfo {

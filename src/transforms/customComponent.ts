@@ -39,7 +39,7 @@ export function CustomComponentTransformer(ctx: Context): Transform {
             continue
 
           const var_name = `__vite_component_${id}`
-          lines.push(`import ${var_name} from "/${component.path}"`)
+          lines.push(`import ${var_name} from "${component.path}"`)
           id += 1
 
           injected.push(`"${name}": ${var_name}`)

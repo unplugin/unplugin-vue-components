@@ -19,6 +19,10 @@ const config: UserConfig = {
       directoryAsNamespace: true,
       globalNamespaces: ['global'],
       customLoaderMatcher: ({ path }) => path.endsWith('.md'),
+      customComponentResolvers: (name) => {
+        if (name === 'MyCustom')
+          return '/src/CustomResolved.vue'
+      },
     }),
   ],
 }

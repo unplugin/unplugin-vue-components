@@ -24,6 +24,11 @@
     <MarkdownA />
     <MarkdownB />
   </div>
+
+  <div class="block">
+    <h1>Custom Resolvers (1)</h1>
+    <MyCustom />
+  </div>
 </template>
 
 <script setup lang='ts'>

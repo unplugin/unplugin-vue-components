@@ -8,7 +8,9 @@ const debug = Debug('vite-plugin-components:transform:script-setup')
 export function VueScriptSetupTransformer(ctx: Context): Transform {
   return {
     test({ path, query }) {
-      return path.endsWith('.vue') && query.type === 'script' && (Boolean(query.setup) || query.setup === '')
+      return path.endsWith('.vue')
+        && query.type === 'script'
+        && (Boolean(query.setup) || query.setup === '')
     },
     transform({ code, path, isBuild }) {
       const sfcPath = ctx.normalizePath(path)
@@ -23,7 +25,7 @@ export function VueScriptSetupTransformer(ctx: Context): Transform {
           const component = ctx.findComponent(normalize(match), [sfcPath])
           if (component) {
             const var_name = `__vite_component_${id}`
-            head.push(`import ${var_name} from "/${component.path}"`)
+            head.push(`import ${var_name} from "${component.path}"`)
             id += 1
             return var_name
           }

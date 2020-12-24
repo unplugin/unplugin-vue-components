@@ -33,7 +33,7 @@ export async function generateResolver(ctx: Context, reqPath: string) {
   debug('using', names, 'imported', components.map(i => i.name))
 
   return `
-    ${components.map(({ name, path }) => `import ${name} from "/${path}"`).join('\n')}
+    ${components.map(({ name, path }) => `import ${name} from "${path}"`).join('\n')}
 
     export default (components) => { 
       return Object.assign({}, { ${components.map(i => i.name).join(', ')} }, components) 

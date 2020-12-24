@@ -1,6 +1,6 @@
 import { relative } from 'path'
 import Debug from 'debug'
-import { ComponentsInfo, ComponentsImportMap, Options } from './types'
+import { ComponentsInfo, ComponentsImportMap, Options, ComponentResolver } from './types'
 import { normalize, toArray, getNameFromFilePath, resolveAlias } from './utils'
 import { searchComponents } from './fs/glob'
 
@@ -15,12 +15,14 @@ export class Context {
   private _componentNameMap: Record<string, ComponentsInfo> = {}
   private _imports: ComponentsImportMap = {}
   private _importsResolveTasks: Record<string, [(null | Promise<string[]>), (null | ((result: string[]) => void))]> = {}
+  private _resolvers: ComponentResolver[]
 
   constructor(
     public readonly options: Options,
   ) {
-    const { extensions, dirs, deep } = options
+    const { extensions, dirs, deep, customComponentResolvers } = options
     const exts = toArray(extensions)
+    this._resolvers = toArray(customComponentResolvers)
 
     if (!exts.length)
       throw new Error('[vite-plugin-components] extensions are required to search for components')
@@ -79,20 +81,29 @@ export class Context {
           console.warn(`[vite-plugin-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
           return
         }
-        this._componentNameMap[name] = { name, path }
+        this._componentNameMap[name] = { name, path: `/${path}` }
       })
   }
 
   findComponent(name: string, excludePaths: string[] = []) {
+    // custom resolvers
+    for (const resolver of this._resolvers) {
+      const path = resolver(name)
+      if (path)
+        return { name, path }
+    }
+
+    // resolve from fs
     const info = this._componentNameMap[name]
-    if (info && !excludePaths.includes(info.path))
+    if (info && !excludePaths.includes(info.path) && !excludePaths.includes(info.path.slice(1)))
       return info
+
     return undefined
   }
 
   findComponents(names: string[], excludePaths: string[] = []) {
     return names
-      .map((name) => this.findComponent(name, excludePaths))
+      .map(name => this.findComponent(name, excludePaths))
       .filter(Boolean) as ComponentsInfo[]
   }
 
