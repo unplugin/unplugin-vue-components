@@ -14,7 +14,9 @@ const debug = Debug('vite-plugin-components:transform:script')
 export function VueScriptTransformer(ctx: Context): Transform {
   return {
     test({ path, query }) {
-      return path.endsWith('.vue') && !query.type
+      return !path.startsWith('/@')
+        && path.endsWith('.vue')
+        && !query.type
     },
     transform({ code, path, isBuild }) {
       const filepath = ctx.normalizePath(ctx.relative(path))

@@ -8,7 +8,8 @@ const debug = Debug('vite-plugin-components:transform:script-setup')
 export function VueScriptSetupTransformer(ctx: Context): Transform {
   return {
     test({ path, query }) {
-      return path.endsWith('.vue')
+      return !path.startsWith('/@')
+        && path.endsWith('.vue')
         && query.type === 'script'
         && (Boolean(query.setup) || query.setup === '')
     },
