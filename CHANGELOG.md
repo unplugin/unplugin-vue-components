@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.6](https://github.com/antfu/vite-plugin-components/compare/v0.5.5...v0.5.6) (2020-12-28)
+
+
+### Features
+
+* support library auto importing, close [#14](https://github.com/antfu/vite-plugin-components/issues/14) ([39b8643](https://github.com/antfu/vite-plugin-components/commit/39b864385ee56c7a232db71e9663a8ca25ad136e))
+
 ### [0.5.5](https://github.com/antfu/vite-plugin-components/compare/v0.5.4...v0.5.5) (2020-12-24)
 
 
