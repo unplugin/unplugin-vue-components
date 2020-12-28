@@ -1,5 +1,5 @@
 import type { Plugin } from 'rollup'
-import { isResolverPath, generateResolver } from '../generator/resolver'
+import { isResolverPath, generateResolver } from '../generator/importer'
 import { Context } from '../context'
 
 export function createRollupPlugin(ctx: Context): Plugin {

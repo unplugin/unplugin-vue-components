@@ -1,6 +1,6 @@
 import type { ServerPlugin } from 'vite'
 import Debug from 'debug'
-import { isResolverPath, generateResolver } from '../generator/resolver'
+import { isResolverPath, generateResolver } from '../generator/importer'
 import { Context } from '../context'
 import { matchGlobs } from '../utils'
 

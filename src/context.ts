@@ -1,7 +1,7 @@
 import { relative } from 'path'
 import Debug from 'debug'
-import { ComponentsInfo, ComponentsImportMap, Options, ComponentResolver } from './types'
-import { normalize, toArray, getNameFromFilePath, resolveAlias } from './utils'
+import { ComponentInfo, ComponentsImportMap, ResolvedOptions } from './types'
+import { pascalCase, toArray, getNameFromFilePath, resolveAlias, kebabCase } from './utils'
 import { searchComponents } from './fs/glob'
 
 const debug = {
@@ -12,17 +12,15 @@ export class Context {
   readonly globs: string[]
 
   private _componentPaths = new Set<string>()
-  private _componentNameMap: Record<string, ComponentsInfo> = {}
+  private _componentNameMap: Record<string, ComponentInfo> = {}
   private _imports: ComponentsImportMap = {}
   private _importsResolveTasks: Record<string, [(null | Promise<string[]>), (null | ((result: string[]) => void))]> = {}
-  private _resolvers: ComponentResolver[]
 
   constructor(
-    public readonly options: Options,
+    public readonly options: ResolvedOptions,
   ) {
-    const { extensions, dirs, deep, customComponentResolvers } = options
+    const { extensions, dirs, deep } = options
     const exts = toArray(extensions)
-    this._resolvers = toArray(customComponentResolvers)
 
     if (!exts.length)
       throw new Error('[vite-plugin-components] extensions are required to search for components')
@@ -76,7 +74,7 @@ export class Context {
     Array
       .from(this._componentPaths)
       .forEach((path) => {
-        const name = normalize(getNameFromFilePath(path, this.options))
+        const name = pascalCase(getNameFromFilePath(path, this.options))
         if (this._componentNameMap[name]) {
           console.warn(`[vite-plugin-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
           return
@@ -85,17 +83,27 @@ export class Context {
       })
   }
 
-  findComponent(name: string, excludePaths: string[] = []) {
+  findComponent(name: string, excludePaths: string[] = []): ComponentInfo | undefined {
     // resolve from fs
     const info = this._componentNameMap[name]
     if (info && !excludePaths.includes(info.path) && !excludePaths.includes(info.path.slice(1)))
       return info
 
     // custom resolvers
-    for (const resolver of this._resolvers) {
-      const path = resolver(name)
-      if (path)
-        return { name, path }
+    for (const resolver of this.options.customComponentResolvers) {
+      const result = resolver(name)
+      if (result) {
+        if (typeof result === 'string') {
+          return { name, path: result }
+        }
+        else {
+          return {
+            name,
+            path: result.path,
+            importName: result.importName,
+          }
+        }
+      }
     }
 
     return undefined
@@ -104,7 +112,7 @@ export class Context {
   findComponents(names: string[], excludePaths: string[] = []) {
     return names
       .map(name => this.findComponent(name, excludePaths))
-      .filter(Boolean) as ComponentsInfo[]
+      .filter(Boolean) as ComponentInfo[]
   }
 
   normalizePath(path: string) {
@@ -122,7 +130,7 @@ export class Context {
   }
 
   setImports(key: string, names: string[]) {
-    const casedNames = names.map(name => normalize(name))
+    const casedNames = names.map(name => pascalCase(name))
     this._imports[key] = casedNames
     if (this._importsResolveTasks[key])
       this._importsResolveTasks[key][1]?.(casedNames)

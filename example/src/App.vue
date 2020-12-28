@@ -29,6 +29,28 @@
     <h1>Custom Resolvers (1)</h1>
     <MyCustom />
   </div>
+
+  <div class="block">
+    <h1>UI Library (2)</h1>
+    <van-rate
+      v-model="rate"
+      color="#ffd21e"
+      void-icon="star"
+      void-color="#eee"
+    />
+    <br>
+    <br>
+    <van-radio-group v-model="radio">
+      <van-radio name="1">
+        Radio 1
+      </van-radio>
+      <br>
+      <van-radio name="2">
+        Radio 2
+      </van-radio>
+    </van-radio-group>
+    <br>
+  </div>
 </template>
 
 <script setup lang='ts'>
@@ -41,6 +63,9 @@ const tree = ref({
     { label: 'First Level', children: [{ label: 'Second Level' }] },
   ],
 })
+
+const rate = ref(2.5)
+const radio = ref('1')
 </script>
 
 <style scoped>

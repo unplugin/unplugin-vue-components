@@ -19,10 +19,17 @@ const config: UserConfig = {
       directoryAsNamespace: true,
       globalNamespaces: ['global'],
       customLoaderMatcher: ({ path }) => path.endsWith('.md'),
-      customComponentResolvers: (name) => {
-        if (name === 'MyCustom')
-          return '/src/CustomResolved.vue'
-      },
+      customComponentResolvers: [
+        (name) => {
+          if (name === 'MyCustom')
+            return '/src/CustomResolved.vue'
+        },
+        // auto import from ui library Vant
+        (name: string) => {
+          if (name.startsWith('Van'))
+            return { importName: name.slice(3), path: 'vant' }
+        },
+      ],
     }),
   ],
 }

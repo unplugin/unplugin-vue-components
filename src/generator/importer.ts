@@ -1,8 +1,9 @@
 import Debug from 'debug'
 import { Context } from '../context'
 import { RESOLVER_EXT } from '../constants'
+import { stringifyComponentImport } from '../utils'
 
-const debug = Debug('vite-plugin-components:resolver')
+const debug = Debug('vite-plugin-components:importer')
 
 function timeoutError(reqPath: string, timeout = 10000) {
   return new Promise<any>((resolve, reject) => {
@@ -33,7 +34,7 @@ export async function generateResolver(ctx: Context, reqPath: string) {
   debug('using', names, 'imported', components.map(i => i.name))
 
   return `
-    ${components.map(({ name, path }) => `import ${name} from "${path}"`).join('\n')}
+    ${components.map(stringifyComponentImport).join('\n')}
 
     export default (components) => { 
       return Object.assign({}, { ${components.map(i => i.name).join(', ')} }, components) 

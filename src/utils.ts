@@ -1,18 +1,24 @@
 import path from 'path'
 import minimatch from 'minimatch'
-import { Options } from './types'
+import { ComponentInfo, ResolvedOptions, Options } from './types'
+import { LibraryResolver } from './helpers/libraryResolver'
 
 export interface ResolveComponent {
   filename: string
   namespace?: string
 }
 
-export function normalize(str: string) {
-  return capitalize(camelize(str))
+export function pascalCase(str: string) {
+  return capitalize(camelCase(str))
 }
 
-export function camelize(str: string) {
+export function camelCase(str: string) {
   return str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''))
+}
+
+export function kebabCase(key: string) {
+  const result = key.replace(/([A-Z])/g, ' $1').trim()
+  return result.split(' ').join('-').toLowerCase()
 }
 
 export function capitalize(str: string) {
@@ -41,7 +47,23 @@ export function matchGlobs(filepath: string, globs: string[]) {
   return false
 }
 
-export function getNameFromFilePath(filePath: string, options: Options): string {
+export function stringifyComponentImport({ name, path, importName }: ComponentInfo) {
+  if (importName)
+    return `import { ${importName} as ${name} } from '${path}'`
+  else
+    return `import ${name} from '${path}'`
+}
+
+export function resolveOptions(options: Options, defaultOptions: Required<Options>): ResolvedOptions {
+  const resolvedOptions = Object.assign({}, defaultOptions, options) as ResolvedOptions
+  resolvedOptions.libraries = toArray(resolvedOptions.libraries).map(i => typeof i === 'string' ? { name: i } : i)
+  resolvedOptions.customComponentResolvers = toArray(resolvedOptions.customComponentResolvers)
+  resolvedOptions.customComponentResolvers.push(...resolvedOptions.libraries.map(lib => LibraryResolver(lib)))
+
+  return resolvedOptions
+}
+
+export function getNameFromFilePath(filePath: string, options: ResolvedOptions): string {
   const { dirs, directoryAsNamespace, globalNamespaces } = options
 
   const parsedFilePath = path.parse(filePath)

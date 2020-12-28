@@ -1,7 +1,7 @@
 import { Transform } from 'vite'
 import Debug from 'debug'
 import { Context } from '../context'
-import { normalize } from '../utils'
+import { pascalCase } from '../utils'
 
 const debug = Debug('vite-plugin-components:transform:custom')
 
@@ -13,7 +13,7 @@ export function CustomComponentTransformer(ctx: Context): Transform {
     transform({ code, path }) {
       const filepath = ctx.normalizePath(path)
 
-      const componentNames = Array.from(code.matchAll(/_resolveComponent\("(.*)"\)/g)).map(i => normalize(i[1]))
+      const componentNames = Array.from(code.matchAll(/_resolveComponent\("(.*)"\)/g)).map(i => pascalCase(i[1]))
       const entry = code.match(/export default ([a-zA-Z_$0-9]+);/)?.[1]
 
       if (!entry) {

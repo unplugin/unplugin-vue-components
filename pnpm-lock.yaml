@@ -31,6 +31,7 @@ importers:
       vite: ^1.0.0-rc.13
   example:
     dependencies:
+      vant: 3.0.1_vue@3.0.3
       vue: 3.0.3
     devDependencies:
       '@vue/compiler-sfc': 3.0.3_vue@3.0.3
@@ -43,6 +44,7 @@ importers:
       '@vue/compiler-sfc': ^3.0.3
       cross-env: ^7.0.2
       typescript: ^4.1.2
+      vant: ^3.0.1
       vite: ^1.0.0-rc.13
       vite-plugin-components: 'workspace:*'
       vite-plugin-md: ^0.1.2
@@ -168,6 +170,12 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-oWR02Ubp4xTLCAqPRiNIuMVgNO5Aif/xpXtabhzW2HWUD47XJsAB4Zd/Rg30+XeQA3juXigV7hlquOTmwqLiwg==
+  /@babel/runtime/7.12.5:
+    dependencies:
+      regenerator-runtime: 0.13.7
+    dev: false
+    resolution:
+      integrity: sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
   /@babel/template/7.10.4:
     dependencies:
       '@babel/code-frame': 7.10.4
@@ -243,6 +251,9 @@ packages:
       node: '>= 8'
     resolution:
       integrity: sha512-1V9XOY4rDW0rehzbrcqAmHnz8e7SKvX27gh8Gt2WgB0+pdzdiLV83p72kZPU+jvMbS1qU5mauP2iOvO8rhmurQ==
+  /@popperjs/core/2.6.0:
+    resolution:
+      integrity: sha512-cPqjjzuFWNK3BSKLm0abspP0sp/IGOli4p5I5fKFAzdS8fvjdOwDCfZqAaIiXd9lPkOWi3SUUfZof3hEb7J/uw==
   /@rollup/plugin-commonjs/16.0.0_rollup@2.33.3:
     dependencies:
       '@rollup/pluginutils': 3.1.0_rollup@2.33.3
@@ -655,6 +666,26 @@ packages:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
     resolution:
       integrity: sha512-Vg+/SJTMZJEKKGHW7YC21QxgKJrSbxoYYd3MEUGtW7zuytHuEcksewq0DUmo4eh/CTNrVJGSdIY9AtRb6riWFw==
+  /@vant/icons/1.5.0:
+    dev: false
+    resolution:
+      integrity: sha512-qHQU3GiQ6AkpjhYni46xG+YOy36LNmbHFanyjvzi+fODu+pEKYwqfLWluv42Q9CM4hshNET8A+Vsr0pr2UVTnA==
+  /@vant/lazyload/1.0.2:
+    dev: false
+    resolution:
+      integrity: sha512-v8q+M59R6J+H2l544zD/Uz+LNWwcIFsbIX+gprBK/O6qLjl4l9IxDW1gjZc7xOz/aMequZ9ACIHOa9wXStupow==
+  /@vant/popperjs/1.0.2:
+    dependencies:
+      '@popperjs/core': 2.6.0
+    dev: false
+    resolution:
+      integrity: sha512-CA2BgoQwlfm5OEmIuTnYNWaeCAcEhFFyVDg+irunZAWff+jV5TkAuDPpCWrIGYoVs99hwBDiRzzEAFybhlml2A==
+  /@vant/use/1.0.1:
+    dependencies:
+      '@babel/runtime': 7.12.5
+    dev: false
+    resolution:
+      integrity: sha512-oDzSzxQxCA7uUymEq55S3GP17QYcCnXjs3J1eSPpnYhU2NTPo1VEQseo6aau+LsuD3yxViwhsTkUT6muQDXtQQ==
   /@vue/compiler-core/3.0.3:
     dependencies:
       '@babel/parser': 7.12.7
@@ -4161,6 +4192,9 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-6tDA8g98We0zd0GvVeMT9arEOnTw9qM03L9cJXaCjrip1OO764RDBLBfrB4cwzNGDj5OA5ioymC9GkizgWJDUg==
+  /regenerator-runtime/0.13.7:
+    resolution:
+      integrity: sha512-a54FxoJDIr27pgf7IgeQGxmqUNYrcV338lf/6gH456HZ/PhX+5BcwHXG9ajESmwe6WRO0tAzRUrRmNONWgkrew==
   /regexp-tree/0.1.21:
     dev: true
     hasBin: true
@@ -4951,6 +4985,19 @@ packages:
     dev: true
     resolution:
       integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==
+  /vant/3.0.1_vue@3.0.3:
+    dependencies:
+      '@babel/runtime': 7.12.5
+      '@vant/icons': 1.5.0
+      '@vant/lazyload': 1.0.2
+      '@vant/popperjs': 1.0.2
+      '@vant/use': 1.0.1
+      vue: 3.0.3
+    dev: false
+    peerDependencies:
+      vue: ^3.0.0
+    resolution:
+      integrity: sha512-LjvFoJgrNn1HXka9/vjpAKFz+a6NetrqS/H+2n6e380wkh21uQ45pNpn4ST33FXO23xdcBRuX0J6/G++JyQHaQ==
   /vary/1.1.2:
     dev: true
     engines:

@@ -1,7 +1,7 @@
 import { Transform } from 'vite'
 import Debug from 'debug'
 import { Context } from '../context'
-import { normalize } from '../utils'
+import { pascalCase, stringifyComponentImport } from '../utils'
 
 const debug = Debug('vite-plugin-components:transform:script-setup')
 
@@ -22,10 +22,10 @@ export function VueScriptSetupTransformer(ctx: Context): Transform {
       let transformed = code.replace(/_resolveComponent\("(.+?)"\)/g, (str, match) => {
         if (match) {
           debug(`name: ${match}`)
-          const component = ctx.findComponent(normalize(match), [sfcPath])
+          const component = ctx.findComponent(pascalCase(match), [sfcPath])
           if (component) {
             const var_name = `__vite_component_${id}`
-            head.push(`import ${var_name} from "${component.path}"`)
+            head.push(stringifyComponentImport({ ...component, name: var_name }))
             id += 1
             return var_name
           }

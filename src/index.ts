@@ -7,8 +7,9 @@ import { VueTemplateTransformer } from './transforms/vueTemplate'
 import { Context } from './context'
 import { VueScriptSetupTransformer } from './transforms/vueScriptSetup'
 import { CustomComponentTransformer } from './transforms/customComponent'
+import { resolveOptions } from './utils'
 
-const defaultOptions: Options = {
+const defaultOptions: Required<Options> = {
   dirs: 'src/components',
   extensions: 'vue',
   deep: true,
@@ -19,13 +20,14 @@ const defaultOptions: Options = {
   alias: {},
   root: process.cwd(),
 
+  libraries: [],
+
   customLoaderMatcher: () => false,
   customComponentResolvers: [],
 }
 
-function VitePluginComponents(options: Partial<Options> = {}): Plugin {
-  const resolvedOptions: Options = Object.assign({}, defaultOptions, options)
-  const ctx: Context = new Context(resolvedOptions)
+function VitePluginComponents(options: Options = {}): Plugin {
+  const ctx: Context = new Context(resolveOptions(options, defaultOptions))
 
   return {
     configureServer: createServerPlugin(ctx),
@@ -43,5 +45,7 @@ function VitePluginComponents(options: Partial<Options> = {}): Plugin {
   }
 }
 
-export type { Options }
+export * from './helpers/libraryResolver'
+export * from './types'
+export { camelCase, pascalCase, kebabCase } from './utils'
 export default VitePluginComponents
