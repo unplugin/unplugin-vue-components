@@ -1,5 +1,3 @@
-import { Transform } from 'vite'
-
 export type ComponentResolveResult = string | { path: string; importName?: string }
 
 export type ComponentResolver = (name: string) => ComponentResolveResult | null | undefined | void
@@ -9,6 +7,10 @@ export interface UILibraryOptions {
   prefix?: string
   entries?: string[]
 }
+
+export type Matcher = (id: string) => boolean | null | undefined
+
+export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => string
 
 /**
  * Plugin options.
@@ -46,18 +48,6 @@ export interface Options {
   globalNamespaces?: string[]
 
   /**
-   * Path alias, same as what you passed to vite root config
-   * @default {}
-   */
-  alias?: Record<string, string>
-
-  /**
-   * Root path of Vite project.
-   * @default 'process.cwd()'
-   */
-  root?: string
-
-  /**
    * comp libraries to use auto import
    */
   libraries?: (string | UILibraryOptions)[]
@@ -67,7 +57,7 @@ export interface Options {
    *
    * @default ()=>false
    */
-  customLoaderMatcher?: Transform['test']
+  customLoaderMatcher?: Matcher
 
   /**
    * Pass a custom function to resolve the component importing path from the component name.

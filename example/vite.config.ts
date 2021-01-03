@@ -1,24 +1,21 @@
 import path from 'path'
 import { UserConfig } from 'vite'
+import Vue from '@vitejs/plugin-vue'
 import ViteComponents from 'vite-plugin-components'
-import Markdown from 'vite-plugin-md'
-
-const alias = {
-  '/~/': path.resolve(__dirname, 'src'),
-}
+// import Markdown from 'vite-plugin-md'
 
 const config: UserConfig = {
   alias: {
     '/~/': path.resolve(__dirname, 'src'),
   },
   plugins: [
-    Markdown(),
+    Vue(),
+    // Markdown(),
     ViteComponents({
-      extensions: ['vue', 'md'],
-      alias,
+      // extensions: ['vue', 'md'],
       directoryAsNamespace: true,
       globalNamespaces: ['global'],
-      customLoaderMatcher: ({ path }) => path.endsWith('.md'),
+      customLoaderMatcher: path => path.endsWith('.md'),
       customComponentResolvers: [
         (name) => {
           if (name === 'MyCustom')

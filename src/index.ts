@@ -1,13 +1,12 @@
 import type { Plugin } from 'vite'
-import { createRollupPlugin } from './plugins/build'
-import { createServerPlugin } from './plugins/server'
 import { Options } from './types'
 import { VueScriptTransformer } from './transforms/vueScript'
 import { VueTemplateTransformer } from './transforms/vueTemplate'
 import { Context } from './context'
 import { VueScriptSetupTransformer } from './transforms/vueScriptSetup'
 import { CustomComponentTransformer } from './transforms/customComponent'
-import { resolveOptions } from './utils'
+import { parseId, resolveOptions } from './utils'
+import { generateResolver, isResolverPath } from './generator/importer'
 
 const defaultOptions: Required<Options> = {
   dirs: 'src/components',
@@ -16,9 +15,6 @@ const defaultOptions: Required<Options> = {
 
   directoryAsNamespace: false,
   globalNamespaces: [],
-
-  alias: {},
-  root: process.cwd(),
 
   libraries: [],
 
@@ -29,19 +25,37 @@ const defaultOptions: Required<Options> = {
 function VitePluginComponents(options: Options = {}): Plugin {
   const ctx: Context = new Context(resolveOptions(options, defaultOptions))
 
+  const transformer = [
+    VueScriptSetupTransformer(ctx),
+    // VueScriptTransformer(ctx),
+    VueTemplateTransformer(ctx),
+    CustomComponentTransformer(ctx),
+  ]
+
   return {
-    configureServer: createServerPlugin(ctx),
-    rollupInputOptions: {
-      pluginsPreBuild: [
-        createRollupPlugin(ctx),
-      ],
+    name: 'vite-plugin-components',
+    resolveId(source) {
+      if (isResolverPath(source))
+        return source
+      return null
     },
-    transforms: [
-      VueScriptSetupTransformer(ctx),
-      VueScriptTransformer(ctx),
-      VueTemplateTransformer(ctx),
-      CustomComponentTransformer(ctx),
-    ],
+    configResolved(config) {
+      ctx.viteConfig = config
+    },
+    async load(id) {
+      if (isResolverPath(id)) {
+        await ctx.searchGlob()
+        return await generateResolver(ctx, id.slice(1)) // remove the heading '/'
+      }
+      return null
+    },
+    transform(code, id) {
+      const { path, query } = parseId(id)
+      for (const trans of transformer)
+        code = trans(code, id, path, query)
+
+      return code
+    },
   }
 }
 

@@ -1,6 +1,7 @@
 import Debug from 'debug'
-import type { Transform } from 'vite'
 import { Context } from '../context'
+import { parseId } from '../utils'
+import { Transformer } from '../types'
 
 const debug = Debug('vite-plugin-components:transform:template')
 
@@ -11,18 +12,15 @@ const debug = Debug('vite-plugin-components:transform:template')
  *
  * @param ctx
  */
-export function VueTemplateTransformer(ctx: Context): Transform {
-  return {
-    test({ path, query }) {
-      return path.endsWith('.vue')
-        && query.type === 'template'
-    },
-    transform({ code, path }) {
-      const filepath = ctx.normalizePath(path)
-      const imports = Array.from(code.matchAll(/_resolveComponent\("(.*)"\)/g)).map(i => i[1])
-      ctx.setImports(filepath, imports)
-      debug(filepath, imports)
+export function VueTemplateTransformer(ctx: Context): Transformer {
+  return (code, id, path, query) => {
+    if (!path.endsWith('.vue') || query.type !== 'template')
       return code
-    },
+
+    const filepath = ctx.normalizePath(path)
+    const imports = Array.from(code.matchAll(/_resolveComponent\("(.*)"\)/g)).map(i => i[1])
+    ctx.setImports(filepath, imports)
+    debug(filepath, imports)
+    return code
   }
 }

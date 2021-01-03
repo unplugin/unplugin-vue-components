@@ -30,10 +30,12 @@ Add it to `vite.config.js`
 
 ```ts
 // vite.config.js
+import Vue from '@vitejs/plugin-vue'
 import ViteComponents from 'vite-plugin-components'
 
 export default {
   plugins: [
+    Vue(),
     ViteComponents()
   ],
 };
@@ -99,12 +101,6 @@ ViteComponents({
   // Subdirectory paths for ignoring namespace prefixes
   // works when `directoryAsNamespace: true`
   globalNamespaces: [],
-  
-  // vite config
-  // currently, vite does not provide an API for plugins to get the config https://github.com/vitejs/vite/issues/738
-  // you will need to pass `alias` and `root` if you set them in vite config
-  alias: {},
-  root: process.cwd(),
 })
 ```
 

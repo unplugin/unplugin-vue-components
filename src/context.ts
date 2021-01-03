@@ -1,5 +1,6 @@
 import { relative } from 'path'
 import Debug from 'debug'
+import { ResolvedConfig } from 'vite'
 import { ComponentInfo, ComponentsImportMap, ResolvedOptions } from './types'
 import { pascalCase, toArray, getNameFromFilePath, resolveAlias, kebabCase } from './utils'
 import { searchComponents } from './fs/glob'
@@ -9,6 +10,7 @@ const debug = {
 }
 
 export class Context {
+  viteConfig: ResolvedConfig | undefined
   readonly globs: string[]
 
   private _componentPaths = new Set<string>()
@@ -37,7 +39,7 @@ export class Context {
   }
 
   get root() {
-    return this.options.root
+    return this.viteConfig?.root || process.cwd()
   }
 
   addComponents(paths: string | string[]) {
@@ -120,7 +122,7 @@ export class Context {
   }
 
   resolveAlias(path: string) {
-    return resolveAlias(path, this.options.alias)
+    return resolveAlias(path, this.viteConfig?.alias || {})
   }
 
   relative(path: string) {

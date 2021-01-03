@@ -1,46 +1,43 @@
-import { Transform } from 'vite'
 import Debug from 'debug'
+import { Transformer } from '../types'
 import { Context } from '../context'
 import { pascalCase, stringifyComponentImport } from '../utils'
 
 const debug = Debug('vite-plugin-components:transform:script-setup')
 
-export function VueScriptSetupTransformer(ctx: Context): Transform {
-  return {
-    test({ path, query }) {
-      return path.endsWith('.vue')
-        && query.type === 'script'
-        && (Boolean(query.setup) || query.setup === '')
-    },
-    transform({ code, path, isBuild }) {
-      const sfcPath = ctx.normalizePath(path)
-      debug(sfcPath)
+export function VueScriptSetupTransformer(ctx: Context): Transformer {
+  return (code, id, path, query) => {
+    if (!path.endsWith('.vue'))
+      return code
 
-      const head: string[] = []
-      let id = 0
+    const isBuild = ctx.viteConfig?.isProduction
+    const sfcPath = ctx.normalizePath(path)
+    debug(sfcPath)
 
-      let transformed = code.replace(/_resolveComponent\("(.+?)"\)/g, (str, match) => {
-        if (match) {
-          debug(`name: ${match}`)
-          const component = ctx.findComponent(pascalCase(match), [sfcPath])
-          if (component) {
-            const var_name = `__vite_component_${id}`
-            head.push(stringifyComponentImport({ ...component, name: var_name }))
-            id += 1
-            return var_name
-          }
+    const head: string[] = []
+    let no = 0
+
+    let transformed = code.replace(/_resolveComponent\("(.+?)"\)/g, (str, match) => {
+      if (match) {
+        debug(`name: ${match}`)
+        const component = ctx.findComponent(pascalCase(match), [sfcPath])
+        if (component) {
+          const var_name = `__vite_component_${no}`
+          head.push(stringifyComponentImport({ ...component, name: var_name }))
+          no += 1
+          return var_name
         }
-        return str
-      })
+      }
+      return str
+    })
 
-      transformed = `${head.join('\n')}\n${transformed}`
+    transformed = `${head.join('\n')}\n${transformed}`
 
-      // debug(transformed)
+    // debug(transformed)
 
-      if (isBuild)
-        ctx.setImports(sfcPath, [])
+    if (isBuild)
+      ctx.setImports(sfcPath, [])
 
-      return transformed
-    },
+    return transformed
   }
 }

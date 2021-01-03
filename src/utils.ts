@@ -1,5 +1,6 @@
 import path from 'path'
 import minimatch from 'minimatch'
+import { Alias, ResolvedConfig } from 'vite'
 import { ComponentInfo, ResolvedOptions, Options } from './types'
 import { LibraryResolver } from './helpers/libraryResolver'
 
@@ -29,6 +30,21 @@ export function toArray<T>(arr: T | T[]): T[] {
   if (Array.isArray(arr))
     return arr
   return [arr]
+}
+
+export function parseId(id: string) {
+  const index = id.indexOf('?')
+  if (index < 0) {
+    return { path: id, query: {} }
+  }
+  else {
+    // @ts-ignore
+    const query = Object.fromEntries(new URLSearchParams(id.slice(index)))
+    return {
+      path: id.slice(0, index),
+      query,
+    }
+  }
 }
 
 export function isEmpty(value: any) {
@@ -107,11 +123,17 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
   return filename
 }
 
-export function resolveAlias(filepath: string, alias: Record<string, string>) {
+export function resolveAlias(filepath: string, alias: ResolvedConfig['alias'] = {}) {
   let result = filepath
-  Object.entries(alias).forEach(([k, p]) => {
-    if (k.startsWith('/') && k.endsWith('/') && result.startsWith(k))
-      result = path.join(p, result.replace(k, ''))
-  })
+  if (Array.isArray(alias)) {
+    for (const { find, replacement } of alias)
+      result.replace(find, replacement)
+  }
+  else {
+    Object.entries(alias).forEach(([k, p]) => {
+      if (k.startsWith('/') && k.endsWith('/') && result.startsWith(k))
+        result = path.join(p, result.replace(k, ''))
+    })
+  }
   return result
 }
