@@ -2,7 +2,7 @@ import path from 'path'
 import { UserConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import ViteComponents from 'vite-plugin-components'
-// import Markdown from 'vite-plugin-md'
+import Markdown from 'vite-plugin-md'
 
 const config: UserConfig = {
   alias: {
@@ -10,9 +10,9 @@ const config: UserConfig = {
   },
   plugins: [
     Vue(),
-    // Markdown(),
+    Markdown(),
     ViteComponents({
-      // extensions: ['vue', 'md'],
+      extensions: ['vue', 'md'],
       directoryAsNamespace: true,
       globalNamespaces: ['global'],
       customLoaderMatcher: path => path.endsWith('.md'),

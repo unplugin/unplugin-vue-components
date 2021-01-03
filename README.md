@@ -20,6 +20,8 @@
 
 ## Usage
 
+> ℹ️ **Vite 2 is supported from `v0.6.x`, Vite 1's support is discontinued.**
+
 Install
 
 ```bash

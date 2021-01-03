@@ -3,9 +3,9 @@ import { Transformer } from '../types'
 import { Context } from '../context'
 import { pascalCase, stringifyComponentImport } from '../utils'
 
-const debug = Debug('vite-plugin-components:transform:script-setup')
+const debug = Debug('vite-plugin-components:transform')
 
-export function VueScriptSetupTransformer(ctx: Context): Transformer {
+export function VueTransformer(ctx: Context): Transformer {
   return (code, id, path, query) => {
     if (!path.endsWith('.vue'))
       return code

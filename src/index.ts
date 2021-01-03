@@ -1,9 +1,7 @@
 import type { Plugin } from 'vite'
 import { Options } from './types'
-import { VueScriptTransformer } from './transforms/vueScript'
-import { VueTemplateTransformer } from './transforms/vueTemplate'
 import { Context } from './context'
-import { VueScriptSetupTransformer } from './transforms/vueScriptSetup'
+import { VueTransformer } from './transforms/vue'
 import { CustomComponentTransformer } from './transforms/customComponent'
 import { parseId, resolveOptions } from './utils'
 import { generateResolver, isResolverPath } from './generator/importer'
@@ -26,9 +24,7 @@ function VitePluginComponents(options: Options = {}): Plugin {
   const ctx: Context = new Context(resolveOptions(options, defaultOptions))
 
   const transformer = [
-    VueScriptSetupTransformer(ctx),
-    // VueScriptTransformer(ctx),
-    VueTemplateTransformer(ctx),
+    VueTransformer(ctx),
     CustomComponentTransformer(ctx),
   ]
 

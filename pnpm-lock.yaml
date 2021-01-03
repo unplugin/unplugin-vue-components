@@ -15,7 +15,7 @@ importers:
       standard-version: 9.1.0
       tsup: 3.11.0_typescript@4.1.3
       typescript: 4.1.3
-      vite: 2.0.0-beta.2
+      vite: 2.0.0-beta.3
     specifiers:
       '@antfu/eslint-config': ^0.4.3
       '@types/debug': ^4.1.5
@@ -30,7 +30,7 @@ importers:
       standard-version: ^9.1.0
       tsup: ^3.11.0
       typescript: ^4.1.3
-      vite: ^2.0.0-beta.2
+      vite: ^2.0.0-beta.3
   example:
     dependencies:
       vant: 3.0.2_vue@3.0.5
@@ -40,18 +40,18 @@ importers:
       '@vue/compiler-sfc': 3.0.5_vue@3.0.5
       cross-env: 7.0.3
       typescript: 4.1.3
-      vite: 2.0.0-beta.2
+      vite: 2.0.0-beta.3
       vite-plugin-components: 'link:..'
-      vite-plugin-md: 0.1.5_@vue+compiler-sfc@3.0.5
+      vite-plugin-md: 0.2.0_07ad00a65dd24982a673d5b926d26c42
     specifiers:
       '@vitejs/plugin-vue': ^1.0.3
       '@vue/compiler-sfc': ^3.0.5
       cross-env: ^7.0.3
       typescript: ^4.1.3
       vant: ^3.0.2
-      vite: ^2.0.0-beta.2
+      vite: ^2.0.0-beta.3
       vite-plugin-components: 'workspace:*'
-      vite-plugin-md: ^0.1.5
+      vite-plugin-md: ^0.2.0
       vue: ^3.0.5
 lockfileVersion: 5.2
 packages:
@@ -1395,10 +1395,6 @@ packages:
       node: '>=8.6'
     resolution:
       integrity: sha512-yjNnPr315/FjS4zIsUxYguYUPP2e1NK4d7E7ZOLiyYCcbFBiTMyID+2wvm2w6+pZ/odMA7cRkjhsPbltwBOrLg==
-  /entities/2.0.3:
-    dev: true
-    resolution:
-      integrity: sha512-MyoZ0jgnLvB2X3Lg5HqpFmn1kybDiIfEQmKzTb5apr51Rb+T3KdmMiqa70T+bhGnyv7bQ6WMj2QMHpGMmlrUYQ==
   /entities/2.1.0:
     dev: true
     resolution:
@@ -2667,17 +2663,17 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-glc9y00wgtwcDmp7GaE/0b0OnxpNJsVf3ael/An6Fe2Q51LLwN1er6sdomLRzz5h0+yMpiYLhWYF5R7HeqVd4g==
-  /markdown-it/12.0.2:
+  /markdown-it/12.0.4:
     dependencies:
       argparse: 2.0.1
-      entities: 2.0.3
+      entities: 2.1.0
       linkify-it: 3.0.2
       mdurl: 1.0.1
       uc.micro: 1.0.6
     dev: true
     hasBin: true
     resolution:
-      integrity: sha512-4Lkvjbv2kK+moL9TbeV+6/NHx+1Q+R/NIdUlFlkqkkzUcTod4uiyTJRiBidKR9qXSdkNFkgv+AELY8KN9vSgVA==
+      integrity: sha512-34RwOXZT8kyuOJy25oJNJoulO8L0bTHYWXcdZBYZqFnjIy3NgjeoM3FmPXIOFQ26/lSHYMr8oc62B6adxXcb3Q==
   /mdurl/1.0.1:
     dev: true
     resolution:
@@ -4148,17 +4144,19 @@ packages:
       vue: ^3.0.0
     resolution:
       integrity: sha512-FaDdOfECaWLG9LqXJQvffGqLy35WpL8Fx4MD+Dlb64014wFso0Vr0SdIB9xYnnrm8FVekKTSZrYd3CK35mofCw==
-  /vite-plugin-md/0.1.5_@vue+compiler-sfc@3.0.5:
+  /vite-plugin-md/0.2.0_07ad00a65dd24982a673d5b926d26c42:
     dependencies:
       '@vue/compiler-sfc': 3.0.5_vue@3.0.5
       gray-matter: 4.0.2
-      markdown-it: 12.0.2
+      markdown-it: 12.0.4
+      vite: 2.0.0-beta.3
     dev: true
     peerDependencies:
-      '@vue/compiler-sfc': ^3.0.2
+      '@vue/compiler-sfc': ^3.0.5
+      vite: '2'
     resolution:
-      integrity: sha512-aF75Nm6AydNLTlcEh/tcTxE6qyasvAk896oBj80+4JxsaR9mvygu7rp0KApBPprtFM08gtVhO8LUewTfztYRzg==
-  /vite/2.0.0-beta.2:
+      integrity: sha512-qJo3JBCsD6VrWtRw724STdjKYjq+bj+RhpmBySjPEVFv58uulRUBM9p3b5o9RVM6vAhX2W8Yt4rvEXDCumyO8g==
+  /vite/2.0.0-beta.3:
     dependencies:
       esbuild: 0.8.29
       postcss: 8.2.2
@@ -4170,7 +4168,7 @@ packages:
     optionalDependencies:
       fsevents: 2.1.3
     resolution:
-      integrity: sha512-bZ2IeW+Uo4A7HpRIqyyHUDk6/WOGIkNdTm5/0yLmgjvXgLErwUhzv7Z0T0C6lc4lwoQV9KEA8IbFkZ+ZyWzhWg==
+      integrity: sha512-jY0H655nqpclHhk4gJJ6oINvX+REGzNqAOAaNbU3P2TDM6PxAWpXsvGjkC/DonkZtuV/m3q7UhACS/tm5hJ04A==
   /vue-eslint-parser/7.1.1_eslint@7.17.0:
     dependencies:
       debug: 4.2.0
