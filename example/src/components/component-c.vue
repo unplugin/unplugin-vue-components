@@ -6,6 +6,6 @@
 import { defineProps } from 'vue'
 
 const props = defineProps({
-  msg: String
+  msg: String,
 })
 </script>

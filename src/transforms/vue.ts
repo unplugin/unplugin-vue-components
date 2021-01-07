@@ -7,8 +7,11 @@ const debug = Debug('vite-plugin-components:transform')
 
 export function VueTransformer(ctx: Context): Transformer {
   return (code, id, path, query) => {
-    if (!path.endsWith('.vue'))
+    if (!(path.endsWith('.vue') || ctx.options.customLoaderMatcher(id)))
       return code
+
+    if (ctx.viteConfig?.command === 'serve')
+      ctx.searchGlob(500)
 
     const isBuild = ctx.viteConfig?.isProduction
     const sfcPath = ctx.normalizePath(path)
@@ -19,7 +22,7 @@ export function VueTransformer(ctx: Context): Transformer {
 
     let transformed = code.replace(/_resolveComponent\("(.+?)"\)/g, (str, match) => {
       if (match) {
-        debug(`name: ${match}`)
+        debug(`| ${match}`)
         const component = ctx.findComponent(pascalCase(match), [sfcPath])
         if (component) {
           const var_name = `__vite_component_${no}`

@@ -4,10 +4,10 @@ import { Context } from '../context'
 
 const debug = Debug('vite-plugin-components:glob')
 
-export async function searchComponents(ctx: Context) {
-  debug(`searching start with: [${ctx.globs.join(', ')}]`)
+export function searchComponents(ctx: Context) {
+  debug(`started with: [${ctx.globs.join(', ')}]`)
 
-  const files = await fg(ctx.globs, {
+  const files = fg.sync(ctx.globs, {
     ignore: ['node_modules'],
     onlyFiles: true,
   })

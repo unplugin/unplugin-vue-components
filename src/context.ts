@@ -160,7 +160,7 @@ export class Context {
     return await Promise.resolve(this._importsResolveTasks[key][0])
   }
 
-  private _searchGlob: Promise<void> | undefined
+  private _searched = 0
 
   /**
    * This search for components in with the given options.
@@ -170,13 +170,14 @@ export class Context {
    * @param ctx
    * @param force
    */
-  async searchGlob() {
-    if (!this._searchGlob) {
-      this._searchGlob = (async() => {
-        await searchComponents(this)
-      })()
-    }
+  searchGlob(forceMs = -1) {
+    if (this._searched && forceMs < 0)
+      return
 
-    return await this._searchGlob
+    const now = +new Date()
+    if (now - this._searched > forceMs) {
+      searchComponents(this)
+      this._searched = now
+    }
   }
 }
