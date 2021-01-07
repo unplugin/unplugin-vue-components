@@ -12,8 +12,9 @@ export function VueTransformer(ctx: Context): Transformer {
 
     if (ctx.viteConfig?.command === 'serve')
       ctx.searchGlob(500)
+    else
+      ctx.searchGlob()
 
-    const isBuild = ctx.viteConfig?.isProduction
     const sfcPath = ctx.normalizePath(path)
     debug(sfcPath)
 
@@ -34,12 +35,9 @@ export function VueTransformer(ctx: Context): Transformer {
       return str
     })
 
+    debug(`^ (${no})`)
+
     transformed = `${head.join('\n')}\n${transformed}`
-
-    // debug(transformed)
-
-    if (isBuild)
-      ctx.setImports(sfcPath, [])
 
     return transformed
   }

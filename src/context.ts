@@ -1,8 +1,8 @@
 import { relative } from 'path'
 import Debug from 'debug'
 import { ResolvedConfig } from 'vite'
-import { ComponentInfo, ComponentsImportMap, ResolvedOptions } from './types'
-import { pascalCase, toArray, getNameFromFilePath, resolveAlias, kebabCase } from './utils'
+import { ComponentInfo, ResolvedOptions } from './types'
+import { pascalCase, toArray, getNameFromFilePath, resolveAlias } from './utils'
 import { searchComponents } from './fs/glob'
 
 const debug = {
@@ -15,8 +15,6 @@ export class Context {
 
   private _componentPaths = new Set<string>()
   private _componentNameMap: Record<string, ComponentInfo> = {}
-  private _imports: ComponentsImportMap = {}
-  private _importsResolveTasks: Record<string, [(null | Promise<string[]>), (null | ((result: string[]) => void))]> = {}
 
   constructor(
     public readonly options: ResolvedOptions,
@@ -34,8 +32,6 @@ export class Context {
         ? `${i}/**/*.${extsGlob}`
         : `${i}/*.${extsGlob}`,
     )
-
-    this.searchGlob()
   }
 
   get root() {
@@ -60,12 +56,6 @@ export class Context {
       return true
     }
     return false
-  }
-
-  findReferencesOfComponentName(name: string) {
-    return Object.entries(this._imports)
-      .map(([path, components]) => components?.includes(name) ? path : undefined)
-      .filter(Boolean) as string[]
   }
 
   private updateComponentNameMap() {
@@ -129,35 +119,6 @@ export class Context {
     if (path.startsWith('/') && !path.startsWith(this.root))
       return path.slice(1).replace(/\\/g, '/')
     return relative(this.root, path).replace(/\\/g, '/')
-  }
-
-  setImports(key: string, names: string[]) {
-    const casedNames = names.map(name => pascalCase(name))
-    this._imports[key] = casedNames
-    if (this._importsResolveTasks[key])
-      this._importsResolveTasks[key][1]?.(casedNames)
-    return key
-  }
-
-  /**
-   * Await for imports to get resolved
-   *
-   * @param ctx
-   * @param force
-   */
-  async getImports(key: string) {
-    if (this._imports[key])
-      return this._imports[key]
-
-    if (!this._importsResolveTasks[key]) {
-      this._importsResolveTasks[key] = [null, null]
-      const p = new Promise<string[]>((resolve) => {
-        this._importsResolveTasks[key][1] = resolve
-      })
-      this._importsResolveTasks[key][0] = p
-    }
-
-    return await Promise.resolve(this._importsResolveTasks[key][0])
   }
 
   private _searched = 0
