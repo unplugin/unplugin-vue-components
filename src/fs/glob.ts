@@ -10,9 +10,10 @@ export function searchComponents(ctx: Context) {
   const files = fg.sync(ctx.globs, {
     ignore: ['node_modules'],
     onlyFiles: true,
+    cwd: ctx.viteConfig?.root || process.cwd(),
   })
 
-  if (!files.length)
+  if (!files.length && !ctx.options.customComponentResolvers?.length)
     console.warn('[vite-plugin-components] no components found')
 
   debug(`${files.length} components found.`)
