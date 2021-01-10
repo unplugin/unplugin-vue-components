@@ -6,7 +6,7 @@ import Markdown from 'vite-plugin-md'
 
 const config: UserConfig = {
   alias: {
-    '/~/': path.resolve(__dirname, 'src'),
+    '/~/': `${path.resolve(__dirname, 'src')}/`,
   },
   plugins: [
     Vue(),

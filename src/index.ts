@@ -27,6 +27,7 @@ function VitePluginComponents(options: Options = {}): Plugin {
 
   return {
     name: 'vite-plugin-components',
+    enforce: 'post',
     configResolved(config) {
       ctx.viteConfig = config
     },
