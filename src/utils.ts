@@ -1,8 +1,9 @@
-import path from 'path'
+import { parse, resolve } from 'path'
 import minimatch from 'minimatch'
 import { ResolvedConfig } from 'vite'
 import { ComponentInfo, ResolvedOptions, Options } from './types'
 import { LibraryResolver } from './helpers/libraryResolver'
+import { defaultOptions } from './constants'
 
 export interface ResolveComponent {
   filename: string
@@ -70,11 +71,12 @@ export function stringifyComponentImport({ name, path, importName }: ComponentIn
     return `import ${name} from '${path}'`
 }
 
-export function resolveOptions(options: Options, defaultOptions: Required<Options>): ResolvedOptions {
+export function resolveOptions(options: Options, viteConfig: ResolvedConfig): ResolvedOptions {
   const resolvedOptions = Object.assign({}, defaultOptions, options) as ResolvedOptions
   resolvedOptions.libraries = toArray(resolvedOptions.libraries).map(i => typeof i === 'string' ? { name: i } : i)
   resolvedOptions.customComponentResolvers = toArray(resolvedOptions.customComponentResolvers)
   resolvedOptions.customComponentResolvers.push(...resolvedOptions.libraries.map(lib => LibraryResolver(lib)))
+  resolvedOptions.dirs = toArray(resolvedOptions.dirs).map(i => resolve(viteConfig.root, i))
 
   return resolvedOptions
 }
@@ -82,7 +84,7 @@ export function resolveOptions(options: Options, defaultOptions: Required<Option
 export function getNameFromFilePath(filePath: string, options: ResolvedOptions): string {
   const { dirs, directoryAsNamespace, globalNamespaces } = options
 
-  const parsedFilePath = path.parse(filePath)
+  const parsedFilePath = parse(filePath)
 
   let strippedPath = ''
 
@@ -124,7 +126,7 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
 }
 
 export function resolveAlias(filepath: string, alias: ResolvedConfig['alias'] = []) {
-  let result = filepath
+  const result = filepath
   if (Array.isArray(alias)) {
     for (const { find, replacement } of alias)
       result.replace(find, replacement)

@@ -1,39 +1,28 @@
 import type { Plugin } from 'vite'
-import { Options } from './types'
+import { Options, Transformer } from './types'
 import { Context } from './context'
+import { parseId } from './utils'
 import { VueTransformer } from './transforms/vue'
-import { parseId, resolveOptions } from './utils'
-
-const defaultOptions: Required<Options> = {
-  dirs: 'src/components',
-  extensions: 'vue',
-  deep: true,
-
-  directoryAsNamespace: false,
-  globalNamespaces: [],
-
-  libraries: [],
-
-  customLoaderMatcher: () => false,
-  customComponentResolvers: [],
-}
 
 function VitePluginComponents(options: Options = {}): Plugin {
-  const ctx: Context = new Context(resolveOptions(options, defaultOptions))
-
-  const transformer = [
-    VueTransformer(ctx),
-  ]
+  let ctx: Context
+  let transformers: Transformer[]
 
   return {
     name: 'vite-plugin-components',
     enforce: 'post',
     configResolved(config) {
-      ctx.viteConfig = config
+      ctx = new Context(options, config)
+      transformers = [
+        VueTransformer(ctx),
+      ]
+    },
+    configureServer(server) {
+      ctx.setServer(server)
     },
     transform(code, id) {
       const { path, query } = parseId(id)
-      for (const trans of transformer)
+      for (const trans of transformers)
         code = trans(code, id, path, query)
 
       return code

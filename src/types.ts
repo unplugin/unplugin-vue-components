@@ -75,6 +75,7 @@ export type ResolvedOptions = Omit<Required<Options>, 'customComponentResolvers'
 export interface ComponentInfo {
   name: string
   path: string
+  absolute?: string
   importName?: string
 }
 

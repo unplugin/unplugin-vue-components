@@ -7,7 +7,7 @@
     "build": "cross-env DEBUG=vite-plugin-components:* vite build"
   },
   "dependencies": {
-    "vant": "^3.0.2",
+    "vant": "^3.0.3",
     "vue": "^3.0.5"
   },
   "devDependencies": {

@@ -1,25 +1,33 @@
 import { relative } from 'path'
 import Debug from 'debug'
-import { ResolvedConfig } from 'vite'
+import chokidar from 'chokidar'
+import { HmrContext, ResolvedConfig, UpdatePayload, ViteDevServer } from 'vite'
+import { Options } from '../dist'
 import { ComponentInfo, ResolvedOptions } from './types'
-import { pascalCase, toArray, getNameFromFilePath, resolveAlias } from './utils'
+import { pascalCase, toArray, getNameFromFilePath, resolveAlias, resolveOptions, matchGlobs } from './utils'
 import { searchComponents } from './fs/glob'
 
 const debug = {
   components: Debug('vite-plugin-components:context:components'),
+  search: Debug('vite-plugin-components:context:search'),
+  hmr: Debug('vite-plugin-components:context:hmr'),
 }
 
 export class Context {
-  viteConfig: ResolvedConfig | undefined
+  readonly options: ResolvedOptions
   readonly globs: string[]
 
   private _componentPaths = new Set<string>()
   private _componentNameMap: Record<string, ComponentInfo> = {}
+  private _componentUsageMap: Record<string, Set<string>> = {}
+  private _server: ViteDevServer | undefined
 
   constructor(
-    public readonly options: ResolvedOptions,
+    options: Options,
+    public readonly viteConfig: ResolvedConfig,
   ) {
-    const { extensions, dirs, deep } = options
+    this.options = resolveOptions(options, viteConfig)
+    const { extensions, dirs, deep } = this.options
     const exts = toArray(extensions)
 
     if (!exts.length)
@@ -32,13 +40,50 @@ export class Context {
         ? `${i}/**/*.${extsGlob}`
         : `${i}/*.${extsGlob}`,
     )
+
+    if (viteConfig.command === 'serve') {
+      // TODO: use vite's watcher instead
+      chokidar.watch(dirs, { ignoreInitial: true })
+        .on('unlink', (path) => {
+          if (matchGlobs(path, this.globs)) {
+            this.removeComponents(path)
+            this.onUpdate(path)
+          }
+        })
+        .on('add', (path) => {
+          if (matchGlobs(path, this.globs)) {
+            this.addComponents(path)
+            this.onUpdate(path)
+          }
+        })
+    }
   }
 
   get root() {
-    return this.viteConfig?.root || process.cwd()
+    return this.viteConfig.root
+  }
+
+  setServer(server: ViteDevServer) {
+    this._server = server
+  }
+
+  /**
+   * Record the usage of components
+   * @param path
+   * @param paths paths of used components
+   */
+  updateUsageMap(path: string, paths: string[]) {
+    if (!this._componentUsageMap[path])
+      this._componentUsageMap[path] = new Set()
+
+    paths.forEach((p) => {
+      this._componentUsageMap[path].add(p)
+    })
   }
 
   addComponents(paths: string | string[]) {
+    debug.components('add', paths)
+
     const size = this._componentPaths.size
     toArray(paths).forEach(p => this._componentPaths.add(p))
     if (this._componentPaths.size !== size) {
@@ -49,6 +94,8 @@ export class Context {
   }
 
   removeComponents(paths: string | string[]) {
+    debug.components('remove', paths)
+
     const size = this._componentPaths.size
     toArray(paths).forEach(p => this._componentPaths.delete(p))
     if (this._componentPaths.size !== size) {
@@ -58,10 +105,36 @@ export class Context {
     return false
   }
 
+  onUpdate(path: string) {
+    if (!this._server)
+      return
+
+    const payload: UpdatePayload = {
+      type: 'update',
+      updates: [],
+    }
+    const timestamp = +new Date()
+    const name = pascalCase(getNameFromFilePath(path, this.options))
+
+    Object.entries(this._componentUsageMap)
+      .forEach(([key, values]) => {
+        if (values.has(name)) {
+          const r = `/${relative(this.viteConfig.root, key)}`
+          payload.updates.push({
+            acceptedPath: r,
+            path: r,
+            timestamp,
+            type: 'js-update',
+          })
+        }
+      })
+
+    if (payload.updates.length)
+      this._server.ws.send(payload)
+  }
+
   private updateComponentNameMap() {
     this._componentNameMap = {}
-
-    debug.components(this._componentPaths)
 
     Array
       .from(this._componentPaths)
@@ -71,7 +144,11 @@ export class Context {
           console.warn(`[vite-plugin-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
           return
         }
-        this._componentNameMap[name] = { name, path: `/${path}` }
+        this._componentNameMap[name] = {
+          name,
+          absolute: path,
+          path: `/${this.relative(path)}`,
+        }
       })
   }
 
@@ -86,7 +163,10 @@ export class Context {
       const result = resolver(name)
       if (result) {
         if (typeof result === 'string') {
-          return { name, path: result }
+          return {
+            name,
+            path: result,
+          }
         }
         else {
           return {
@@ -108,11 +188,7 @@ export class Context {
   }
 
   normalizePath(path: string) {
-    return this.relative(this.resolveAlias(path))
-  }
-
-  resolveAlias(path: string) {
-    return resolveAlias(path, this.viteConfig?.alias || {})
+    return resolveAlias(path, this.viteConfig?.alias || [])
   }
 
   relative(path: string) {
@@ -121,7 +197,7 @@ export class Context {
     return relative(this.root, path).replace(/\\/g, '/')
   }
 
-  private _searched = 0
+  _searched = false
 
   /**
    * This search for components in with the given options.
@@ -131,14 +207,12 @@ export class Context {
    * @param ctx
    * @param force
    */
-  searchGlob(forceMs = -1) {
-    if (this._searched && forceMs < 0)
+  searchGlob() {
+    if (this._searched)
       return
 
-    const now = +new Date()
-    if (now - this._searched > forceMs) {
-      searchComponents(this)
-      this._searched = now
-    }
+    searchComponents(this)
+    debug.search(this._componentNameMap)
+    this._searched = true
   }
 }

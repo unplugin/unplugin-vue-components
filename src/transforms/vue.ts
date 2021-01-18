@@ -10,23 +10,23 @@ export function VueTransformer(ctx: Context): Transformer {
     if (!(path.endsWith('.vue') || ctx.options.customLoaderMatcher(id)))
       return code
 
-    if (ctx.viteConfig?.command === 'serve')
-      ctx.searchGlob(500)
-    else
-      ctx.searchGlob()
+    ctx.searchGlob()
 
     const sfcPath = ctx.normalizePath(path)
     debug(sfcPath)
 
     const head: string[] = []
     let no = 0
+    const componentPaths: string[] = []
 
     let transformed = code.replace(/_resolveComponent\("(.+?)"\)/g, (str, match) => {
-      if (match) {
+      if (match && !match.startsWith('_')) {
         debug(`| ${match}`)
-        const component = ctx.findComponent(pascalCase(match), [sfcPath])
+        const name = pascalCase(match)
+        componentPaths.push(name)
+        const component = ctx.findComponent(name, [sfcPath])
         if (component) {
-          const var_name = `__vite_component_${no}`
+          const var_name = `__vite_components_${no}`
           head.push(stringifyComponentImport({ ...component, name: var_name }))
           no += 1
           return var_name
@@ -36,6 +36,8 @@ export function VueTransformer(ctx: Context): Transformer {
     })
 
     debug(`^ (${no})`)
+
+    ctx.updateUsageMap(sfcPath, componentPaths)
 
     transformed = `${head.join('\n')}\n${transformed}`
 

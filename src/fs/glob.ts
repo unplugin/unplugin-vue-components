@@ -6,11 +6,12 @@ const debug = Debug('vite-plugin-components:glob')
 
 export function searchComponents(ctx: Context) {
   debug(`started with: [${ctx.globs.join(', ')}]`)
+  const root = ctx.root
 
   const files = fg.sync(ctx.globs, {
     ignore: ['node_modules'],
     onlyFiles: true,
-    cwd: ctx.viteConfig?.root || process.cwd(),
+    cwd: root,
   })
 
   if (!files.length && !ctx.options.customComponentResolvers?.length)
