@@ -1,9 +1,8 @@
 import { relative } from 'path'
 import Debug from 'debug'
 import chokidar from 'chokidar'
-import { HmrContext, ResolvedConfig, UpdatePayload, ViteDevServer } from 'vite'
-import { Options } from '../dist'
-import { ComponentInfo, ResolvedOptions } from './types'
+import { ResolvedConfig, UpdatePayload, ViteDevServer } from 'vite'
+import { Options, ComponentInfo, ResolvedOptions } from './types'
 import { pascalCase, toArray, getNameFromFilePath, resolveAlias, resolveOptions, matchGlobs } from './utils'
 import { searchComponents } from './fs/glob'
 
@@ -188,7 +187,7 @@ export class Context {
   }
 
   normalizePath(path: string) {
-    return resolveAlias(path, this.viteConfig?.alias || [])
+    return resolveAlias(path, this.viteConfig?.resolve.alias || [])
   }
 
   relative(path: string) {

@@ -125,7 +125,7 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
   return filename
 }
 
-export function resolveAlias(filepath: string, alias: ResolvedConfig['alias'] = []) {
+export function resolveAlias(filepath: string, alias: ResolvedConfig['resolve']['alias'] = []) {
   const result = filepath
   if (Array.isArray(alias)) {
     for (const { find, replacement } of alias)
