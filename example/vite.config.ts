@@ -9,7 +9,9 @@ const config: UserConfig = {
     '/~/': `${path.resolve(__dirname, 'src')}/`,
   },
   plugins: [
-    Vue(),
+    Vue({
+      include: [/\.vue$/, /\.md$/],
+    }),
     Markdown(),
     ViteComponents({
       extensions: ['vue', 'md'],
