@@ -187,7 +187,8 @@ export class Context {
   }
 
   normalizePath(path: string) {
-    return resolveAlias(path, this.viteConfig?.resolve.alias || [])
+    // @ts-expect-error backward compatibility
+    return resolveAlias(path, this.viteConfig?.resolve?.alias || this.viteConfig?.alias || [])
   }
 
   relative(path: string) {
