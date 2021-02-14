@@ -3,7 +3,7 @@ import Debug from 'debug'
 import chokidar from 'chokidar'
 import { ResolvedConfig, UpdatePayload, ViteDevServer } from 'vite'
 import { Options, ComponentInfo, ResolvedOptions } from './types'
-import { pascalCase, toArray, getNameFromFilePath, resolveAlias, resolveOptions, matchGlobs } from './utils'
+import { pascalCase, toArray, getNameFromFilePath, resolveAlias, resolveOptions, matchGlobs, slash } from './utils'
 import { searchComponents } from './fs/glob'
 
 const debug = {
@@ -25,19 +25,19 @@ export class Context {
     public readonly viteConfig: ResolvedConfig,
   ) {
     this.options = resolveOptions(options, viteConfig)
-    const { watchGlobs, dirs } = this.options
+    const { globs, dirs } = this.options
 
     if (viteConfig.command === 'serve') {
       // TODO: use vite's watcher instead
       chokidar.watch(dirs, { ignoreInitial: true })
         .on('unlink', (path) => {
-          if (matchGlobs(path, watchGlobs)) {
+          if (matchGlobs(path, globs)) {
             this.removeComponents(path)
             this.onUpdate(path)
           }
         })
         .on('add', (path) => {
-          if (matchGlobs(path, watchGlobs)) {
+          if (matchGlobs(path, globs)) {
             this.addComponents(path)
             this.onUpdate(path)
           }
@@ -180,8 +180,8 @@ export class Context {
 
   relative(path: string) {
     if (path.startsWith('/') && !path.startsWith(this.root))
-      return path.slice(1).replace(/\\/g, '/')
-    return relative(this.root, path).replace(/\\/g, '/')
+      return slash(path.slice(1))
+    return slash(relative(this.root, path))
   }
 
   _searched = false

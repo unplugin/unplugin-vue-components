@@ -10,6 +10,10 @@ export interface ResolveComponent {
   namespace?: string
 }
 
+export function slash(str: string) {
+  return str.replace(/\\/g, '/')
+}
+
 export function pascalCase(str: string) {
   return capitalize(camelCase(str))
 }
@@ -58,7 +62,7 @@ export function isEmpty(value: any) {
 
 export function matchGlobs(filepath: string, globs: string[]) {
   for (const glob of globs) {
-    if (minimatch(filepath, glob))
+    if (minimatch(slash(filepath), glob))
       return true
   }
   return false
@@ -84,17 +88,11 @@ export function resolveOptions(options: Options, viteConfig: ResolvedConfig): Re
 
   resolved.globs = toArray(resolved.dirs).map(i =>
     resolved.deep
-      ? `${i}/**/*.${extsGlob}`
-      : `${i}/*.${extsGlob}`,
+      ? slash(join(i, `**/*.${extsGlob}`))
+      : slash(join(i, `*.${extsGlob}`)),
   )
 
   resolved.dirs = toArray(resolved.dirs).map(i => resolve(viteConfig.root, i))
-
-  resolved.watchGlobs = toArray(resolved.dirs).map(i =>
-    resolved.deep
-      ? join(i, `/**/*.${extsGlob}`)
-      : join(i, `/*.${extsGlob}`),
-  )
 
   if (!resolved.extensions.length)
     throw new Error('[vite-plugin-components] extensions are required to search for components')
