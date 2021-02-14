@@ -76,7 +76,6 @@ export function resolveOptions(options: Options, viteConfig: ResolvedConfig): Re
   resolvedOptions.libraries = toArray(resolvedOptions.libraries).map(i => typeof i === 'string' ? { name: i } : i)
   resolvedOptions.customComponentResolvers = toArray(resolvedOptions.customComponentResolvers)
   resolvedOptions.customComponentResolvers.push(...resolvedOptions.libraries.map(lib => LibraryResolver(lib)))
-  resolvedOptions.dirs = toArray(resolvedOptions.dirs).map(i => resolve(viteConfig.root, i))
 
   return resolvedOptions
 }
