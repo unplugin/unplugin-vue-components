@@ -1,4 +1,4 @@
-import { join, parse, resolve } from 'path'
+import { join, parse } from 'path'
 import minimatch from 'minimatch'
 import { ResolvedConfig } from 'vite'
 import { ComponentInfo, ResolvedOptions, Options } from './types'
@@ -8,6 +8,10 @@ import { defaultOptions } from './constants'
 export interface ResolveComponent {
   filename: string
   namespace?: string
+}
+
+export function slash(str: string) {
+  return str.replace(/\\/g, '/')
 }
 
 export function pascalCase(str: string) {
@@ -58,7 +62,7 @@ export function isEmpty(value: any) {
 
 export function matchGlobs(filepath: string, globs: string[]) {
   for (const glob of globs) {
-    if (minimatch(filepath, glob))
+    if (minimatch(slash(filepath), glob))
       return true
   }
   return false
@@ -82,18 +86,12 @@ export function resolveOptions(options: Options, viteConfig: ResolvedConfig): Re
     ? resolved.extensions
     : `{${resolved.extensions.join(',')}}`
 
-  resolved.globs = toArray(resolved.dirs).map(i =>
-    resolved.deep
-      ? `${i}/**/*.${extsGlob}`
-      : `${i}/*.${extsGlob}`,
-  )
+  resolved.dirs = toArray(resolved.dirs)
 
-  resolved.dirs = toArray(resolved.dirs).map(i => resolve(viteConfig.root, i))
-
-  resolved.watchGlobs = toArray(resolved.dirs).map(i =>
+  resolved.globs = resolved.dirs.map(i =>
     resolved.deep
-      ? join(i, `/**/*.${extsGlob}`)
-      : join(i, `/*.${extsGlob}`),
+      ? slash(join(i, `**/*.${extsGlob}`))
+      : slash(join(i, `*.${extsGlob}`)),
   )
 
   if (!resolved.extensions.length)
@@ -110,7 +108,7 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
   let strippedPath = ''
 
   // remove include directories from filepath
-  for (const dir of toArray(dirs)) {
+  for (const dir of dirs) {
     if (parsedFilePath.dir.startsWith(dir)) {
       strippedPath = parsedFilePath.dir.slice(dir.length)
       break
