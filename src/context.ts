@@ -25,19 +25,19 @@ export class Context {
     public readonly viteConfig: ResolvedConfig,
   ) {
     this.options = resolveOptions(options, viteConfig)
-    const { globs, dirs } = this.options
+    const { watchGlobs, dirs } = this.options
 
     if (viteConfig.command === 'serve') {
       // TODO: use vite's watcher instead
       chokidar.watch(dirs, { ignoreInitial: true })
         .on('unlink', (path) => {
-          if (matchGlobs(path, globs)) {
+          if (matchGlobs(path, watchGlobs)) {
             this.removeComponents(path)
             this.onUpdate(path)
           }
         })
         .on('add', (path) => {
-          if (matchGlobs(path, globs)) {
+          if (matchGlobs(path, watchGlobs)) {
             this.addComponents(path)
             this.onUpdate(path)
           }
