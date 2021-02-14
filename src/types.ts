@@ -76,6 +76,7 @@ Required<Options>,
   extensions: string[]
   dirs: string[]
   globs: string[]
+  watchGlobs: string[]
 }
 
 export interface ComponentInfo {

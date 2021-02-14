@@ -84,11 +84,17 @@ export function resolveOptions(options: Options, viteConfig: ResolvedConfig): Re
 
   resolved.globs = toArray(resolved.dirs).map(i =>
     resolved.deep
-      ? join(i, `/**/*.${extsGlob}`)
-      : join(i, `/*.${extsGlob}`),
+      ? `${i}/**/*.${extsGlob}`
+      : `${i}/*.${extsGlob}`,
   )
 
   resolved.dirs = toArray(resolved.dirs).map(i => resolve(viteConfig.root, i))
+
+  resolved.watchGlobs = toArray(resolved.dirs).map(i =>
+    resolved.deep
+      ? join(i, `/**/*.${extsGlob}`)
+      : join(i, `/*.${extsGlob}`),
+  )
 
   if (!resolved.extensions.length)
     throw new Error('[vite-plugin-components] extensions are required to search for components')
