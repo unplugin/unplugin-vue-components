@@ -67,9 +67,15 @@ export interface Options {
   customComponentResolvers?: ComponentResolver | ComponentResolver[]
 }
 
-export type ResolvedOptions = Omit<Required<Options>, 'customComponentResolvers'|'libraries'> & {
+export type ResolvedOptions = Omit<
+Required<Options>,
+'customComponentResolvers'|'libraries'|'extensions'|'dirs'
+> & {
   customComponentResolvers: ComponentResolver[]
   libraries: UILibraryOptions[]
+  extensions: string[]
+  dirs: string[]
+  globs: string[]
 }
 
 export interface ComponentInfo {

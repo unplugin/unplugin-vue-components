@@ -1,4 +1,4 @@
-import { parse, resolve } from 'path'
+import { join, parse, resolve } from 'path'
 import minimatch from 'minimatch'
 import { ResolvedConfig } from 'vite'
 import { ComponentInfo, ResolvedOptions, Options } from './types'
@@ -72,12 +72,28 @@ export function stringifyComponentImport({ name, path, importName }: ComponentIn
 }
 
 export function resolveOptions(options: Options, viteConfig: ResolvedConfig): ResolvedOptions {
-  const resolvedOptions = Object.assign({}, defaultOptions, options) as ResolvedOptions
-  resolvedOptions.libraries = toArray(resolvedOptions.libraries).map(i => typeof i === 'string' ? { name: i } : i)
-  resolvedOptions.customComponentResolvers = toArray(resolvedOptions.customComponentResolvers)
-  resolvedOptions.customComponentResolvers.push(...resolvedOptions.libraries.map(lib => LibraryResolver(lib)))
+  const resolved = Object.assign({}, defaultOptions, options) as ResolvedOptions
+  resolved.libraries = toArray(resolved.libraries).map(i => typeof i === 'string' ? { name: i } : i)
+  resolved.customComponentResolvers = toArray(resolved.customComponentResolvers)
+  resolved.customComponentResolvers.push(...resolved.libraries.map(lib => LibraryResolver(lib)))
+  resolved.extensions = toArray(resolved.extensions)
 
-  return resolvedOptions
+  const extsGlob = resolved.extensions.length === 1
+    ? resolved.extensions
+    : `{${resolved.extensions.join(',')}}`
+
+  resolved.globs = toArray(resolved.dirs).map(i =>
+    resolved.deep
+      ? join(i, `/**/*.${extsGlob}`)
+      : join(i, `/*.${extsGlob}`),
+  )
+
+  resolved.dirs = toArray(resolved.dirs).map(i => resolve(viteConfig.root, i))
+
+  if (!resolved.extensions.length)
+    throw new Error('[vite-plugin-components] extensions are required to search for components')
+
+  return resolved
 }
 
 export function getNameFromFilePath(filePath: string, options: ResolvedOptions): string {

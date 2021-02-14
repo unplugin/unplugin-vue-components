@@ -14,7 +14,6 @@ const debug = {
 
 export class Context {
   readonly options: ResolvedOptions
-  readonly globs: string[]
 
   private _componentPaths = new Set<string>()
   private _componentNameMap: Record<string, ComponentInfo> = {}
@@ -26,38 +25,19 @@ export class Context {
     public readonly viteConfig: ResolvedConfig,
   ) {
     this.options = resolveOptions(options, viteConfig)
-    const { extensions, dirs, deep } = this.options
-    const exts = toArray(extensions)
-
-    if (!exts.length)
-      throw new Error('[vite-plugin-components] extensions are required to search for components')
-
-    const extsGlob = exts.length === 1 ? exts[0] : `{${exts.join(',')}}`
-
-    this.globs = toArray(dirs).map(i =>
-      deep
-        ? `${i}/**/*.${extsGlob}`
-        : `${i}/*.${extsGlob}`,
-    )
-
-    const watchDirs = toArray(dirs).map(i => resolve(viteConfig.root, i))
-    const watchGlobs = toArray(watchDirs).map(i =>
-      deep
-        ? join(i, `/**/*.${extsGlob}`)
-        : join(i, `/*.${extsGlob}`),
-    )
+    const { globs, dirs } = this.options
 
     if (viteConfig.command === 'serve') {
       // TODO: use vite's watcher instead
-      chokidar.watch(watchDirs, { ignoreInitial: true })
+      chokidar.watch(dirs, { ignoreInitial: true })
         .on('unlink', (path) => {
-          if (matchGlobs(path, watchGlobs)) {
+          if (matchGlobs(path, globs)) {
             this.removeComponents(path)
             this.onUpdate(path)
           }
         })
         .on('add', (path) => {
-          if (matchGlobs(path, watchGlobs)) {
+          if (matchGlobs(path, globs)) {
             this.addComponents(path)
             this.onUpdate(path)
           }
