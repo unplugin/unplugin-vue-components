@@ -1,4 +1,4 @@
-import { relative, resolve } from 'path'
+import { join, relative, resolve } from 'path'
 import Debug from 'debug'
 import chokidar from 'chokidar'
 import { ResolvedConfig, UpdatePayload, ViteDevServer } from 'vite'
@@ -41,18 +41,23 @@ export class Context {
     )
 
     const watchDirs = toArray(dirs).map(i => resolve(viteConfig.root, i))
+    const watchGlobs = toArray(watchDirs).map(i =>
+      deep
+        ? join(i, `/**/*.${extsGlob}`)
+        : join(i, `/*.${extsGlob}`),
+    )
 
     if (viteConfig.command === 'serve') {
       // TODO: use vite's watcher instead
       chokidar.watch(watchDirs, { ignoreInitial: true })
         .on('unlink', (path) => {
-          if (matchGlobs(path, this.globs)) {
+          if (matchGlobs(path, watchGlobs)) {
             this.removeComponents(path)
             this.onUpdate(path)
           }
         })
         .on('add', (path) => {
-          if (matchGlobs(path, this.globs)) {
+          if (matchGlobs(path, watchGlobs)) {
             this.addComponents(path)
             this.onUpdate(path)
           }
