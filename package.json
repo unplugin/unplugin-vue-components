@@ -11,6 +11,7 @@
     "type": "git",
     "url": "https://github.com/antfu/vite-plugin-components"
   },
+  "funding": "https://github.com/sponsors/antfu",
   "homepage": "https://github.com/antfu/vite-plugin-components",
   "bugs": "https://github.com/antfu/vite-plugin-components/issues",
   "files": [
@@ -22,7 +23,7 @@
     "example:build": "npm -C example run build",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "prepublishOnly": "npm run build",
-    "release": "npx bumpp --commit --tag --push && npm publish"
+    "release": "npx git-ensure -a && npx bumpp --commit --tag --push"
   },
   "dependencies": {
     "chokidar": "^3.5.1",
