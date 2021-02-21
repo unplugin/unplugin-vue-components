@@ -12,6 +12,7 @@ export function searchComponents(ctx: Context) {
     ignore: ['node_modules'],
     onlyFiles: true,
     cwd: root,
+    absolute: true,
   })
 
   if (!files.length && !ctx.options.customComponentResolvers?.length)
