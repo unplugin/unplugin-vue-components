@@ -24,7 +24,7 @@ export class Context {
     options: Options,
     public readonly viteConfig: ResolvedConfig,
   ) {
-    this.options = resolveOptions(options, viteConfig)
+    this.options = resolveOptions(options)
     const { globs, dirs } = this.options
 
     if (viteConfig.command === 'serve') {

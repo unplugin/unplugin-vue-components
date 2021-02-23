@@ -65,6 +65,13 @@ export interface Options {
    * The component names are always in PascalCase
    */
   customComponentResolvers?: ComponentResolver | ComponentResolver[]
+
+  /**
+   * Transformer to apply
+   *
+   * @default 'vue3'
+   */
+  transformer?: 'vue3' | 'vue2'
 }
 
 export type ResolvedOptions = Omit<

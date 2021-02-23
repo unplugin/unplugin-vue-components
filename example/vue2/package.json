@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "cross-env DEBUG=vite-plugin-components:* vite",
+    "build": "cross-env DEBUG=vite-plugin-components:* vite build"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "vite": "^2.0.1",
+    "vite-plugin-components": "workspace:*",
+    "vite-plugin-vue2": "^1.2.1"
+  },
+  "dependencies": {
+    "vue": "2.6.12",
+    "vue-template-compiler": "2.6.12"
+  }
+}

@@ -75,7 +75,7 @@ export function stringifyComponentImport({ name, path, importName }: ComponentIn
     return `import ${name} from '${path}'`
 }
 
-export function resolveOptions(options: Options, viteConfig: ResolvedConfig): ResolvedOptions {
+export function resolveOptions(options: Options): ResolvedOptions {
   const resolved = Object.assign({}, defaultOptions, options) as ResolvedOptions
   resolved.libraries = toArray(resolved.libraries).map(i => typeof i === 'string' ? { name: i } : i)
   resolved.customComponentResolvers = toArray(resolved.customComponentResolvers)

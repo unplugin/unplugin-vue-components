@@ -84,6 +84,25 @@ export default {
 </script>
 ```
 
+## Vue 2 Support
+
+From `v0.7`, we support Vue 2 with [`vite-plugin-vue2`](https://github.com/underfin/vite-plugin-vue2)
+
+```ts
+// vite.config.js
+import { createVuePlugin } from 'vite-plugin-vue2'
+import ViteComponents from 'vite-plugin-components'
+
+export default {
+  plugins: [
+    createVuePlugin(),
+    ViteComponents({
+      transformer: 'vue2', // <--
+    }),
+  ],
+}
+```
+
 ## Configuration
 
 The following show the default values of the configuration

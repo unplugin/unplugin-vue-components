@@ -2,7 +2,8 @@ import type { Plugin } from 'vite'
 import { Options, Transformer } from './types'
 import { Context } from './context'
 import { parseId } from './utils'
-import { VueTransformer } from './transforms/vue'
+import { Vue3Transformer } from './transforms/vue3'
+import { Vue2Transformer } from './transforms/vue2'
 
 function VitePluginComponents(options: Options = {}): Plugin {
   let ctx: Context
@@ -14,7 +15,9 @@ function VitePluginComponents(options: Options = {}): Plugin {
     configResolved(config) {
       ctx = new Context(options, config)
       transformers = [
-        VueTransformer(ctx),
+        ctx.options.transformer === 'vue2'
+          ? Vue2Transformer(ctx)
+          : Vue3Transformer(ctx),
       ]
     },
     configureServer(server) {

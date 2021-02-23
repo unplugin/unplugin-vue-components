@@ -3,9 +3,9 @@ import { Transformer } from '../types'
 import { Context } from '../context'
 import { pascalCase, stringifyComponentImport } from '../utils'
 
-const debug = Debug('vite-plugin-components:transform')
+const debug = Debug('vite-plugin-components:transform:vue3')
 
-export function VueTransformer(ctx: Context): Transformer {
+export function Vue3Transformer(ctx: Context): Transformer {
   return (code, id, path, query) => {
     if (!(path.endsWith('.vue') || ctx.options.customLoaderMatcher(id)))
       return code
