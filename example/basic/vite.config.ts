@@ -3,6 +3,7 @@ import { UserConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import ViteComponents from 'vite-plugin-components'
 import Markdown from 'vite-plugin-md'
+import SVG from 'vite-plugin-vue-svg'
 
 const config: UserConfig = {
   alias: {
@@ -13,10 +14,12 @@ const config: UserConfig = {
       include: [/\.vue$/, /\.md$/],
     }),
     Markdown(),
+    SVG(),
     ViteComponents({
-      extensions: ['vue', 'md'],
+      extensions: ['vue', 'md', 'svg'],
       directoryAsNamespace: true,
       globalNamespaces: ['global'],
+      importPathTransform: path => path.endsWith('.svg') ? `${path}?component` : undefined,
       customLoaderMatcher: path => path.endsWith('.md'),
       customComponentResolvers: [
         (name) => {

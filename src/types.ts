@@ -67,6 +67,11 @@ export interface Options {
   customComponentResolvers?: ComponentResolver | ComponentResolver[]
 
   /**
+   * Apply custom transform over the path for importing
+   */
+  importPathTransform?: (path: string) => string | undefined
+
+  /**
    * Transformer to apply
    *
    * @default 'vue3'

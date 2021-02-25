@@ -17,4 +17,6 @@ export const defaultOptions: Required<Options> = {
 
   customLoaderMatcher: () => false,
   customComponentResolvers: [],
+
+  importPathTransform: v => v,
 }

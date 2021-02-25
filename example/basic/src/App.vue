@@ -28,6 +28,7 @@
   <div class="block">
     <h1>Custom Resolvers (1)</h1>
     <MyCustom />
+    <CarbonSvg />
   </div>
 
   <div class="block">

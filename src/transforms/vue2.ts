@@ -27,7 +27,7 @@ export function Vue2Transformer(ctx: Context): Transformer {
         const component = ctx.findComponent(name, [sfcPath])
         if (component) {
           const var_name = `__vite_components_${no}`
-          head.push(stringifyComponentImport({ ...component, name: var_name }))
+          head.push(stringifyComponentImport({ ...component, name: var_name }, ctx))
           no += 1
           return `_c(${var_name}${append}`
         }

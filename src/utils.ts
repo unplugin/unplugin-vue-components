@@ -4,6 +4,7 @@ import { ResolvedConfig } from 'vite'
 import { ComponentInfo, ResolvedOptions, Options } from './types'
 import { LibraryResolver } from './helpers/libraryResolver'
 import { defaultOptions } from './constants'
+import { Context } from './context'
 
 export interface ResolveComponent {
   filename: string
@@ -68,7 +69,13 @@ export function matchGlobs(filepath: string, globs: string[]) {
   return false
 }
 
-export function stringifyComponentImport({ name, path, importName }: ComponentInfo) {
+export function stringifyComponentImport({ name, path, importName }: ComponentInfo, ctx: Context) {
+  if (ctx.options.importPathTransform) {
+    const result = ctx.options.importPathTransform(path)
+    if (result != null)
+      path = result
+  }
+
   if (importName)
     return `import { ${importName} as ${name} } from '${path}'`
   else
