@@ -1,4 +1,4 @@
-import { relative, resolve } from 'path'
+import { relative } from 'path'
 import Debug from 'debug'
 import chokidar from 'chokidar'
 import { ResolvedConfig, UpdatePayload, ViteDevServer } from 'vite'
@@ -24,7 +24,7 @@ export class Context {
     options: Options,
     public readonly viteConfig: ResolvedConfig,
   ) {
-    this.options = resolveOptions(options)
+    this.options = resolveOptions(options, viteConfig)
     const { globs, dirs } = this.options
 
     if (viteConfig.command === 'serve') {

@@ -19,8 +19,8 @@
   ],
   "scripts": {
     "dev": "npm run build -- --watch",
-    "example:dev": "npm -C example run dev",
-    "example:build": "npm -C example run build",
+    "example:dev": "npm -C example/basic run dev",
+    "example:build": "npm -C example/basic run build",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "prepublishOnly": "npm run build",
     "release": "npx git-ensure -a && npx bumpp --commit --tag --push"

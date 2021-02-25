@@ -82,6 +82,7 @@ Required<Options>,
   libraries: UILibraryOptions[]
   extensions: string[]
   dirs: string[]
+  resolvedDirs: string[]
   globs: string[]
 }
 

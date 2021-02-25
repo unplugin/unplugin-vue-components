@@ -1,4 +1,4 @@
-import { join, parse } from 'path'
+import { join, parse, resolve } from 'path'
 import minimatch from 'minimatch'
 import { ResolvedConfig } from 'vite'
 import { ComponentInfo, ResolvedOptions, Options } from './types'
@@ -75,7 +75,7 @@ export function stringifyComponentImport({ name, path, importName }: ComponentIn
     return `import ${name} from '${path}'`
 }
 
-export function resolveOptions(options: Options): ResolvedOptions {
+export function resolveOptions(options: Options, viteConfig: ResolvedConfig): ResolvedOptions {
   const resolved = Object.assign({}, defaultOptions, options) as ResolvedOptions
   resolved.libraries = toArray(resolved.libraries).map(i => typeof i === 'string' ? { name: i } : i)
   resolved.customComponentResolvers = toArray(resolved.customComponentResolvers)
@@ -87,6 +87,7 @@ export function resolveOptions(options: Options): ResolvedOptions {
     : `{${resolved.extensions.join(',')}}`
 
   resolved.dirs = toArray(resolved.dirs)
+  resolved.resolvedDirs = resolved.dirs.map(i => resolve(viteConfig.root, i))
 
   resolved.globs = resolved.dirs.map(i =>
     resolved.deep
@@ -101,14 +102,14 @@ export function resolveOptions(options: Options): ResolvedOptions {
 }
 
 export function getNameFromFilePath(filePath: string, options: ResolvedOptions): string {
-  const { dirs, directoryAsNamespace, globalNamespaces } = options
+  const { resolvedDirs, directoryAsNamespace, globalNamespaces } = options
 
   const parsedFilePath = parse(filePath)
 
   let strippedPath = ''
 
   // remove include directories from filepath
-  for (const dir of dirs) {
+  for (const dir of resolvedDirs) {
     if (parsedFilePath.dir.startsWith(dir)) {
       strippedPath = parsedFilePath.dir.slice(dir.length)
       break
