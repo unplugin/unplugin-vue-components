@@ -3,6 +3,7 @@ import { UserConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import ViteComponents from 'vite-plugin-components'
 import Markdown from 'vite-plugin-md'
+// @ts-expect-error
 import SVG from 'vite-plugin-vue-svg'
 
 const config: UserConfig = {
