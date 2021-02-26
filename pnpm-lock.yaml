@@ -33,7 +33,23 @@ importers:
       tsup: ^4.2.0
       typescript: ^4.1.5
       vite: ^2.0.2
-  example/basic:
+  example/vue2:
+    dependencies:
+      vue: 2.6.12
+      vue-template-compiler: 2.6.12
+    devDependencies:
+      cross-env: 7.0.3
+      vite: 2.0.2
+      vite-plugin-components: link:../..
+      vite-plugin-vue2: 1.2.1_vite@2.0.2
+    specifiers:
+      cross-env: ^7.0.3
+      vite: ^2.0.2
+      vite-plugin-components: workspace:*
+      vite-plugin-vue2: ^1.2.1
+      vue: 2.6.12
+      vue-template-compiler: 2.6.12
+  example/vue3:
     dependencies:
       vant: 3.0.6_vue@3.0.5
       vue: 3.0.5
@@ -57,22 +73,6 @@ importers:
       vite-plugin-md: ^0.5.1
       vite-plugin-vue-svg: ^0.1.0
       vue: ^3.0.5
-  example/vue2:
-    dependencies:
-      vue: 2.6.12
-      vue-template-compiler: 2.6.12
-    devDependencies:
-      cross-env: 7.0.3
-      vite: 2.0.2
-      vite-plugin-components: link:../..
-      vite-plugin-vue2: 1.2.1_vite@2.0.2
-    specifiers:
-      cross-env: ^7.0.3
-      vite: ^2.0.2
-      vite-plugin-components: workspace:*
-      vite-plugin-vue2: ^1.2.1
-      vue: 2.6.12
-      vue-template-compiler: 2.6.12
 lockfileVersion: 5.2
 packages:
   /@antfu/eslint-config-basic/0.4.3_eslint@7.20.0:
