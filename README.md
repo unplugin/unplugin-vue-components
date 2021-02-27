@@ -86,7 +86,7 @@ export default {
 
 ## Vue 2 Support
 
-From `v0.7`, we support Vue 2 with [`vite-plugin-vue2`](https://github.com/underfin/vite-plugin-vue2)
+It just works.
 
 ```ts
 // vite.config.js
@@ -96,9 +96,7 @@ import ViteComponents from 'vite-plugin-components'
 export default {
   plugins: [
     createVuePlugin(),
-    ViteComponents({
-      transformer: 'vue2', // <--
-    }),
+    ViteComponents(),
   ],
 }
 ```

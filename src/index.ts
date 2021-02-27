@@ -13,6 +13,9 @@ function VitePluginComponents(options: Options = {}): Plugin {
     name: 'vite-plugin-components',
     enforce: 'post',
     configResolved(config) {
+      if (config.plugins.find(i => i.name === 'vite-plugin-vue2'))
+        options.transformer = options.transformer || 'vue2'
+
       ctx = new Context(options, config)
       transformers = [
         ctx.options.transformer === 'vue2'

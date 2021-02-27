@@ -5,9 +5,7 @@ import ViteComponents from 'vite-plugin-components'
 const config: UserConfig = {
   plugins: [
     createVuePlugin(),
-    ViteComponents({
-      transformer: 'vue2',
-    }),
+    ViteComponents(),
   ],
 }
 
