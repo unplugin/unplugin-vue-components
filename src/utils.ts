@@ -94,7 +94,7 @@ export function resolveOptions(options: Options, viteConfig: ResolvedConfig): Re
     : `{${resolved.extensions.join(',')}}`
 
   resolved.dirs = toArray(resolved.dirs)
-  resolved.resolvedDirs = resolved.dirs.map(i => resolve(viteConfig.root, i))
+  resolved.resolvedDirs = resolved.dirs.map(i => slash(resolve(viteConfig.root, i)))
 
   resolved.globs = resolved.dirs.map(i =>
     resolved.deep

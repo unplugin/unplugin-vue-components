@@ -1,27 +1,27 @@
 {
   "name": "vite-plugin-components",
-  "description": "Components auto importing for Vite",
   "version": "0.7.3",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "license": "MIT",
-  "author": "antfu <anthonyfu117@hotmail.com>",
+  "description": "Components auto importing for Vite",
+  "homepage": "https://github.com/antfu/vite-plugin-components",
+  "bugs": "https://github.com/antfu/vite-plugin-components/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/antfu/vite-plugin-components"
   },
   "funding": "https://github.com/sponsors/antfu",
-  "homepage": "https://github.com/antfu/vite-plugin-components",
-  "bugs": "https://github.com/antfu/vite-plugin-components/issues",
+  "license": "MIT",
+  "author": "antfu <anthonyfu117@hotmail.com>",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "dev": "npm run build -- --watch",
-    "example:dev": "npm -C examples/vue3 run dev",
-    "example:build": "npm -C examples/vue3 run build",
     "build": "tsup src/index.ts --dts --format cjs,esm",
+    "dev": "npm run build -- --watch",
+    "example:build": "npm -C examples/vue3 run build",
+    "example:dev": "npm -C examples/vue3 run dev",
     "prepublishOnly": "npm run build",
     "release": "npx git-ensure -a && npx bumpp --commit --tag --push",
     "test": "jest",
@@ -32,9 +32,6 @@
     "debug": "^4.3.2",
     "fast-glob": "npm:@knightly/fast-glob@master",
     "minimatch": "^3.0.4"
-  },
-  "peerDependencies": {
-    "vite": "^2.0.0-beta.69"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.4.3",
@@ -50,5 +47,8 @@
     "tsup": "^4.2.0",
     "typescript": "^4.1.5",
     "vite": "^2.0.2"
+  },
+  "peerDependencies": {
+    "vite": "^2.0.0-beta.69"
   }
 }
