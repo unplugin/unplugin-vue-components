@@ -19,11 +19,13 @@
   ],
   "scripts": {
     "dev": "npm run build -- --watch",
-    "example:dev": "npm -C example/vue3 run dev",
-    "example:build": "npm -C example/vue3 run build",
+    "example:dev": "npm -C examples/vue3 run dev",
+    "example:build": "npm -C examples/vue3 run build",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "prepublishOnly": "npm run build",
-    "release": "npx git-ensure -a && npx bumpp --commit --tag --push"
+    "release": "npx git-ensure -a && npx bumpp --commit --tag --push",
+    "test": "jest",
+    "test:update": "jest --u"
   },
   "dependencies": {
     "chokidar": "^3.5.1",
@@ -41,8 +43,10 @@
     "@types/node": "^14.14.31",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "eslint": "^7.20.0",
+    "jest": "^26.6.3",
     "rollup": "^2.39.1",
     "standard-version": "^9.1.1",
+    "ts-jest": "^26.5.2",
     "tsup": "^4.2.0",
     "typescript": "^4.1.5",
     "vite": "^2.0.2"

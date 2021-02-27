@@ -105,7 +105,7 @@ export class Context {
     Object.entries(this._componentUsageMap)
       .forEach(([key, values]) => {
         if (values.has(name)) {
-          const r = `/${relative(this.viteConfig.root, key)}`
+          const r = `/${slash(relative(this.viteConfig.root, key))}`
           payload.updates.push({
             acceptedPath: r,
             path: r,
@@ -130,6 +130,7 @@ export class Context {
           console.warn(`[vite-plugin-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
           return
         }
+
         this._componentNameMap[name] = {
           name,
           absolute: path,
@@ -201,5 +202,9 @@ export class Context {
     searchComponents(this)
     debug.search(this._componentNameMap)
     this._searched = true
+  }
+
+  get componentNameMap() {
+    return this._componentNameMap
   }
 }

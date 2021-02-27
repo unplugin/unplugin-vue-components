@@ -111,7 +111,7 @@ export function resolveOptions(options: Options, viteConfig: ResolvedConfig): Re
 export function getNameFromFilePath(filePath: string, options: ResolvedOptions): string {
   const { resolvedDirs, directoryAsNamespace, globalNamespaces } = options
 
-  const parsedFilePath = parse(filePath)
+  const parsedFilePath = parse(slash(filePath))
 
   let strippedPath = ''
 
