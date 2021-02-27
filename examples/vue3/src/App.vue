@@ -1,3 +1,18 @@
+<script setup lang='ts'>
+import { ref } from 'vue'
+
+const tree = ref({
+  label: 'Top Level',
+  children: [
+    { label: 'First Level' },
+    { label: 'First Level', children: [{ label: 'Second Level' }] },
+  ],
+})
+
+const rate = ref(2.5)
+const radio = ref('1')
+</script>
+
 <template>
   <div class="block">
     <h1>Basic (4)</h1>
@@ -53,21 +68,6 @@
     <br>
   </div>
 </template>
-
-<script setup lang='ts'>
-import { ref } from 'vue'
-
-const tree = ref({
-  label: 'Top Level',
-  children: [
-    { label: 'First Level' },
-    { label: 'First Level', children: [{ label: 'Second Level' }] },
-  ],
-})
-
-const rate = ref(2.5)
-const radio = ref('1')
-</script>
 
 <style scoped>
 .block {

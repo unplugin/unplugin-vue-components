@@ -3,6 +3,10 @@
 exports[`search should with namespace 1`] = `
 Array [
   Object {
+    "name": "Avatar",
+    "path": "/src/components/global/avatar.vue",
+  },
+  Object {
     "name": "Book",
     "path": "/src/components/book/index.vue",
   },
@@ -21,10 +25,6 @@ Array [
   Object {
     "name": "ComponentD",
     "path": "/src/components/ComponentD.vue",
-  },
-  Object {
-    "name": "GlobalAvatar",
-    "path": "/src/components/global/avatar.vue",
   },
   Object {
     "name": "Recursive",

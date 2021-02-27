@@ -19,6 +19,7 @@ describe('search', () => {
   it('should with namespace', async() => {
     const ctx = new Context({
       directoryAsNamespace: true,
+      globalNamespaces: ['global'],
     }, { root: resolve(__dirname, '../examples/vue3') } as any)
     ctx.searchGlob()
 
