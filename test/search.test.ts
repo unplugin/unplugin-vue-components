@@ -5,7 +5,7 @@ function cleanup(data: any) {
   return Object.values(data).map((e: any) => {
     delete e.absolute
     return e
-  })
+  }).sort((a, b) => (a.name as string).localeCompare(b.name))
 }
 
 describe('search', () => {
