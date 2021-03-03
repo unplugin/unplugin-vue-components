@@ -1,4 +1,14 @@
-export type ComponentResolveResult = string | { path: string; importName?: string }
+export interface ImportInfo {
+  name?: string
+  importName?: string
+  path: string
+}
+
+export interface ComponentInfo extends ImportInfo {
+  sideEffects?: (ImportInfo | string)[]
+}
+
+export type ComponentResolveResult = string | ComponentInfo
 
 export type ComponentResolver = (name: string) => ComponentResolveResult | null | undefined | void
 
@@ -89,14 +99,6 @@ Required<Options>,
   dirs: string[]
   resolvedDirs: string[]
   globs: string[]
-}
-
-export interface ComponentInfo {
-  name: string
-  path: string
-  stylePath?: string | Array<string>
-  absolute?: string
-  importName?: string
 }
 
 export type ComponentsImportMap = Record<string, string[] | undefined>

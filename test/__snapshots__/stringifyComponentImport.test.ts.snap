@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`stringifyComponentImport importName 1`] = `"import { a as Test } from 'test'"`;
+
+exports[`stringifyComponentImport multiple sideEffects 1`] = `
+"import Test from 'test'
+import 'test.css'
+import css from 'test2.css'"
+`;
+
+exports[`stringifyComponentImport plain css sideEffects 1`] = `
+"import Test from 'test'
+import 'test.css'"
+`;

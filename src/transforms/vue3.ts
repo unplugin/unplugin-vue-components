@@ -1,7 +1,7 @@
 import Debug from 'debug'
-import { ComponentInfo, Transformer } from '../types'
+import { Transformer } from '../types'
 import { Context } from '../context'
-import { pascalCase } from '../utils'
+import { pascalCase, stringifyComponentImport } from '../utils'
 
 const debug = Debug('vite-plugin-components:transform:vue3')
 
@@ -27,7 +27,7 @@ export function Vue3Transformer(ctx: Context): Transformer {
         const component = ctx.findComponent(name, [sfcPath])
         if (component) {
           const var_name = `__vite_components_${no}`
-          addImports(ctx, component, head, var_name)
+          head.push(stringifyComponentImport({ ...component, name: var_name }, ctx))
           no += 1
           return var_name
         }
@@ -42,29 +42,5 @@ export function Vue3Transformer(ctx: Context): Transformer {
     transformed = `${head.join('\n')}\n${transformed}`
 
     return transformed
-  }
-}
-
-export function addImports(context: Context, component: ComponentInfo, result: Array<string>, varName: string): void {
-  if (context.options.importPathTransform) {
-    const result = context.options.importPathTransform(component.path)
-    if (result != null)
-      component.path = result
-  }
-
-  if (component.importName)
-    result.push(`import { ${component.importName} as ${varName} } from '${component.path}'`)
-  else
-    result.push(`import ${varName} from '${component.path}'`)
-
-  const stylePath = component.stylePath
-  if (stylePath) {
-    if (Array.isArray(stylePath)) {
-      for (const item of stylePath)
-        result.push(`import '${item}'`)
-    }
-    else {
-      result.push(`import '${stylePath}'`)
-    }
   }
 }
