@@ -101,6 +101,58 @@ export default {
 }
 ```
 
+## Importing from UI Libraries
+
+We have several built-in resolver for popular UI libraries like [Ant Design Vue](https://antdv.com/) and [Element Plus](https://element-plus.org/), where you can enable them by:
+
+```ts
+// vite.config.js
+import ViteComponents, { 
+  AntDesignVueResolver,
+  ElementPlusResolver,
+  VantResolver,
+} from 'vite-plugin-components'
+
+export default {
+  plugins: [
+    /* ... */
+    ViteComponents({
+      customResolvers: [
+        AntDesignVueResolver(),
+        ElementPlusResolver(),
+        VantResolver(),
+      ]
+    }),
+  ],
+}
+```
+
+Or you can write your own resolver quite easily:
+
+```ts
+// vite.config.js
+import ViteComponents from 'vite-plugin-components'
+
+export default {
+  plugins: [
+    /* ... */
+    ViteComponents({
+      customResolvers: [
+        // example of importing Vant
+        (name) => {
+          // where `name` is always CapitalCase
+          if (name.startsWith('Van'))
+            return { importName: name.slice(3), path: 'vant' }
+        }
+      ]
+    }),
+  ],
+}
+```
+
+If made other UI libraries configured, please feel free to contribute so it can help others using them out-of-box. Thanks!
+
+
 ## Configuration
 
 The following show the default values of the configuration
