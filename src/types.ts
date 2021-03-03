@@ -5,7 +5,7 @@ export interface ImportInfo {
 }
 
 export interface ComponentInfo extends ImportInfo {
-  sideEffects?: (ImportInfo | string)[]
+  sideEffects?: (ImportInfo | string)[] | ImportInfo | string
 }
 
 export type ComponentResolveResult = string | ComponentInfo

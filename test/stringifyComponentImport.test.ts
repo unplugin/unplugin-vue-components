@@ -19,9 +19,7 @@ describe('stringifyComponentImport', () => {
       stringifyComponentImport({
         name: 'Test',
         path: 'test',
-        sideEffects: [
-          'test.css',
-        ],
+        sideEffects: 'test.css',
       }, ctx),
     ).toMatchSnapshot()
   })

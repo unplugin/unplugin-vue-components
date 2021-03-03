@@ -91,8 +91,8 @@ export function stringifyComponentImport({ name, path, importName, sideEffects }
     stringifyImport({ name, path, importName }),
   ]
 
-  if (sideEffects?.length)
-    sideEffects.forEach(i => imports.push(stringifyImport(i)))
+  if (sideEffects)
+    toArray(sideEffects).forEach(i => imports.push(stringifyImport(i)))
 
   return imports.join('\n')
 }
