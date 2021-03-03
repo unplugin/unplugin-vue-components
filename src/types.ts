@@ -94,7 +94,7 @@ Required<Options>,
 export interface ComponentInfo {
   name: string
   path: string
-  stylePath?: string
+  stylePath?: string | Array<string>
   absolute?: string
   importName?: string
 }

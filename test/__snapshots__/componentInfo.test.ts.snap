@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component info importName 1`] = `
+Array [
+  "import { customImportName as var1 } from 'test'",
+]
+`;
+
+exports[`component info stylePath 1`] = `
+Array [
+  "import var1 from 'test'",
+  "import 'test.css'",
+]
+`;
+
+exports[`component info stylePath as array 1`] = `
+Array [
+  "import var1 from 'test'",
+  "import 'test1.css'",
+  "import 'test2.css'",
+]
+`;
