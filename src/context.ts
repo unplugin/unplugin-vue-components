@@ -133,7 +133,6 @@ export class Context {
 
         this._componentNameMap[name] = {
           name,
-          absolute: path,
           path: `/${this.relative(path)}`,
         }
       })
@@ -158,8 +157,7 @@ export class Context {
         else {
           return {
             name,
-            path: result.path,
-            importName: result.importName,
+            ...result,
           }
         }
       }

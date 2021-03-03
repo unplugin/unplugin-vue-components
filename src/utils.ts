@@ -1,7 +1,7 @@
 import { join, parse, resolve } from 'path'
 import minimatch from 'minimatch'
 import { ResolvedConfig } from 'vite'
-import { ComponentInfo, ResolvedOptions, Options } from './types'
+import { ComponentInfo, ResolvedOptions, Options, ImportInfo } from './types'
 import { LibraryResolver } from './helpers/libraryResolver'
 import { defaultOptions } from './constants'
 import { Context } from './context'
@@ -69,17 +69,32 @@ export function matchGlobs(filepath: string, globs: string[]) {
   return false
 }
 
-export function stringifyComponentImport({ name, path, importName }: ComponentInfo, ctx: Context) {
+export function stringifyImport(info: ImportInfo | string) {
+  if (typeof info === 'string')
+    return `import '${info}'`
+  if (!info.name)
+    return `import '${info.path}'`
+  else if (info.importName)
+    return `import { ${info.importName} as ${info.name} } from '${info.path}'`
+  else
+    return `import ${info.name} from '${info.path}'`
+}
+
+export function stringifyComponentImport({ name, path, importName, sideEffects }: ComponentInfo, ctx: Context) {
   if (ctx.options.importPathTransform) {
     const result = ctx.options.importPathTransform(path)
     if (result != null)
       path = result
   }
 
-  if (importName)
-    return `import { ${importName} as ${name} } from '${path}'`
-  else
-    return `import ${name} from '${path}'`
+  const imports = [
+    stringifyImport({ name, path, importName }),
+  ]
+
+  if (sideEffects)
+    toArray(sideEffects).forEach(i => imports.push(stringifyImport(i)))
+
+  return imports.join('\n')
 }
 
 export function resolveOptions(options: Options, viteConfig: ResolvedConfig): ResolvedOptions {
