@@ -38,5 +38,6 @@ function VitePluginComponents(options: Options = {}): Plugin {
 
 export * from './helpers/libraryResolver'
 export * from './types'
+export * from './resolvers'
 export { camelCase, pascalCase, kebabCase } from './utils'
 export default VitePluginComponents
