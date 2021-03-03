@@ -27,7 +27,20 @@ export function Vue3Transformer(ctx: Context): Transformer {
         const component = ctx.findComponent(name, [sfcPath])
         if (component) {
           const var_name = `__vite_components_${no}`
-          head.push(stringifyComponentImport({ ...component, name: var_name }, ctx))
+          if (ctx.options.importPathTransform) {
+            const result = ctx.options.importPathTransform(component.path)
+            if (result != null)
+              component.path = result
+          }
+
+          if (component.importName)
+            head.push(`import { ${component.importName} as ${var_name} } from '${component.path}'`)
+          else
+            head.push(`import ${var_name} from '${component.path}'`)
+
+          if (component.stylePath)
+            head.push(`import '${component.stylePath}'`)
+
           no += 1
           return var_name
         }

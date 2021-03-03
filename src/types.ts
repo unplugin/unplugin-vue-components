@@ -94,6 +94,7 @@ Required<Options>,
 export interface ComponentInfo {
   name: string
   path: string
+  stylePath?: string
   absolute?: string
   importName?: string
 }

@@ -158,8 +158,7 @@ export class Context {
         else {
           return {
             name,
-            path: result.path,
-            importName: result.importName,
+            ...result,
           }
         }
       }
