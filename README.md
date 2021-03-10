@@ -107,7 +107,7 @@ We have several built-in resolver for popular UI libraries like [Ant Design Vue]
 
 ```ts
 // vite.config.js
-import ViteComponents, { 
+import ViteComponents, {
   AntDesignVueResolver,
   ElementPlusResolver,
   VantResolver,
@@ -117,7 +117,7 @@ export default {
   plugins: [
     /* ... */
     ViteComponents({
-      customResolvers: [
+      customComponentResolvers: [
         AntDesignVueResolver(),
         ElementPlusResolver(),
         VantResolver(),
@@ -137,7 +137,7 @@ export default {
   plugins: [
     /* ... */
     ViteComponents({
-      customResolvers: [
+      customComponentResolvers: [
         // example of importing Vant
         (name) => {
           // where `name` is always CapitalCase
