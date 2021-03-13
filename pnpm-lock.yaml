@@ -8,6 +8,7 @@ importers:
     devDependencies:
       '@antfu/eslint-config': 0.5.1_eslint@7.22.0+typescript@4.2.3
       '@types/debug': 4.1.5
+      '@types/jest': 26.0.20
       '@types/minimatch': 3.0.3
       '@types/node': 14.14.34
       '@typescript-eslint/eslint-plugin': 4.17.0_eslint@7.22.0+typescript@4.2.3
@@ -22,6 +23,7 @@ importers:
     specifiers:
       '@antfu/eslint-config': ^0.5.1
       '@types/debug': ^4.1.5
+      '@types/jest': ^26.0.20
       '@types/minimatch': ^3.0.3
       '@types/node': ^14.14.34
       '@typescript-eslint/eslint-plugin': ^4.17.0
@@ -867,6 +869,13 @@ packages:
     dev: true
     resolution:
       integrity: sha512-nwKNbvnwJ2/mndE9ItP/zc2TCzw6uuodnF4EHYWD+gCQDVBuRQL5UzbZD0/ezy1iKsFU2ZQiDqg4M9dN4+wZgA==
+  /@types/jest/26.0.20:
+    dependencies:
+      jest-diff: 26.6.2
+      pretty-format: 26.6.2
+    dev: true
+    resolution:
+      integrity: sha512-9zi2Y+5USJRxd0FsahERhBwlcvFh6D2GLQnY2FH2BzK8J9s9omvNHIbvABwIluXa0fD8XVKMLTO0aOEuUfACAA==
   /@types/json-schema/7.0.7:
     dev: true
     resolution:
