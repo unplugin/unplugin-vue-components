@@ -34,7 +34,7 @@
     "minimatch": "^3.0.4"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.5.1",
+    "@antfu/eslint-config": "^0.6.2",
     "@types/debug": "^4.1.5",
     "@types/jest": "^26.0.20",
     "@types/minimatch": "^3.0.3",
@@ -45,9 +45,9 @@
     "rollup": "^2.41.2",
     "standard-version": "^9.1.1",
     "ts-jest": "^26.5.3",
-    "tsup": "^4.6.1",
+    "tsup": "^4.7.1",
     "typescript": "^4.2.3",
-    "vite": "^2.0.5"
+    "vite": "^2.1.0"
   },
   "peerDependencies": {
     "vite": "^2.0.0-beta.69"

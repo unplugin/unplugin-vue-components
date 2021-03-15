@@ -6,7 +6,7 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "vite": "^2.0.5",
+    "vite": "^2.1.0",
     "vite-plugin-components": "workspace:*",
     "vite-plugin-vue2": "^1.4.0"
   },
