@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-components",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "Components auto importing for Vite",
   "homepage": "https://github.com/antfu/vite-plugin-components",
   "bugs": "https://github.com/antfu/vite-plugin-components/issues",
