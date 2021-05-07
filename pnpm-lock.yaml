@@ -15,6 +15,7 @@ importers:
       eslint: ^7.24.0
       fast-glob: ^3.2.5
       jest: ^26.6.3
+      magic-string: ^0.25.7
       minimatch: ^3.0.4
       rollup: ^2.45.2
       standard-version: ^9.2.0
@@ -26,6 +27,7 @@ importers:
       chokidar: 3.5.1
       debug: 4.3.2
       fast-glob: 3.2.5
+      magic-string: 0.25.7
       minimatch: 3.0.4
     devDependencies:
       '@antfu/eslint-config': 0.6.2_eslint@7.24.0+typescript@4.2.4
@@ -49,10 +51,10 @@ importers:
       vite: ^2.1.0
       vite-plugin-components: workspace:*
       vite-plugin-vue2: ^1.4.3
-      vue: 3.0.11
+      vue: 2.6.12
       vue-template-compiler: 2.6.12
     dependencies:
-      vue: 3.0.11
+      vue: 2.6.12
       vue-template-compiler: 2.6.12
     devDependencies:
       cross-env: 7.0.3
@@ -5369,7 +5371,6 @@ packages:
     resolution: {integrity: sha512-4CrMT5DOHTDk4HYDlzmwu4FVCcIYI8gauveasrdCu2IKIFOJ3f0v/8MDGJCDL9oD2ppz/Av1b0Nj345H9M+XIA==}
     dependencies:
       sourcemap-codec: 1.4.8
-    dev: true
 
   /make-dir/3.1.0:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
@@ -6883,7 +6884,6 @@ packages:
 
   /sourcemap-codec/1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
-    dev: true
 
   /spdx-correct/3.1.1:
     resolution: {integrity: sha512-cOYcUWwhCuHCXi49RhFRCyJEK3iPj1Ziz9DpViV3tbZOwXD49QzIN3MpOLJNxh2qwq2lJJZaKMVw9qNi4jTC0w==}
@@ -7732,7 +7732,6 @@ packages:
 
   /vue/2.6.12:
     resolution: {integrity: sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==}
-    dev: true
 
   /vue/3.0.11:
     resolution: {integrity: sha512-3/eUi4InQz8MPzruHYSTQPxtM3LdZ1/S/BvaU021zBnZi0laRUyH6pfuE4wtUeLvI8wmUNwj5wrZFvbHUXL9dw==}

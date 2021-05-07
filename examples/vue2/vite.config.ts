@@ -7,6 +7,9 @@ const config: UserConfig = {
     createVuePlugin(),
     ViteComponents(),
   ],
+  build: {
+    sourcemap: true,
+  },
 }
 
 export default config

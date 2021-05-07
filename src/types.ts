@@ -20,7 +20,7 @@ export interface UILibraryOptions {
 
 export type Matcher = (id: string) => boolean | null | undefined
 
-export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => string
+export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => null | {code: string; map: any}
 
 /**
  * Plugin options.

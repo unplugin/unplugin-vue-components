@@ -11,7 +11,7 @@
     "vite-plugin-vue2": "^1.4.3"
   },
   "dependencies": {
-    "vue": "3.0.11",
+    "vue": "2.6.12",
     "vue-template-compiler": "2.6.12"
   }
 }

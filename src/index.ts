@@ -7,7 +7,7 @@ import { Vue2Transformer } from './transforms/vue2'
 
 function VitePluginComponents(options: Options = {}): Plugin {
   let ctx: Context
-  let transformers: Transformer[]
+  let transformer: Transformer
 
   return {
     name: 'vite-plugin-components',
@@ -17,21 +17,16 @@ function VitePluginComponents(options: Options = {}): Plugin {
         options.transformer = options.transformer || 'vue2'
 
       ctx = new Context(options, config)
-      transformers = [
-        ctx.options.transformer === 'vue2'
-          ? Vue2Transformer(ctx)
-          : Vue3Transformer(ctx),
-      ]
+      transformer = ctx.options.transformer === 'vue2'
+        ? Vue2Transformer(ctx)
+        : Vue3Transformer(ctx)
     },
     configureServer(server) {
       ctx.setServer(server)
     },
     transform(code, id) {
       const { path, query } = parseId(id)
-      for (const trans of transformers)
-        code = trans(code, id, path, query)
-
-      return code
+      return transformer(code, id, path, query)
     },
   }
 }
