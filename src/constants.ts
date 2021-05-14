@@ -6,7 +6,7 @@ export const DISABLE_COMMENT = '/* vite-plugin-components disabled */'
 
 export const defaultOptions: Required<Options> = {
   dirs: 'src/components',
-  extensions: 'vue',
+  extensions: ['vue'],
   transformer: 'vue3',
   deep: true,
 
