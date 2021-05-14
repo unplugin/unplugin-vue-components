@@ -37,7 +37,7 @@ import ViteComponents from 'vite-plugin-components'
 
 export default {
   plugins: [
-    Vue(),
+    Vue(), // or Svelte()
     ViteComponents()
   ],
 };
@@ -82,6 +82,23 @@ export default {
   }
 }
 </script>
+```
+
+## Svelte Support
+
+It works out of the box for svelte >= 3.13.
+
+```ts
+// vite.config.js
+import Svelte from "@sveltejs/vite-plugin-svelte"
+import ViteComponents from 'vite-plugin-components'
+
+export default {
+  plugins: [
+    Svelte(),
+    ViteComponents(),
+  ],
+}
 ```
 
 ## Vue 2 Support
@@ -150,8 +167,7 @@ export default {
 }
 ```
 
-If made other UI libraries configured, please feel free to contribute so it can help others using them out-of-box. Thanks!
-
+If you create a resolver for a new UI library, please feel free to contribute so it can help others using them out-of-box. Thanks!
 
 ## Configuration
 
