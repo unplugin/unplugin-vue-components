@@ -2,8 +2,7 @@ import type { Plugin } from 'vite'
 import { Options, Transformer } from './types'
 import { Context } from './context'
 import { parseId } from './utils'
-import { Vue3Transformer } from './transforms/vue3'
-import { Vue2Transformer } from './transforms/vue2'
+import { getMatchingTranformer } from './transforms/transformers';
 
 function VitePluginComponents(options: Options = {}): Plugin {
   let ctx: Context
@@ -13,13 +12,7 @@ function VitePluginComponents(options: Options = {}): Plugin {
     name: 'vite-plugin-components',
     enforce: 'post',
     configResolved(config) {
-      if (config.plugins.find(i => i.name === 'vite-plugin-vue2'))
-        options.transformer = options.transformer || 'vue2'
-
-      ctx = new Context(options, config)
-      transformer = ctx.options.transformer === 'vue2'
-        ? Vue2Transformer(ctx)
-        : Vue3Transformer(ctx)
+      ({transformer, ctx} = getMatchingTranformer(config, options))
     },
     configureServer(server) {
       ctx.setServer(server)
