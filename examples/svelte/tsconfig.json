@@ -1,15 +1,15 @@
 {
-	"compilerOptions": {
-		"types": ["svelte"],
-		"target": "esnext",
-		"module": "esnext",
-		"strict": true,
-		"alwaysStrict": true,
-		"importsNotUsedAsValues": "error",
-		"isolatedModules": true,
-		"moduleResolution": "node",
-		"esModuleInterop": true,
-		"resolveJsonModule": true,
-	},
-	"include": ["src/", "lib/", "types/"]
+  "compilerOptions": {
+    "types": ["svelte"],
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "alwaysStrict": true,
+    "importsNotUsedAsValues": "error",
+    "isolatedModules": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+  },
+  "include": ["src/", "lib/", "types/"]
 }

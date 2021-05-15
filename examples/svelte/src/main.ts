@@ -1,4 +1,3 @@
-import App from './App.svelte';
+import App from './App.svelte'
 
-
-new App({ target: document.querySelector('#root')! });
+const app = new App({ target: document.querySelector('#root')! })

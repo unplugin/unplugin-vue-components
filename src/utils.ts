@@ -98,6 +98,18 @@ export function stringifyComponentImport({ name, path, importName, sideEffects }
 }
 
 export function resolveOptions(options: Options, viteConfig: ResolvedConfig): ResolvedOptions {
+  if (options.transformer === 'svelte313') {
+    if (options.extensions) {
+      if (typeof options.extensions === 'string') {
+        // convert to array
+        options.extensions = [options.extensions]
+      }
+      options.extensions.push('svelte')
+    }
+    else {
+      options.extensions = 'svelte'
+    }
+  }
   const resolved = Object.assign({}, defaultOptions, options) as ResolvedOptions
   resolved.libraries = toArray(resolved.libraries).map(i => typeof i === 'string' ? { name: i } : i)
   resolved.customComponentResolvers = toArray(resolved.customComponentResolvers)

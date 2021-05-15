@@ -1,8 +1,8 @@
-import type { Plugin } from 'vite'
 import { Options, Transformer } from './types'
 import { Context } from './context'
 import { parseId } from './utils'
-import { getTranformer } from './transforms/transformers';
+import { getTransformer } from './transforms/transformers'
+import type { Plugin } from 'vite'
 
 function VitePluginComponents(options: Options = {}): Plugin {
   let ctx: Context
@@ -12,26 +12,13 @@ function VitePluginComponents(options: Options = {}): Plugin {
     name: 'vite-plugin-components',
     enforce: 'post',
     configResolved(config) {
-      if (config.plugins.find(i => i.name === 'vite-plugin-vue2')) {
+      if (config.plugins.find(i => i.name === 'vite-plugin-vue2'))
         options.transformer = options.transformer || 'vue2'
-      }
-      else if (config.plugins.find(i => i.name === 'vite-plugin-svelte')) {
-        options.transformer = options.transformer || 'svelte3'
-
-        if (options.extensions) {
-          if (typeof options.extensions === 'string') {
-            // convert to array
-            options.extensions = [options.extensions]
-          }
-          options.extensions.push('svelte')
-        }
-        else {
-          options.extensions = 'svelte'
-        }
-      }
+      else if (config.plugins.find(i => i.name === 'vite-plugin-svelte'))
+        options.transformer = options.transformer || 'svelte313'
 
       ctx = new Context(options, config)
-      transformer = getTranformer(ctx)
+      transformer = getTransformer(ctx)
     },
     configureServer(server) {
       ctx.setServer(server)

@@ -6,7 +6,7 @@ import { pascalCase, stringifyComponentImport } from '../utils'
 
 const debug = Debug('vite-plugin-components:transform:svelte')
 
-export function Svelte3Transformer(ctx: Context): Transformer {
+export function Svelte313Transformer(ctx: Context): Transformer {
   return (code, id, path, query) => {
     if (!(path.endsWith('.svelte') || ctx.options.customLoaderMatcher(id)))
       return null
@@ -28,9 +28,8 @@ export function Svelte3Transformer(ctx: Context): Transformer {
       if (match.index != null && matchedName && !matchedName.startsWith('_')) {
         const instantiationMatch: RegExpMatchArray | null = findInstantiation(matchedName, code)
 
-        if (!instantiationMatch?.index) {
+        if (!instantiationMatch?.index)
           continue
-        }
 
         const start = instantiationMatch.index
         const end = start + instantiationMatch[0].length
@@ -65,13 +64,12 @@ export function Svelte3Transformer(ctx: Context): Transformer {
   function findInstantiation(name: string, code: string): RegExpMatchArray | null {
     // https://github.com/sveltejs/svelte/blob/02b49a1bb413be4250f7e4a0e381ccda7efa1a0f/src/compiler/compile/render_dom/wrappers/InlineComponent/index.ts#L465
     const regex = new RegExp(`${name} = new (\\w+)`)
-    const match = code.match(regex); // Global flag?
+    const match = code.match(regex) // Global flag?
 
     // Not found
-    if (!match?.length) {
+    if (!match?.length)
       debug(`${name} name assignment call not found.`)
-    }
 
-    return match;
+    return match
   }
 }
