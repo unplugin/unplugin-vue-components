@@ -1,7 +1,7 @@
 import { Options, Transformer } from './types'
 import { Context } from './context'
 import { parseId } from './utils'
-import { getTransformer } from './transforms/transformers'
+import { getTransformer } from './transformers'
 import type { Plugin } from 'vite'
 
 function VitePluginComponents(options: Options = {}): Plugin {
