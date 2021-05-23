@@ -1,5 +1,6 @@
 import Debug from 'debug'
 import MagicString from 'magic-string'
+import type { TransformResult } from 'rollup'
 import { Transformer } from '../types'
 import { Context } from '../context'
 import { pascalCase, stringifyComponentImport } from '../utils'
@@ -46,9 +47,9 @@ export function Vue3Transformer(ctx: Context): Transformer {
 
     s.prepend(`${head.join('\n')}\n`)
 
-    return {
-      code: s.toString(),
-      map: s.generateMap(),
-    }
+    const result: TransformResult = { code: s.toString() }
+    if (ctx.viteConfig.build.sourcemap)
+      result.map = s.generateMap({ hires: true })
+    return result
   }
 }
