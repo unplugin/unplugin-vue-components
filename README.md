@@ -49,7 +49,7 @@ Use components in templates as you would usually do but NO `import` and `compone
 
 Basically, it will automatically turn this
 
-```vue
+```html
 <template>
   <div>
     <HelloWorld msg="Hello Vue 3.0 + Vite" />
@@ -65,7 +65,7 @@ export default {
 
 into this
 
-```vue
+```html
 <template>
   <div>
     <HelloWorld msg="Hello Vue 3.0 + Vite" />
@@ -82,6 +82,24 @@ export default {
   }
 }
 </script>
+```
+
+## TypeScript
+
+To have TypeScript support for auto-imported components, there is [a PR](https://github.com/vuejs/vue-next/pull/3399) to Vue 3 extending the interface of global components. Currently, [Volar](https://github.com/johnsoncodehk/volar) has supported this usage already, if you are using Volar, you can change the config as following to get the support.
+
+```ts
+// vite.config.js
+import ViteComponents from 'vite-plugin-components'
+
+export default {
+  plugins: [
+    /* ... */
+    ViteComponents({
+      globalComponentsDeclaration: true,
+    }),
+  ],
+}
 ```
 
 ## Vue 2 Support

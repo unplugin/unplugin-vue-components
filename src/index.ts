@@ -1,9 +1,12 @@
+import { resolve } from 'path'
+import fs from 'fs/promises'
 import type { Plugin } from 'vite'
 import { Options, Transformer } from './types'
 import { Context } from './context'
 import { parseId } from './utils'
 import { Vue3Transformer } from './transforms/vue3'
 import { Vue2Transformer } from './transforms/vue2'
+import { generateDeclaration } from './declaration'
 
 function VitePluginComponents(options: Options = {}): Plugin {
   let ctx: Context
@@ -20,6 +23,12 @@ function VitePluginComponents(options: Options = {}): Plugin {
       transformer = ctx.options.transformer === 'vue2'
         ? Vue2Transformer(ctx)
         : Vue3Transformer(ctx)
+
+      if (options.globalComponentsDeclaration) {
+        ctx.searchGlob()
+        const path = resolve(config.root, typeof options.globalComponentsDeclaration === 'string' ? options.globalComponentsDeclaration : 'components.d.ts')
+        generateDeclaration(ctx, config.root, path)
+      }
     },
     configureServer(server) {
       ctx.setServer(server)

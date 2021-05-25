@@ -7,8 +7,10 @@ import Markdown from 'vite-plugin-md'
 import SVG from 'vite-plugin-vue-svg'
 
 const config: UserConfig = {
-  alias: {
-    '/~/': `${path.resolve(__dirname, 'src')}/`,
+  resolve: {
+    alias: {
+      '/~/': `${path.resolve(__dirname, 'src')}/`,
+    },
   },
   plugins: [
     Vue({
@@ -19,6 +21,7 @@ const config: UserConfig = {
     ViteComponents({
       extensions: ['vue', 'md', 'svg'],
       directoryAsNamespace: true,
+      globalComponentsDeclaration: true,
       globalNamespaces: ['global'],
       importPathTransform: path => path.endsWith('.svg') ? `${path}?component` : undefined,
       customLoaderMatcher: path => path.endsWith('.md'),

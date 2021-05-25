@@ -89,6 +89,17 @@ export interface Options {
    * @default 'vue3'
    */
   transformer?: 'vue3' | 'vue2'
+
+  /**
+   * Generate TypeScript declaration for global components
+   *
+   * Accept boolean or a path related to project root
+   *
+   * @see https://github.com/vuejs/vue-next/pull/3399
+   * @see https://github.com/johnsoncodehk/volar#using
+   * @default false
+   */
+  globalComponentsDeclaration?: boolean | string
 }
 
 export type ResolvedOptions = Omit<
