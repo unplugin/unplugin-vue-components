@@ -9,6 +9,7 @@ export const defaultOptions: Required<Options> = {
   extensions: 'vue',
   transformer: 'vue3',
   deep: true,
+  globalComponentsDeclaration: false,
 
   directoryAsNamespace: false,
   globalNamespaces: [],
