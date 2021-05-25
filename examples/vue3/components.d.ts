@@ -3,18 +3,18 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    CarbonSvg: typeof import('./src/components/CarbonSvg.svg')
-    ComponentA: typeof import('./src/components/ComponentA.vue')
-    ComponentB: typeof import('./src/components/ComponentB.vue')
-    ComponentD: typeof import('./src/components/ComponentD.vue')
-    MarkdownA: typeof import('./src/components/MarkdownA.md')
-    MarkdownB: typeof import('./src/components/MarkdownB.md')
-    Recursive: typeof import('./src/components/Recursive.vue')
-    ComponentC: typeof import('./src/components/component-c.vue')
-    Book: typeof import('./src/components/book/index.vue')
-    Avatar: typeof import('./src/components/global/avatar.vue')
-    UiButton: typeof import('./src/components/ui/button.vue')
-    UiNestedCheckbox: typeof import('./src/components/ui/nested/checkbox.vue')
+    CarbonSvg: typeof import('./src/components/CarbonSvg.svg')['default']
+    ComponentA: typeof import('./src/components/ComponentA.vue')['default']
+    ComponentB: typeof import('./src/components/ComponentB.vue')['default']
+    ComponentD: typeof import('./src/components/ComponentD.vue')['default']
+    MarkdownA: typeof import('./src/components/MarkdownA.md')['default']
+    MarkdownB: typeof import('./src/components/MarkdownB.md')['default']
+    Recursive: typeof import('./src/components/Recursive.vue')['default']
+    ComponentC: typeof import('./src/components/component-c.vue')['default']
+    Book: typeof import('./src/components/book/index.vue')['default']
+    Avatar: typeof import('./src/components/global/avatar.vue')['default']
+    UiButton: typeof import('./src/components/ui/button.vue')['default']
+    UiNestedCheckbox: typeof import('./src/components/ui/nested/checkbox.vue')['default']
   }
 }
 

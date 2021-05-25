@@ -11,6 +11,8 @@ export async function generateDeclaration(ctx: Context, root: string, filepath: 
       let entry = `${name}: typeof import('${related}')`
       if (importName)
         entry += `['${importName}']`
+      else
+        entry += '[\'default\']'
       return entry
     })
 
