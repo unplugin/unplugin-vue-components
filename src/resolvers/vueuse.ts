@@ -2,6 +2,11 @@ import { ComponentResolver } from '../types'
 
 let components: string[] | undefined
 
+/**
+ * Resolver for VueUse
+ *
+ * @link https://github.com/vueuse/vueuse
+ */
 export const VueUseComponentsResolver = (): ComponentResolver => (name: string) => {
   if (!components) {
     try {
