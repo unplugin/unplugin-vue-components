@@ -1,11 +1,22 @@
 import { ComponentResolver } from '../types'
 
-/**
- * Resolve for VueUse Components
- * 
- * @link https://github.com/vueuse/vueuse
- */
+let components: string[] | undefined
+
 export const VueUseComponentsResolver = (): ComponentResolver => (name: string) => {
-  if (name.toLowerCase().startsWith('use') || name.toLowerCase().startsWith('on'))
+  if (!components) {
+    try {
+      /* eslint-disable @typescript-eslint/no-var-requires */
+      const indexesJson = require('@vueuse/core/indexes.json')
+      components = indexesJson
+        .functions
+        .filter((i: any) => i.component && i.name)
+        .map(({ name }: any) => name[0].toUpperCase() + name.slice(1))
+    }
+    catch (error) {
+      components = []
+    }
+  }
+
+  if (components && components.includes(name))
     return { importName: name, path: '@vueuse/components' }
 }
