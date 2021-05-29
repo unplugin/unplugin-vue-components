@@ -1,14 +1,15 @@
 import { resolve, dirname, relative } from 'path'
 import fs from 'fs/promises'
 import { Context } from './context'
+import { slash } from './utils'
 
 export async function generateDeclaration(ctx: Context, root: string, filepath: string) {
   const lines = Object.values(ctx.componentNameMap)
     .map(({ path, name, importName }) => {
-      const related = path.startsWith('/')
+      const related = slash(path).startsWith('/')
         ? `./${relative(dirname(filepath), resolve(root, path.slice(1)))}`
         : path
-      let entry = `${name}: typeof import('${related}')`
+      let entry = `${name}: typeof import('${slash(related)}')`
       if (importName)
         entry += `['${importName}']`
       else
