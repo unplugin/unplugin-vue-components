@@ -1,5 +1,5 @@
 import { resolve, dirname, relative } from 'path'
-import fs from 'fs/promises'
+import { promises as fs } from 'fs'
 import { Context } from './context'
 import { slash } from './utils'
 

@@ -120,6 +120,16 @@ export function resolveOptions(options: Options, viteConfig: ResolvedConfig): Re
   if (!resolved.extensions.length)
     throw new Error('[vite-plugin-components] extensions are required to search for components')
 
+  resolved.globalComponentsDeclaration = !options.globalComponentsDeclaration
+    ? false
+    : resolve(
+      viteConfig.root,
+      typeof options.globalComponentsDeclaration === 'string'
+        ? options.globalComponentsDeclaration
+        : 'components.d.ts',
+    )
+  resolved.root = viteConfig.root
+
   return resolved
 }
 
