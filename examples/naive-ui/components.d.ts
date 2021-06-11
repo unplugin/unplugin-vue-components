@@ -3,7 +3,10 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    
+    NInput: typeof import('naive-ui')['NInput']
+    NDatePicker: typeof import('naive-ui')['NDatePicker']
+    NSpace: typeof import('naive-ui')['NSpace']
+    NConfigProvider: typeof import('naive-ui')['NConfigProvider']
   }
 }
 

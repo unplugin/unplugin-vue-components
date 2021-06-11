@@ -29,9 +29,11 @@ function VitePluginComponents(options: Options = {}): Plugin {
     configureServer(server) {
       ctx.setServer(server)
     },
-    transform(code, id) {
+    async transform(code, id) {
       const { path, query } = parseId(id)
-      return transformer(code, id, path, query)
+      const result = await transformer(code, id, path, query)
+      ctx.generateDeclaration()
+      return result
     },
   }
 }

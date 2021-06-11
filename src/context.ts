@@ -2,6 +2,7 @@ import { relative } from 'path'
 import Debug from 'debug'
 import chokidar from 'chokidar'
 import { ResolvedConfig, UpdatePayload, ViteDevServer } from 'vite'
+import { throttle } from '@antfu/utils'
 import { Options, ComponentInfo, ResolvedOptions } from './types'
 import { pascalCase, toArray, getNameFromFilePath, resolveAlias, resolveOptions, matchGlobs, slash } from './utils'
 import { searchComponents } from './fs/glob'
@@ -11,6 +12,7 @@ const debug = {
   components: Debug('vite-plugin-components:context:components'),
   search: Debug('vite-plugin-components:context:search'),
   hmr: Debug('vite-plugin-components:context:hmr'),
+  decleration: Debug('vite-plugin-components:decleration'),
 }
 
 export class Context {
@@ -19,6 +21,7 @@ export class Context {
   private _componentPaths = new Set<string>()
   private _componentNameMap: Record<string, ComponentInfo> = {}
   private _componentUsageMap: Record<string, Set<string>> = {}
+  private _componentCustomMap: Record<string, ComponentInfo> = {}
   private _server: ViteDevServer | undefined
 
   constructor(
@@ -44,6 +47,8 @@ export class Context {
           }
         })
     }
+
+    this.generateDeclaration = throttle(500, false, this.generateDeclaration.bind(this))
   }
 
   get root() {
@@ -78,6 +83,11 @@ export class Context {
       return true
     }
     return false
+  }
+
+  addCustomComponents(info: ComponentInfo) {
+    if (info.name)
+      this._componentCustomMap[info.name] = info
   }
 
   removeComponents(paths: string | string[]) {
@@ -144,7 +154,7 @@ export class Context {
 
   findComponent(name: string, excludePaths: string[] = []): ComponentInfo | undefined {
     // resolve from fs
-    const info = this._componentNameMap[name]
+    let info = this._componentNameMap[name]
     if (info && !excludePaths.includes(info.path) && !excludePaths.includes(info.path.slice(1)))
       return info
 
@@ -153,16 +163,20 @@ export class Context {
       const result = resolver(name)
       if (result) {
         if (typeof result === 'string') {
-          return {
+          info = {
             name,
             path: result,
           }
+          this.addCustomComponents(info)
+          return info
         }
         else {
-          return {
+          info = {
             name,
             ...result,
           }
+          this.addCustomComponents(info)
+          return info
         }
       }
     }
@@ -207,11 +221,18 @@ export class Context {
   }
 
   generateDeclaration() {
-    if (this.options.globalComponentsDeclaration)
-      generateDeclaration(this, this.options.root, this.options.globalComponentsDeclaration)
+    if (!this.options.globalComponentsDeclaration)
+      return
+
+    debug.decleration('generating')
+    generateDeclaration(this, this.options.root, this.options.globalComponentsDeclaration)
   }
 
   get componentNameMap() {
     return this._componentNameMap
+  }
+
+  get componentCustomMap() {
+    return this._componentCustomMap
   }
 }

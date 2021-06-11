@@ -1,18 +1,17 @@
 import { join, parse, resolve } from 'path'
 import minimatch from 'minimatch'
 import { ResolvedConfig } from 'vite'
+import { slash, toArray } from '@antfu/utils'
 import { ComponentInfo, ResolvedOptions, Options, ImportInfo } from './types'
 import { LibraryResolver } from './helpers/libraryResolver'
 import { defaultOptions } from './constants'
 import { Context } from './context'
 
+export { slash, toArray }
+
 export interface ResolveComponent {
   filename: string
   namespace?: string
-}
-
-export function slash(str: string) {
-  return str.replace(/\\/g, '/')
 }
 
 export function pascalCase(str: string) {
@@ -30,12 +29,6 @@ export function kebabCase(key: string) {
 
 export function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1)
-}
-
-export function toArray<T>(arr: T | T[]): T[] {
-  if (Array.isArray(arr))
-    return arr
-  return [arr]
 }
 
 export function parseId(id: string) {

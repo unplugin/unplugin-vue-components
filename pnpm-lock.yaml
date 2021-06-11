@@ -5,7 +5,7 @@ importers:
   .:
     specifiers:
       '@antfu/eslint-config': ^0.6.6
-      '@antfu/utils': ^0.2.0
+      '@antfu/utils': ^0.2.1
       '@types/debug': ^4.1.5
       '@types/jest': ^26.0.23
       '@types/minimatch': ^3.0.4
@@ -32,7 +32,7 @@ importers:
       minimatch: 3.0.4
     devDependencies:
       '@antfu/eslint-config': 0.6.6_eslint@7.28.0+typescript@4.3.2
-      '@antfu/utils': 0.2.0
+      '@antfu/utils': 0.2.1
       '@types/debug': 4.1.5
       '@types/jest': 26.0.23
       '@types/minimatch': 3.0.4
@@ -49,7 +49,6 @@ importers:
 
   examples/naive-ui:
     specifiers:
-      '@antfu/utils': ^0.1.7
       '@vitejs/plugin-vue': ^1.2.1
       '@vue/compiler-sfc': ^3.0.11
       cross-env: ^7.0.3
@@ -66,7 +65,6 @@ importers:
       vant: 3.0.18_vue@3.1.1
       vue: 3.1.1
     devDependencies:
-      '@antfu/utils': 0.1.7
       '@vitejs/plugin-vue': 1.2.3_@vue+compiler-sfc@3.1.1
       '@vue/compiler-sfc': 3.1.1_vue@3.1.1
       cross-env: 7.0.3
@@ -195,12 +193,8 @@ packages:
       - typescript
     dev: true
 
-  /@antfu/utils/0.1.7:
-    resolution: {integrity: sha512-XbmXbhrjfxQq+ishOKeUIK1VYxQV0B+ZkAQkz00bxhmQd5izdT0YRSDwkyH/KX46gFVBMd+6anvSDlciUt3L4A==}
-    dev: true
-
-  /@antfu/utils/0.2.0:
-    resolution: {integrity: sha512-yyk/uvEVsBgakGaPw+bu6Ms8S6rpPhON3ulW1fysuNYrDfsnZLDl3vwU41kaFqjRAJA54PRhtiy8+fz35+YtnA==}
+  /@antfu/utils/0.2.1:
+    resolution: {integrity: sha512-hLgVsL94NAsGPogravj5jrc4/OwanSeKmcdE76UcAG6CeggdiAocqWmcD3DtHUash/pGid2lQ5y3ylCA8qIyZg==}
     dev: true
 
   /@babel/code-frame/7.12.11:
@@ -5829,7 +5823,7 @@ packages:
     dependencies:
       icss-utils: 5.1.0_postcss@8.3.2
       postcss: 8.3.2
-      postcss-selector-parser: 6.0.6
+      postcss-selector-parser: 6.0.4
       postcss-value-parser: 4.1.0
     dev: true
 
@@ -5850,7 +5844,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       postcss: 8.3.2
-      postcss-selector-parser: 6.0.6
+      postcss-selector-parser: 6.0.4
     dev: true
 
   /postcss-modules-values/4.0.0_postcss@8.2.8:
