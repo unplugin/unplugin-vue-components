@@ -20,4 +20,6 @@ export const defaultOptions: Required<Options> = {
   customComponentResolvers: [],
 
   importPathTransform: v => v,
+
+  allowOverrides: false,
 }
