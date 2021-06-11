@@ -5,6 +5,7 @@ import { ResolvedConfig, UpdatePayload, ViteDevServer } from 'vite'
 import { Options, ComponentInfo, ResolvedOptions } from './types'
 import { pascalCase, toArray, getNameFromFilePath, resolveAlias, resolveOptions, matchGlobs, slash } from './utils'
 import { searchComponents } from './fs/glob'
+import { generateDeclaration } from './declaration'
 
 const debug = {
   components: Debug('vite-plugin-components:context:components'),
@@ -117,6 +118,8 @@ export class Context {
 
     if (payload.updates.length)
       this._server.ws.send(payload)
+
+    this.generateDeclaration()
   }
 
   private updateComponentNameMap() {
@@ -202,6 +205,10 @@ export class Context {
     this._searched = true
   }
 
+  generateDeclaration() {
+    generateDeclaration(this, this.options.root, this.options.globalComponentsDeclaration)
+  }
+  
   get componentNameMap() {
     return this._componentNameMap
   }

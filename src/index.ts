@@ -6,7 +6,6 @@ import { Context } from './context'
 import { parseId } from './utils'
 import { Vue3Transformer } from './transforms/vue3'
 import { Vue2Transformer } from './transforms/vue2'
-import { generateDeclaration } from './declaration'
 
 function VitePluginComponents(options: Options = {}): Plugin {
   let ctx: Context
@@ -26,8 +25,7 @@ function VitePluginComponents(options: Options = {}): Plugin {
 
       if (options.globalComponentsDeclaration) {
         ctx.searchGlob()
-        const path = resolve(config.root, typeof options.globalComponentsDeclaration === 'string' ? options.globalComponentsDeclaration : 'components.d.ts')
-        generateDeclaration(ctx, config.root, path)
+        ctx.generateDeclaration()
       }
     },
     configureServer(server) {

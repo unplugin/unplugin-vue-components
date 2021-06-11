@@ -112,6 +112,8 @@ Required<Options>,
   dirs: string[]
   resolvedDirs: string[]
   globs: string[]
+  globalComponentsDeclaration: string
+  root: string
 }
 
 export type ComponentsImportMap = Record<string, string[] | undefined>
