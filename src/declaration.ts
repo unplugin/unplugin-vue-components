@@ -1,5 +1,6 @@
 import { resolve, dirname, relative } from 'path'
 import { promises as fs } from 'fs'
+import { notNullish } from '@antfu/utils'
 import { Context } from './context'
 import { slash } from './utils'
 
@@ -9,9 +10,16 @@ export async function generateDeclaration(ctx: Context, root: string, filepath: 
     ...ctx.componentCustomMap,
   })
     .map(({ path, name, importName }) => {
+      if (!name)
+        return undefined
+
       const related = slash(path).startsWith('/')
         ? `./${relative(dirname(filepath), resolve(root, path.slice(1)))}`
         : path
+
+      if (!/^\w+$/.test(name))
+        name = `'${name}'`
+
       let entry = `${name}: typeof import('${slash(related)}')`
       if (importName)
         entry += `['${importName}']`
@@ -19,6 +27,7 @@ export async function generateDeclaration(ctx: Context, root: string, filepath: 
         entry += '[\'default\']'
       return entry
     })
+    .filter(notNullish)
 
   if (!lines.length)
     return

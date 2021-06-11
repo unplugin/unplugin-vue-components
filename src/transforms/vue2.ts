@@ -24,15 +24,15 @@ export function Vue2Transformer(ctx: Context): Transformer {
     const s = new MagicString(code)
 
     for (const match of code.matchAll(/_c\(['"](.+?)["']([,)])/g)) {
-      const [full, matchStr, append] = match
+      const [full, matchedName, append] = match
 
-      if (match.index != null && matchStr && !matchStr.startsWith('_')) {
+      if (match.index != null && matchedName && !matchedName.startsWith('_')) {
         const start = match.index
         const end = start + full.length
-        debug(`| ${matchStr}`)
-        const name = pascalCase(matchStr)
+        debug(`| ${matchedName}`)
+        const name = pascalCase(matchedName)
         componentPaths.push(name)
-        const component = ctx.findComponent(name, [sfcPath])
+        const component = ctx.findComponent(name, [sfcPath], matchedName)
         if (component) {
           const var_name = `__vite_components_${no}`
           head.push(stringifyComponentImport({ ...component, name: var_name }, ctx))

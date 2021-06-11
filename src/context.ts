@@ -152,7 +152,7 @@ export class Context {
       })
   }
 
-  findComponent(name: string, excludePaths: string[] = []): ComponentInfo | undefined {
+  findComponent(name: string, excludePaths: string[] = [], rawName?: string): ComponentInfo | undefined {
     // resolve from fs
     let info = this._componentNameMap[name]
     if (info && !excludePaths.includes(info.path) && !excludePaths.includes(info.path.slice(1)))

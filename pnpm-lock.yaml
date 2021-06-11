@@ -93,6 +93,7 @@ importers:
 
   examples/vue3:
     specifiers:
+      '@iconify/json': ^1.1.355
       '@vitejs/plugin-vue': ^1.2.1
       '@vue/compiler-sfc': ^3.0.11
       cross-env: ^7.0.3
@@ -100,6 +101,7 @@ importers:
       vant: ^3.0.13
       vite: ^2.1.5
       vite-plugin-components: workspace:*
+      vite-plugin-icons: ^0.6.2
       vite-plugin-md: ^0.6.3
       vite-plugin-vue-svg: ^0.1.0
       vue: ^3.0.11
@@ -107,12 +109,14 @@ importers:
       vant: 3.0.13_vue@3.0.11
       vue: 3.0.11
     devDependencies:
+      '@iconify/json': 1.1.355
       '@vitejs/plugin-vue': 1.2.1_@vue+compiler-sfc@3.0.11
       '@vue/compiler-sfc': 3.0.11_vue@3.0.11
       cross-env: 7.0.3
       typescript: 4.2.4
       vite: 2.1.5
       vite-plugin-components: link:../..
+      vite-plugin-icons: 0.6.2_8351cb9a4fc684fb77afd4bb9852d8af
       vite-plugin-md: 0.6.3_vite@2.1.5
       vite-plugin-vue-svg: 0.1.0_1380d5729f15daf8821c9a25b36e8589
 
@@ -631,6 +635,14 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /@iconify/json-tools/1.0.10:
+    resolution: {integrity: sha512-LFelJDOLZ6JHlmlAkgrvmcu4hpNPB91KYcr4f60D/exzU1eNOb4/KCVHIydGHIQFaOacIOD+Xy+B7P1z812cZg==}
+    dev: true
+
+  /@iconify/json/1.1.355:
+    resolution: {integrity: sha512-xHhdtI/YH8fFF/IG6YYs28Hi1SRr4ZzqRoi09wds7iX4cBvdP6RqnUxaxgiksSFSEAqF+8sZrhLDo3hkAT5v2w==}
     dev: true
 
   /@istanbuljs/load-nyc-config/1.1.0:
@@ -7141,6 +7153,24 @@ packages:
   /vfonts/0.1.0:
     resolution: {integrity: sha512-vQBcvntBlnAPonAkGNM8iJ9NxE3PucA+V2W95xiN75YJKxirLJvOws2kEyOEO45T4N+YTbQOCR2m77Y05pfVhQ==}
     dev: false
+
+  /vite-plugin-icons/0.6.2_8351cb9a4fc684fb77afd4bb9852d8af:
+    resolution: {integrity: sha512-FBaU06VtdXUWVwyxPhyjEfvWDWZh81V1a4KU3jb3gr5ocxN/piefcunrHfqUWvphwF51mi2gWpX9VoIOSj6gIw==}
+    peerDependencies:
+      '@iconify/json': '*'
+      '@vue/compiler-sfc': ^3.0.2
+      vue-template-compiler: ^2.6.12
+    peerDependenciesMeta:
+      '@vue/compiler-sfc':
+        optional: true
+      vue-template-compiler:
+        optional: true
+    dependencies:
+      '@iconify/json': 1.1.355
+      '@iconify/json-tools': 1.0.10
+      '@vue/compiler-sfc': 3.0.11_vue@3.0.11
+      vue-template-es2015-compiler: 1.9.1
+    dev: true
 
   /vite-plugin-md/0.6.3_vite@2.1.5:
     resolution: {integrity: sha512-z0cayEJwJP2aRAx+kWzs05VruGt6ylyIZDOXJLApPu4b7m9/bouqbIljAi1RdBuSYhPT881xLcEZJGlBJhOOvg==}

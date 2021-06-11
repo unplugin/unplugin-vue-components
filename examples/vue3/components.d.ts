@@ -15,6 +15,15 @@ declare module 'vue' {
     Avatar: typeof import('./src/components/global/avatar.vue')['default']
     UiButton: typeof import('./src/components/ui/button.vue')['default']
     UiNestedCheckbox: typeof import('./src/components/ui/nested/checkbox.vue')['default']
+    MyCustom: typeof import('./src/CustomResolved.vue')['default']
+    VanRate: typeof import('vant/es')['Rate']
+    VanRadio: typeof import('vant/es')['Radio']
+    VanRadioGroup: typeof import('vant/es')['RadioGroup']
+    IFaSolidDiceFive: typeof import('virtual:vite-icons/fa-solid/dice-five')['default']
+    IHeroiconsOutlineMenuAlt2: typeof import('virtual:vite-icons/heroicons-outline/menu-alt2')['default']
+    IRiApps2Line: typeof import('virtual:vite-icons/ri/apps2-line')['default']
+    'IMdi:diceD12': typeof import('virtual:vite-icons/mdi/dice-d12')['default']
+    IMdiLightAlarm: typeof import('virtual:vite-icons/mdi-light/alarm')['default']
   }
 }
 

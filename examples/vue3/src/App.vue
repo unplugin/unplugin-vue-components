@@ -67,6 +67,15 @@ const radio = ref('1')
     </van-radio-group>
     <br>
   </div>
+
+  <div class="block">
+    <h1>Icons (5)</h1>
+    <i-fa-solid-dice-five />
+    <i-heroicons-outline-menu-alt-2 />
+    <i-ri-apps-2-line />
+    <i-mdi:dice-d12 />
+    <i-mdi-light-alarm />
+  </div>
 </template>
 
 <style scoped>
