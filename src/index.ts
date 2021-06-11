@@ -1,5 +1,3 @@
-import { resolve } from 'path'
-import fs from 'fs/promises'
 import type { Plugin } from 'vite'
 import { Options, Transformer } from './types'
 import { Context } from './context'

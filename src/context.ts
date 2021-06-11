@@ -130,6 +130,7 @@ export class Context {
       .forEach((path) => {
         const name = pascalCase(getNameFromFilePath(path, this.options))
         if (this._componentNameMap[name]) {
+          // eslint-disable-next-line no-console
           console.warn(`[vite-plugin-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
           return
         }
@@ -208,7 +209,7 @@ export class Context {
   generateDeclaration() {
     generateDeclaration(this, this.options.root, this.options.globalComponentsDeclaration)
   }
-  
+
   get componentNameMap() {
     return this._componentNameMap
   }
