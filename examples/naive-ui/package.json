@@ -1,0 +1,24 @@
+{
+  "name": "fixture",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env DEBUG=vite-plugin-components:* vite",
+    "build": "cross-env DEBUG=vite-plugin-components:* vite build"
+  },
+  "dependencies": {
+    "naive-ui": "^2.11.5",
+    "vant": "^3.0.13",
+    "vue": "^3.0.11"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.2.1",
+    "@vue/compiler-sfc": "^3.0.11",
+    "cross-env": "^7.0.3",
+    "typescript": "^4.2.4",
+    "vite": "^2.1.5",
+    "vite-plugin-components": "workspace:*",
+    "vite-plugin-md": "^0.6.3",
+    "vite-plugin-vue-svg": "^0.1.0"
+  }
+}
