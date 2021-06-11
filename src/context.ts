@@ -119,8 +119,7 @@ export class Context {
     if (payload.updates.length)
       this._server.ws.send(payload)
 
-    if (this.options.globalComponentsDeclaration)
-      generateDeclaration(this, this.options.root, this.options.globalComponentsDeclaration)
+    this.generateDeclaration()
   }
 
   private updateComponentNameMap() {
@@ -205,6 +204,11 @@ export class Context {
     searchComponents(this)
     debug.search(this._componentNameMap)
     this._searched = true
+  }
+
+  generateDeclaration() {
+    if (this.options.globalComponentsDeclaration)
+      generateDeclaration(this, this.options.root, this.options.globalComponentsDeclaration)
   }
 
   get componentNameMap() {
