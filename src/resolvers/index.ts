@@ -1,6 +1,6 @@
 export * from './antdv'
 export * from './element-plus'
-export * from './headlessUi'
+export * from './headless-ui'
 export * from './vant'
 export * from './vuetify'
 export * from './vueuse'
