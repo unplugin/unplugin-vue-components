@@ -112,7 +112,7 @@ Required<Options>,
   dirs: string[]
   resolvedDirs: string[]
   globs: string[]
-  globalComponentsDeclaration: string
+  globalComponentsDeclaration: string | false
   root: string
 }
 

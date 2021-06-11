@@ -207,7 +207,8 @@ export class Context {
   }
 
   generateDeclaration() {
-    generateDeclaration(this, this.options.root, this.options.globalComponentsDeclaration)
+    if (this.options.globalComponentsDeclaration)
+      generateDeclaration(this, this.options.root, this.options.globalComponentsDeclaration)
   }
 
   get componentNameMap() {
