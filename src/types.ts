@@ -100,6 +100,13 @@ export interface Options {
    * @default false
    */
   globalComponentsDeclaration?: boolean | string
+
+  /**
+   * Do not emit warning on component overriding
+   *
+   * @default false
+   */
+  allowOverrides?: boolean
 }
 
 export type ResolvedOptions = Omit<

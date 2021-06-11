@@ -129,7 +129,7 @@ export class Context {
       .from(this._componentPaths)
       .forEach((path) => {
         const name = pascalCase(getNameFromFilePath(path, this.options))
-        if (this._componentNameMap[name]) {
+        if (this._componentNameMap[name] && !this.options.allowOverrides) {
           // eslint-disable-next-line no-console
           console.warn(`[vite-plugin-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
           return

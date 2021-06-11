@@ -20,6 +20,7 @@ export function tryLoadVeturTags(name: string): string[] | undefined {
     return Object.keys(tags).map(i => camelCase(i))
   }
   catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e)
   }
 }
@@ -32,6 +33,7 @@ export function LibraryResolver(options: UILibraryOptions): ComponentResolver {
   } = options
 
   if (!entries) {
+    // eslint-disable-next-line no-console
     console.warn(`[vite-plugin-components] Failed to load Vetur tags from library "${libraryName}"`)
     return () => {}
   }

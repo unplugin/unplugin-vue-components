@@ -16,6 +16,7 @@ export function searchComponents(ctx: Context) {
   })
 
   if (!files.length && !ctx.options.customComponentResolvers?.length)
+    // eslint-disable-next-line no-console
     console.warn('[vite-plugin-components] no components found')
 
   debug(`${files.length} components found.`)
