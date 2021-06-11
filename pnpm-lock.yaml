@@ -5,6 +5,7 @@ importers:
   .:
     specifiers:
       '@antfu/eslint-config': ^0.6.6
+      '@antfu/utils': ^0.2.0
       '@types/debug': ^4.1.5
       '@types/jest': ^26.0.23
       '@types/minimatch': ^3.0.4
@@ -31,6 +32,7 @@ importers:
       minimatch: 3.0.4
     devDependencies:
       '@antfu/eslint-config': 0.6.6_eslint@7.28.0+typescript@4.3.2
+      '@antfu/utils': 0.2.0
       '@types/debug': 4.1.5
       '@types/jest': 26.0.23
       '@types/minimatch': 3.0.4
@@ -47,6 +49,7 @@ importers:
 
   examples/naive-ui:
     specifiers:
+      '@antfu/utils': ^0.1.7
       '@vitejs/plugin-vue': ^1.2.1
       '@vue/compiler-sfc': ^3.0.11
       cross-env: ^7.0.3
@@ -63,6 +66,7 @@ importers:
       vant: 3.0.18_vue@3.1.1
       vue: 3.1.1
     devDependencies:
+      '@antfu/utils': 0.1.7
       '@vitejs/plugin-vue': 1.2.3_@vue+compiler-sfc@3.1.1
       '@vue/compiler-sfc': 3.1.1_vue@3.1.1
       cross-env: 7.0.3
@@ -189,6 +193,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
       - typescript
+    dev: true
+
+  /@antfu/utils/0.1.7:
+    resolution: {integrity: sha512-XbmXbhrjfxQq+ishOKeUIK1VYxQV0B+ZkAQkz00bxhmQd5izdT0YRSDwkyH/KX46gFVBMd+6anvSDlciUt3L4A==}
+    dev: true
+
+  /@antfu/utils/0.2.0:
+    resolution: {integrity: sha512-yyk/uvEVsBgakGaPw+bu6Ms8S6rpPhON3ulW1fysuNYrDfsnZLDl3vwU41kaFqjRAJA54PRhtiy8+fz35+YtnA==}
     dev: true
 
   /@babel/code-frame/7.12.11:

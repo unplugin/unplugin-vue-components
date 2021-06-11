@@ -4,19 +4,19 @@
   "description": "Components auto importing for Vite",
   "homepage": "https://github.com/antfu/vite-plugin-components",
   "bugs": "https://github.com/antfu/vite-plugin-components/issues",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/antfu/vite-plugin-components"
   },
   "funding": "https://github.com/sponsors/antfu",
-  "license": "MIT",
   "author": "antfu <anthonyfu117@hotmail.com>",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "dev": "npm run build -- --watch",
@@ -27,6 +27,9 @@
     "test": "jest",
     "test:update": "jest --u"
   },
+  "peerDependencies": {
+    "vite": "^2.0.0-beta.69"
+  },
   "dependencies": {
     "chokidar": "^3.5.1",
     "debug": "^4.3.2",
@@ -36,6 +39,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.6.6",
+    "@antfu/utils": "^0.2.0",
     "@types/debug": "^4.1.5",
     "@types/jest": "^26.0.23",
     "@types/minimatch": "^3.0.4",
@@ -49,8 +53,5 @@
     "tsup": "^4.11.2",
     "typescript": "^4.3.2",
     "vite": "^2.3.7"
-  },
-  "peerDependencies": {
-    "vite": "^2.0.0-beta.69"
   }
 }
