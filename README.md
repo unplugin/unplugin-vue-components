@@ -102,6 +102,8 @@ export default {
 }
 ```
 
+Once the setup is done, a `components.d.ts` will be generated and updates automatically with the type definitions. Feel free to commit it into git or not as you want.
+
 ## Vue 2 Support
 
 It just works.
@@ -121,7 +123,18 @@ export default {
 
 ## Importing from UI Libraries
 
-We have several built-in resolver for popular UI libraries like [Ant Design Vue](https://antdv.com/) and [Element Plus](https://element-plus.org/), where you can enable them by:
+We have several built-in resolvers for popular UI libraries like **Vuetify**, **Ant Design Vue**, and **Element Plus**, where you can enable them by:
+
+Supported Resolvers:
+
+- [Ant Design Vue](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/antdv.ts)
+- [Element Plus](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/element-plus.ts)
+- [Headless UI](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/headless-ui.ts)
+- [Native UI](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/naive-ui.ts)
+- [Vant](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/vant.ts)
+- [Varlet UI](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/varlet-ui.ts)
+- [Vuetify](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/vuetify.ts)
+- [VueUse Components](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/vueuse.ts)
 
 ```ts
 // vite.config.js
@@ -145,7 +158,7 @@ export default {
 }
 ```
 
-Or you can write your own resolver quite easily:
+You can also write your own resolver easily:
 
 ```ts
 // vite.config.js
@@ -168,8 +181,7 @@ export default {
 }
 ```
 
-If made other UI libraries configured, please feel free to contribute so it can help others using them out-of-box. Thanks!
-
+If you made other UI libraries configured, please feel free to contribute so it can help others using them out-of-box. Thanks!
 
 ## Configuration
 
@@ -184,6 +196,10 @@ ViteComponents({
   extensions: ['vue'],
   // search for subdirectories
   deep: true,
+
+  // generate `components.d.ts` global declrations, 
+  // also accepts a path for custom filename
+  globalComponentsDeclaration: false,
 
   // Allow subdirectories as namespace prefix for components.
   directoryAsNamespace: false,
