@@ -30,7 +30,7 @@ export const VarletUIResolver = (options: VarletUIResolverOptions = {}): Compone
     const partialName = name.slice(3)
     return {
       importName: partialName,
-      path: '@varlet/ui/es',
+      path: '@varlet/ui',
       sideEffects: importLess
         ? `@varlet/ui/es/${kebabCase(partialName)}/style/less.js`
         : importCss
