@@ -104,6 +104,8 @@ export default {
 
 Once the setup is done, a `components.d.ts` will be generated and updates automatically with the type definitions. Feel free to commit it into git or not as you want.
 
+**Make sure you also add `components.d.ts` to your `tsconfig.json` under `includes`.**
+
 ## Vue 2 Support
 
 It just works.
