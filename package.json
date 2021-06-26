@@ -23,7 +23,7 @@
     "example:build": "npm -C examples/vue3 run build",
     "example:dev": "npm -C examples/vue3 run dev",
     "prepublishOnly": "npm run build",
-    "release": "npx git-ensure -a && npx bumpp --commit --tag --push",
+    "release": "npx bumpp --commit --tag --push",
     "test": "jest",
     "test:update": "jest --u"
   },
