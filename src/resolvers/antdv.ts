@@ -1,4 +1,5 @@
 import { ComponentResolver } from '../types'
+import { kebabCase } from '../utils'
 
 /**
  * Resolver for Ant Design Vue
@@ -10,11 +11,190 @@ import { ComponentResolver } from '../types'
  * @author @yangss3
  * @link https://antdv.com/
  */
-export const AntDesignVueResolver = (): ComponentResolver => (name: string) => {
-  if (name.match(/^A[A-Z]/))
-    return {
-      importName: name.slice(1),
-      path: 'ant-design-vue/es',
-      sideEffects: "ant-design-vue/es/style",
-    }
+
+interface IMatcher {
+  pattern: RegExp
+  styleDir: string
 }
+const matchComponents: IMatcher[] = [
+  {
+    pattern: /^Avatar/,
+    styleDir: 'avatar',
+  },
+  {
+    pattern: /^AutoComplete/,
+    styleDir: 'auto-complete',
+  },
+  {
+    pattern: /^Anchor/,
+    styleDir: 'anchor',
+  },
+
+  {
+    pattern: /^Badge/,
+    styleDir: 'badge',
+  },
+  {
+    pattern: /^Breadcrumb/,
+    styleDir: 'breadcrumb',
+  },
+  {
+    pattern: /^Button/,
+    styleDir: 'button',
+  },
+  {
+    pattern: /^Checkbox/,
+    styleDir: 'checkbox',
+  },
+  {
+    pattern: /^Card/,
+    styleDir: 'card',
+  },
+  {
+    pattern: /^Collapse/,
+    styleDir: 'collapse',
+  },
+  {
+    pattern: /^Descriptions/,
+    styleDir: 'descriptions',
+  },
+  {
+    pattern: /^RangePicker|^WeekPicker|^MonthPicker/,
+    styleDir: 'date-picker',
+  },
+  {
+    pattern: /^Dropdown/,
+    styleDir: 'dropdown',
+  },
+
+  {
+    pattern: /^Form/,
+    styleDir: 'form',
+  },
+  {
+    pattern: /^InputNumber/,
+    styleDir: 'input-number',
+  },
+
+  {
+    pattern: /^Input|^Textarea/,
+    styleDir: 'input',
+  },
+  {
+    pattern: /^Statistic/,
+    styleDir: 'statistic',
+  },
+  {
+    pattern: /^CheckableTag/,
+    styleDir: 'tag',
+  },
+  {
+    pattern: /^Layout/,
+    styleDir: 'layout',
+  },
+  {
+    pattern: /^Menu|^SubMenu/,
+    styleDir: 'menu',
+  },
+
+  {
+    pattern: /^Table/,
+    styleDir: 'table',
+  },
+  {
+    pattern: /^Radio/,
+    styleDir: 'radio',
+  },
+
+  {
+    pattern: /^Image/,
+    styleDir: 'image',
+  },
+
+  {
+    pattern: /^List/,
+    styleDir: 'list',
+  },
+
+  {
+    pattern: /^Tab/,
+    styleDir: 'tabs',
+  },
+  {
+    pattern: /^Mentions/,
+    styleDir: 'mentions',
+  },
+
+  {
+    pattern: /^Mentions/,
+    styleDir: 'mentions',
+  },
+
+  {
+    pattern: /^Step/,
+    styleDir: 'steps',
+  },
+  {
+    pattern: /^Skeleton/,
+    styleDir: 'skeleton',
+  },
+
+  {
+    pattern: /^Select/,
+    styleDir: 'select',
+  },
+  {
+    pattern: /^TreeSelect/,
+    styleDir: 'tree-select',
+  },
+  {
+    pattern: /^Tree|^DirectoryTree/,
+    styleDir: 'tree',
+  },
+  {
+    pattern: /^Typography/,
+    styleDir: 'typography',
+  },
+  {
+    pattern: /^Timeline/,
+    styleDir: 'timeline',
+  },
+]
+
+export interface AntDesignVueResolverOptions {
+  /**
+   * import less along with components
+   *
+   * @default true
+   */
+  importLess?: boolean
+}
+
+export const AntDesignVueResolver
+  = (options: AntDesignVueResolverOptions = {}): ComponentResolver =>
+    (name: string) => {
+      if (name.match(/^A[A-Z]/)) {
+        const { importLess = true } = options
+        const importName = name.slice(1)
+        let styleDir
+        if (importLess) {
+          const total = matchComponents.length
+          for (let i = 0; i < total; i++) {
+            const matcher = matchComponents[i]
+            if (importName.match(matcher.pattern)) {
+              styleDir = matcher.styleDir
+              break
+            }
+          }
+          if (!styleDir) styleDir = kebabCase(importName)
+        }
+
+        return {
+          importName,
+          path: 'ant-design-vue/es',
+          sideEffects: importLess
+            ? `ant-design-vue/es/${styleDir}/style`
+            : undefined,
+        }
+      }
+    }
