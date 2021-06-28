@@ -28,30 +28,30 @@
     "test:update": "jest --u"
   },
   "peerDependencies": {
-    "vite": "^2.0.0-beta.69"
+    "vite": "^2.0.0"
   },
   "dependencies": {
-    "chokidar": "^3.5.1",
+    "chokidar": "^3.5.2",
     "debug": "^4.3.2",
-    "fast-glob": "^3.2.5",
+    "fast-glob": "^3.2.6",
     "magic-string": "^0.25.7",
     "minimatch": "^3.0.4"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.6.6",
-    "@antfu/utils": "^0.2.1",
+    "@antfu/utils": "^0.2.4",
     "@types/debug": "^4.1.5",
     "@types/jest": "^26.0.23",
     "@types/minimatch": "^3.0.4",
-    "@types/node": "^15.12.2",
-    "@typescript-eslint/eslint-plugin": "^4.26.1",
-    "eslint": "^7.28.0",
-    "jest": "^27.0.4",
-    "rollup": "^2.51.2",
+    "@types/node": "^15.12.5",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "eslint": "^7.29.0",
+    "jest": "^27.0.6",
+    "rollup": "^2.52.3",
     "standard-version": "^9.3.0",
     "ts-jest": "^27.0.3",
-    "tsup": "^4.11.2",
-    "typescript": "^4.3.2",
-    "vite": "^2.3.7"
+    "tsup": "^4.12.0",
+    "typescript": "^4.3.4",
+    "vite": "^2.3.8"
   }
 }
