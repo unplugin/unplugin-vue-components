@@ -28,14 +28,14 @@ export const VarletUIResolver = (options: VarletUIResolverOptions = {}): Compone
   } = options
   if (name.startsWith('Var')) {
     const partialName = name.slice(3)
+    const sideEffects = []
+    importCss && sideEffects.push(`@varlet/ui/es/${kebabCase(partialName)}/style`)
+    importLess && sideEffects.push(`@varlet/ui/es/${kebabCase(partialName)}/style/less.js`)
+
     return {
-      importName: partialName,
+      importName: `_${partialName}Component`,
       path: '@varlet/ui',
-      sideEffects: importLess
-        ? `@varlet/ui/es/${kebabCase(partialName)}/style/less.js`
-        : importCss
-          ? `@varlet/ui/es/${kebabCase(partialName)}/style`
-          : undefined,
+      sideEffects,
     }
   }
 }
