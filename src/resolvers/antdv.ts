@@ -120,11 +120,7 @@ const matchComponents: IMatcher[] = [
     pattern: /^Tab/,
     styleDir: 'tabs',
   },
-  {
-    pattern: /^Mentions/,
-    styleDir: 'mentions',
-  },
-
+  
   {
     pattern: /^Mentions/,
     styleDir: 'mentions',
