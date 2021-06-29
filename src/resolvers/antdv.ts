@@ -163,38 +163,67 @@ const matchComponents: IMatcher[] = [
 
 export interface AntDesignVueResolverOptions {
   /**
-   * import less along with components
+   * import style along with components
    *
    * @default true
    */
+  importStyle?: boolean
+  /**
+   * import css along with components
+   *
+   * @default true
+   */
+  importCss?: boolean
+  /**
+   * import less along with components
+   *
+   * @default false
+   */
   importLess?: boolean
+}
+
+const getStyleDir = (compName: string): string => {
+  let styleDir
+  const total = matchComponents.length
+  for (let i = 0; i < total; i++) {
+    const matcher = matchComponents[i]
+    if (compName.match(matcher.pattern)) {
+      styleDir = matcher.styleDir
+      break
+    }
+  }
+  if (!styleDir) styleDir = kebabCase(compName)
+
+  return styleDir
+}
+
+const getSideEffects: (
+  compName: string,
+  opts: AntDesignVueResolverOptions
+) => string | undefined = (compName, opts) => {
+  const { importStyle = true, importCss = true, importLess = false } = opts
+
+  if (importStyle) {
+    if (importLess) {
+      const styleDir = getStyleDir(compName)
+      return `ant-design-vue/es/${styleDir}/style`
+    }
+    else if (importCss) {
+      const styleDir = getStyleDir(compName)
+      return `ant-design-vue/es/${styleDir}/style/css`
+    }
+  }
 }
 
 export const AntDesignVueResolver
   = (options: AntDesignVueResolverOptions = {}): ComponentResolver =>
     (name: string) => {
       if (name.match(/^A[A-Z]/)) {
-        const { importLess = true } = options
         const importName = name.slice(1)
-        let styleDir
-        if (importLess) {
-          const total = matchComponents.length
-          for (let i = 0; i < total; i++) {
-            const matcher = matchComponents[i]
-            if (importName.match(matcher.pattern)) {
-              styleDir = matcher.styleDir
-              break
-            }
-          }
-          if (!styleDir) styleDir = kebabCase(importName)
-        }
-
         return {
           importName,
           path: 'ant-design-vue/es',
-          sideEffects: importLess
-            ? `ant-design-vue/es/${styleDir}/style`
-            : undefined,
+          sideEffects: getSideEffects(importName, options),
         }
       }
     }
