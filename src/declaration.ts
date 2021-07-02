@@ -1,8 +1,7 @@
 import { resolve, dirname, relative } from 'path'
 import { promises as fs, existsSync } from 'fs'
-import { notNullish } from '@antfu/utils'
+import { notNullish, slash } from '@antfu/utils'
 import { Context } from './context'
-import { slash } from './utils'
 
 export function parseDeclaration(code: string): Record<string, string> {
   return Object.fromEntries(Array.from(code.matchAll(/\s+['"]?(.+?)['"]?:\s(.+?)\n/g)).map(i => [i[1], i[2]]))

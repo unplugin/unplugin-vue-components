@@ -1,10 +1,9 @@
 import { relative } from 'path'
 import Debug from 'debug'
-import chokidar from 'chokidar'
 import { ResolvedConfig, UpdatePayload, ViteDevServer } from 'vite'
-import { throttle } from '@antfu/utils'
+import { throttle, toArray, slash } from '@antfu/utils'
 import { Options, ComponentInfo, ResolvedOptions } from './types'
-import { pascalCase, toArray, getNameFromFilePath, resolveAlias, resolveOptions, matchGlobs, slash } from './utils'
+import { pascalCase, getNameFromFilePath, resolveAlias, resolveOptions, matchGlobs } from './utils'
 import { searchComponents } from './fs/glob'
 import { generateDeclaration } from './declaration'
 
@@ -29,25 +28,6 @@ export class Context {
     public readonly viteConfig: ResolvedConfig,
   ) {
     this.options = resolveOptions(options, viteConfig)
-    const { globs, dirs } = this.options
-
-    if (viteConfig.command === 'serve') {
-      // TODO: use vite's watcher instead
-      chokidar.watch(dirs, { ignoreInitial: true, cwd: this.root })
-        .on('unlink', (path) => {
-          if (matchGlobs(path, globs)) {
-            this.removeComponents(path)
-            this.onUpdate(path)
-          }
-        })
-        .on('add', (path) => {
-          if (matchGlobs(path, globs)) {
-            this.addComponents(path)
-            this.onUpdate(path)
-          }
-        })
-    }
-
     this.generateDeclaration = throttle(500, false, this.generateDeclaration.bind(this))
   }
 
@@ -57,6 +37,24 @@ export class Context {
 
   setServer(server: ViteDevServer) {
     this._server = server
+
+    const { globs, dirs } = this.options
+
+    server.watcher.add(dirs)
+    server.watcher
+      .on('unlink', (path) => {
+        if (!matchGlobs(path, globs))
+          return
+        this.removeComponents(path)
+        this.onUpdate(path)
+      })
+    server.watcher
+      .on('add', (path) => {
+        if (!matchGlobs(path, globs))
+          return
+        this.addComponents(path)
+        this.onUpdate(path)
+      })
   }
 
   /**

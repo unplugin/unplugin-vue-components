@@ -7,8 +7,6 @@ import { LibraryResolver } from './helpers/libraryResolver'
 import { defaultOptions } from './constants'
 import { Context } from './context'
 
-export { slash, toArray }
-
 export interface ResolveComponent {
   filename: string
   namespace?: string
@@ -104,7 +102,7 @@ export function resolveOptions(options: Options, viteConfig: ResolvedConfig): Re
   resolved.dirs = toArray(resolved.dirs)
   resolved.resolvedDirs = resolved.dirs.map(i => slash(resolve(viteConfig.root, i)))
 
-  resolved.globs = resolved.dirs.map(i =>
+  resolved.globs = resolved.resolvedDirs.map(i =>
     resolved.deep
       ? slash(join(i, `**/*.${extsGlob}`))
       : slash(join(i, `*.${extsGlob}`)),
