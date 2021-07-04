@@ -38,9 +38,8 @@ export class Context {
   setServer(server: ViteDevServer) {
     this._server = server
 
-    const { globs, dirs } = this.options
+    const { globs } = this.options
 
-    server.watcher.add(dirs)
     server.watcher
       .on('unlink', (path) => {
         if (!matchGlobs(path, globs))
