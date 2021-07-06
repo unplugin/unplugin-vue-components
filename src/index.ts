@@ -12,15 +12,6 @@ function VitePluginComponents(options: Options = {}): Plugin {
   return {
     name: 'vite-plugin-components',
     enforce: 'post',
-    config() {
-      return {
-        server: {
-          watch: {
-            disableGlobbing: false,
-          },
-        },
-      }
-    },
     configResolved(config) {
       if (config.plugins.find(i => i.name === 'vite-plugin-vue2'))
         options.transformer = options.transformer || 'vue2'
