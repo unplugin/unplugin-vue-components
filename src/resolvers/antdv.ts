@@ -181,7 +181,7 @@ export interface AntDesignVueResolverOptions {
    * 
    * required package `@ant-design/icons-vue`
    * 
-   * @default undefined
+   * @default false
    */
   resolveIcons?: boolean;
 }
