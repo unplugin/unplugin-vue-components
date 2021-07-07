@@ -154,6 +154,10 @@ const matchComponents: IMatcher[] = [
     pattern: /^Timeline/,
     styleDir: 'timeline',
   },
+  {
+    pattern: /^Upload/,
+    styleDir: 'upload'
+  }
 ]
 
 export interface AntDesignVueResolverOptions {
