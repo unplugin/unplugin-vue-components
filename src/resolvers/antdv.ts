@@ -179,6 +179,14 @@ export interface AntDesignVueResolverOptions {
    * @default false
    */
   importLess?: boolean
+  /**
+   * resolve `ant-design-vue' icons
+   *
+   * requires package `@ant-design/icons-vue`
+   *
+   * @default false
+   */
+  resolveIcons?: boolean
 }
 
 const getStyleDir = (compName: string): string => {
@@ -217,6 +225,13 @@ const getSideEffects: (
 export const AntDesignVueResolver
   = (options: AntDesignVueResolverOptions = {}): ComponentResolver =>
     (name: string) => {
+      if (options.resolveIcons && name.match(/(Outlined|Filled|TwoTone)$/)) {
+        return {
+          importName: name,
+          path: '@ant-design/icons-vue',
+        }
+      }
+
       if (name.match(/^A[A-Z]/)) {
         const importName = name.slice(1)
         return {
