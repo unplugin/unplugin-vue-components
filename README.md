@@ -57,8 +57,13 @@ Basically, it will automatically turn this
 </template>
 
 <script>
+import HelloWorld from './src/components/HelloWorld.vue'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    HelloWorld
+  }
 }
 </script>
 ```
@@ -73,13 +78,8 @@ into this
 </template>
 
 <script>
-import HelloWorld from './src/components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  name: 'App'
 }
 </script>
 ```
