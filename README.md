@@ -45,7 +45,7 @@ export default {
 
 That's all.
 
-Use components in templates as you would usually do but NO `import` and `component registration` required anymore! It will import components on demand, code splitting is also possible.
+Use components in templates as you would usually do but NO `import` and `component registration` required anymore! It will import components on demand, and if you use code splitting in a parent, auto-imported components will be code-split along with their parent.
 
 Basically, it will automatically turn this
 
