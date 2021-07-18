@@ -133,6 +133,7 @@ Supported Resolvers:
 - [Element Plus](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/element-plus.ts)
 - [Headless UI](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/headless-ui.ts)
 - [Naive UI](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/naive-ui.ts)
+- [Prime Vue](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/prime-vue.ts)
 - [Vant](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/vant.ts)
 - [Varlet UI](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/varlet-ui.ts)
 - [Vuetify](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/vuetify.ts)
