@@ -1231,7 +1231,6 @@ var PrimeVueResolver = (options = {}) => (name) => {
   }
   if (components3.includes(name)) {
     return {
-      importName: name,
       path: `primevue/${name}/${name}.vue`,
       sideEffects
     };

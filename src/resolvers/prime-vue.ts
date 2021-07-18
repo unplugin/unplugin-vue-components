@@ -133,7 +133,7 @@ export const PrimeVueResolver =
     }
     if (components.includes(name)) {
       return {
-        importName: name,
+        // importName: name,
         path: `primevue/${name}/${name}.vue`,
         sideEffects,
       }
