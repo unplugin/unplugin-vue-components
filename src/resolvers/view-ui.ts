@@ -1,18 +1,16 @@
 import { ComponentResolver } from '../types'
 import { kebabCase } from '../utils'
 
-const getSideEffects: (
-  compName: string,
-) => string[] = (compName) => {
+function getSideEffects(componentName: string) {
   const sideEffects = [
     'view-design/dist/styles/iview.css',
     'popper.js/dist/umd/popper.js',
   ]
 
-  if (/^Table/.test(compName))
+  if (/^Table/.test(componentName))
     sideEffects.push('element-resize-detector')
 
-  if (/^Date/.test(compName))
+  if (/^Date/.test(componentName))
     sideEffects.push('js-calendar')
 
   return sideEffects
@@ -25,8 +23,8 @@ const matchComponents = [
   },
 ]
 
-const getCompDir = (compName: string): string => {
-  let compPath: string|undefined
+function getCompDir(compName: string): string {
+  let compPath: string | undefined
 
   const total = matchComponents.length
   for (let i = 0; i < total; i++) {
@@ -36,7 +34,9 @@ const getCompDir = (compName: string): string => {
       break
     }
   }
-  if (!compPath) compPath = kebabCase(compName)
+  if (!compPath)
+    compPath = kebabCase(compName)
+
   return compPath
 }
 
@@ -49,12 +49,14 @@ const getCompDir = (compName: string): string => {
  * - select component render error PR: https://github.com/view-design/ViewUI/pull/944,  choose can't display value,because click option trigger twice,at second time,select value turn into undefined.
  * - scroll component has a template syntax called lang='html',it is require html-loader,but vite plugin not support yet,remove it can run.
  */
-export const ViewUiResolver = (): ComponentResolver => (name: string) => {
-  if (name.match(/^I[A-Z]/)) {
-    const compName = name.slice(1)
-    return {
-      path: `view-design/src/components/${getCompDir(compName)}`,
-      sideEffects: getSideEffects(compName),
+export function ViewUiResolver(): ComponentResolver {
+  return (name: string) => {
+    if (name.match(/^I[A-Z]/)) {
+      const compName = name.slice(1)
+      return {
+        path: `view-design/src/components/${getCompDir(compName)}`,
+        sideEffects: getSideEffects(compName),
+      }
     }
   }
 }

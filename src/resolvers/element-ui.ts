@@ -42,8 +42,8 @@ function getSideEffects(
  * @version @element-ui ^2.15.3, @vue ^2.6.14
  * @author @nabaonan
  */
-export const ElementUiResolver = (options: ElementUiResolverOptions = {}): ComponentResolver =>
-  (name: string) => {
+export function ElementUiResolver(options: ElementUiResolverOptions = {}): ComponentResolver {
+  return (name: string) => {
     if (name.startsWith('El')) {
       const compName = name.slice(2)
       const partialName = kebabCase(compName)
@@ -53,3 +53,4 @@ export const ElementUiResolver = (options: ElementUiResolverOptions = {}): Compo
       }
     }
   }
+}

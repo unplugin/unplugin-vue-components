@@ -6,7 +6,9 @@ import { ComponentResolver } from '../types'
  * @author @antfu
  * @link https://www.naiveui.com/
  */
-export const NaiveUiResolver = (): ComponentResolver => (name: string) => {
-  if (name.match(/^N[A-Z]/))
-    return { importName: name, path: 'naive-ui' }
+export function NaiveUiResolver(): ComponentResolver {
+  return (name: string) => {
+    if (name.match(/^N[A-Z]/))
+      return { importName: name, path: 'naive-ui' }
+  }
 }

@@ -6,7 +6,7 @@ export interface ImportInfo {
   path: string
 }
 
-export type SideEffectsInfo = (ImportInfo | string)[] | ImportInfo | string
+export type SideEffectsInfo = (ImportInfo | string)[] | ImportInfo | string | undefined
 
 export interface ComponentInfo extends ImportInfo {
   sideEffects?: SideEffectsInfo
