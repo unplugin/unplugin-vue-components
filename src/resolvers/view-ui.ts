@@ -7,7 +7,7 @@ function getSideEffects(componentName: string) {
     'popper.js/dist/umd/popper.js',
   ]
 
-  if (/^Table/.test(componentName))
+  if (/^Table|^Slider|^Tab/.test(componentName))
     sideEffects.push('element-resize-detector')
 
   if (/^Date/.test(componentName))
