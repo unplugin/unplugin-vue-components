@@ -6,23 +6,11 @@ import { kebabCase } from '../utils'
 
 export interface ElementUiResolverOptions {
   /**
-   * import style along with components
+   * import style css or sass with components
    *
-   * @default true
+   * @default css
    */
-  importStyle?: boolean
-  /**
-   * import css along with components
-   *
-   * @default true
-   */
-  importCss?: boolean
-  /**
-   * import sass along with components
-   *
-   * @default false
-   */
-  importSass?: boolean
+  importStyle?: boolean|'css'|'sass'
 }
 
 type SideEffectsType =
@@ -35,16 +23,16 @@ const getSideEffects: (
   partialName: string,
   opts: ElementUiResolverOptions
 ) => SideEffectsType = (partialName, opts) => {
-  const { importStyle = true, importCss = true, importSass = false } = opts
+  const { importStyle = 'css' } = opts
 
   if (importStyle) {
-    if (importSass) {
+    if (importStyle === 'sass') {
       return [
         'element-ui/packages/theme-chalk/src/base.scss',
         `element-ui/packages/theme-chalk/src/${partialName}.scss`,
       ]
     }
-    else if (importCss) {
+    else if (importStyle === 'css') {
       return [
         'element-ui/lib/theme-chalk/base.css',
         `element-ui/lib/theme-chalk/${partialName}.css`,
