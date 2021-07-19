@@ -1,21 +1,11 @@
-import { ComponentResolver } from '../types'
+import { ComponentResolver, SideEffectsInfo } from '../types'
 import { kebabCase } from '../utils'
-
-/**
- * Resolver for Ant Design Vue
- *
- * Requires ant-design-vue@v2.2.0-beta.6 or later
- *
- * See https://github.com/antfu/vite-plugin-components/issues/26#issuecomment-789767941 for more details
- *
- * @author @yangss3
- * @link https://antdv.com/
- */
 
 interface IMatcher {
   pattern: RegExp
   styleDir: string
 }
+
 const matchComponents: IMatcher[] = [
   {
     pattern: /^Avatar/,
@@ -156,29 +146,17 @@ const matchComponents: IMatcher[] = [
   },
   {
     pattern: /^Upload/,
-    styleDir: 'upload'
-  }
+    styleDir: 'upload',
+  },
 ]
 
 export interface AntDesignVueResolverOptions {
   /**
    * import style along with components
    *
-   * @default true
+   * @default 'css'
    */
-  importStyle?: boolean
-  /**
-   * import css along with components
-   *
-   * @default true
-   */
-  importCss?: boolean
-  /**
-   * import less along with components
-   *
-   * @default false
-   */
-  importLess?: boolean
+  importStyle?: boolean | 'css' | 'less'
   /**
    * resolve `ant-design-vue' icons
    *
@@ -187,9 +165,18 @@ export interface AntDesignVueResolverOptions {
    * @default false
    */
   resolveIcons?: boolean
+
+  /**
+   * @deprecated use `importStyle: 'css'` instead
+   */
+  importCss?: boolean
+  /**
+   * @deprecated use `importStyle: 'less'` instead
+   */
+  importLess?: boolean
 }
 
-const getStyleDir = (compName: string): string => {
+function getStyleDir(compName: string): string {
   let styleDir
   const total = matchComponents.length
   for (let i = 0; i < total; i++) {
@@ -199,45 +186,57 @@ const getStyleDir = (compName: string): string => {
       break
     }
   }
-  if (!styleDir) styleDir = kebabCase(compName)
+  if (!styleDir)
+    styleDir = kebabCase(compName)
 
   return styleDir
 }
 
-const getSideEffects: (
-  compName: string,
-  opts: AntDesignVueResolverOptions
-) => string | undefined = (compName, opts) => {
-  const { importStyle = true, importCss = true, importLess = false } = opts
+function getSideEffects(compName: string, options: AntDesignVueResolverOptions): SideEffectsInfo {
+  const {
+    importStyle = true,
+    importLess = false,
+  } = options
 
-  if (importStyle) {
-    if (importLess) {
-      const styleDir = getStyleDir(compName)
-      return `ant-design-vue/es/${styleDir}/style`
-    }
-    else if (importCss) {
-      const styleDir = getStyleDir(compName)
-      return `ant-design-vue/es/${styleDir}/style/css`
-    }
+  if (!importStyle)
+    return
+
+  if (importStyle === 'less' || importLess) {
+    const styleDir = getStyleDir(compName)
+    return `ant-design-vue/es/${styleDir}/style`
+  }
+  else {
+    const styleDir = getStyleDir(compName)
+    return `ant-design-vue/es/${styleDir}/style/css`
   }
 }
 
-export const AntDesignVueResolver
-  = (options: AntDesignVueResolverOptions = {}): ComponentResolver =>
-    (name: string) => {
-      if (options.resolveIcons && name.match(/(Outlined|Filled|TwoTone)$/)) {
-        return {
-          importName: name,
-          path: '@ant-design/icons-vue',
-        }
-      }
-
-      if (name.match(/^A[A-Z]/)) {
-        const importName = name.slice(1)
-        return {
-          importName,
-          path: 'ant-design-vue/es',
-          sideEffects: getSideEffects(importName, options),
-        }
+/**
+ * Resolver for Ant Design Vue
+ *
+ * Requires ant-design-vue@v2.2.0-beta.6 or later
+ *
+ * See https://github.com/antfu/vite-plugin-components/issues/26#issuecomment-789767941 for more details
+ *
+ * @author @yangss3
+ * @link https://antdv.com/
+ */
+export function AntDesignVueResolver(options: AntDesignVueResolverOptions = {}): ComponentResolver {
+  return (name: string) => {
+    if (options.resolveIcons && name.match(/(Outlined|Filled|TwoTone)$/)) {
+      return {
+        importName: name,
+        path: '@ant-design/icons-vue',
       }
     }
+
+    if (name.match(/^A[A-Z]/)) {
+      const importName = name.slice(1)
+      return {
+        importName,
+        path: 'ant-design-vue/es',
+        sideEffects: getSideEffects(importName, options),
+      }
+    }
+  }
+}
