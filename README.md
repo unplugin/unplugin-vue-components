@@ -45,7 +45,7 @@ export default {
 
 That's all.
 
-Use components in templates as you would usually do but NO `import` and `component registration` required anymore! It will import components on demand, code splitting is also possible.
+Use components in templates as you would usually do, it will import components on demand and there is no `import` and `component registration` required anymore! If you register the parent component asynchronously (or lazy route), the auto-imported components will be code-split along with their parent.
 
 Basically, it will automatically turn this
 
@@ -133,6 +133,7 @@ Supported Resolvers:
 - [Element Plus](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/element-plus.ts)
 - [Headless UI](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/headless-ui.ts)
 - [Naive UI](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/naive-ui.ts)
+- [Prime Vue](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/prime-vue.ts)
 - [Vant](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/vant.ts)
 - [Varlet UI](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/varlet-ui.ts)
 - [Vuetify](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/vuetify.ts)
