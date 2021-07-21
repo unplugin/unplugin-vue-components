@@ -138,6 +138,8 @@ Supported Resolvers:
 - [Varlet UI](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/varlet-ui.ts)
 - [Vuetify](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/vuetify.ts)
 - [VueUse Components](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/vueuse.ts)
+- [View UI](https://github.com/antfu/vite-plugin-components/blob/main/src/resolvers/view-ui.ts)
+- [Element UI](https://github.com/antfu/vite-plugin-components/blob/main/src/resolvers/element-ui.ts)
 
 ```ts
 // vite.config.js
