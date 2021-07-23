@@ -85,7 +85,7 @@ export function stringifyComponentImport({ name, path, importName, sideEffects }
   if (sideEffects)
     toArray(sideEffects).forEach(i => imports.push(stringifyImport(i)))
 
-  return imports.join('\n')
+  return imports.join(';')
 }
 
 export function resolveOptions(options: Options, viteConfig: ResolvedConfig): ResolvedOptions {

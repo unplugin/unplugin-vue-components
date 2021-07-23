@@ -46,7 +46,7 @@ export function Vue2Transformer(ctx: Context): Transformer {
 
     ctx.updateUsageMap(sfcPath, componentPaths)
 
-    s.prepend(`${head.join('\n')}\n`)
+    s.prepend(`${head.join(';')};`)
 
     const result: TransformResult = { code: s.toString() }
     if (ctx.viteConfig.build.sourcemap)
