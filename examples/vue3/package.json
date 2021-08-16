@@ -19,6 +19,7 @@
     "vite": "^2.4.4",
     "vite-plugin-components": "workspace:*",
     "vite-plugin-icons": "^0.6.5",
+    "vite-plugin-inspect": "^0.0.2",
     "vite-plugin-md": "^0.10.0",
     "vite-plugin-vue-svg": "^0.1.0"
   }

@@ -6,6 +6,7 @@ import Markdown from 'vite-plugin-md'
 import Icons, { ViteIconsResolver } from 'vite-plugin-icons'
 // @ts-expect-error
 import SVG from 'vite-plugin-vue-svg'
+import Inspect from 'vite-plugin-inspect'
 
 const config: UserConfig = {
   resolve: {
@@ -20,6 +21,7 @@ const config: UserConfig = {
     Markdown(),
     SVG(),
     Icons(),
+    Inspect(),
     ViteComponents({
       extensions: ['vue', 'md', 'svg'],
       directoryAsNamespace: true,
