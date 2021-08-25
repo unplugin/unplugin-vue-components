@@ -24,7 +24,7 @@ export function ElementPlusResolver(options: ElementPlusResolverOptions = {}): C
     if (name.startsWith('El')) {
       const partialName = name[2].toLowerCase() + name.substring(3).replace(/[A-Z]/g, l => `-${l.toLowerCase()}`)
       return {
-        path: `element-plus/es/el-${partialName}`,
+        path: `element-plus/es/components/${partialName}`,
         sideEffects: importStyle ? `element-plus/packages/theme-chalk/src/${partialName}.scss` : undefined,
       }
     }
