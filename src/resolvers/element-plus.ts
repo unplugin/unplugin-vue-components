@@ -10,14 +10,20 @@ export interface ElementPlusResolverOptions {
   importStyle?: boolean | 'css' | 'sass'
 
   /**
-   * import style before 1.1
+   * import style for version 1.0.2
    * @default false
    */
   lagency?: boolean
 }
 
+/**
+ * @deprecated
+ * @param dirName
+ * @param options
+ *
+ * @returns
+ */
 function getLagencySideEffects(
-
   dirName: string,
   options: ElementPlusResolverOptions,
 ): SideEffectsInfo | undefined {
@@ -31,7 +37,7 @@ function getLagencySideEffects(
       `element-plus/packages/theme-chalk/src/${dirName}.scss`,
     ]
   }
-  else {
+  else if (importStyle === true || importStyle === 'css') {
     return [
       'element-plus/lib/theme-chalk/base.css',
       `element-plus/lib/theme-chalk/${dirName}.css`,
@@ -40,7 +46,7 @@ function getLagencySideEffects(
 }
 
 function getSideEffects(dirName: string, options: ElementPlusResolverOptions): SideEffectsInfo | undefined {
-  const { importStyle = 'css', lagency = false } = options
+  const { importStyle = 'css' } = options
 
   if (importStyle === 'sass')
     return `element-plus/es/components/${dirName}/style`
@@ -50,16 +56,15 @@ function getSideEffects(dirName: string, options: ElementPlusResolverOptions): S
 }
 
 /**
- * Resolver for Element Plus or Element UI
+ * Resolver for Element Plus
  *
  * See https://github.com/antfu/vite-plugin-components/pull/28 for more details
  *
  * @author @develar @nabaonan
  * @link https://element-plus.org/#/en-US for element-plus
- * @link https://element.eleme.cn/#/zh-CN for element-ui
+ * @requires element-plus v1.0.2 beta.56 and above
  */
 export function ElementPlusResolver(
-  dirName: string,
   options: ElementPlusResolverOptions = {},
 ): ComponentResolver {
   return (name: string) => {
