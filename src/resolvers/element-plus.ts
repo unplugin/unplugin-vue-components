@@ -8,17 +8,17 @@ export interface ElementPlusResolverOptions {
    * @default 'css'
    */
   importStyle?: boolean | 'css' | 'sass'
+
   /**
-   * use ElementUI in vue2
-   *
+   * import style before 1.1
    * @default false
    */
-  useElementUI?: boolean
+  lagency?: boolean
 }
 
-function getSideEffects(
-  packageName: string,
-  componentName: string,
+function getLagencySideEffects(
+
+  dirName: string,
   options: ElementPlusResolverOptions,
 ): SideEffectsInfo | undefined {
   const { importStyle = 'css' } = options
@@ -27,17 +27,28 @@ function getSideEffects(
 
   if (importStyle === 'sass') {
     return [
-      `${packageName}/packages/theme-chalk/src/base.scss`,
-      `${packageName}/packages/theme-chalk/src/${componentName}.scss`,
+      'element-plus/packages/theme-chalk/src/base.scss',
+      `element-plus/packages/theme-chalk/src/${dirName}.scss`,
     ]
   }
   else {
     return [
-      `${packageName}/lib/theme-chalk/base.css`,
-      `${packageName}/lib/theme-chalk/${componentName}.css`,
+      'element-plus/lib/theme-chalk/base.css',
+      `element-plus/lib/theme-chalk/${dirName}.css`,
     ]
   }
 }
+
+function getSideEffects(dirName: string, options: ElementPlusResolverOptions): SideEffectsInfo | undefined {
+  const { importStyle = 'css', lagency = false } = options
+
+  if (importStyle === 'sass')
+    return `element-plus/es/components/${dirName}/style`
+
+  else if (importStyle === true || importStyle === 'css')
+    return `element-plus/es/components/${dirName}/style/css`
+}
+
 /**
  * Resolver for Element Plus or Element UI
  *
@@ -47,15 +58,28 @@ function getSideEffects(
  * @link https://element-plus.org/#/en-US for element-plus
  * @link https://element.eleme.cn/#/zh-CN for element-ui
  */
-export function ElementPlusResolver(options: ElementPlusResolverOptions = {}): ComponentResolver {
+export function ElementPlusResolver(
+  dirName: string,
+  options: ElementPlusResolverOptions = {},
+): ComponentResolver {
   return (name: string) => {
+    const { lagency = false } = options
+
     if (name.match(/^El[A-Z]/)) {
-      const { useElementUI = false } = options
-      const packageName = useElementUI ? 'element-ui' : 'element-plus'
-      const componentName = useElementUI ? kebabCase(name.slice(2)) : kebabCase(name)
+      let sideEffects
+      if (lagency) {
+        const dirName = kebabCase(name)
+        sideEffects = getLagencySideEffects(dirName, options)
+      }
+      else {
+        const dirName = kebabCase(name.slice(2))
+        sideEffects = getSideEffects(dirName, options)
+      }
+
       return {
-        path: `${packageName}/lib/${componentName}`,
-        sideEffects: getSideEffects(packageName, componentName, options),
+        importName: name,
+        path: 'element-plus/es',
+        sideEffects,
       }
     }
   }
