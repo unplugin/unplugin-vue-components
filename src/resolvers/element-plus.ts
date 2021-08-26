@@ -12,6 +12,10 @@ export interface ElementPlusResolverOptions {
 /**
  * Resolver for Element Plus
  *
+ * Requires element-plus@1.1.0-beta.1 or later
+ *
+ * See https://github.com/element-plus/element-plus/discussions/3020 for more details
+ *
  * See https://github.com/antfu/vite-plugin-components/pull/28 for more details
  *
  * @author @develar
