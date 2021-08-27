@@ -1,5 +1,5 @@
 import { ComponentResolver, SideEffectsInfo } from '../types'
-import { kebabCase } from '../utils'
+import { getPkgVersion, kebabCase } from '../utils'
 
 export interface ElementPlusResolverOptions {
   /**
@@ -12,7 +12,7 @@ export interface ElementPlusResolverOptions {
   /**
    * specify element-plus version to load style
    *
-   * @default 1.0.2
+   * @default installed version
    */
   version?: string
 }
@@ -60,6 +60,7 @@ function getSideEffects(dirName: string, options: ElementPlusResolverOptions): S
  * Resolver for Element Plus
  *
  * See https://github.com/antfu/vite-plugin-components/pull/28 for more details
+ * See https://github.com/antfu/vite-plugin-components/issues/117 for more details
  *
  * @author @develar @nabaonan
  * @link https://element-plus.org/#/en-US for element-plus
@@ -69,9 +70,10 @@ export function ElementPlusResolver(
   options: ElementPlusResolverOptions = {},
 ): ComponentResolver {
   return (name: string) => {
-    const { version = '1.0.2' } = options
-
     if (name.match(/^El[A-Z]/)) {
+      let { version } = options
+      if (!version)
+        version = getPkgVersion('element-plus', '1.0.2')
       let sideEffects
       const partialName = kebabCase(name.slice(2))// ElTableColumn->table-column
       if (version >= '1.1.0') {
