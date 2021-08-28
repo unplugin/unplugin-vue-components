@@ -1,6 +1,6 @@
+import compareVersions from 'compare-versions'
 import { ComponentResolver, SideEffectsInfo } from '../types'
 import { getPkgVersion, kebabCase } from '../utils'
-
 export interface ElementPlusResolverOptions {
   /**
    * import style css or sass with components
@@ -76,7 +76,8 @@ export function ElementPlusResolver(
         version = getPkgVersion('element-plus', '1.0.2')
       let sideEffects
       const partialName = kebabCase(name.slice(2))// ElTableColumn->table-column
-      if (version >= '1.1.0') {
+      if (compareVersions(version, '1.1.0-beta.1') >= 0) {
+        // >=1.1.0-beta.1
         sideEffects = getSideEffects(partialName, options)
         return {
           importName: name,
@@ -84,7 +85,8 @@ export function ElementPlusResolver(
           sideEffects,
         }
       }
-      else if (version >= '1.0.2') {
+      else if (compareVersions(version, '1.0.2-beta.28') >= 0) {
+      // >=1.0.2-beta.28
         sideEffects = getSideEffectsLagency(partialName, options)
         return {
           path: `element-plus/es/el-${partialName}`,
