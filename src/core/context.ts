@@ -2,21 +2,25 @@ import { relative } from 'path'
 import Debug from 'debug'
 import { UpdatePayload, ViteDevServer } from 'vite'
 import { throttle, toArray, slash } from '@antfu/utils'
-import { Options, ComponentInfo, ResolvedOptions } from '../types'
-import { pascalCase, getNameFromFilePath, resolveAlias, matchGlobs } from './utils'
+import { Options, ComponentInfo, ResolvedOptions, Transformer } from '../types'
+import { pascalCase, getNameFromFilePath, resolveAlias, matchGlobs, parseId } from './utils'
 import { resolveOptions } from './options'
 import { searchComponents } from './fs/glob'
 import { generateDeclaration } from './declaration'
+import { Vue2Transformer } from './transforms/vue2'
+import { Vue3Transformer } from './transforms/vue3'
 
 const debug = {
   components: Debug('unplugin-vue-components:context:components'),
   search: Debug('unplugin-vue-components:context:search'),
   hmr: Debug('unplugin-vue-components:context:hmr'),
   decleration: Debug('unplugin-vue-components:decleration'),
+  env: Debug('unplugin-vue-components:env'),
 }
 
 export class Context {
   options: ResolvedOptions
+  transformer: Transformer = undefined!
 
   private _componentPaths = new Set<string>()
   private _componentNameMap: Record<string, ComponentInfo> = {}
@@ -33,13 +37,27 @@ export class Context {
   ) {
     this.options = resolveOptions(rawOptions, this.root)
     this.generateDeclaration = throttle(500, false, this.generateDeclaration.bind(this))
+    this.setTransformer(this.options.transformer)
   }
 
   setRoot(root: string) {
     if (this.root === root)
       return
+    debug.env('root', root)
     this.root = root
     this.options = resolveOptions(this.rawOptions, this.root)
+  }
+
+  setTransformer(name: Options['transformer']) {
+    debug.env('transformer', name)
+    this.transformer = name === 'vue2'
+      ? Vue2Transformer(this)
+      : Vue3Transformer(this)
+  }
+
+  transform(code: string, id: string) {
+    const { path, query } = parseId(id)
+    return this.transformer(code, id, path, query)
   }
 
   setViteServer(server: ViteDevServer) {
@@ -151,7 +169,7 @@ export class Context {
 
         this._componentNameMap[name] = {
           name,
-          path: `/${this.relative(path)}`,
+          path,
         }
       })
   }

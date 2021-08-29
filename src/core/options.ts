@@ -4,10 +4,9 @@ import hasPkg from 'has-pkg'
 import { ResolvedOptions, Options } from '../types'
 import { LibraryResolver } from './helpers/libraryResolver'
 
-export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude'> = {
+export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'transformer'> = {
   dirs: 'src/components',
   extensions: 'vue',
-  transformer: 'vue3',
   deep: true,
   dts: hasPkg('typescript'),
 
@@ -42,7 +41,7 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   )
 
   if (!resolved.extensions.length)
-    throw new Error('[unplugin-vue-components] extensions are required to search for components')
+    throw new Error('[unplugin-vue-components] `extensions` option is required to search for components')
 
   resolved.dts = !options.dts
     ? false

@@ -2,7 +2,7 @@
   "name": "vue-cli",
   "private": true,
   "scripts": {
-    "build": "vue-tsc --noEmit && vue-cli-service build",
+    "build": "vue-cli-service build",
     "dev": "vue-cli-service serve",
     "lint": "vue-cli-service lint"
   },
@@ -18,8 +18,6 @@
     "typescript": "^4.3.5",
     "unplugin-icons": "^0.7.1",
     "unplugin-vue-components": "workspace:*",
-    "unplugin-vue2-script-setup": "^0.5.4",
-    "vue-template-compiler": "^2.6.14",
-    "vue-tsc": "^0.3.0"
+    "unplugin-vue2-script-setup": "^0.5.4"
   }
 }

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueCompostionAPI from '@vue/composition-api'
 import App from './App.vue'
-import 'index.css'
+import './index.css'
 
 Vue.config.productionTip = false
 Vue.use(VueCompostionAPI)

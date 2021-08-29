@@ -42,6 +42,9 @@ export function Vue3Transformer(ctx: Context): Transformer {
 
     ctx.updateUsageMap(sfcPath, componentPaths)
 
+    if (!head.length)
+      return null
+
     s.prepend(`${head.join(';')};`)
 
     const result: TransformResult = { code: s.toString() }

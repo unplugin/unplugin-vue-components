@@ -2,19 +2,13 @@ import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { Options } from '../types'
 import { Context } from './context'
-import { parseId } from './utils'
-import { Vue3Transformer } from './transforms/vue3'
-import { Vue2Transformer } from './transforms/vue2'
 
 export default createUnplugin<Options>((options = {}) => {
   const filter = createFilter(
-    options.include || [/\.vue$/, /\.vue\?vue/],
+    options.include || [/\.vue$/, /\.vue\?vue&type=template/],
     options.exclude || [/node_modules/, /\.git/, /\.nuxt/],
   )
   const ctx: Context = new Context(options)
-  let transformer = ctx.options.transformer === 'vue2'
-    ? Vue2Transformer(ctx)
-    : Vue3Transformer(ctx)
 
   return {
     name: 'unplugin-vue-components',
@@ -25,10 +19,14 @@ export default createUnplugin<Options>((options = {}) => {
     },
 
     async transform(code, id) {
-      const { path, query } = parseId(id)
-      const result = await transformer(code, id, path, query)
-      ctx.generateDeclaration()
-      return result
+      try {
+        const result = await ctx.transform(code, id)
+        ctx.generateDeclaration()
+        return result
+      }
+      catch (e) {
+        this.error(e)
+      }
     },
 
     vite: {
@@ -37,11 +35,7 @@ export default createUnplugin<Options>((options = {}) => {
         ctx.sourcemap = config.build.sourcemap
 
         if (config.plugins.find(i => i.name === 'vite-plugin-vue2'))
-          options.transformer = options.transformer || 'vue2'
-
-        transformer = ctx.options.transformer === 'vue2'
-          ? Vue2Transformer(ctx)
-          : Vue3Transformer(ctx)
+          ctx.setTransformer('vue2')
 
         if (options.dts) {
           ctx.searchGlob()
