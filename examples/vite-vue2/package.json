@@ -1,17 +1,17 @@
 {
   "private": true,
   "scripts": {
-    "dev": "cross-env DEBUG=unplugin-vue-components:* vite",
-    "build": "cross-env DEBUG=unplugin-vue-components:* vite build"
+    "build": "cross-env DEBUG=unplugin-vue-components:* vite build",
+    "dev": "cross-env DEBUG=unplugin-vue-components:* vite"
+  },
+  "dependencies": {
+    "vue": "2.6.14",
+    "vue-template-compiler": "2.6.14"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "unplugin-vue-components": "file:../..",
     "vite": "^2.4.4",
-    "unplugin-vue-components": "workspace:*",
     "vite-plugin-vue2": "^1.8.1"
-  },
-  "dependencies": {
-    "vue": "3.2.2",
-    "vue-template-compiler": "2.6.14"
   }
 }

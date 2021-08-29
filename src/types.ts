@@ -1,3 +1,4 @@
+import type { FilterPattern } from '@rollup/pluginutils'
 import type { TransformResult } from 'unplugin'
 
 export interface ImportInfo {
@@ -30,6 +31,16 @@ export type Transformer = (code: string, id: string, path: string, query: Record
  * Plugin options.
  */
 export interface Options {
+  /**
+   * RegExp or glob to match files to be transformed
+   */
+  include?: FilterPattern
+
+  /**
+   * RegExp or glob to match files to NOT be transformed
+   */
+  exclude?: FilterPattern
+
   /**
    * Relative paths to the directory to search for components.
    * @default 'src/components'
@@ -65,13 +76,6 @@ export interface Options {
    * comp libraries to use auto import
    */
   libraries?: (string | UILibraryOptions)[]
-
-  /**
-   * Auto-import for custom loader (md, svg, etc.). Returns true to enable for certain files.
-   *
-   * @default ()=>false
-   */
-  customLoaderMatcher?: Matcher
 
   /**
    * Pass a custom function to resolve the component importing path from the component name.

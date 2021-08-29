@@ -9,9 +9,6 @@ const debug = Debug('unplugin-vue-components:transform:vue2')
 
 export function Vue2Transformer(ctx: Context): Transformer {
   return (code, id, path, query) => {
-    if (!(path.endsWith('.vue') || ctx.options.customLoaderMatcher(id)))
-      return null
-
     ctx.searchGlob()
 
     const sfcPath = ctx.normalizePath(path)

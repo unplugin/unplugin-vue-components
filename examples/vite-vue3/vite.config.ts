@@ -1,7 +1,7 @@
 import path from 'path'
 import { UserConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
-import ViteComponents from 'unplugin-vue-components/vite'
+import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 import Markdown from 'vite-plugin-md'
 import Icons from 'unplugin-icons/vite'
@@ -24,13 +24,13 @@ const config: UserConfig = {
     SVG(),
     Icons(),
     Inspect(),
-    ViteComponents({
+    Components({
       extensions: ['vue', 'md', 'svg'],
       directoryAsNamespace: true,
       dts: true,
       globalNamespaces: ['global'],
       importPathTransform: path => path.endsWith('.svg') ? `${path}?component` : undefined,
-      customLoaderMatcher: path => path.endsWith('.md'),
+      include: [/\.vue$/, /\.md$/],
       customComponentResolvers: [
         (name) => {
           if (name === 'MyCustom')

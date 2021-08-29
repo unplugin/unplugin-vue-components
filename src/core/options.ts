@@ -4,7 +4,7 @@ import hasPkg from 'has-pkg'
 import { ResolvedOptions, Options } from '../types'
 import { LibraryResolver } from './helpers/libraryResolver'
 
-export const defaultOptions: Required<Options> = {
+export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude'> = {
   dirs: 'src/components',
   extensions: 'vue',
   transformer: 'vue3',
@@ -15,8 +15,6 @@ export const defaultOptions: Required<Options> = {
   globalNamespaces: [],
 
   libraries: [],
-
-  customLoaderMatcher: () => false,
   customComponentResolvers: [],
 
   importPathTransform: v => v,
@@ -55,6 +53,19 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
         : 'components.d.ts',
     )
   resolved.root = root
+  resolved.transformer = options.transformer || getVueVersion() || 'vue3'
 
   return resolved
+}
+
+function getVueVersion() {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const vue = require('vue')
+    const version = vue?.default?.version || vue?.version || '3'
+    return version.startsWith('2.') ? 'vue2' : 'vue3'
+  }
+  catch {
+    return null
+  }
 }
