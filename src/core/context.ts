@@ -163,7 +163,7 @@ export class Context {
       return info
 
     // custom resolvers
-    for (const resolver of this.options.customComponentResolvers) {
+    for (const resolver of this.options.resolvers) {
       const result = resolver(name)
       if (result) {
         if (typeof result === 'string') {

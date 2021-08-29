@@ -6,7 +6,7 @@ const config: UserConfig = {
   plugins: [
     Vue(),
     ViteComponents({
-      customComponentResolvers: [
+      resolvers: [
         NaiveUiResolver(),
       ],
       globalComponentsDeclaration: true,

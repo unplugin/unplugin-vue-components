@@ -82,7 +82,7 @@ export interface Options {
    *
    * The component names are always in PascalCase
    */
-  customComponentResolvers?: ComponentResolver | ComponentResolver[]
+  resolvers?: ComponentResolver | ComponentResolver[]
 
   /**
    * Apply custom transform over the path for importing
@@ -117,9 +117,9 @@ export interface Options {
 
 export type ResolvedOptions = Omit<
 Required<Options>,
-'customComponentResolvers'|'libraries'|'extensions'|'dirs'|'globalComponentsDeclaration'
+'resolvers'|'libraries'|'extensions'|'dirs'|'globalComponentsDeclaration'
 > & {
-  customComponentResolvers: ComponentResolver[]
+  resolvers: ComponentResolver[]
   libraries: UILibraryOptions[]
   extensions: string[]
   dirs: string[]

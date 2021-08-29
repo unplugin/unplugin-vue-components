@@ -31,7 +31,7 @@ const config: UserConfig = {
       globalNamespaces: ['global'],
       importPathTransform: path => path.endsWith('.svg') ? `${path}?component` : undefined,
       include: [/\.vue$/, /\.md$/],
-      customComponentResolvers: [
+      resolvers: [
         (name) => {
           if (name === 'MyCustom')
             return '/src/CustomResolved.vue'

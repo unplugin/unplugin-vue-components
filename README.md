@@ -106,7 +106,7 @@ export default {
   plugins: [
     /* ... */
     Components({
-      customComponentResolvers: [
+      resolvers: [
         ElementPlusResolver(),
       ]
     }),
@@ -173,7 +173,7 @@ import ViteComponents, {
 
 // your plugin installation
 Components({
-  customComponentResolvers: [
+  resolvers: [
     AntDesignVueResolver(),
     ElementPlusResolver(),
     VantResolver(),
@@ -185,7 +185,7 @@ You can also write your own resolver easily:
 
 ```ts
 Components({
-  customComponentResolvers: [
+  resolvers: [
     // example of importing Vant
     (name) => {
       // where `name` is always CapitalCase

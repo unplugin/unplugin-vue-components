@@ -15,7 +15,7 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude'> = {
   globalNamespaces: [],
 
   libraries: [],
-  customComponentResolvers: [],
+  resolvers: [],
 
   importPathTransform: v => v,
 
@@ -25,8 +25,8 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude'> = {
 export function resolveOptions(options: Options, root: string): ResolvedOptions {
   const resolved = Object.assign({}, defaultOptions, options) as ResolvedOptions
   resolved.libraries = toArray(resolved.libraries).map(i => typeof i === 'string' ? { name: i } : i)
-  resolved.customComponentResolvers = toArray(resolved.customComponentResolvers)
-  resolved.customComponentResolvers.push(...resolved.libraries.map(lib => LibraryResolver(lib)))
+  resolved.resolvers = toArray(resolved.resolvers)
+  resolved.resolvers.push(...resolved.libraries.map(lib => LibraryResolver(lib)))
   resolved.extensions = toArray(resolved.extensions)
 
   const extsGlob = resolved.extensions.length === 1
