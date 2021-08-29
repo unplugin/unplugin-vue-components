@@ -1,4 +1,4 @@
-import { TransformResult } from 'rollup'
+import type { TransformResult } from 'unplugin'
 
 export interface ImportInfo {
   name?: string
@@ -24,7 +24,7 @@ export interface UILibraryOptions {
 
 export type Matcher = (id: string) => boolean | null | undefined
 
-export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => null | TransformResult
+export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => TransformResult | null | Promise<null | TransformResult>
 
 /**
  * Plugin options.
@@ -99,9 +99,9 @@ export interface Options {
    *
    * @see https://github.com/vuejs/vue-next/pull/3399
    * @see https://github.com/johnsoncodehk/volar#using
-   * @default false
+   * @default true
    */
-  globalComponentsDeclaration?: boolean | string
+  dts?: boolean | string
 
   /**
    * Do not emit warning on component overriding
@@ -113,7 +113,7 @@ export interface Options {
 
 export type ResolvedOptions = Omit<
 Required<Options>,
-'customComponentResolvers'|'libraries'|'extensions'|'dirs'
+'customComponentResolvers'|'libraries'|'extensions'|'dirs'|'globalComponentsDeclaration'
 > & {
   customComponentResolvers: ComponentResolver[]
   libraries: UILibraryOptions[]
@@ -121,7 +121,7 @@ Required<Options>,
   dirs: string[]
   resolvedDirs: string[]
   globs: string[]
-  globalComponentsDeclaration: string | false
+  dts: string | false
   root: string
 }
 

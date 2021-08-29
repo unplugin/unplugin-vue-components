@@ -1,25 +1,57 @@
 {
-  "name": "vite-plugin-components",
+  "name": "unplugin-vue-components",
   "version": "0.13.2",
-  "description": "Components auto importing for Vite",
-  "homepage": "https://github.com/antfu/vite-plugin-components",
-  "bugs": "https://github.com/antfu/vite-plugin-components/issues",
-  "license": "MIT",
+  "description": "Components auto importing for Vue",
+  "homepage": "https://github.com/antfu/unplugin-vue-components",
+  "bugs": "https://github.com/antfu/unplugin-vue-components/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/antfu/vite-plugin-components"
+    "url": "https://github.com/antfu/unplugin-vue-components"
   },
   "funding": "https://github.com/sponsors/antfu",
+  "license": "MIT",
   "author": "antfu <anthonyfu117@hotmail.com>",
-  "files": [
-    "dist"
-  ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./*": "./*",
+    "./nuxt": {
+      "require": "./dist/nuxt.js",
+      "import": "./dist/nuxt.mjs"
+    },
+    "./resolvers": {
+      "require": "./dist/resolvers.js",
+      "import": "./dist/resolvers.mjs"
+    },
+    "./rollup": {
+      "require": "./dist/rollup.js",
+      "import": "./dist/rollup.mjs"
+    },
+    "./types": {
+      "require": "./dist/types.js",
+      "import": "./dist/types.mjs"
+    },
+    "./vite": {
+      "require": "./dist/vite.js",
+      "import": "./dist/vite.mjs"
+    },
+    "./webpack": {
+      "require": "./dist/webpack.js",
+      "import": "./dist/webpack.mjs"
+    }
+  },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "types": "index.d.ts",
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
   "scripts": {
-    "build": "tsup src/index.ts --dts --format cjs,esm",
-    "dev": "npm run build -- --watch",
+    "build": "rimraf dist && tsup 'src/*.ts' --format cjs,esm --dts && esno scripts/postbuild.ts",
+    "dev": "tsup 'src/*.ts' --format cjs,esm --watch src",
     "example:build": "npm -C examples/vue3 run build",
     "example:dev": "npm -C examples/vue3 run dev",
     "prepublishOnly": "npm run build",
@@ -27,14 +59,13 @@
     "test": "jest",
     "test:update": "jest --u"
   },
-  "peerDependencies": {
-    "vite": "^2.0.0"
-  },
   "dependencies": {
     "debug": "^4.3.2",
     "fast-glob": "^3.2.7",
+    "has-pkg": "^0.0.1",
     "magic-string": "^0.25.7",
-    "minimatch": "^3.0.4"
+    "minimatch": "^3.0.4",
+    "unplugin": "^0.2.3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.7.0",
