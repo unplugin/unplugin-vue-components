@@ -4,39 +4,39 @@ exports[`search should with namespace 1`] = `
 Array [
   Object {
     "name": "Avatar",
-    "path": "/src/components/global/avatar.vue",
+    "path": "src/components/global/avatar.vue",
   },
   Object {
     "name": "Book",
-    "path": "/src/components/book/index.vue",
+    "path": "src/components/book/index.vue",
   },
   Object {
     "name": "ComponentA",
-    "path": "/src/components/ComponentA.vue",
+    "path": "src/components/ComponentA.vue",
   },
   Object {
     "name": "ComponentB",
-    "path": "/src/components/ComponentB.vue",
+    "path": "src/components/ComponentB.vue",
   },
   Object {
     "name": "ComponentC",
-    "path": "/src/components/component-c.vue",
+    "path": "src/components/component-c.vue",
   },
   Object {
     "name": "ComponentD",
-    "path": "/src/components/ComponentD.vue",
+    "path": "src/components/ComponentD.vue",
   },
   Object {
     "name": "Recursive",
-    "path": "/src/components/Recursive.vue",
+    "path": "src/components/Recursive.vue",
   },
   Object {
     "name": "UiButton",
-    "path": "/src/components/ui/button.vue",
+    "path": "src/components/ui/button.vue",
   },
   Object {
     "name": "UiNestedCheckbox",
-    "path": "/src/components/ui/nested/checkbox.vue",
+    "path": "src/components/ui/nested/checkbox.vue",
   },
 ]
 `;
@@ -45,39 +45,39 @@ exports[`search should work 1`] = `
 Array [
   Object {
     "name": "Avatar",
-    "path": "/src/components/global/avatar.vue",
+    "path": "src/components/global/avatar.vue",
   },
   Object {
     "name": "Book",
-    "path": "/src/components/book/index.vue",
+    "path": "src/components/book/index.vue",
   },
   Object {
     "name": "Button",
-    "path": "/src/components/ui/button.vue",
+    "path": "src/components/ui/button.vue",
   },
   Object {
     "name": "Checkbox",
-    "path": "/src/components/ui/nested/checkbox.vue",
+    "path": "src/components/ui/nested/checkbox.vue",
   },
   Object {
     "name": "ComponentA",
-    "path": "/src/components/ComponentA.vue",
+    "path": "src/components/ComponentA.vue",
   },
   Object {
     "name": "ComponentB",
-    "path": "/src/components/ComponentB.vue",
+    "path": "src/components/ComponentB.vue",
   },
   Object {
     "name": "ComponentC",
-    "path": "/src/components/component-c.vue",
+    "path": "src/components/component-c.vue",
   },
   Object {
     "name": "ComponentD",
-    "path": "/src/components/ComponentD.vue",
+    "path": "src/components/ComponentD.vue",
   },
   Object {
     "name": "Recursive",
-    "path": "/src/components/Recursive.vue",
+    "path": "src/components/Recursive.vue",
   },
 ]
 `;

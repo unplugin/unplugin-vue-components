@@ -1,12 +1,18 @@
-<h2 align='center'><samp>vite-plugin-components</samp></h2>
+# unplugin-vue-components
 
-<p align='center'>On demand components auto importing for Vite</p>
+[![NPM version](https://img.shields.io/npm/v/unplugin-vue-components?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-vue-components)
 
-<p align='center'>
-<a href='https://www.npmjs.com/package/vite-plugin-components'>
-<img src='https://img.shields.io/npm/v/vite-plugin-components?color=222&style=flat-square'>
-</a>
-</p>
+On-demand components auto importing for Vue.
+
+###### Features
+
+- 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
+- ⚡️ Supports Vite, Webpack, Vue CLI, rollup and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
+- 🏝 Tree-shakable, only registers the components you use.
+- 🪐 Folder as namespaces.
+- 🦾 Full TypeScript support.
+- 🌈 [Built-in resolvers](#importing-from-ui-libraries) for popular UI libraries.
+- 😃 Works perfectly with [unplugin-icons](https://github.com/antfu/unplugin-icons).
 
 <br>
 
@@ -18,32 +24,84 @@
 
 <br>
 
-## Usage
-
-> ℹ️ **Vite 2 is supported from `v0.6.x`, Vite 1's support is discontinued.**
-
-Install
+## Installation
 
 ```bash
-npm i vite-plugin-components -D # yarn add vite-plugin-components -D
+npm i unplugin-vue-components -D
 ```
 
-Add it to `vite.config.js`
+<details>
+<summary>Vite</summary><br>
 
 ```ts
-// vite.config.js
-import Vue from '@vitejs/plugin-vue'
-import ViteComponents from 'vite-plugin-components'
+// vite.config.ts
+import Components from 'unplugin-vue-components/vite'
+
+export default defineConfig({
+  plugins: [
+    Components({ /* options */ }),
+  ],
+})
+```
+
+<br></details>
+
+<details>
+<summary>Rollup</summary><br>
+
+```ts
+// rollup.config.js
+import Components from 'unplugin-vue-components/rollup'
 
 export default {
   plugins: [
-    Vue(),
-    ViteComponents()
+    Components({ /* options */ }),
   ],
-};
+}
 ```
 
-That's all.
+<br></details>
+
+
+<details>
+<summary>Webpack</summary><br>
+
+```ts
+// webpack.config.js
+module.exports = {
+  /* ... */
+  plugins: [
+    require('unplugin-vue-components/webpack')({ /* options */ })
+  ]
+}
+```
+
+<br></details>
+
+<details>
+<summary>Nuxt</summary><br>
+
+You don't need this plugin for Nuxt, use [`@nuxt/components`](https://github.com/nuxt/components) instead.
+
+<br></details>
+
+<details>
+<summary>Vue CLI</summary><br>
+
+```ts
+// vue.config.js
+module.exports = {
+  configureWebpack: {
+    plugins: [
+      require('unplugin-vue-components/webpack')({ /* options */ }),
+    ],
+  },
+}
+```
+
+<br></details>
+
+## Usage
 
 Use components in templates as you would usually do, it will import components on demand and there is no `import` and `component registration` required anymore! If you register the parent component asynchronously (or lazy route), the auto-imported components will be code-split along with their parent.
 
@@ -89,39 +147,14 @@ export default {
 To have TypeScript support for auto-imported components, there is [a PR](https://github.com/vuejs/vue-next/pull/3399) to Vue 3 extending the interface of global components. Currently, [Volar](https://github.com/johnsoncodehk/volar) has supported this usage already, if you are using Volar, you can change the config as following to get the support.
 
 ```ts
-// vite.config.js
-import ViteComponents from 'vite-plugin-components'
-
-export default {
-  plugins: [
-    /* ... */
-    ViteComponents({
-      globalComponentsDeclaration: true,
-    }),
-  ],
-}
+Components({
+  dts: true, // enabled by default if `typescript` is installed
+})
 ```
 
 Once the setup is done, a `components.d.ts` will be generated and updates automatically with the type definitions. Feel free to commit it into git or not as you want.
 
 **Make sure you also add `components.d.ts` to your `tsconfig.json` under `includes`.**
-
-## Vue 2 Support
-
-It just works.
-
-```ts
-// vite.config.js
-import { createVuePlugin } from 'vite-plugin-vue2'
-import ViteComponents from 'vite-plugin-components'
-
-export default {
-  plugins: [
-    createVuePlugin(),
-    ViteComponents(),
-  ],
-}
-```
 
 ## Importing from UI Libraries
 
@@ -129,18 +162,18 @@ We have several built-in resolvers for popular UI libraries like **Vuetify**, **
 
 Supported Resolvers:
 
-- [Ant Design Vue](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/antdv.ts)
-- [Element Plus](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/element-plus.ts)
-- [Headless UI](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/headless-ui.ts)
-- [IDux](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/idux.ts)
-- [Naive UI](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/naive-ui.ts)
-- [Prime Vue](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/prime-vue.ts)
-- [Vant](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/vant.ts)
-- [Varlet UI](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/varlet-ui.ts)
-- [Vuetify](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/vuetify.ts)
-- [VueUse Components](https://github.com/antfu/vite-plugin-components/blob/master/src/resolvers/vueuse.ts)
-- [View UI](https://github.com/antfu/vite-plugin-components/blob/main/src/resolvers/view-ui.ts)
-- [Element UI](https://github.com/antfu/vite-plugin-components/blob/main/src/resolvers/element-ui.ts)
+- [Ant Design Vue](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/antdv.ts)
+- [Element Plus](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/element-plus.ts)
+- [Element UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/resolvers/element-ui.ts)
+- [Headless UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/headless-ui.ts)
+- [IDux](https://github.com/antfu/unplugin-vue-components/blob/main/src/resolvers/idux.ts)
+- [Naive UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/naive-ui.ts)
+- [Prime Vue](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/prime-vue.ts)
+- [Vant](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vant.ts)
+- [Varlet UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/varlet-ui.ts)
+- [View UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/resolvers/view-ui.ts)
+- [Vuetify](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vuetify.ts)
+- [VueUse Components](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vueuse.ts)
 
 ```ts
 // vite.config.js
@@ -148,53 +181,86 @@ import ViteComponents, {
   AntDesignVueResolver,
   ElementPlusResolver,
   VantResolver,
-} from 'vite-plugin-components'
+} from 'unplugin-vue-components/resolvers'
 
-export default {
-  plugins: [
-    /* ... */
-    ViteComponents({
-      customComponentResolvers: [
-        AntDesignVueResolver(),
-        ElementPlusResolver(),
-        VantResolver(),
-      ]
-    }),
-  ],
-}
+// your plugin installation
+Components({
+  resolvers: [
+    AntDesignVueResolver(),
+    ElementPlusResolver(),
+    VantResolver(),
+  ]
+})
 ```
 
 You can also write your own resolver easily:
 
 ```ts
-// vite.config.js
-import ViteComponents from 'vite-plugin-components'
+Components({
+  resolvers: [
+    // example of importing Vant
+    (name) => {
+      // where `name` is always CapitalCase
+      if (name.startsWith('Van'))
+        return { importName: name.slice(3), path: 'vant' }
+    }
+  ]
+})
+```
+
+If you made other UI libraries configured, please feel free to contribute so it can help others using them out-of-box. Thanks!
+
+
+## Migrate from `vite-plugin-components`
+
+`package.json`
+
+```diff
+{
+  "devDependencies": {
+-   "vite-plugin-components": "*",
++   "unplugin-vue-components": "^0.14.0",
+  }
+}
+```
+
+`vite.config.json`
+
+```diff
+- import Components, { ElementPlusResolver } from 'vite-plugin-components'
++ import Components from 'unplugin-vue-components/vite'
++ import ElementPlusResolver from 'unplugin-vie-components/resolvers'
 
 export default {
   plugins: [
     /* ... */
-    ViteComponents({
-      customComponentResolvers: [
-        // example of importing Vant
-        (name) => {
-          // where `name` is always CapitalCase
-          if (name.startsWith('Van'))
-            return { importName: name.slice(3), path: 'vant' }
-        }
-      ]
+    Components({
+      /* ... */
+
+      // `customComponentsResolvers` has renamed to `resolver`
+-     customComponentsResolvers: [
++     resolvers: [
+        ElementPlusResolver(),
+      ],
+
+      // `globalComponentsDeclaration` has renamed to `dts`
+-     globalComponentsDeclaration: true,
++     dts: true,
+
+      // `customLoaderMatcher` is depreacted, use `include` instead
+-     customLoaderMatcher: id => id.endsWith('.md'),
++     include: [/\.vue$/, /\.vue\?vue&type=template/, /\.md$/],
     }),
   ],
 }
 ```
-
-If you made other UI libraries configured, please feel free to contribute so it can help others using them out-of-box. Thanks!
 
 ## Configuration
 
 The following show the default values of the configuration
 
 ```ts
-ViteComponents({
+Components({
   // relative paths to the directory to search for components.
   dirs: ['src/components'],
 
@@ -202,16 +268,22 @@ ViteComponents({
   extensions: ['vue'],
   // search for subdirectories
   deep: true,
+  // resolvers for custom components
+  resolvers: [],
 
   // generate `components.d.ts` global declrations, 
   // also accepts a path for custom filename
-  globalComponentsDeclaration: false,
+  dts: false,
 
   // Allow subdirectories as namespace prefix for components.
   directoryAsNamespace: false,
   // Subdirectory paths for ignoring namespace prefixes
   // works when `directoryAsNamespace: true`
   globalNamespaces: [],
+
+  // filters for transforming targets
+  include: [/\.vue$/, /\.vue\?vue&type=template/],
+  exclude: [/node_modules/, /\.git/, /\.nuxt/],
 })
 ```
 
@@ -225,4 +297,4 @@ Thanks to [@brattonross](https://github.com/brattonross), this project is heavil
 
 ## License
 
-MIT License © 2020 [Anthony Fu](https://github.com/antfu)
+MIT License © 2020-PRESENT [Anthony Fu](https://github.com/antfu)

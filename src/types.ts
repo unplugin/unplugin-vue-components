@@ -1,4 +1,5 @@
-import { TransformResult } from 'rollup'
+import type { FilterPattern } from '@rollup/pluginutils'
+import type { TransformResult } from 'unplugin'
 
 export interface ImportInfo {
   name?: string
@@ -24,12 +25,22 @@ export interface UILibraryOptions {
 
 export type Matcher = (id: string) => boolean | null | undefined
 
-export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => null | TransformResult
+export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => TransformResult | null | Promise<null | TransformResult>
 
 /**
  * Plugin options.
  */
 export interface Options {
+  /**
+   * RegExp or glob to match files to be transformed
+   */
+  include?: FilterPattern
+
+  /**
+   * RegExp or glob to match files to NOT be transformed
+   */
+  exclude?: FilterPattern
+
   /**
    * Relative paths to the directory to search for components.
    * @default 'src/components'
@@ -67,18 +78,11 @@ export interface Options {
   libraries?: (string | UILibraryOptions)[]
 
   /**
-   * Auto-import for custom loader (md, svg, etc.). Returns true to enable for certain files.
-   *
-   * @default ()=>false
-   */
-  customLoaderMatcher?: Matcher
-
-  /**
    * Pass a custom function to resolve the component importing path from the component name.
    *
    * The component names are always in PascalCase
    */
-  customComponentResolvers?: ComponentResolver | ComponentResolver[]
+  resolvers?: ComponentResolver | ComponentResolver[]
 
   /**
    * Apply custom transform over the path for importing
@@ -99,9 +103,9 @@ export interface Options {
    *
    * @see https://github.com/vuejs/vue-next/pull/3399
    * @see https://github.com/johnsoncodehk/volar#using
-   * @default false
+   * @default true
    */
-  globalComponentsDeclaration?: boolean | string
+  dts?: boolean | string
 
   /**
    * Do not emit warning on component overriding
@@ -113,15 +117,15 @@ export interface Options {
 
 export type ResolvedOptions = Omit<
 Required<Options>,
-'customComponentResolvers'|'libraries'|'extensions'|'dirs'
+'resolvers'|'libraries'|'extensions'|'dirs'|'globalComponentsDeclaration'
 > & {
-  customComponentResolvers: ComponentResolver[]
+  resolvers: ComponentResolver[]
   libraries: UILibraryOptions[]
   extensions: string[]
   dirs: string[]
   resolvedDirs: string[]
   globs: string[]
-  globalComponentsDeclaration: string | false
+  dts: string | false
   root: string
 }
 

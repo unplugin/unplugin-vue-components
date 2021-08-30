@@ -1,9 +1,9 @@
-import { Context } from '../src/context'
-import { stringifyComponentImport } from '../src/utils'
+import { Context } from '../src/core/context'
+import { stringifyComponentImport } from '../src/core/utils'
 
 describe('stringifyComponentImport', () => {
   it('importName', async() => {
-    const ctx = new Context({}, { root: '' } as any)
+    const ctx = new Context({})
     expect(
       stringifyComponentImport({
         name: 'Test',
@@ -14,7 +14,7 @@ describe('stringifyComponentImport', () => {
   })
 
   it('plain css sideEffects', async() => {
-    const ctx = new Context({}, { root: '' } as any)
+    const ctx = new Context({})
     expect(
       stringifyComponentImport({
         name: 'Test',
@@ -25,7 +25,7 @@ describe('stringifyComponentImport', () => {
   })
 
   it('multiple sideEffects', async() => {
-    const ctx = new Context({}, { root: '' } as any)
+    const ctx = new Context({})
     expect(
       stringifyComponentImport({
         name: 'Test',
