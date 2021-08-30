@@ -7,9 +7,9 @@ On-demand components auto importing for Vue.
 ###### Features
 
 - 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
-- ⚡️ Supports Vite, Webpack, Vue CLI, rollup and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
+- ⚡️ Supports Vite, Webpack, Vue CLI, Rollup and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
 - 🏝 Tree-shakable, only registers the components you use.
-- 🪐 Folder as namespaces.
+- 🪐 Folder names as namespaces.
 - 🦾 Full TypeScript support.
 - 🌈 [Built-in resolvers](#importing-from-ui-libraries) for popular UI libraries.
 - 😃 Works perfectly with [unplugin-icons](https://github.com/antfu/unplugin-icons).
