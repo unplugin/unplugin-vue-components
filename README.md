@@ -231,7 +231,7 @@ If you made other UI libraries configured, please feel free to contribute so it 
 ```diff
 - import Components, { ElementPlusResolver } from 'vite-plugin-components'
 + import Components from 'unplugin-vue-components/vite'
-+ import { ElementPlusResolver } from 'unplugin-vie-components/resolvers'
++ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 export default {
   plugins: [
