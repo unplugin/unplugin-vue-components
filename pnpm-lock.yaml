@@ -11,6 +11,7 @@ importers:
       '@types/minimatch': ^3.0.5
       '@types/node': ^16.6.1
       '@typescript-eslint/eslint-plugin': ^4.29.1
+      compare-versions: ^3.6.0
       debug: ^4.3.2
       eslint: ^7.32.0
       fast-glob: ^3.2.7
@@ -36,6 +37,7 @@ importers:
       '@types/minimatch': 3.0.5
       '@types/node': 16.6.1
       '@typescript-eslint/eslint-plugin': 4.29.1_eslint@7.32.0+typescript@4.3.5
+      compare-versions: 3.6.0
       eslint: 7.32.0
       jest: 27.0.6
       rollup: 2.56.2
@@ -2524,6 +2526,10 @@ packages:
     dependencies:
       array-ify: 1.0.0
       dot-prop: 5.3.0
+    dev: true
+
+  /compare-versions/3.6.0:
+    resolution: {integrity: sha512-W6Af2Iw1z4CB7q4uU4hv646dW9GQuBM+YpC0UvUCWSD8w90SJjp+ujJuXaEMtAXBtSqGfMPuFOVn4/+FlaqfBA==}
     dev: true
 
   /concat-map/0.0.1:

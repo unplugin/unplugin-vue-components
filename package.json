@@ -44,6 +44,7 @@
     "@types/minimatch": "^3.0.5",
     "@types/node": "^16.6.1",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "compare-versions": "^3.6.0",
     "eslint": "^7.32.0",
     "jest": "^27.0.6",
     "rollup": "^2.56.2",
