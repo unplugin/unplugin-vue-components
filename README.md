@@ -284,7 +284,7 @@ Components({
   globalNamespaces: [],
 
   // filters for transforming targets
-  include: [/\.vue$/, /\.vue\?vue&type=template/],
+  include: [/\.vue$/, /\.vue\?vue/],
   exclude: [/node_modules/, /\.git/, /\.nuxt/],
 })
 ```
