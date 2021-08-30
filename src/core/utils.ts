@@ -137,3 +137,14 @@ export function resolveAlias(filepath: string, alias: ResolvedConfig['resolve'][
   }
   return result
 }
+
+export function getPkgVersion(pkgName: string, defaultVersion: string): string {
+  try {
+    /* eslint-disable @typescript-eslint/no-var-requires */
+    return require(`${pkgName}/package.json`).version
+  }
+  catch (err) {
+    console.error(err)
+    return defaultVersion
+  }
+}

@@ -153,15 +153,16 @@ Supported Resolvers:
 
 - [Ant Design Vue](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/antdv.ts)
 - [Element Plus](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/element-plus.ts)
+- [Element UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/resolvers/element-ui.ts)
 - [Headless UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/headless-ui.ts)
+- [IDux](https://github.com/antfu/unplugin-vue-components/blob/main/src/resolvers/idux.ts)
 - [Naive UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/naive-ui.ts)
 - [Prime Vue](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/prime-vue.ts)
 - [Vant](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vant.ts)
 - [Varlet UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/varlet-ui.ts)
+- [View UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/resolvers/view-ui.ts)
 - [Vuetify](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vuetify.ts)
 - [VueUse Components](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vueuse.ts)
-- [View UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/resolvers/view-ui.ts)
-- [Element UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/resolvers/element-ui.ts)
 
 ```ts
 // vite.config.js
@@ -214,7 +215,7 @@ Components({
 
   // generate `components.d.ts` global declrations, 
   // also accepts a path for custom filename
-  globalComponentsDeclaration: false,
+  dts: false,
 
   // Allow subdirectories as namespace prefix for components.
   directoryAsNamespace: false,
