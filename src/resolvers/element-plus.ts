@@ -1,6 +1,7 @@
-import compareVersions from 'compare-versions'
+import gt from 'compare-versions'
 import { ComponentResolver, SideEffectsInfo } from '../types'
 import { getPkgVersion, kebabCase } from '../utils'
+
 export interface ElementPlusResolverOptions {
   /**
    * import style css or sass with components
@@ -24,7 +25,7 @@ export interface ElementPlusResolverOptions {
  *
  * @returns
  */
-function getSideEffectsLagency(
+function getSideEffectsLegacy(
   partialName: string,
   options: ElementPlusResolverOptions,
 ): SideEffectsInfo | undefined {
@@ -71,34 +72,31 @@ export function ElementPlusResolver(
 ): ComponentResolver {
   return (name: string) => {
     if (name.match(/^El[A-Z]/)) {
-      let { version } = options
-      if (!version)
-        version = getPkgVersion('element-plus', '1.0.2')
-      let sideEffects
+      const {
+        version = getPkgVersion('element-plus', '1.0.2'),
+      } = options
       const partialName = kebabCase(name.slice(2))// ElTableColumn->table-column
-      if (compareVersions(version, '1.1.0-beta.1') >= 0) {
-        // >=1.1.0-beta.1
-        sideEffects = getSideEffects(partialName, options)
+
+      // >=1.1.0-beta.1
+      if (gt(version, '1.1.0-beta.1')) {
         return {
           importName: name,
           path: 'element-plus/es',
-          sideEffects,
+          sideEffects: getSideEffects(partialName, options),
         }
       }
-      else if (compareVersions(version, '1.0.2-beta.28') >= 0) {
       // >=1.0.2-beta.28
-        sideEffects = getSideEffectsLagency(partialName, options)
+      else if (gt(version, '1.0.2-beta.28')) {
         return {
           path: `element-plus/es/el-${partialName}`,
-          sideEffects,
+          sideEffects: getSideEffectsLegacy(partialName, options),
         }
       }
+      // for <=1.0.1
       else {
-        // for 1.0.1
-        sideEffects = getSideEffectsLagency(partialName, options)
         return {
           path: `element-plus/lib/el-${partialName}`,
-          sideEffects,
+          sideEffects: getSideEffectsLegacy(partialName, options),
         }
       }
     }
