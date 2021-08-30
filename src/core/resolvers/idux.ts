@@ -1,5 +1,21 @@
-import { ComponentResolver } from "../../types"
-import { kebabCase } from "../utils"
+import { ComponentResolver } from '../../types'
+import { kebabCase } from '../utils'
+
+const cdkNames = [
+  'portal',
+  'resizable',
+  'virtual-list',
+]
+
+const kebabCaseDirnames = [
+  'virtual-list',
+  'auto-complete',
+  'back-top',
+  'date-picker',
+  'input-number',
+  'time-picker',
+  'tree-select',
+]
 
 export interface IduxResolverOptions {
   /**
@@ -30,26 +46,14 @@ export function IduxResolver(options: IduxResolverOptions = {}): ComponentResolv
   }
 }
 
-const cdkNames = ['portal', 'resizable', 'virtual-list']
-const kebabCaseDirnames = [
-  'virtual-list',
-  'auto-complete',
-  'back-top',
-  'date-picker',
-  'input-number',
-  'time-picker',
-  'tree-select',
-]
-
 function getDirname(compName: string): string {
   const dirname = kebabCaseDirnames.find(name => compName.startsWith(name))
-  if (dirname) {
+  if (dirname)
     return dirname
-  }
 
   const [first] = compName.split('-')
-  if (first === 'row' || first === 'col') {
+  if (first === 'row' || first === 'col')
     return 'grid'
-  }
+
   return first
 }
