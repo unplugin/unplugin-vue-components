@@ -1,12 +1,18 @@
-<h2 align='center'><samp>unplugin-vue-components</samp></h2>
+# unplugin-vue-components
 
-<p align='center'>On-demand components auto importing for Vue.<br><sub>Works for Vite, Webpack, Vue CLI and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a></sub></p>
+[![NPM version](https://img.shields.io/npm/v/unplugin-vue-components?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-vue-components)
 
-<p align='center'>
-<a href='https://www.npmjs.com/package/unplugin-vue-components'>
-<img src='https://img.shields.io/npm/v/unplugin-vue-components?color=222&style=flat-square'>
-</a>
-</p>
+On-demand components auto importing for Vue.
+
+###### Features
+
+- 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
+- ⚡️ Supports Vite, Webpack, Vue CLI, rollup and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
+- 🏝 Tree-shakable, only registers the components you use.
+- 🪐 Folder as namespaces.
+- 🦾 Full TypeScript support.
+- 🌈 [Built-in resolvers](#importing-from-ui-libraries) for popular UI libraries.
+- 😃 Works perfectly with [unplugin-icons](https://github.com/antfu/unplugin-icons).
 
 <br>
 
@@ -18,30 +24,84 @@
 
 <br>
 
-## Usage
-
-Install
+## Installation
 
 ```bash
 npm i unplugin-vue-components -D
 ```
 
-Add it to `vite.config.js`
+<details>
+<summary>Vite</summary><br>
 
 ```ts
-// vite.config.js
-import Vue from '@vitejs/plugin-vue'
+// vite.config.ts
 import Components from 'unplugin-vue-components/vite'
+
+export default defineConfig({
+  plugins: [
+    Components({ /* options */ }),
+  ],
+})
+```
+
+<br></details>
+
+<details>
+<summary>Rollup</summary><br>
+
+```ts
+// rollup.config.js
+import Components from 'unplugin-vue-components/rollup'
 
 export default {
   plugins: [
-    Vue(),
-    Components()
+    Components({ /* options */ }),
   ],
-};
+}
 ```
 
-That's all.
+<br></details>
+
+
+<details>
+<summary>Webpack</summary><br>
+
+```ts
+// webpack.config.js
+module.exports = {
+  /* ... */
+  plugins: [
+    require('unplugin-vue-components/webpack')({ /* options */ })
+  ]
+}
+```
+
+<br></details>
+
+<details>
+<summary>Nuxt</summary><br>
+
+You don't need this plugin for Nuxt, use [`@nuxt/components`](https://github.com/nuxt/components) instead.
+
+<br></details>
+
+<details>
+<summary>Vue CLI</summary><br>
+
+```ts
+// vue.config.js
+module.exports = {
+  configureWebpack: {
+    plugins: [
+      require('unplugin-vue-components/webpack')({ /* options */ }),
+    ],
+  },
+}
+```
+
+<br></details>
+
+## Usage
 
 Use components in templates as you would usually do, it will import components on demand and there is no `import` and `component registration` required anymore! If you register the parent component asynchronously (or lazy route), the auto-imported components will be code-split along with their parent.
 
@@ -82,68 +142,19 @@ export default {
 </script>
 ```
 
-## Migrate from `vite-plugin-components`
-
-`package.json`
-
-```diff
-{
-  "devDependencies": {
--   "vite-plugin-components": "*",
-+   "unplugin-vue-components": "^0.14.0",
-  }
-}
-```
-
-`vite.config.json`
-
-```diff
-- import Components, { ElementPlusResolver } from 'vite-plugin-components'
-+ import Components from 'unplugin-vue-components/vite'
-+ import ElementPlusResolver from 'unplugin-vie-components/resolvers'
-
-export default {
-  plugins: [
-    /* ... */
-    Components({
-      resolvers: [
-        ElementPlusResolver(),
-      ]
-    }),
-  ],
-}
-```
-
 ## TypeScript
 
 To have TypeScript support for auto-imported components, there is [a PR](https://github.com/vuejs/vue-next/pull/3399) to Vue 3 extending the interface of global components. Currently, [Volar](https://github.com/johnsoncodehk/volar) has supported this usage already, if you are using Volar, you can change the config as following to get the support.
 
 ```ts
 Components({
-  dts: true, // enabled by default if `typescript is installed
+  dts: true, // enabled by default if `typescript` is installed
 })
 ```
 
 Once the setup is done, a `components.d.ts` will be generated and updates automatically with the type definitions. Feel free to commit it into git or not as you want.
 
 **Make sure you also add `components.d.ts` to your `tsconfig.json` under `includes`.**
-
-## Vue 2 Support
-
-It just works.
-
-```ts
-// vite.config.js
-import { createVuePlugin as Vue2 } from 'vite-plugin-vue2'
-import Components from 'unplugin-vue-components/vite'
-
-export default {
-  plugins: [
-    Vue2(),
-    Components(),
-  ],
-}
-```
 
 ## Importing from UI Libraries
 
@@ -199,6 +210,51 @@ Components({
 
 If you made other UI libraries configured, please feel free to contribute so it can help others using them out-of-box. Thanks!
 
+
+## Migrate from `vite-plugin-components`
+
+`package.json`
+
+```diff
+{
+  "devDependencies": {
+-   "vite-plugin-components": "*",
++   "unplugin-vue-components": "^0.14.0",
+  }
+}
+```
+
+`vite.config.json`
+
+```diff
+- import Components, { ElementPlusResolver } from 'vite-plugin-components'
++ import Components from 'unplugin-vue-components/vite'
++ import ElementPlusResolver from 'unplugin-vie-components/resolvers'
+
+export default {
+  plugins: [
+    /* ... */
+    Components({
+      /* ... */
+
+      // `customComponentsResolvers` has renamed to `resolver`
+-     customComponentsResolvers: [
++     resolvers: [
+        ElementPlusResolver(),
+      ],
+
+      // `globalComponentsDeclaration` has renamed to `dts`
+-     globalComponentsDeclaration: true,
++     dts: true,
+
+      // `customLoaderMatcher` is depreacted, use `include` instead
+-     customLoaderMatcher: id => id.endsWith('.md'),
++     include: [/\.vue$/, /\.vue\?vue&type=template/, /\.md$/],
+    }),
+  ],
+}
+```
+
 ## Configuration
 
 The following show the default values of the configuration
@@ -212,6 +268,8 @@ Components({
   extensions: ['vue'],
   // search for subdirectories
   deep: true,
+  // resolvers for custom components
+  resolvers: [],
 
   // generate `components.d.ts` global declrations, 
   // also accepts a path for custom filename
@@ -222,6 +280,10 @@ Components({
   // Subdirectory paths for ignoring namespace prefixes
   // works when `directoryAsNamespace: true`
   globalNamespaces: [],
+
+  // filters for transforming targets
+  include: [/\.vue$/, /\.vue\?vue&type=template/],
+  exclude: [/node_modules/, /\.git/, /\.nuxt/],
 })
 ```
 
@@ -235,4 +297,4 @@ Thanks to [@brattonross](https://github.com/brattonross), this project is heavil
 
 ## License
 
-MIT License © 2020 [Anthony Fu](https://github.com/antfu)
+MIT License © 2020-PRESENT [Anthony Fu](https://github.com/antfu)
