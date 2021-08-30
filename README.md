@@ -251,7 +251,7 @@ export default {
 
       // `customLoaderMatcher` is depreacted, use `include` instead
 -     customLoaderMatcher: id => id.endsWith('.md'),
-+     include: [/\.vue$/, /\.vue\?vue&type=template/, /\.md$/],
++     include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
     }),
   ],
 }
