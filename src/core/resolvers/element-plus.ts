@@ -1,4 +1,4 @@
-import gt from 'compare-versions'
+import compareVersions from 'compare-versions'
 import { ComponentResolver, SideEffectsInfo } from '../../types'
 import { getPkgVersion, kebabCase } from '../utils'
 
@@ -78,7 +78,7 @@ export function ElementPlusResolver(
       const partialName = kebabCase(name.slice(2))// ElTableColumn->table-column
 
       // >=1.1.0-beta.1
-      if (gt(version, '1.1.0-beta.1')) {
+      if (compareVersions.compare(version, '1.1.0-beta.1', '>=')) {
         return {
           importName: name,
           path: 'element-plus/es',
@@ -86,7 +86,7 @@ export function ElementPlusResolver(
         }
       }
       // >=1.0.2-beta.28
-      else if (gt(version, '1.0.2-beta.28')) {
+      else if (compareVersions.compare(version, '1.0.2-beta.28', '>=')) {
         return {
           path: `element-plus/es/el-${partialName}`,
           sideEffects: getSideEffectsLegacy(partialName, options),
