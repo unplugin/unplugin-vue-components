@@ -78,6 +78,7 @@
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "compare-versions": "^3.6.0",
     "eslint": "^7.32.0",
+    "esno": "^0.9.1",
     "jest": "^27.0.6",
     "rollup": "^2.56.2",
     "ts-jest": "^27.0.4",

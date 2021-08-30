@@ -15,6 +15,7 @@ importers:
       compare-versions: ^3.6.0
       debug: ^4.3.2
       eslint: ^7.32.0
+      esno: ^0.9.1
       fast-glob: ^3.2.7
       has-pkg: ^0.0.1
       jest: ^27.0.6
@@ -44,6 +45,7 @@ importers:
       '@typescript-eslint/eslint-plugin': 4.29.1_eslint@7.32.0+typescript@4.3.5
       compare-versions: 3.6.0
       eslint: 7.32.0
+      esno: 0.9.1
       jest: 27.0.6
       rollup: 2.56.2
       ts-jest: 27.0.4_92306e36c1a4cf876b1cd4839a977b9c
@@ -5762,8 +5764,29 @@ packages:
       is-symbol: 1.0.4
     dev: true
 
+  /esbuild-node-loader/0.3.1:
+    resolution: {integrity: sha512-75xPOySulti9R5LwYOMmKiwHyXGr/f89I7UkHolLxRqeBiUNqcyCmNTjv+fO2WV9G3f7LDKVZJlbWoYh5LBpfQ==}
+    dependencies:
+      esbuild: 0.12.24
+    dev: true
+
+  /esbuild-register/3.0.0_esbuild@0.12.24:
+    resolution: {integrity: sha512-No7U3ZUd6gPrrC6gqdb3XFcf2lNqzn8nvQXcgcyOl8szMVuN6YUvOplnmakxWyogI9d8SiJMl0uzBzJck+Aoxw==}
+    peerDependencies:
+      esbuild: '>=0.12 <1'
+    dependencies:
+      esbuild: 0.12.24
+      jsonc-parser: 3.0.0
+    dev: true
+
   /esbuild/0.12.11:
     resolution: {integrity: sha512-h83GwI6lYOrnSv5hSY2i2XZ191v3haj2IGDzwrkfWHhuO/kVMX3RYjhwRNG9E5VSxVLPaUjTVwrv8HWLvhk2nQ==}
+    hasBin: true
+    requiresBuild: true
+    dev: true
+
+  /esbuild/0.12.24:
+    resolution: {integrity: sha512-C0ibY+HsXzYB6L/pLWEiWjMpghKsIc58Q5yumARwBQsHl9DXPakW+5NI/Y9w4YXiz0PEP6XTGTT/OV4Nnsmb4A==}
     hasBin: true
     requiresBuild: true
     dev: true
@@ -6100,6 +6123,16 @@ packages:
       v8-compile-cache: 2.3.0
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /esno/0.9.1:
+    resolution: {integrity: sha512-3pnZ7fI0+8R7kJSTwuOfzAvXNXun7eaZsTSE5avkNRrxTokq3Jm32gaah3Zgl5opHQ1K9SJasoQQySzmfN8alw==}
+    hasBin: true
+    dependencies:
+      cross-spawn: 7.0.3
+      esbuild: 0.12.24
+      esbuild-node-loader: 0.3.1
+      esbuild-register: 3.0.0_esbuild@0.12.24
     dev: true
 
   /espree/6.2.1:
@@ -8411,6 +8444,10 @@ packages:
       semver: 6.3.0
     transitivePeerDependencies:
       - eslint
+    dev: true
+
+  /jsonc-parser/3.0.0:
+    resolution: {integrity: sha512-fQzRfAbIBnR0IQvftw9FJveWiHp72Fg20giDrHz6TdfB12UH/uue0D3hm57UB5KgAVuniLMCaS8P1IMj9NR7cA==}
     dev: true
 
   /jsonfile/4.0.0:
