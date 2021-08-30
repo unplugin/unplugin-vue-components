@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve, relative } from 'upath'
 import { Context } from '../src/core/context'
 
 const root = resolve(__dirname, '../examples/vite-vue3')
@@ -6,7 +6,7 @@ const root = resolve(__dirname, '../examples/vite-vue3')
 function cleanup(data: any) {
   return Object.values(data).map((e: any) => {
     delete e.absolute
-    e.path = e.path.replace(root, '')
+    e.path = relative(root, e.path).replace(/\\/g, '/')
     return e
   }).sort((a, b) => (a.name as string).localeCompare(b.name))
 }
