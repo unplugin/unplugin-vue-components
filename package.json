@@ -66,27 +66,27 @@
     "has-pkg": "^0.0.1",
     "magic-string": "^0.25.7",
     "minimatch": "^3.0.4",
-    "unplugin": "^0.2.3"
+    "unplugin": "^0.2.4"
   },
   "peerDependencies": {
     "vue": "2 || 3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.7.0",
-    "@antfu/utils": "^0.2.4",
+    "@antfu/utils": "^0.3.0",
     "@types/debug": "^4.1.7",
     "@types/jest": "^27.0.1",
     "@types/minimatch": "^3.0.5",
-    "@types/node": "^16.6.1",
-    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@types/node": "^16.7.6",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
     "compare-versions": "^3.6.0",
     "eslint": "^7.32.0",
     "esno": "^0.9.1",
-    "jest": "^27.0.6",
-    "rollup": "^2.56.2",
-    "ts-jest": "^27.0.4",
-    "tsup": "^4.13.1",
-    "typescript": "^4.3.5",
-    "vite": "^2.4.4"
+    "jest": "^27.1.0",
+    "rollup": "^2.56.3",
+    "ts-jest": "^27.0.5",
+    "tsup": "^4.14.0",
+    "typescript": "^4.4.2",
+    "vite": "^2.5.1"
   }
 }
