@@ -30,6 +30,8 @@ On-demand components auto importing for Vue.
 npm i unplugin-vue-components -D
 ```
 
+> **`vite-plugin-components` has been renamed to `unplugin-vue-components`**, see the [migration guide](#migrate-from-vite-plugin-components).
+
 <details>
 <summary>Vite</summary><br>
 
