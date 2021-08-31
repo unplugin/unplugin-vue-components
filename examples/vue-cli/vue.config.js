@@ -9,6 +9,7 @@ const Components = require('unplugin-vue-components/webpack')
  * @type {import('@vue/cli-service').ProjectOptions}
  */
 module.exports = {
+  transpileDependencies: ['veui'],
   configureWebpack: {
     plugins: [
       ScriptSetup({
@@ -23,6 +24,15 @@ module.exports = {
           IconsResolver({
             componentPrefix: '',
           }),
+          (name) => {
+            console.log(name)
+            if (name.startsWith('Veui')) {
+              return {
+                importName: name.slice(4),
+                path: 'veui',
+              }
+            }
+          },
         ],
         transformer: 'vue2',
       }),

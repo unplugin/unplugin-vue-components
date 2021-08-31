@@ -2,6 +2,7 @@ import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { Options } from '../types'
 import { Context } from './context'
+import { shouldTransform } from './utils'
 
 export default createUnplugin<Options>((options = {}) => {
   const filter = createFilter(
@@ -19,6 +20,8 @@ export default createUnplugin<Options>((options = {}) => {
     },
 
     async transform(code, id) {
+      if (!shouldTransform(code))
+        return null
       try {
         const result = await ctx.transform(code, id)
         ctx.generateDeclaration()

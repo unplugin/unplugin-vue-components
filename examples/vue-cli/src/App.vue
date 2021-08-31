@@ -1,17 +1,31 @@
 <template>
-  <div class="block">
-    <ComponentA msg="a" />
-    <component-b msg="b" />
-    <ComponentC msg="c" />
-    <ComponentD />
+  <div id="app">
+    <veui-input-group>
+      <veui-input />
+      <veui-button>OK</veui-button>
+    </veui-input-group>
+
+    <veui-select>
+      <veui-option value="1">
+        Option 1
+      </veui-option>
+      <veui-option value="2">
+        Option 2
+      </veui-option>
+    </veui-select>
+
+    <veui-date-picker />
   </div>
 </template>
 
-<style scoped>
-.block {
-  padding: 0px 20px 10px 20px;
-  margin: 20px 20px;
-  border: 1px solid #888;
-  border-radius: 5px;
+<script>
+export default {
+  name: 'App',
+}
+</script>
+
+<style>
+#app {
+  margin-top: 60px;
 }
 </style>

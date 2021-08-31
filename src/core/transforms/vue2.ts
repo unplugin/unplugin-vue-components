@@ -2,6 +2,7 @@ import Debug from 'debug'
 import MagicString from 'magic-string'
 import { TransformResult } from 'unplugin'
 import { Transformer } from '../../types'
+import { DISABLE_COMMENT } from '../constants'
 import { Context } from '../context'
 import { pascalCase, stringifyComponentImport } from '../utils'
 
@@ -20,7 +21,7 @@ export function Vue2Transformer(ctx: Context): Transformer {
 
     const s = new MagicString(code)
 
-    for (const match of code.matchAll(/_c\(['"](.+?)["']([,)])/g)) {
+    for (const match of code.matchAll(/_c\([\s\n\t]*['"](.+?)["']([,)])/g)) {
       const [full, matchedName, append] = match
 
       if (match.index != null && matchedName && !matchedName.startsWith('_')) {
@@ -31,7 +32,7 @@ export function Vue2Transformer(ctx: Context): Transformer {
         componentPaths.push(name)
         const component = ctx.findComponent(name, [sfcPath], matchedName)
         if (component) {
-          const var_name = `__vite_components_${no}`
+          const var_name = `__unplugin_components_${no}`
           head.push(stringifyComponentImport({ ...component, name: var_name }, ctx))
           no += 1
           s.overwrite(start, end, `_c(${var_name}${append}`)
@@ -46,7 +47,7 @@ export function Vue2Transformer(ctx: Context): Transformer {
     if (!head.length)
       return null
 
-    s.prepend(`${head.join(';')};`)
+    s.prepend(`${DISABLE_COMMENT}${head.join(';')};`)
 
     const result: TransformResult = { code: s.toString() }
     if (ctx.sourcemap)

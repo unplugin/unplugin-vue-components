@@ -4,6 +4,7 @@ import { ResolvedConfig } from 'vite'
 import { slash, toArray } from '@antfu/utils'
 import { ComponentInfo, ResolvedOptions, ImportInfo } from '../types'
 import { Context } from './context'
+import { DISABLE_COMMENT } from './constants'
 
 export interface ResolveComponent {
   filename: string
@@ -147,4 +148,10 @@ export function getPkgVersion(pkgName: string, defaultVersion: string): string {
     console.error(err)
     return defaultVersion
   }
+}
+
+export function shouldTransform(code: string) {
+  if (code.includes(DISABLE_COMMENT))
+    return false
+  return true
 }
