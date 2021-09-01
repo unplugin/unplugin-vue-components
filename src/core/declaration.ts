@@ -18,7 +18,7 @@ export async function generateDeclaration(ctx: Context, root: string, filepath: 
           return undefined
 
         const related = slash(path).startsWith('/')
-          ? `./${relative(dirname(filepath), resolve(root, path.slice(1)))}`
+          ? `./${relative(dirname(filepath), path)}`
           : path
 
         let entry = `typeof import('${slash(related)}')`

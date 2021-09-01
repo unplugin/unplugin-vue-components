@@ -56,7 +56,7 @@ importers:
   examples/vite-vue2:
     specifiers:
       cross-env: ^7.0.3
-      unplugin-vue-components: file:../..
+      unplugin-vue-components: workspace:*
       vite: ^2.4.4
       vite-plugin-vue2: ^1.8.1
       vue: ^2.6.14
