@@ -1,6 +1,6 @@
 import { join, normalize } from 'path'
 import { ComponentResolver, SideEffectsInfo } from '../../types'
-import { kebabCase, camelCase, pascalCase } from '../utils'
+import { kebabCase, camelCase, pascalCase, resolveImportPath } from '../utils'
 
 interface VeuiPeerConfig {
   /**
@@ -106,7 +106,7 @@ const peerPaths = new Map<string, boolean>()
 function assertPeerPath(peerPath: string) {
   if (!peerPaths.has(peerPath)) {
     try {
-      require.resolve(peerPath)
+      resolveImportPath(peerPath)
       peerPaths.set(peerPath, true)
     }
     catch (e) {

@@ -2,13 +2,14 @@ import fs from 'fs'
 import { dirname, join } from 'path'
 import Debug from 'debug'
 import { ComponentResolver, UILibraryOptions } from '../../types'
-import { camelCase, kebabCase } from '../utils'
+import { camelCase, kebabCase, resolveImportPath } from '../utils'
 
 const debug = Debug('unplugin-vue-components:helper:library')
 
 export function tryLoadVeturTags(name: string): string[] | undefined {
   try {
-    const pkgPath = require.resolve(`${name}/package.json`)
+    // eslint-disable-next-line no-eval
+    const pkgPath = resolveImportPath(`${name}/package.json`)
     if (!pkgPath)
       return
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))

@@ -66,6 +66,7 @@
     "has-pkg": "^0.0.1",
     "magic-string": "^0.25.7",
     "minimatch": "^3.0.4",
+    "resolve": "^1.20.0",
     "unplugin": "^0.2.7"
   },
   "peerDependencies": {
@@ -78,6 +79,7 @@
     "@types/jest": "^27.0.1",
     "@types/minimatch": "^3.0.5",
     "@types/node": "^16.7.10",
+    "@types/resolve": "^1.20.1",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
     "compare-versions": "^3.6.0",
     "eslint": "^7.32.0",
