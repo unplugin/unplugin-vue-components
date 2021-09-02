@@ -4,7 +4,7 @@ import { notNullish, slash } from '@antfu/utils'
 import { Context } from './context'
 
 export function parseDeclaration(code: string): Record<string, string> {
-  return Object.fromEntries(Array.from(code.matchAll(/\s+['"]?(.+?)['"]?:\s(.+?)\n/g)).map(i => [i[1], i[2]]))
+  return Object.fromEntries(Array.from(code.matchAll(/(?<!\/\/)\s+\s+['"]?(.+?)['"]?:\s(.+?)\n/g)).map(i => [i[1], i[2]]))
 }
 
 export async function generateDeclaration(ctx: Context, root: string, filepath: string) {
