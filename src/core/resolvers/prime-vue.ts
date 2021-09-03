@@ -86,7 +86,7 @@ const components = [
   'ScrollTop',
   'Skeleton',
   'ProgressBar',
-  'ProgressSpiner',
+  'ProgressSpinner',
   'Tag',
   'Terminal',
   'TerminalService',
