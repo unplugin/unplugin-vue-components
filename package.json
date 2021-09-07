@@ -69,9 +69,6 @@
     "resolve": "^1.20.0",
     "unplugin": "^0.2.7"
   },
-  "peerDependencies": {
-    "vue": "2 || 3"
-  },
   "devDependencies": {
     "@antfu/eslint-config": "^0.7.0",
     "@antfu/utils": "^0.3.0",
@@ -81,6 +78,7 @@
     "@types/node": "^16.7.10",
     "@types/resolve": "^1.20.1",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "bumpp": "^7.1.1",
     "compare-versions": "^3.6.0",
     "eslint": "^7.32.0",
     "esno": "^0.9.1",
@@ -90,5 +88,11 @@
     "tsup": "^4.14.0",
     "typescript": "^4.4.2",
     "vite": "^2.5.3"
+  },
+  "peerDependencies": {
+    "vue": "2 || 3"
+  },
+  "engines": {
+    "node": ">=14"
   }
 }
