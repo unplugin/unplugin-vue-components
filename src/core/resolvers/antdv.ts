@@ -152,6 +152,12 @@ const matchComponents: IMatcher[] = [
 
 export interface AntDesignVueResolverOptions {
   /**
+   * exclude components that do not require automatic import
+   *
+   * @default []
+   */
+  exclude?: string[]
+  /**
    * import style along with components
    *
    * @default 'css'
@@ -230,7 +236,7 @@ export function AntDesignVueResolver(options: AntDesignVueResolverOptions = {}):
       }
     }
 
-    if (name.match(/^A[A-Z]/)) {
+    if (name.match(/^A[A-Z]/) && !options?.exclude?.includes(name)) {
       const importName = name.slice(1)
       return {
         importName,
