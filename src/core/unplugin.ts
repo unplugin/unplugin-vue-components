@@ -1,5 +1,6 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
+import chokidar from 'chokidar'
 import { Options } from '../types'
 import { Context } from './context'
 import { shouldTransform } from './utils'
@@ -44,9 +45,12 @@ export default createUnplugin<Options>((options = {}) => {
           ctx.searchGlob()
           ctx.generateDeclaration()
         }
+
+        if (config.build.watch && config.command === 'build')
+          ctx.setupWather(chokidar.watch(ctx.options.globs))
       },
       configureServer(server) {
-        ctx.setViteServer(server)
+        ctx.setupViteServer(server)
       },
     },
   }

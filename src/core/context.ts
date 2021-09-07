@@ -1,4 +1,5 @@
 import { relative } from 'path'
+import fs from 'fs'
 import Debug from 'debug'
 import { UpdatePayload, ViteDevServer } from 'vite'
 import { throttle, toArray, slash } from '@antfu/utils'
@@ -60,19 +61,25 @@ export class Context {
     return this.transformer(code, id, path, query)
   }
 
-  setViteServer(server: ViteDevServer) {
-    this._server = server
+  setupViteServer(server: ViteDevServer) {
+    if (this._server === server)
+      return
 
+    this._server = server
+    this.setupWather(server.watcher)
+  }
+
+  setupWather(watcher: fs.FSWatcher) {
     const { globs } = this.options
 
-    server.watcher
+    watcher
       .on('unlink', (path) => {
         if (!matchGlobs(path, globs))
           return
         this.removeComponents(path)
         this.onUpdate(path)
       })
-    server.watcher
+    watcher
       .on('add', (path) => {
         if (!matchGlobs(path, globs))
           return
@@ -125,6 +132,8 @@ export class Context {
   }
 
   onUpdate(path: string) {
+    this.generateDeclaration()
+
     if (!this._server)
       return
 
@@ -150,8 +159,6 @@ export class Context {
 
     if (payload.updates.length)
       this._server.ws.send(payload)
-
-    this.generateDeclaration()
   }
 
   private updateComponentNameMap() {

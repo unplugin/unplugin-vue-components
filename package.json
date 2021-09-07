@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "@rollup/pluginutils": "^4.1.1",
+    "chokidar": "^3.5.2",
     "debug": "^4.3.2",
     "fast-glob": "^3.2.7",
     "has-pkg": "^0.0.1",
