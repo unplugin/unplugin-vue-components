@@ -76,9 +76,9 @@
     "@types/debug": "^4.1.7",
     "@types/jest": "^27.0.1",
     "@types/minimatch": "^3.0.5",
-    "@types/node": "^16.7.10",
+    "@types/node": "^16.7.13",
     "@types/resolve": "^1.20.1",
-    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.0",
     "bumpp": "^7.1.1",
     "compare-versions": "^3.6.0",
     "eslint": "^7.32.0",
@@ -88,7 +88,7 @@
     "ts-jest": "^27.0.5",
     "tsup": "^4.14.0",
     "typescript": "^4.4.2",
-    "vite": "^2.5.3"
+    "vite": "^2.5.4"
   },
   "peerDependencies": {
     "vue": "2 || 3"
