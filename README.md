@@ -83,7 +83,7 @@ module.exports = {
 <details>
 <summary>Nuxt</summary><br>
 
-You don't need this plugin for Nuxt, use [`@nuxt/components`](https://github.com/nuxt/components) instead.
+You might not need this plugin for Nuxt. Use [`@nuxt/components`](https://github.com/nuxt/components) instead.
 
 <br></details>
 
@@ -105,9 +105,9 @@ module.exports = {
 
 ## Usage
 
-Use components in templates as you would usually do, it will import components on demand and there is no `import` and `component registration` required anymore! If you register the parent component asynchronously (or lazy route), the auto-imported components will be code-split along with their parent.
+Use components in templates as you would usually do, it will import components on demand, and there is no `import` and `component registration` required anymore! If you register the parent component asynchronously (or lazy route), the auto-imported components will be code-split along with their parent.
 
-Basically, it will automatically turn this
+It will automatically turn this
 
 ```html
 <template>
@@ -146,7 +146,7 @@ export default {
 
 ## TypeScript
 
-To have TypeScript support for auto-imported components, there is [a PR](https://github.com/vuejs/vue-next/pull/3399) to Vue 3 extending the interface of global components. Currently, [Volar](https://github.com/johnsoncodehk/volar) has supported this usage already, if you are using Volar, you can change the config as following to get the support.
+To get TypeScript support for auto-imported components, there is [a PR](https://github.com/vuejs/vue-next/pull/3399) to Vue 3 extending the interface of global components. Currently, [Volar](https://github.com/johnsoncodehk/volar) has supported this usage already. If you are using Volar, you can change the config as following to get the support.
 
 ```ts
 Components({
@@ -196,7 +196,7 @@ Components({
 })
 ```
 
-You can also write your own resolver easily:
+You can also write your own resolver quickly:
 
 ```ts
 Components({
@@ -211,8 +211,7 @@ Components({
 })
 ```
 
-If you made other UI libraries configured, please feel free to contribute so it can help others using them out-of-box. Thanks!
-
+If you successfully configured other UI libraries, please feel free to contribute and help others using them out-of-box. Thanks!
 
 ## Migrate from `vite-plugin-components`
 
