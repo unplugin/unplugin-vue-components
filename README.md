@@ -285,7 +285,7 @@ Components({
 
   // filters for transforming targets
   include: [/\.vue$/, /\.vue\?vue/],
-  exclude: [/node_modules/, /\.git/, /\.nuxt/],
+  exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
 })
 ```
 
