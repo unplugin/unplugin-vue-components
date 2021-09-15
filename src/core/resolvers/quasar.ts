@@ -4,7 +4,7 @@ import { ComponentResolver } from '../../types'
 /**
  * Resolver for Quasar
  *
- * @link https://github.com/quasar/quasar
+ * @link https://github.com/quasarframework/quasar
  */
 export function QuasarResolver(): ComponentResolver {
     return (name: string) => {
