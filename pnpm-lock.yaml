@@ -29,7 +29,7 @@ importers:
       ts-jest: ^27.0.5
       tsup: ^4.14.0
       typescript: ^4.4.3
-      unplugin: ^0.2.10
+      unplugin: ^0.2.11
       vite: ^2.5.7
     dependencies:
       '@rollup/pluginutils': 4.1.1
@@ -40,7 +40,7 @@ importers:
       magic-string: 0.25.7
       minimatch: 3.0.4
       resolve: 1.20.0
-      unplugin: 0.2.10_rollup@2.56.3+vite@2.5.7
+      unplugin: 0.2.11_rollup@2.56.3+vite@2.5.7
     devDependencies:
       '@antfu/eslint-config': 0.9.0_eslint@7.32.0+typescript@4.4.3
       '@antfu/utils': 0.3.0
@@ -12066,8 +12066,8 @@ packages:
       - webpack
     dev: true
 
-  /unplugin/0.2.10_rollup@2.56.3+vite@2.5.7:
-    resolution: {integrity: sha512-GkY1taNOBxsY+V+rVx/wKESKJlc9L444HU84zlsMPx5o/QC2xklLsgQ3AUWnFbzUHlQ0SadDNcloXtafmNCqCA==}
+  /unplugin/0.2.11_rollup@2.56.3+vite@2.5.7:
+    resolution: {integrity: sha512-PY8x+hG1smsF06chESP5BurwZN+tZK1tNjKsCXe4XFOfRCIOcrIPCrwBKwLSfeAdojVCtMjSpJ2e/l5QXNw16A==}
     peerDependencies:
       rollup: ^2.50.0
       vite: ^2.3.0
