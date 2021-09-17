@@ -7,6 +7,7 @@ import { LibraryResolver } from './helpers/libraryResolver'
 export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'transformer'> = {
   dirs: 'src/components',
   extensions: 'vue',
+  filter: '*',
   deep: true,
   dts: hasPkg('typescript'),
 
@@ -36,8 +37,8 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   resolved.resolvedDirs = resolved.dirs.map(i => slash(resolve(root, i)))
 
   resolved.globs = resolved.resolvedDirs.map(i => resolved.deep
-    ? slash(join(i, `**/*.${extsGlob}`))
-    : slash(join(i, `*.${extsGlob}`)),
+    ? slash(join(i, `**/${resolved.filter}.${extsGlob}`))
+    : slash(join(i, `${resolved.filter}.${extsGlob}`)),
   )
 
   if (!resolved.extensions.length)
