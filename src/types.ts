@@ -54,9 +54,9 @@ export interface Options {
   extensions?: string | string[]
 
   /**
-   * Glob pattern to match file names to be detected as components.
+   * Glob patterns to match file names to be detected as components.
    */
-  filter?: string
+  globs?: string | string[]
 
   /**
    * Search for subdirectories
