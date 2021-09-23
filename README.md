@@ -274,7 +274,7 @@ Components({
   // resolvers for custom components
   resolvers: [],
 
-  // generate `components.d.ts` global declrations, 
+  // generate `components.d.ts` global declarations, 
   // also accepts a path for custom filename
   dts: false,
 
