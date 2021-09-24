@@ -55,6 +55,8 @@ export interface Options {
 
   /**
    * Glob patterns to match file names to be detected as components.
+   *
+   * When specified, the `dirs` and `extensions` options will be ignored.
    */
   globs?: string | string[]
 

@@ -30,11 +30,12 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
 
   if (resolved.globs) {
     resolved.globs = toArray(resolved.globs).map((glob: string) => slash(resolve(root, glob)))
-  } else {
+  }
+  else {
     const extsGlob = resolved.extensions.length === 1
       ? resolved.extensions
       : `{${resolved.extensions.join(',')}}`
-    
+
     resolved.dirs = toArray(resolved.dirs)
     resolved.resolvedDirs = resolved.dirs.map(i => slash(resolve(root, i)))
 
