@@ -206,18 +206,6 @@ export class Context {
     return undefined
   }
 
-  async findComponents(names: string[], excludePaths: string[] = []) {
-    const components = await Promise.all(names.map(async(name) => {
-      try {
-        return await this.findComponent(name, excludePaths)
-      }
-      catch (_) {}
-      return undefined
-    }))
-
-    return components.filter(Boolean) as ComponentInfo[]
-  }
-
   normalizePath(path: string) {
     // @ts-expect-error backward compatibility
     return resolveAlias(path, this.viteConfig?.resolve?.alias || this.viteConfig?.alias || [])
