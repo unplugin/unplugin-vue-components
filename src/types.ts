@@ -13,7 +13,7 @@ export interface ComponentInfo extends ImportInfo {
   sideEffects?: SideEffectsInfo
 }
 
-export type ComponentResolveResult = string | ComponentInfo
+export type ComponentResolveResult = string | ComponentInfo | Promise<string | ComponentInfo | null | undefined | void>
 
 export type ComponentResolver = (name: string) => ComponentResolveResult | null | undefined | void
 

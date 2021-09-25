@@ -174,7 +174,7 @@ export class Context {
       })
   }
 
-  findComponent(name: string, excludePaths: string[] = [], rawName?: string): ComponentInfo | undefined {
+  async findComponent(name: string, excludePaths: string[] = [], rawName?: string): Promise<ComponentInfo | undefined> {
     // resolve from fs
     let info = this._componentNameMap[name]
     if (info && !excludePaths.includes(info.path) && !excludePaths.includes(info.path.slice(1)))
@@ -182,7 +182,7 @@ export class Context {
 
     // custom resolvers
     for (const resolver of this.options.resolvers) {
-      const result = resolver(name)
+      const result = await resolver(name)
       if (result) {
         if (typeof result === 'string') {
           info = {
@@ -206,10 +206,16 @@ export class Context {
     return undefined
   }
 
-  findComponents(names: string[], excludePaths: string[] = []) {
-    return names
-      .map(name => this.findComponent(name, excludePaths))
-      .filter(Boolean) as ComponentInfo[]
+  async findComponents(names: string[], excludePaths: string[] = []) {
+    const components = await Promise.all(names.map(async(name) => {
+      try {
+        return await this.findComponent(name, excludePaths)
+      }
+      catch (_) {}
+      return undefined
+    }))
+
+    return components.filter(Boolean) as ComponentInfo[]
   }
 
   normalizePath(path: string) {
