@@ -35,6 +35,11 @@ const components = [
   'SwitchLabel',
   'TransitionChild',
   'TransitionRoot',
+  'TabGroup',
+  'TabList',
+  'Tab',
+  'TabPanels',
+  'TabPanel',
 ]
 
 /**

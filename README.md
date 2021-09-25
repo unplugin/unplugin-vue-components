@@ -83,7 +83,7 @@ module.exports = {
 <details>
 <summary>Nuxt</summary><br>
 
-You don't need this plugin for Nuxt, use [`@nuxt/components`](https://github.com/nuxt/components) instead.
+You might not need this plugin for Nuxt. Use [`@nuxt/components`](https://github.com/nuxt/components) instead.
 
 <br></details>
 
@@ -105,9 +105,9 @@ module.exports = {
 
 ## Usage
 
-Use components in templates as you would usually do, it will import components on demand and there is no `import` and `component registration` required anymore! If you register the parent component asynchronously (or lazy route), the auto-imported components will be code-split along with their parent.
+Use components in templates as you would usually do, it will import components on demand, and there is no `import` and `component registration` required anymore! If you register the parent component asynchronously (or lazy route), the auto-imported components will be code-split along with their parent.
 
-Basically, it will automatically turn this
+It will automatically turn this
 
 ```html
 <template>
@@ -146,7 +146,7 @@ export default {
 
 ## TypeScript
 
-To have TypeScript support for auto-imported components, there is [a PR](https://github.com/vuejs/vue-next/pull/3399) to Vue 3 extending the interface of global components. Currently, [Volar](https://github.com/johnsoncodehk/volar) has supported this usage already, if you are using Volar, you can change the config as following to get the support.
+To get TypeScript support for auto-imported components, there is [a PR](https://github.com/vuejs/vue-next/pull/3399) to Vue 3 extending the interface of global components. Currently, [Volar](https://github.com/johnsoncodehk/volar) has supported this usage already. If you are using Volar, you can change the config as following to get the support.
 
 ```ts
 Components({
@@ -166,16 +166,18 @@ Supported Resolvers:
 
 - [Ant Design Vue](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/antdv.ts)
 - [Element Plus](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/element-plus.ts)
-- [Element UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/resolvers/element-ui.ts)
+- [Element UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/element-ui.ts)
 - [Headless UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/headless-ui.ts)
-- [IDux](https://github.com/antfu/unplugin-vue-components/blob/main/src/resolvers/idux.ts)
+- [IDux](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/idux.ts)
 - [Naive UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/naive-ui.ts)
 - [Prime Vue](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/prime-vue.ts)
 - [Vant](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vant.ts)
+- [VEUI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/veui.ts)
 - [Varlet UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/varlet-ui.ts)
-- [View UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/resolvers/view-ui.ts)
+- [View UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/view-ui.ts)
 - [Vuetify](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vuetify.ts)
 - [VueUse Components](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vueuse.ts)
+- [Quasar](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/quasar.ts)
 
 ```ts
 // vite.config.js
@@ -195,7 +197,7 @@ Components({
 })
 ```
 
-You can also write your own resolver easily:
+You can also write your own resolver quickly:
 
 ```ts
 Components({
@@ -210,8 +212,7 @@ Components({
 })
 ```
 
-If you made other UI libraries configured, please feel free to contribute so it can help others using them out-of-box. Thanks!
-
+If you successfully configured other UI libraries, please feel free to contribute and help others using them out-of-box. Thanks!
 
 ## Migrate from `vite-plugin-components`
 
@@ -273,7 +274,7 @@ Components({
   // resolvers for custom components
   resolvers: [],
 
-  // generate `components.d.ts` global declrations, 
+  // generate `components.d.ts` global declarations, 
   // also accepts a path for custom filename
   dts: false,
 
@@ -285,7 +286,7 @@ Components({
 
   // filters for transforming targets
   include: [/\.vue$/, /\.vue\?vue/],
-  exclude: [/node_modules/, /\.git/, /\.nuxt/],
+  exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
 })
 ```
 

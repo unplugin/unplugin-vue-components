@@ -10,8 +10,8 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "unplugin-vue-components": "file:../..",
-    "vite": "^2.4.4",
+    "unplugin-vue-components": "workspace:*",
+    "vite": "^2.5.3",
     "vite-plugin-vue2": "^1.8.1"
   }
 }

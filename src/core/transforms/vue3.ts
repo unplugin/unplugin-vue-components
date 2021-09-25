@@ -50,7 +50,7 @@ export function Vue3Transformer(ctx: Context): Transformer {
 
     const result: TransformResult = { code: s.toString() }
     if (ctx.sourcemap)
-      result.map = s.generateMap({ hires: true })
+      result.map = s.generateMap({ source: id, includeContent: true })
     return result
   }
 }

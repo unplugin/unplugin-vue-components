@@ -1,11 +1,13 @@
 import { UserConfig } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
-import ViteComponents from 'unplugin-vue-components/vite'
+import Components from 'unplugin-vue-components/vite'
 
 const config: UserConfig = {
   plugins: [
     createVuePlugin(),
-    ViteComponents(),
+    Components({
+      dts: 'src/components.d.ts',
+    }),
   ],
   build: {
     sourcemap: true,

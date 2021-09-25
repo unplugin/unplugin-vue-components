@@ -26,11 +26,13 @@ const components = [
   'TreeSelect',
   'TriStateCheckbox',
   'Button',
+  'SpeedDial',
   'SplitButton',
   'DataTable',
   'Column',
   'ColumnGroup',
   'DataView',
+  'VirtualScroller',
   'FullCalendar',
   'OrderList',
   'OrganizationChart',
@@ -68,11 +70,13 @@ const components = [
   'Steps',
   'TabMenu',
   'TieredMenu',
+  'Dock',
   'Chart',
   'Message',
   'Toast',
   'Carousel',
   'Galleria',
+  'Image',
   'Avatar',
   'AvatarGroup',
   'Badge',
@@ -82,7 +86,7 @@ const components = [
   'ScrollTop',
   'Skeleton',
   'ProgressBar',
-  'ProgressSpiner',
+  'ProgressSpinner',
   'Tag',
   'Terminal',
   'TerminalService',
@@ -134,7 +138,7 @@ export function PrimeVueResolver(options: PrimeVueResolverOptions = {}): Compone
 
     if (components.includes(name)) {
       return {
-        path: `primevue/${name}/${name}.vue`,
+        path: `primevue/${name.toLowerCase()}/${name}.vue`,
         sideEffects,
       }
     }

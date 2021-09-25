@@ -1,5 +1,6 @@
 import { parse } from 'path'
 import minimatch from 'minimatch'
+import resolve from 'resolve'
 import { ResolvedConfig } from 'vite'
 import { slash, toArray } from '@antfu/utils'
 import { ComponentInfo, ResolvedOptions, ImportInfo } from '../types'
@@ -154,4 +155,10 @@ export function shouldTransform(code: string) {
   if (code.includes(DISABLE_COMMENT))
     return false
   return true
+}
+
+export function resolveImportPath(importName: string): string | undefined {
+  return resolve.sync(importName, {
+    preserveSymlinks: false,
+  })
 }
