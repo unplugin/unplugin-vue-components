@@ -9,7 +9,7 @@ import { pascalCase, stringifyComponentImport } from '../utils'
 const debug = Debug('unplugin-vue-components:transform:vue3')
 
 export function Vue3Transformer(ctx: Context): Transformer {
-  return (code, id, path, query) => {
+  return async(code, id, path, query) => {
     ctx.searchGlob()
 
     const sfcPath = ctx.normalizePath(path)
@@ -29,7 +29,7 @@ export function Vue3Transformer(ctx: Context): Transformer {
         debug(`| ${matchedName}`)
         const name = pascalCase(matchedName)
         componentPaths.push(name)
-        const component = ctx.findComponent(name, [sfcPath], matchedName)
+        const component = await ctx.findComponent(name, [sfcPath], matchedName)
         if (component) {
           const var_name = `__unplugin_components_${no}`
           head.push(stringifyComponentImport({ ...component, name: var_name }, ctx))

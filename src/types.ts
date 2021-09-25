@@ -1,5 +1,6 @@
 import type { FilterPattern } from '@rollup/pluginutils'
 import type { TransformResult } from 'unplugin'
+import type { Awaitable } from '@antfu/utils'
 
 export interface ImportInfo {
   name?: string
@@ -13,9 +14,9 @@ export interface ComponentInfo extends ImportInfo {
   sideEffects?: SideEffectsInfo
 }
 
-export type ComponentResolveResult = string | ComponentInfo
+export type ComponentResolveResult = Awaitable<string | ComponentInfo | null | undefined | void>
 
-export type ComponentResolver = (name: string) => ComponentResolveResult | null | undefined | void
+export type ComponentResolver = (name: string) => ComponentResolveResult
 
 export interface UILibraryOptions {
   name: string
@@ -25,7 +26,7 @@ export interface UILibraryOptions {
 
 export type Matcher = (id: string) => boolean | null | undefined
 
-export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => TransformResult | null | Promise<null | TransformResult>
+export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => Awaitable<TransformResult | null>
 
 /**
  * Plugin options.
