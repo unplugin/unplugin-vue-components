@@ -32,6 +32,7 @@ const components = [
   'Column',
   'ColumnGroup',
   'DataView',
+  'DataViewLayoutOptions',
   'VirtualScroller',
   'FullCalendar',
   'OrderList',
@@ -73,6 +74,7 @@ const components = [
   'Dock',
   'Chart',
   'Message',
+  'InlineMessage',
   'Toast',
   'Carousel',
   'Galleria',
@@ -90,6 +92,7 @@ const components = [
   'Tag',
   'Terminal',
   'TerminalService',
+  'Timeline',
 ]
 
 export interface PrimeVueResolverOptions {
