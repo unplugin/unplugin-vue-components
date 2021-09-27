@@ -21,8 +21,9 @@ const components = [
   'ColorPicker',
   'Column',
   'ColumnGroup',
-  'ConfirmDialog',
-  'ConfirmPopup',
+  // 'ConfirmDialog',
+  // 'ConfirmPopup',
+  // These must be registered globally in order for the confirm service to work properly
   'ContextMenu',
   'DataTable',
   'DataView',
@@ -84,7 +85,8 @@ const components = [
   'TieredMenu',
   'Timeline',
   'Timelist',
-  'Toast',
+  // 'Toast',
+  // Toast must be registered globally in order for the toast service to work properly
   'ToggleButton',
   'Toolbar',
   'Tooltip',
