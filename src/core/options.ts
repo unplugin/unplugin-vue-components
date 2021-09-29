@@ -1,6 +1,6 @@
 import { join, resolve } from 'path'
 import { slash, toArray } from '@antfu/utils'
-import hasPkg from 'has-pkg'
+import { isPackageExists } from 'local-pkg'
 import { ResolvedOptions, Options } from '../types'
 import { LibraryResolver } from './helpers/libraryResolver'
 
@@ -8,7 +8,7 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'tr
   dirs: 'src/components',
   extensions: 'vue',
   deep: true,
-  dts: hasPkg('typescript'),
+  dts: isPackageExists('typescript'),
 
   directoryAsNamespace: false,
   globalNamespaces: [],
