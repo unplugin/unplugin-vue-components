@@ -4,6 +4,8 @@ import { notNullish, slash } from '@antfu/utils'
 import { Context } from './context'
 
 export function parseDeclaration(code: string): Record<string, string> {
+  if (!code)
+    return {}
   return Object.fromEntries(Array.from(code.matchAll(/(?<!\/\/)\s+\s+['"]?(.+?)['"]?:\s(.+?)\n/g)).map(i => [i[1], i[2]]))
 }
 
@@ -34,9 +36,9 @@ export async function generateDeclaration(ctx: Context, root: string, filepath: 
   if (!Object.keys(imports).length)
     return
 
-  const originalImports = existsSync(filepath)
-    ? parseDeclaration(await fs.readFile(filepath, 'utf-8'))
-    : {}
+  const originalContent = existsSync(filepath) ? await fs.readFile(filepath, 'utf-8') : ''
+
+  const originalImports = parseDeclaration(originalContent)
 
   const lines = Object.entries({
     ...originalImports,
@@ -61,5 +63,7 @@ declare module 'vue' {
 
 export { }
 `
-  await fs.writeFile(filepath, code, 'utf-8')
+
+  if (code !== originalContent)
+    await fs.writeFile(filepath, code, 'utf-8')
 }
