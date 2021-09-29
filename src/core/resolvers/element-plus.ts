@@ -49,12 +49,14 @@ function getSideEffectsLegacy(
 
 function getSideEffects(dirName: string, options: ElementPlusResolverOptions): SideEffectsInfo | undefined {
   const { importStyle = 'css' } = options
+  const themeFolder = 'element-plus/theme-chalk'
+  const esComponentsFolder = 'element-plus/es/components'
 
   if (importStyle === 'sass')
-    return `element-plus/es/components/${dirName}/style`
+    return import.meta.env.SSR ? `${themeFolder}/src/${dirName}.scss` : `${esComponentsFolder}/${dirName}/style`
 
   else if (importStyle === true || importStyle === 'css')
-    return `element-plus/es/components/${dirName}/style/css`
+    return import.meta.env.SSR ? `${themeFolder}/el-${dirName}.css` : `${esComponentsFolder}/${dirName}/style/css`
 }
 
 /**
@@ -81,7 +83,7 @@ export function ElementPlusResolver(
       if (compareVersions.compare(version, '1.1.0-beta.1', '>=')) {
         return {
           importName: name,
-          path: 'element-plus/es',
+          path: `element-plus/${import.meta.env.SSR ? 'lib' : 'es'}`,
           sideEffects: getSideEffects(partialName, options),
         }
       }
