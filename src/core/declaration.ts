@@ -1,4 +1,4 @@
-import { resolve, dirname, relative } from 'path'
+import { resolve, dirname, relative, isAbsolute } from 'path'
 import { promises as fs, existsSync } from 'fs'
 import { notNullish, slash } from '@antfu/utils'
 import { Context } from './context'
@@ -19,7 +19,7 @@ export async function generateDeclaration(ctx: Context, root: string, filepath: 
         if (!name)
           return undefined
 
-        const related = slash(path).startsWith('/')
+        const related = isAbsolute(path)
           ? `./${relative(dirname(filepath), path)}`
           : path
 
