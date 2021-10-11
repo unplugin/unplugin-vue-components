@@ -1,0 +1,11 @@
+*                                   @antfu
+
+src/core/resolvers/antdv.ts         @nabaonan
+src/core/resolvers/element-ui.ts    @sxzz
+src/core/resolvers/element-plus.ts  @sxzz
+src/core/resolvers/view-ui.ts       @nabaonan
+src/core/resolvers/prime-vue.ts     @rafaelytakei
+src/core/resolvers/varlet-ui.ts     @haoziqaq
+src/core/resolvers/headless-ui.ts   @YannicEl
+src/core/resolvers/quasar.ts        @vitorarantes
+src/core/resolvers/vuetify.ts       @martinussuherman
