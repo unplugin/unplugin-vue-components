@@ -3,7 +3,7 @@ import type MagicString from 'magic-string'
 import { pascalCase, stringifyComponentImport } from '../utils'
 import type { Context } from '../context'
 import { ResolveResult } from '../transformer'
-import { VueVersion } from '../..'
+import { SupportedTransformer } from '../..'
 
 const debug = Debug('unplugin-vue-components:transform:component')
 
@@ -44,10 +44,10 @@ const resolveVue3 = (code: string, s: MagicString) => {
   return results
 }
 
-export default async(code: string, version: VueVersion, s: MagicString, ctx: Context, sfcPath: string) => {
+export default async(code: string, transformer: SupportedTransformer, s: MagicString, ctx: Context, sfcPath: string) => {
   let no = 0
 
-  const results = version === 'vue2' ? resolveVue2(code, s) : resolveVue3(code, s)
+  const results = transformer === 'vue2' ? resolveVue2(code, s) : resolveVue3(code, s)
 
   for (const { rawName, replace } of results) {
     debug(`| ${rawName}`)

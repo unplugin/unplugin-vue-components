@@ -1,7 +1,7 @@
 import Debug from 'debug'
 import MagicString from 'magic-string'
 import { TransformResult } from 'unplugin'
-import { VueVersion } from '..'
+import { SupportedTransformer } from '..'
 import type { Transformer } from '../types'
 import { DISABLE_COMMENT } from './constants'
 import { Context } from './context'
@@ -15,7 +15,7 @@ export interface ResolveResult {
   replace: (resolved: string) => void
 }
 
-export default (ctx: Context, version: VueVersion): Transformer => {
+export default (ctx: Context, transformer: SupportedTransformer): Transformer => {
   return async(code, id, path) => {
     ctx.searchGlob()
 
@@ -24,9 +24,9 @@ export default (ctx: Context, version: VueVersion): Transformer => {
 
     const s = new MagicString(code)
 
-    await transformComponent(code, version, s, ctx, sfcPath)
+    await transformComponent(code, transformer, s, ctx, sfcPath)
     if (ctx.options.directives)
-      await transformDirectives(code, version, s, ctx, sfcPath)
+      await transformDirectives(code, transformer, s, ctx, sfcPath)
 
     s.prepend(DISABLE_COMMENT)
 
