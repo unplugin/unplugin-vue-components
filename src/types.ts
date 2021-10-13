@@ -28,6 +28,8 @@ export type Matcher = (id: string) => boolean | null | undefined
 
 export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => Awaitable<TransformResult | null>
 
+export type VueVersion = 'vue3' | 'vue2'
+
 /**
  * Plugin options.
  */
@@ -102,7 +104,7 @@ export interface Options {
    *
    * @default 'vue3'
    */
-  transformer?: 'vue3' | 'vue2'
+  transformer?: VueVersion
 
   /**
    * Generate TypeScript declaration for global components

@@ -1,34 +1,64 @@
 import Debug from 'debug'
-import type { CallExpression } from '@babel/types'
 import type MagicString from 'magic-string'
 import { pascalCase, stringifyComponentImport } from '../utils'
 import type { Context } from '../context'
+import { ResolveResult } from '../transformer'
+import { VueVersion } from '../..'
 
 const debug = Debug('unplugin-vue-components:transform:component')
 
-export default async(nodes: CallExpression[], version: 'vue2' | 'vue3', s: MagicString, ctx: Context, sfcPath: string) => {
+const resolveVue2 = (code: string, s: MagicString) => {
+  const results: ResolveResult[] = []
+
+  for (const match of code.matchAll(/_c\([\s\n\t]*['"](.+?)["']([,)])/g)) {
+    const [full, matchedName, append] = match
+
+    if (match.index != null && matchedName && !matchedName.startsWith('_')) {
+      const start = match.index
+      const end = start + full.length
+      results.push({
+        rawName: matchedName,
+        replace: resolved => s.overwrite(start, end, `_c(${resolved}${append}`),
+      })
+    }
+  }
+
+  return results
+}
+
+const resolveVue3 = (code: string, s: MagicString) => {
+  const results: ResolveResult[] = []
+
+  for (const match of code.matchAll(/_resolveComponent\("(.+?)"\)/g)) {
+    const matchedName = match[1]
+    if (match.index != null && matchedName && !matchedName.startsWith('_')) {
+      const start = match.index
+      const end = start + match[0].length
+      results.push({
+        rawName: matchedName,
+        replace: resolved => s.overwrite(start, end, resolved),
+      })
+    }
+  }
+
+  return results
+}
+
+export default async(code: string, version: VueVersion, s: MagicString, ctx: Context, sfcPath: string) => {
   let no = 0
 
-  for (const node of nodes) {
-    const { callee, arguments: args } = node
-    if (callee.type !== 'Identifier' || callee.name !== (version === 'vue2' ? '_c' : '_resolveComponent') || args[0].type !== 'StringLiteral')
-      continue
-    const componentName = args[0].value
-    if (!componentName || componentName.startsWith('_'))
-      continue
+  const results = version === 'vue2' ? resolveVue2(code, s) : resolveVue3(code, s)
 
-    debug(`| ${componentName}`)
-    const name = pascalCase(componentName)
+  for (const { rawName, replace } of results) {
+    debug(`| ${rawName}`)
+    const name = pascalCase(rawName)
     ctx.updateUsageMap(sfcPath, [name])
-
     const component = await ctx.findComponent(name, 'component', [sfcPath])
     if (component) {
-      const var_name = `__unplugin_components_${no}`
-      s.prepend(`${stringifyComponentImport({ ...component, name: var_name }, ctx)};\n`)
+      const varName = `__unplugin_components_${no}`
+      s.prepend(`${stringifyComponentImport({ ...component, name: varName }, ctx)};\n`)
       no += 1
-
-      const replacedNode = version === 'vue2' ? args[0] : node
-      s.overwrite(replacedNode.start!, replacedNode.end!, var_name)
+      replace(varName)
     }
   }
 

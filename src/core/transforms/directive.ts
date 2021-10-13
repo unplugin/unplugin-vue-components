@@ -3,16 +3,14 @@ import type {
   CallExpression, ObjectProperty, File, VariableDeclaration, FunctionExpression, BlockStatement,
 } from '@babel/types'
 import type MagicString from 'magic-string'
-import { ParseResult } from '@babel/parser'
+import { parse, ParseResult } from '@babel/parser'
+import traverse from '@babel/traverse'
 import { pascalCase, stringifyComponentImport } from '../utils'
 import type { Context } from '../context'
+import { ResolveResult } from '../transformer'
+import { VueVersion } from '../..'
 
 const debug = Debug('unplugin-vue-components:transform:directive')
-
-interface ResolveResult {
-  rawName: string
-  replace: (resolved: string) => void
-}
 
 /**
  * get Vue 2 render function position
@@ -31,84 +29,94 @@ const getRenderFnStart = (ast: ParseResult<File>): number => {
   return start + 1
 }
 
-const resolveVue2 = async(node: CallExpression, s: MagicString, ast: ParseResult<File>): Promise<ResolveResult[]> => {
-  const { callee, arguments: args } = node
-  if (callee.type !== 'Identifier' || callee.name !== '_c' || args[1].type !== 'ObjectExpression')
-    return []
-
-  const directives = args[1].properties.find(
-    (property): property is ObjectProperty =>
-      property.type === 'ObjectProperty'
-      && property.key.type === 'Identifier'
-      && property.key.name === 'directives',
-  )?.value
-  if (!directives || directives.type !== 'ArrayExpression')
-    return []
-
-  const renderStart = getRenderFnStart(ast)
+const resolveVue2 = (code: string, s: MagicString): ResolveResult[] => {
+  const ast = parse(code, {
+    sourceType: 'module',
+  })
+  const nodes: CallExpression[] = []
+  traverse(ast, {
+    CallExpression(path) {
+      nodes.push(path.node)
+    },
+  })
 
   const results: ResolveResult[] = []
-  for (const directive of directives.elements) {
-    if (directive?.type !== 'ObjectExpression') continue
-    const nameNode = directive.properties.find(
-      (p): p is ObjectProperty =>
-        p.type === 'ObjectProperty'
-        && p.key.type === 'Identifier'
-        && p.key.name === 'name',
+  for (const node of nodes) {
+    const { callee, arguments: args } = node
+    // _c(_, {})
+    if (callee.type !== 'Identifier' || callee.name !== '_c' || args[1].type !== 'ObjectExpression')
+      continue
+
+    // { directives: [] }
+    const directives = args[1].properties.find(
+      (property): property is ObjectProperty =>
+        property.type === 'ObjectProperty'
+        && property.key.type === 'Identifier'
+        && property.key.name === 'directives',
     )?.value
-    if (nameNode?.type !== 'StringLiteral') continue
-    const name = nameNode.value
-    if (!name || name.startsWith('_')) continue
-    results.push({
-      rawName: name,
-      replace: (resolved) => {
-        s.prependLeft(renderStart!, `\nthis.$options.directives["${name}"] = ${resolved};`)
-      },
-    })
+    if (!directives || directives.type !== 'ArrayExpression')
+      continue
+
+    const renderStart = getRenderFnStart(ast)
+
+    for (const directive of directives.elements) {
+      if (directive?.type !== 'ObjectExpression') continue
+
+      const nameNode = directive.properties.find(
+        (p): p is ObjectProperty =>
+          p.type === 'ObjectProperty'
+          && p.key.type === 'Identifier'
+          && p.key.name === 'name',
+      )?.value
+      if (nameNode?.type !== 'StringLiteral') continue
+      const name = nameNode.value
+      if (!name || name.startsWith('_')) continue
+      results.push({
+        rawName: name,
+        replace: (resolved) => {
+          s.prependLeft(renderStart!, `\nthis.$options.directives["${name}"] = ${resolved};`)
+        },
+      })
+    }
   }
 
   return results
 }
 
-const resolveVue3 = async(node: CallExpression, s: MagicString): Promise<ResolveResult[]> => {
-  const { callee, arguments: args } = node
-  if (
-    callee.type !== 'Identifier'
-    || callee.name !== '_resolveDirective'
-    || args[0].type !== 'StringLiteral'
-  )
-    return []
+const resolveVue3 = (code: string, s: MagicString): ResolveResult[] => {
+  const results: ResolveResult[] = []
 
-  const rawName = args[0].value
-  if (!rawName || rawName.startsWith('_')) return []
+  for (const match of code.matchAll(/_resolveDirective\("(.+?)"\)/g)) {
+    const matchedName = match[1]
+    if (match.index != null && matchedName && !matchedName.startsWith('_')) {
+      const start = match.index
+      const end = start + match[0].length
+      results.push({
+        rawName: matchedName,
+        replace: resolved => s.overwrite(start, end, resolved),
+      })
+    }
+  }
 
-  return [{
-    rawName,
-    replace: resolved => s.overwrite(node.start!, node.end!, resolved),
-  }]
+  return results
 }
 
-export default async(nodes: CallExpression[], version: 'vue2' | 'vue3', s: MagicString, ctx: Context, sfcPath: string, ast: ParseResult<File>) => {
+export default async(code: string, version: VueVersion, s: MagicString, ctx: Context, sfcPath: string) => {
   let no = 0
 
-  for (const node of nodes) {
-    const results = version === 'vue2' ? await resolveVue2(node, s, ast) : await resolveVue3(node, s)
-    if (results.length === 0) continue
+  const results = version === 'vue2' ? resolveVue2(code, s) : resolveVue3(code, s)
+  for (const { rawName, replace } of results) {
+    debug(`| ${rawName}`)
+    const name = pascalCase(rawName)
+    ctx.updateUsageMap(sfcPath, [name])
 
-    for (const result of results) {
-      debug(`| ${result.rawName}`)
+    const directive = await ctx.findComponent(name, 'directive', [sfcPath])
+    if (!directive) continue
 
-      const name = pascalCase(result.rawName)
-      ctx.updateUsageMap(sfcPath, [name])
-      const directive = await ctx.findComponent(name, 'directive', [sfcPath])
-
-      if (!directive) continue
-
-      const varName = `__unplugin_directives_${no}`
-      s.prepend(`${stringifyComponentImport({ ...directive, name: varName }, ctx)};\n`)
-      no += 1
-      result.replace(varName)
-    }
+    const varName = `__unplugin_directives_${no}`
+    s.prepend(`${stringifyComponentImport({ ...directive, name: varName }, ctx)};\n`)
+    no += 1
+    replace(varName)
   }
 
   debug(`^ (${no})`)

@@ -1,9 +1,7 @@
 import Debug from 'debug'
 import MagicString from 'magic-string'
 import { TransformResult } from 'unplugin'
-import { CallExpression } from '@babel/types'
-import { parse } from '@babel/parser'
-import traverse from '@babel/traverse'
+import { VueVersion } from '..'
 import type { Transformer } from '../types'
 import { DISABLE_COMMENT } from './constants'
 import { Context } from './context'
@@ -12,7 +10,12 @@ import transformDirectives from './transforms/directive'
 
 const debug = Debug('unplugin-vue-components:transformer')
 
-export default (ctx: Context, version: 'vue2'|'vue3'): Transformer => {
+export interface ResolveResult {
+  rawName: string
+  replace: (resolved: string) => void
+}
+
+export default (ctx: Context, version: VueVersion): Transformer => {
   return async(code, id, path) => {
     ctx.searchGlob()
 
@@ -20,18 +23,9 @@ export default (ctx: Context, version: 'vue2'|'vue3'): Transformer => {
     debug(sfcPath)
 
     const s = new MagicString(code)
-    const ast = parse(code, {
-      sourceType: 'module',
-    })
-    const nodes: CallExpression[] = []
-    traverse(ast, {
-      CallExpression(path) {
-        nodes.push(path.node)
-      },
-    })
 
-    await transformComponent(nodes, version, s, ctx, sfcPath)
-    await transformDirectives(nodes, version, s, ctx, sfcPath, ast)
+    await transformComponent(code, version, s, ctx, sfcPath)
+    await transformDirectives(code, version, s, ctx, sfcPath)
 
     s.prepend(DISABLE_COMMENT)
 
