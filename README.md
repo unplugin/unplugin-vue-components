@@ -287,7 +287,7 @@ Components({
 
   // auto import for directives
   // default: `true` for Vue 3, `false` for Vue 2
-  // For Vue 2, there may be performance losses during compilation and runtime.
+  // Babel is needed to do the transformation for Vue 2, it's disabled by default for performance concerns.
   directives: true,
 
   // filters for transforming targets
