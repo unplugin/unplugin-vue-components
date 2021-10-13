@@ -16,7 +16,7 @@ export interface ComponentInfo extends ImportInfo {
 
 export type ComponentResolveResult = Awaitable<string | ComponentInfo | null | undefined | void>
 
-export type ComponentResolver = (name: string) => ComponentResolveResult
+export type ComponentResolver = (name: string, type: 'component' | 'directive') => ComponentResolveResult
 
 export interface UILibraryOptions {
   name: string
