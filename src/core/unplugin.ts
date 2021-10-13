@@ -47,7 +47,7 @@ export default createUnplugin<Options>((options = {}) => {
         }
 
         if (config.build.watch && config.command === 'build')
-          ctx.setupWather(chokidar.watch(ctx.options.globs))
+          ctx.setupWatcher(chokidar.watch(ctx.options.globs))
       },
       configureServer(server) {
         ctx.setupViteServer(server)
