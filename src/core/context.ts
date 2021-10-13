@@ -66,10 +66,10 @@ export class Context {
       return
 
     this._server = server
-    this.setupWather(server.watcher)
+    this.setupWatcher(server.watcher)
   }
 
-  setupWather(watcher: fs.FSWatcher) {
+  setupWatcher(watcher: fs.FSWatcher) {
     const { globs } = this.options
 
     watcher
