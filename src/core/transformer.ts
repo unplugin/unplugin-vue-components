@@ -25,7 +25,8 @@ export default (ctx: Context, version: VueVersion): Transformer => {
     const s = new MagicString(code)
 
     await transformComponent(code, version, s, ctx, sfcPath)
-    await transformDirectives(code, version, s, ctx, sfcPath)
+    if (ctx.options.directives)
+      await transformDirectives(code, version, s, ctx, sfcPath)
 
     s.prepend(DISABLE_COMMENT)
 

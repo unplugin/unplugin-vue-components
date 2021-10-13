@@ -24,6 +24,7 @@ describe('transform', () => {
     const ctx = new Context({
       resolvers: [resolver],
       transformer: 'vue2',
+      directives: true,
     })
     ctx.sourcemap = false
     expect(await ctx.transform(code, '')).toMatchSnapshot()
@@ -46,6 +47,7 @@ describe('transform', () => {
     const ctx = new Context({
       resolvers: [resolver],
       transformer: 'vue3',
+      directives: true,
     })
     ctx.sourcemap = false
     expect(await ctx.transform(code, '')).toMatchSnapshot()

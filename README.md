@@ -7,6 +7,7 @@ On-demand components auto importing for Vue.
 ###### Features
 
 - 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
+- ✨ Supports both components and directives.
 - ⚡️ Supports Vite, Webpack, Vue CLI, Rollup and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
 - 🏝 Tree-shakable, only registers the components you use.
 - 🪐 Folder names as namespaces.
@@ -283,6 +284,11 @@ Components({
   // Subdirectory paths for ignoring namespace prefixes
   // works when `directoryAsNamespace: true`
   globalNamespaces: [],
+
+  // auto import for directives
+  // default: `true` for Vue 3, `false` for Vue 2
+  // For Vue 2, there may be performance losses during compilation and runtime.
+  directives: true,
 
   // filters for transforming targets
   include: [/\.vue$/, /\.vue\?vue/],

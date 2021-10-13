@@ -123,6 +123,16 @@ export interface Options {
    * @default false
    */
   allowOverrides?: boolean
+
+  /**
+   * auto import for directives.
+   *
+   * default: `true` for Vue 3, `false` for Vue 2
+   *
+   * For Vue 2, there may be performance losses during compilation and runtime.
+   * @default undefined
+   */
+  directives?: boolean
 }
 
 export type ResolvedOptions = Omit<
