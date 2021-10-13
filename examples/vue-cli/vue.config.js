@@ -3,7 +3,7 @@
 const ScriptSetup = require('unplugin-vue2-script-setup/webpack')
 const Icons = require('unplugin-icons/webpack')
 const IconsResolver = require('unplugin-icons/resolver')
-const Components = require('unplugin-vue-components/webpack')
+const Components = require('unplugin-vue-components/webpack').default
 
 /**
  * @type {import('@vue/cli-service').ProjectOptions}
