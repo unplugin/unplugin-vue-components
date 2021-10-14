@@ -11,7 +11,7 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "unplugin-vue-components": "workspace:*",
-    "vite": "^2.6.7",
+    "vite": "^2.5.3",
     "vite-plugin-vue2": "^1.8.1"
   }
 }
