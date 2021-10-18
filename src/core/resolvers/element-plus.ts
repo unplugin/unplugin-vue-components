@@ -58,7 +58,7 @@ function getSideEffects(dirName: string, options: ElementPlusResolverOptions): S
   const esComponentsFolder = 'element-plus/es/components'
 
   if (importStyle === 'sass')
-    return ssr ? `${themeFolder}/src/${dirName}.scss` : `${esComponentsFolder}/${dirName}/style`
+    return ssr ? `${themeFolder}/src/${dirName}.scss` : `${esComponentsFolder}/${dirName}/style/index`
 
   else if (importStyle === true || importStyle === 'css')
     return ssr ? `${themeFolder}/el-${dirName}.css` : `${esComponentsFolder}/${dirName}/style/css`
