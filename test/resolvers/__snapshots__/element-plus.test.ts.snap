@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Element Plus Resolver components and directives should be transformed 1`] = `
+Object {
+  "code": "/* unplugin-vue-components disabled */import { ElButton as __unplugin_components_0 } from 'element-plus/es';import 'element-plus/es/components/button/style/css';
+
+(_ctx, _cache) => {
+  const _component_el_button = __unplugin_components_0
+  const _directive_loading = _resolveDirective(\\"loading\\")
+
+  return (_openBlock(), _createElementBlock(_Fragment, null, [
+    _createVNode(_component_el_button, null, {
+      default: _withCtx(() => [
+        _hoisted_1
+      ]),
+      _: 1 /* STABLE */
+    }),
+    _withDirectives(_createElementVNode(\\"div\\", null, null, 512 /* NEED_PATCH */), [
+      [_directive_loading, true]
+    ])
+  ], 64 /* STABLE_FRAGMENT */))
+}
+",
+}
+`;
