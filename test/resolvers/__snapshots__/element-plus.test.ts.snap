@@ -2,11 +2,12 @@
 
 exports[`Element Plus Resolver components and directives should be transformed 1`] = `
 Object {
-  "code": "/* unplugin-vue-components disabled */import { ElButton as __unplugin_components_0 } from 'element-plus/es';import 'element-plus/es/components/button/style/css';
+  "code": "/* unplugin-vue-components disabled */import { ElLoadingDirective as __unplugin_directives_0 } from 'element-plus/es';import 'element-plus/es/components/loading/style/css';
+import { ElButton as __unplugin_components_0 } from 'element-plus/es';import 'element-plus/es/components/button/style/css';
 
 (_ctx, _cache) => {
   const _component_el_button = __unplugin_components_0
-  const _directive_loading = _resolveDirective(\\"loading\\")
+  const _directive_loading = __unplugin_directives_0
 
   return (_openBlock(), _createElementBlock(_Fragment, null, [
     _createVNode(_component_el_button, null, {
