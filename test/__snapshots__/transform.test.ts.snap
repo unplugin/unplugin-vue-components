@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transform vue2 transform should work 1`] = `
+Object {
+  "code": "/* unplugin-vue-components disabled */import __unplugin_directives_0 from 'test/directive/Loading';
+import __unplugin_components_0 from 'test/component/TestComp';
+
+    var render = function () {
+this.$options.directives[\\"loading\\"] = __unplugin_directives_0;
+      var _vm = this
+      var _h = _vm.$createElement
+      var _c = _vm._self._c || _h
+      return _c(__unplugin_components_0, {
+        directives: [
+          { name: \\"loading\\", rawName: \\"v-loading\\", value: 123, expression: \\"123\\" }
+        ]
+      })
+    }
+    var staticRenderFns = []
+    render._withStripped = true
+    export { render, staticRenderFns }
+    ",
+}
+`;
+
+exports[`transform vue3 transform should work 1`] = `
+Object {
+  "code": "/* unplugin-vue-components disabled */import __unplugin_directives_0 from 'test/directive/Loading';
+import __unplugin_components_0 from 'test/component/TestComp';
+
+    const render = (_ctx, _cache) => {
+      const _component_test_comp = __unplugin_components_0
+      const _directive_loading = __unplugin_directives_0
+    
+      return _withDirectives(
+        (_openBlock(),
+        _createBlock(_component_test_comp, null, null, 512 /* NEED_PATCH */)),
+        [[_directive_loading, 123]]
+      )
+    }
+    ",
+}
+`;

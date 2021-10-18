@@ -8,8 +8,7 @@ import { pascalCase, getNameFromFilePath, resolveAlias, matchGlobs, parseId } fr
 import { resolveOptions } from './options'
 import { searchComponents } from './fs/glob'
 import { generateDeclaration } from './declaration'
-import { Vue2Transformer } from './transforms/vue2'
-import { Vue3Transformer } from './transforms/vue3'
+import transformer from './transformer'
 
 const debug = {
   components: Debug('unplugin-vue-components:context:components'),
@@ -51,9 +50,7 @@ export class Context {
 
   setTransformer(name: Options['transformer']) {
     debug.env('transformer', name)
-    this.transformer = name === 'vue2'
-      ? Vue2Transformer(this)
-      : Vue3Transformer(this)
+    this.transformer = transformer(this, name || 'vue3')
   }
 
   transform(code: string, id: string) {
@@ -181,7 +178,7 @@ export class Context {
       })
   }
 
-  async findComponent(name: string, excludePaths: string[] = [], rawName?: string): Promise<ComponentInfo | undefined> {
+  async findComponent(name: string, type: 'component' | 'directive', excludePaths: string[] = []): Promise<ComponentInfo | undefined> {
     // resolve from fs
     let info = this._componentNameMap[name]
     if (info && !excludePaths.includes(info.path) && !excludePaths.includes(info.path.slice(1)))
@@ -189,7 +186,7 @@ export class Context {
 
     // custom resolvers
     for (const resolver of this.options.resolvers) {
-      const result = await resolver(name)
+      const result = await resolver(name, type)
       if (result) {
         if (typeof result === 'string') {
           info = {

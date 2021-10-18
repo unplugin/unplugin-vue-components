@@ -16,7 +16,7 @@ export interface ComponentInfo extends ImportInfo {
 
 export type ComponentResolveResult = Awaitable<string | ComponentInfo | null | undefined | void>
 
-export type ComponentResolver = (name: string) => ComponentResolveResult
+export type ComponentResolver = (name: string, type: 'component' | 'directive') => ComponentResolveResult
 
 export interface UILibraryOptions {
   name: string
@@ -27,6 +27,8 @@ export interface UILibraryOptions {
 export type Matcher = (id: string) => boolean | null | undefined
 
 export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => Awaitable<TransformResult | null>
+
+export type SupportedTransformer = 'vue3' | 'vue2'
 
 /**
  * Plugin options.
@@ -102,7 +104,7 @@ export interface Options {
    *
    * @default 'vue3'
    */
-  transformer?: 'vue3' | 'vue2'
+  transformer?: SupportedTransformer
 
   /**
    * Generate TypeScript declaration for global components
@@ -121,6 +123,16 @@ export interface Options {
    * @default false
    */
   allowOverrides?: boolean
+
+  /**
+   * auto import for directives.
+   *
+   * default: `true` for Vue 3, `false` for Vue 2
+   *
+   * Babel is needed to do the transformation for Vue 2, it's disabled by default for performance concerns.
+   * @default undefined
+   */
+  directives?: boolean
 }
 
 export type ResolvedOptions = Omit<

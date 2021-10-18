@@ -4,13 +4,17 @@
   "description": "Components auto importing for Vue",
   "homepage": "https://github.com/antfu/unplugin-vue-components",
   "bugs": "https://github.com/antfu/unplugin-vue-components/issues",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/antfu/unplugin-vue-components"
   },
   "funding": "https://github.com/sponsors/antfu",
-  "license": "MIT",
   "author": "antfu <anthonyfu117@hotmail.com>",
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
   "exports": {
     ".": {
       "require": "./dist/index.js",
@@ -45,19 +49,18 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "index.d.ts",
-  "files": [
-    "dist",
-    "*.d.ts"
-  ],
   "scripts": {
-    "build": "rimraf dist && tsup src/*.ts --format cjs,esm --dts --splitting && esno scripts/postbuild.ts",
-    "dev": "tsup src/*.ts --format cjs,esm --watch src",
-    "example:build": "npm -C examples/vue3 run build",
-    "example:dev": "npm -C examples/vue3 run dev",
+    "build": "tsup src/*.ts && esno scripts/postbuild.ts",
+    "dev": "tsup src/*.ts --watch src",
+    "example:build": "npm -C examples/vite-vue3 run build",
+    "example:dev": "npm -C examples/vite-vue3 run dev",
     "prepublishOnly": "npm run build",
     "release": "npx bumpp --commit --tag --push",
     "test": "jest",
     "test:update": "jest --u"
+  },
+  "peerDependencies": {
+    "vue": "2 || 3"
   },
   "dependencies": {
     "@antfu/utils": "^0.3.0",
@@ -73,6 +76,9 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.9.0",
+    "@babel/parser": "^7.15.8",
+    "@babel/traverse": "^7.15.4",
+    "@babel/types": "^7.15.6",
     "@types/debug": "^4.1.7",
     "@types/jest": "^27.0.2",
     "@types/minimatch": "^3.0.5",
@@ -89,9 +95,6 @@
     "tsup": "^5.1.0",
     "typescript": "^4.4.3",
     "vite": "^2.5.10"
-  },
-  "peerDependencies": {
-    "vue": "2 || 3"
   },
   "engines": {
     "node": ">=14"

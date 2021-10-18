@@ -4,7 +4,7 @@ import { isPackageExists } from 'local-pkg'
 import { ResolvedOptions, Options } from '../types'
 import { LibraryResolver } from './helpers/libraryResolver'
 
-export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'transformer' | 'globs'> = {
+export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'transformer' | 'globs' |'directives'> = {
   dirs: 'src/components',
   extensions: 'vue',
   deep: true,
@@ -58,6 +58,9 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
     )
   resolved.root = root
   resolved.transformer = options.transformer || getVueVersion() || 'vue3'
+  resolved.directives = (typeof options.directives === 'boolean')
+    ? options.directives
+    : getVueVersion() === 'vue3'
 
   return resolved
 }
