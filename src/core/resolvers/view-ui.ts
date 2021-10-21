@@ -47,7 +47,7 @@ function getCompDir(compName: string): string {
  * @link https://www.iviewui.com/
  * @description has known problems list below
  * - select component render error PR: https://github.com/view-design/ViewUI/pull/944,  choose can't display value,because click option trigger twice,at second time,select value turn into undefined.
- * - scroll component has a template syntax called lang='html',it is require html-loader,but vite plugin not support yet,remove it can run.
+ * - scroll component has a template syntax called lang='html',it is require html-loader,but vite plugin not support yet,remove it can run. relate pr: https://github.com/view-design/ViewUI/pull/985
  */
 export function ViewUiResolver(): ComponentResolver {
   return (name: string) => {
