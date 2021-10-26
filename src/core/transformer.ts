@@ -15,7 +15,7 @@ export interface ResolveResult {
   replace: (resolved: string) => void
 }
 
-export default (ctx: Context, transformer: SupportedTransformer): Transformer => {
+export default function tranformer(ctx: Context, transformer: SupportedTransformer): Transformer {
   return async(code, id, path) => {
     ctx.searchGlob()
 

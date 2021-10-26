@@ -228,21 +228,24 @@ function getSideEffects(compName: string, options: AntDesignVueResolverOptions):
  * @link https://antdv.com/
  */
 export function AntDesignVueResolver(options: AntDesignVueResolverOptions = {}): ComponentResolver {
-  return (name: string) => {
-    if (options.resolveIcons && name.match(/(Outlined|Filled|TwoTone)$/)) {
-      return {
-        importName: name,
-        path: '@ant-design/icons-vue',
+  return {
+    type: 'component',
+    resolve: (name: string) => {
+      if (options.resolveIcons && name.match(/(Outlined|Filled|TwoTone)$/)) {
+        return {
+          importName: name,
+          path: '@ant-design/icons-vue',
+        }
       }
-    }
 
-    if (name.match(/^A[A-Z]/) && !options?.exclude?.includes(name)) {
-      const importName = name.slice(1)
-      return {
-        importName,
-        path: 'ant-design-vue/es',
-        sideEffects: getSideEffects(importName, options),
+      if (name.match(/^A[A-Z]/) && !options?.exclude?.includes(name)) {
+        const importName = name.slice(1)
+        return {
+          importName,
+          path: 'ant-design-vue/es',
+          sideEffects: getSideEffects(importName, options),
+        }
       }
-    }
+    },
   }
 }

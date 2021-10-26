@@ -7,8 +7,11 @@ import { ComponentResolver } from '../../types'
  * @link https://www.naiveui.com/
  */
 export function NaiveUiResolver(): ComponentResolver {
-  return (name: string) => {
-    if (name.match(/^N[A-Z]/))
-      return { importName: name, path: 'naive-ui' }
+  return {
+    type: 'component',
+    resolve: (name: string) => {
+      if (name.match(/^N[A-Z]/))
+        return { importName: name, path: 'naive-ui' }
+    },
   }
 }
