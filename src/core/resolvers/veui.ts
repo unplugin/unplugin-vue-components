@@ -82,16 +82,19 @@ export function VeuiResolver(options: VeuiResolverOptions): ComponentResolver {
     }
   }
 
-  return (name: string) => {
-    if (name.match(/^Veui[A-Z]/)) {
-      const componentName = name.slice(4)
+  return {
+    type: 'component',
+    resolve: (name: string) => {
+      if (name.match(/^Veui[A-Z]/)) {
+        const componentName = name.slice(4)
 
-      if (!components!.has(componentName)) return
+        if (!components!.has(componentName)) return
 
-      const sideEffects = getSideEffects(componentName, options)
+        const sideEffects = getSideEffects(componentName, options)
 
-      return { importName: componentName, path: alias, sideEffects }
-    }
+        return { importName: componentName, path: alias, sideEffects }
+      }
+    },
   }
 }
 

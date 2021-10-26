@@ -48,8 +48,11 @@ const components = [
  * @link https://github.com/tailwindlabs/headlessui
  */
 export function HeadlessUiResolver(): ComponentResolver {
-  return (name: string) => {
-    if (components.includes(name))
-      return { importName: name, path: '@headlessui/vue' }
+  return {
+    type: 'component',
+    resolve: (name: string) => {
+      if (components.includes(name))
+        return { importName: name, path: '@headlessui/vue' }
+    }
   }
 }

@@ -44,7 +44,7 @@ const resolveVue3 = (code: string, s: MagicString) => {
   return results
 }
 
-export default async(code: string, transformer: SupportedTransformer, s: MagicString, ctx: Context, sfcPath: string) => {
+export default async function transformComponent(code: string, transformer: SupportedTransformer, s: MagicString, ctx: Context, sfcPath: string) {
   let no = 0
 
   const results = transformer === 'vue2' ? resolveVue2(code, s) : resolveVue3(code, s)

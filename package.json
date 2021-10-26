@@ -60,7 +60,17 @@
     "test:update": "jest --u"
   },
   "peerDependencies": {
+    "@babel/parser": "^7.15.8",
+    "@babel/traverse": "^7.15.4",
     "vue": "2 || 3"
+  },
+  "peerDependenciesMeta": {
+    "@babel/parser": {
+      "optional": true
+    },
+    "@babel/traverse": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@antfu/utils": "^0.3.0",

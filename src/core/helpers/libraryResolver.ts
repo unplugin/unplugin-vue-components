@@ -36,7 +36,10 @@ export function LibraryResolver(options: UILibraryOptions): ComponentResolver {
   if (!entries) {
     // eslint-disable-next-line no-console
     console.warn(`[unplugin-vue-components] Failed to load Vetur tags from library "${libraryName}"`)
-    return () => {}
+    return {
+      type: 'component',
+      resolve: () => {},
+    }
   }
 
   debug(entries)
@@ -44,19 +47,22 @@ export function LibraryResolver(options: UILibraryOptions): ComponentResolver {
   const prefixKebab = kebabCase(prefix)
   const kebabEntries = entries.map(name => ({ name, kebab: kebabCase(name) }))
 
-  return (name) => {
-    const kebab = kebabCase(name)
-    let componentName = kebab
+  return {
+    type: 'component',
+    resolve: (name) => {
+      const kebab = kebabCase(name)
+      let componentName = kebab
 
-    if (prefixKebab) {
-      if (!kebab.startsWith(`${prefixKebab}-`))
-        return
-      componentName = kebab.slice(prefixKebab.length + 1)
-    }
+      if (prefixKebab) {
+        if (!kebab.startsWith(`${prefixKebab}-`))
+          return
+        componentName = kebab.slice(prefixKebab.length + 1)
+      }
 
-    for (const entry of kebabEntries) {
-      if (entry.kebab === componentName)
-        return { path: libraryName, importName: entry.name }
-    }
+      for (const entry of kebabEntries) {
+        if (entry.kebab === componentName)
+          return { path: libraryName, importName: entry.name }
+      }
+    },
   }
 }

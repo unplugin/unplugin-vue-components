@@ -139,7 +139,7 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
  */
 export function ElementPlusResolver(
   options: ElementPlusResolverOptions = {},
-): ComponentResolver {
+): ComponentResolver[] {
   const optionsResolved: ElementPlusResolverOptionsResolved = {
     ssr: false,
     version: getPkgVersion('element-plus', '1.1.0-beta.21'),
@@ -148,12 +148,18 @@ export function ElementPlusResolver(
     ...options,
   }
 
-  return (name: string, type) => {
-    switch (type) {
-      case 'component':
+  return [
+    {
+      type: 'component',
+      resolve: (name: string) => {
         return resolveComponent(name, optionsResolved)
-      case 'directive':
+      },
+    },
+    {
+      type: 'directive',
+      resolve: (name: string) => {
         return resolveDirective(name, optionsResolved)
-    }
-  }
+      },
+    },
+  ]
 }

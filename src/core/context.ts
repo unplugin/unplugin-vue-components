@@ -186,7 +186,10 @@ export class Context {
 
     // custom resolvers
     for (const resolver of this.options.resolvers) {
-      const result = await resolver(name, type)
+      if (resolver.type !== type)
+        continue
+
+      const result = await resolver.resolve(name)
       if (result) {
         if (typeof result === 'string') {
           info = {
