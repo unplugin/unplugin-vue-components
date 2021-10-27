@@ -127,10 +127,8 @@ export interface Options {
   /**
    * auto import for directives.
    *
-   * default: `true` for Vue 3, `false` for Vue 2
-   *
    * Babel is needed to do the transformation for Vue 2, it's disabled by default for performance concerns.
-   * @default undefined
+   * @default false
    */
   directives?: boolean
 }
