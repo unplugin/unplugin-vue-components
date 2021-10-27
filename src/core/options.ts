@@ -24,7 +24,7 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'tr
 export function resolveOptions(options: Options, root: string): ResolvedOptions {
   const resolved = Object.assign({}, defaultOptions, options) as ResolvedOptions
   resolved.libraries = toArray(resolved.libraries).map(i => typeof i === 'string' ? { name: i } : i)
-  resolved.resolvers = toArray(resolved.resolvers).flat()
+  resolved.resolvers = toArray(resolved.resolvers)
   resolved.resolvers.push(...resolved.libraries.map(lib => LibraryResolver(lib)))
   resolved.extensions = toArray(resolved.extensions)
 

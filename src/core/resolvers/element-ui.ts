@@ -43,22 +43,19 @@ function getSideEffects(
  * @author @nabaonan
  */
 export function ElementUiResolver(options: ElementUiResolverOptions = {}): ComponentResolver {
-  return {
-    type: 'component',
-    resolve: (name: string) => {
-      if (name.startsWith('El')) {
-        const compName = name.slice(2)
-        const partialName = kebabCase(compName)
-        if (partialName === 'collapse-transition') {
-          return {
-            path: `element-ui/lib/transitions/${partialName}`,
-          }
-        }
+  return (name: string) => {
+    if (name.startsWith('El')) {
+      const compName = name.slice(2)
+      const partialName = kebabCase(compName)
+      if (partialName === 'collapse-transition') {
         return {
-          path: `element-ui/lib/${partialName}`,
-          sideEffects: getSideEffects(partialName, options),
+          path: `element-ui/lib/transitions/${partialName}`,
         }
       }
-    },
+      return {
+        path: `element-ui/lib/${partialName}`,
+        sideEffects: getSideEffects(partialName, options),
+      }
+    }
   }
 }

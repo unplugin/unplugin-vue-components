@@ -126,29 +126,26 @@ export interface PrimeVueResolverOptions {
  * @link https://github.com/primefaces/primevue
  */
 export function PrimeVueResolver(options: PrimeVueResolverOptions = {}): ComponentResolver {
-  return {
-    type: 'component',
-    resolve: (name: string) => {
-      const sideEffects: SideEffectsInfo = []
+  return (name: string) => {
+    const sideEffects: SideEffectsInfo = []
 
-      if (options.importStyle)
-        sideEffects.push('primevue/resources/primevue.min.css')
+    if (options.importStyle)
+      sideEffects.push('primevue/resources/primevue.min.css')
 
-      if (options.importIcons)
-        sideEffects.push('primeicons/primeicons.css')
+    if (options.importIcons)
+      sideEffects.push('primeicons/primeicons.css')
 
-      if (options.importTheme) {
-        sideEffects.push(
-          `primevue/resources/themes/${options.importTheme}/theme.css`,
-        )
+    if (options.importTheme) {
+      sideEffects.push(
+        `primevue/resources/themes/${options.importTheme}/theme.css`,
+      )
+    }
+
+    if (components.includes(name)) {
+      return {
+        path: `primevue/${name.toLowerCase()}/${name}.vue`,
+        sideEffects,
       }
-
-      if (components.includes(name)) {
-        return {
-          path: `primevue/${name.toLowerCase()}/${name}.vue`,
-          sideEffects,
-        }
-      }
-    },
+    }
   }
 }

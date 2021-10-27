@@ -30,22 +30,19 @@ export interface IduxResolverOptions {
  * @link https://idux.site
  */
 export function IduxResolver(options: IduxResolverOptions = {}): ComponentResolver {
-  return {
-    type: 'component',
-    resolve: (name: string) => {
-      if (name.match(/^Ix[A-Z]/)) {
-        const { importStyle } = options
-        const compName = name.slice(2)
-        const kebabCaseName = kebabCase(compName)
-        const isCdk = cdkNames.includes(kebabCaseName)
-        const packageName = isCdk ? 'cdk' : 'components'
-        const dirname = getDirname(kebabCaseName)
-        const path = `@idux/${packageName}/${dirname}`
-        const sideEffects = isCdk || !importStyle ? undefined : `${path}/style/${importStyle === 'css' ? 'css' : 'index'}`
+  return (name: string) => {
+    if (name.match(/^Ix[A-Z]/)) {
+      const { importStyle } = options
+      const compName = name.slice(2)
+      const kebabCaseName = kebabCase(compName)
+      const isCdk = cdkNames.includes(kebabCaseName)
+      const packageName = isCdk ? 'cdk' : 'components'
+      const dirname = getDirname(kebabCaseName)
+      const path = `@idux/${packageName}/${dirname}`
+      const sideEffects = isCdk || !importStyle ? undefined : `${path}/style/${importStyle === 'css' ? 'css' : 'index'}`
 
-        return { importName: name, path, sideEffects }
-      }
-    },
+      return { importName: name, path, sideEffects }
+    }
   }
 }
 

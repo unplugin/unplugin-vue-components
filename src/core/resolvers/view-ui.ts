@@ -50,16 +50,13 @@ function getCompDir(compName: string): string {
  * - scroll component has a template syntax called lang='html',it is require html-loader,but vite plugin not support yet,remove it can run. relate pr: https://github.com/view-design/ViewUI/pull/985
  */
 export function ViewUiResolver(): ComponentResolver {
-  return {
-    type: 'component',
-    resolve: (name: string) => {
-      if (name.match(/^I[A-Z]/)) {
-        const compName = name.slice(1)
-        return {
-          path: `view-design/src/components/${getCompDir(compName)}`,
-          sideEffects: getSideEffects(compName),
-        }
+  return (name: string) => {
+    if (name.match(/^I[A-Z]/)) {
+      const compName = name.slice(1)
+      return {
+        path: `view-design/src/components/${getCompDir(compName)}`,
+        sideEffects: getSideEffects(compName),
       }
-    },
+    }
   }
 }

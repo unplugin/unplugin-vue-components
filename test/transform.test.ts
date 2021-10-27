@@ -1,16 +1,7 @@
 import { ComponentResolver } from '../src'
 import { Context } from '../src/core/context'
 
-const resolver: ComponentResolver[] = [
-  {
-    type: 'component',
-    resolve: name => ({ path: `test/component/${name}` }),
-  },
-  {
-    type: 'directive',
-    resolve: name => ({ path: `test/directive/${name}` }),
-  },
-]
+const resolver: ComponentResolver = (name, type) => ({ path: `test/${type}/${name}` })
 
 describe('transform', () => {
   it('vue2 transform should work', async() => {
