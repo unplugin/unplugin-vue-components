@@ -1,7 +1,7 @@
 import type MagicString from 'magic-string'
 import { ResolveResult } from '../../transformer'
 
-export const resolve = (code: string, s: MagicString): ResolveResult[] => {
+export default function resolveVue3(code: string, s: MagicString): ResolveResult[] {
   const results: ResolveResult[] = []
 
   for (const match of code.matchAll(/_resolveDirective\("(.+?)"\)/g)) {

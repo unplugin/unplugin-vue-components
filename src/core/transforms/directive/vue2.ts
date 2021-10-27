@@ -2,8 +2,8 @@ import type {
   CallExpression, ObjectProperty, File, VariableDeclaration, FunctionExpression, BlockStatement,
 } from '@babel/types'
 import type MagicString from 'magic-string'
-import { parse, ParseResult } from '@babel/parser'
-import traverse from '@babel/traverse'
+import type { ParseResult } from '@babel/parser'
+import { importModule, isPackageExists } from 'local-pkg'
 import { ResolveResult } from '../../transformer'
 
 /**
@@ -23,11 +23,16 @@ const getRenderFnStart = (ast: ParseResult<File>): number => {
   return start + 1
 }
 
-export const resolve = (code: string, s: MagicString): ResolveResult[] => {
+export default async function resolveVue2(code: string, s: MagicString): Promise<ResolveResult[]> {
+  if (!isPackageExists('@babel/parser') || !isPackageExists('@babel/traverse'))
+    throw new Error('[unplugin-vue-components:directive] To use Vue 2 directive you will need to install Babel first: "npm install -D @babel/parser @babel/traverse"')
+
+  const { parse } = await importModule('@babel/parser') as typeof import('@babel/parser')
   const ast = parse(code, {
     sourceType: 'module',
   })
   const nodes: CallExpression[] = []
+  const { default: traverse } = await importModule('@babel/traverse') as typeof import('@babel/traverse')
   traverse(ast, {
     CallExpression(path) {
       nodes.push(path.node)
