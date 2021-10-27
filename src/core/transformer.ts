@@ -15,7 +15,7 @@ export interface ResolveResult {
   replace: (resolved: string) => void
 }
 
-export default (ctx: Context, transformer: SupportedTransformer): Transformer => {
+export default function tranformer(ctx: Context, transformer: SupportedTransformer): Transformer {
   return async(code, id, path) => {
     ctx.searchGlob()
 
@@ -25,6 +25,7 @@ export default (ctx: Context, transformer: SupportedTransformer): Transformer =>
     const s = new MagicString(code)
 
     await transformComponent(code, transformer, s, ctx, sfcPath)
+
     if (ctx.options.directives)
       await transformDirectives(code, transformer, s, ctx, sfcPath)
 
