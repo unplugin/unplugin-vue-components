@@ -16,10 +16,12 @@ export interface ComponentInfo extends ImportInfo {
 
 export type ComponentResolveResult = Awaitable<string | ComponentInfo | null | undefined | void>
 
-export type ComponentResolver = {
+export type ComponentResolverFunction = (name: string) => ComponentResolveResult
+export type ComponentResolverObject = {
   type: 'component' | 'directive'
-  resolve: (name: string) => ComponentResolveResult
+  resolve: ComponentResolverFunction
 }
+export type ComponentResolver = ComponentResolverFunction | ComponentResolverObject
 export interface UILibraryOptions {
   name: string
   prefix?: string
@@ -142,7 +144,7 @@ export type ResolvedOptions = Omit<
 Required<Options>,
 'resolvers'|'libraries'|'extensions'|'dirs'|'globalComponentsDeclaration'
 > & {
-  resolvers: ComponentResolver[]
+  resolvers: ComponentResolverObject[]
   libraries: UILibraryOptions[]
   extensions: string[]
   dirs: string[]

@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { dirname, join } from 'path'
 import Debug from 'debug'
-import { ComponentResolver, UILibraryOptions } from '../../types'
+import { ComponentResolverObject, UILibraryOptions } from '../../types'
 import { camelCase, kebabCase, resolveImportPath } from '../utils'
 
 const debug = Debug('unplugin-vue-components:helper:library')
@@ -26,7 +26,7 @@ export function tryLoadVeturTags(name: string): string[] | undefined {
   }
 }
 
-export function LibraryResolver(options: UILibraryOptions): ComponentResolver {
+export function LibraryResolver(options: UILibraryOptions): ComponentResolverObject {
   const {
     name: libraryName,
     entries = tryLoadVeturTags(options.name),
