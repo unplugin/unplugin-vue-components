@@ -16,8 +16,10 @@ export interface ComponentInfo extends ImportInfo {
 
 export type ComponentResolveResult = Awaitable<string | ComponentInfo | null | undefined | void>
 
-export type ComponentResolver = (name: string, type: 'component' | 'directive') => ComponentResolveResult
-
+export type ComponentResolver = {
+  type: 'component' | 'directive'
+  resolve: (name: string) => ComponentResolveResult
+}
 export interface UILibraryOptions {
   name: string
   prefix?: string
@@ -92,7 +94,7 @@ export interface Options {
    *
    * The component names are always in PascalCase
    */
-  resolvers?: ComponentResolver | ComponentResolver[]
+  resolvers?: (ComponentResolver | ComponentResolver[])[]
 
   /**
    * Apply custom transform over the path for importing
@@ -130,6 +132,7 @@ export interface Options {
    * default: `true` for Vue 3, `false` for Vue 2
    *
    * Babel is needed to do the transformation for Vue 2, it's disabled by default for performance concerns.
+   * To install Babel, run: `npm install -D @babel/parser @babel/traverse`
    * @default undefined
    */
   directives?: boolean
