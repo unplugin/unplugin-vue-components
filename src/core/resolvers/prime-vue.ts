@@ -89,7 +89,8 @@ const components = [
   // Toast must be registered globally in order for the toast service to work properly
   'ToggleButton',
   'Toolbar',
-  'Tooltip',
+  // 'Tooltip',
+  // Tooltip must be registered globally in order for the tooltip service to work properly
   'Tree',
   'TreeSelect',
   'TreeTable',
