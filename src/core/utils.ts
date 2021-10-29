@@ -60,6 +60,16 @@ export function matchGlobs(filepath: string, globs: string[]) {
   return false
 }
 
+export function getTransformedPath(path: string, ctx: Context): string {
+  if (ctx.options.importPathTransform) {
+    const result = ctx.options.importPathTransform(path)
+    if (result != null)
+      path = result
+  }
+
+  return path
+}
+
 export function stringifyImport(info: ImportInfo | string) {
   if (typeof info === 'string')
     return `import '${info}'`
@@ -72,11 +82,7 @@ export function stringifyImport(info: ImportInfo | string) {
 }
 
 export function stringifyComponentImport({ name, path, importName, sideEffects }: ComponentInfo, ctx: Context) {
-  if (ctx.options.importPathTransform) {
-    const result = ctx.options.importPathTransform(path)
-    if (result != null)
-      path = result
-  }
+  path = getTransformedPath(path, ctx)
 
   const imports = [
     stringifyImport({ name, path, importName }),

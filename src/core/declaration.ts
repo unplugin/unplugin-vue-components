@@ -2,6 +2,7 @@ import { resolve, dirname, relative, isAbsolute } from 'path'
 import { promises as fs, existsSync } from 'fs'
 import { notNullish, slash } from '@antfu/utils'
 import { Context } from './context'
+import { getTransformedPath } from './utils'
 
 export function parseDeclaration(code: string): Record<string, string> {
   if (!code)
@@ -18,7 +19,7 @@ export async function generateDeclaration(ctx: Context, root: string, filepath: 
       .map(({ path, name, importName }) => {
         if (!name)
           return undefined
-
+        path = getTransformedPath(path, ctx)
         const related = isAbsolute(path)
           ? `./${relative(dirname(filepath), path)}`
           : path
