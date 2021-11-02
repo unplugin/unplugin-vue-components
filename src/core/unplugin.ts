@@ -2,9 +2,9 @@ import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import chokidar from 'chokidar'
 import type { ResolvedConfig, ViteDevServer } from 'vite'
-import type { Options } from '../types'
+import type { Options, ComponentsApi } from '../types'
 import { Context } from './context'
-import { shouldTransform } from './utils'
+import { shouldTransform, stringifyComponentImport } from './utils'
 
 export default createUnplugin<Options>((options = {}) => {
   const filter = createFilter(
@@ -13,9 +13,20 @@ export default createUnplugin<Options>((options = {}) => {
   )
   const ctx: Context = new Context(options)
 
+  const api: ComponentsApi = {
+    async findComponent(name, filename) {
+      return await ctx.findComponent(name, 'component', filename ? [filename] : [])
+    },
+    stringifyImport(info) {
+      return stringifyComponentImport(info, ctx)
+    },
+  }
+
   return {
     name: 'unplugin-vue-components',
     enforce: 'post',
+
+    api,
 
     transformInclude(id) {
       return filter(id)
