@@ -48,7 +48,7 @@
   },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
-  "types": "index.d.ts",
+  "types": "types.d.ts",
   "scripts": {
     "build": "tsup src/*.ts && esno scripts/postbuild.ts",
     "dev": "tsup src/*.ts --watch src",
