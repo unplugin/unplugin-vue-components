@@ -8,7 +8,7 @@ import { shouldTransform } from './utils'
 export default createUnplugin<Options>((options = {}) => {
   const filter = createFilter(
     options.include || [/\.vue$/, /\.vue\?vue/],
-    options.exclude || [/node_modules/, /\.git/, /\.nuxt/],
+    options.exclude || [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
   )
   const ctx: Context = new Context(options)
 
