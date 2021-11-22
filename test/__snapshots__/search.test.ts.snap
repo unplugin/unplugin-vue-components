@@ -15,6 +15,10 @@ Array [
     "path": "src/components/ComponentA.vue",
   },
   Object {
+    "name": "ComponentAsync",
+    "path": "src/components/ComponentAsync.vue",
+  },
+  Object {
     "name": "ComponentB",
     "path": "src/components/ComponentB.vue",
   },
@@ -62,6 +66,10 @@ Array [
   Object {
     "name": "ComponentA",
     "path": "src/components/ComponentA.vue",
+  },
+  Object {
+    "name": "ComponentAsync",
+    "path": "src/components/ComponentAsync.vue",
   },
   Object {
     "name": "ComponentB",
