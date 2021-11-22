@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { ref } from 'vue'
+import { ref, defineAsyncComponent } from 'vue'
 
 const tree = ref({
   label: 'Top Level',
@@ -8,6 +8,8 @@ const tree = ref({
     { label: 'First Level', children: [{ label: 'Second Level' }] },
   ],
 })
+
+const ComponentAsync = defineAsyncComponent(() => import('./components/ComponentAsync.vue'))
 
 const rate = ref(2.5)
 const radio = ref('1')
@@ -32,6 +34,11 @@ const radio = ref('1')
     <UiNestedCheckbox />
     <!-- Global -->
     <Avatar />
+  </div>
+
+  <div class="block">
+    <h1>Async (2)</h1>
+    <ComponentAsync />
   </div>
 
   <div class="block">
