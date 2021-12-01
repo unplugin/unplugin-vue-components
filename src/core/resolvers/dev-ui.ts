@@ -17,31 +17,37 @@ export interface DevResolverOptions {
   directives?: boolean
 }
 
-interface Directive {
-  importName: string
-  styleName: string
-}
-
-export type Directives = Record<string, Directive>
-
 const LIB_NAME = 'vue-devui'
 
-const findStyle = (name: string) => `${LIB_NAME}/${name}/style.css`
-
-const effectMaps: Record<string, string> = {
-  'row,col': findStyle('grid'),
-  'aside,content,footer,header,layout': findStyle('layout'),
-  'overlay,fixed-overlay,flexible-overlay': findStyle('overlay'),
+const findStyle = (name: string) => {
+  if (!name || !Array.isArray(name)) return `${LIB_NAME}/${name}/style.css`
 }
 
-const effectKeys = Object.keys(effectMaps)
+const effectComponentMaps: Record<string, string> = {
+  'row,col': 'grid',
+  'aside,content,footer,header,layout': 'layout',
+  'overlay,fixed-overlay,flexible-overlay': 'overlay',
+}
 
+const effectDirectiveMaps: Record<string, string> = {
+  // Directives exist, but style files are not required
+  Ripple: '',
+  Draggable: '',
+  Droppable: '',
+
+  Loading: 'loading',
+  ImagePreview: 'image-preview',
+}
+
+const effectComponentKeys = Object.keys(effectComponentMaps)
+
+// Gets the component style file
 function getSideEffects(name: string): string | undefined {
-  const match = effectKeys.find((key: string) => key.includes(name))
-  return (match && effectMaps[match]) || findStyle(name)
+  const match = effectComponentKeys.find((key: string) => key.includes(name))
+  return (match && effectComponentMaps[match]) && findStyle(match)
 }
 
-function componentsResolver(name: string, config: DevResolverOptions) {
+function componentsResolver(name: string) {
   if (!name.match(/^D[A-Z]/)) return
 
   // Alert => alert; DatePicker => date-picker
@@ -54,20 +60,25 @@ function componentsResolver(name: string, config: DevResolverOptions) {
   }
 }
 
-function directivesResolver(name: string, config: DevResolverOptions) {
-  if (!config.directives) return
+function directivesResolver(name: string) {
+  if (!(name in effectDirectiveMaps)) return
 
   return {
-    importName: name,
-    path: `${LIB_NAME}/${name}`,
+    path: LIB_NAME,
+    importName: `${name}Directive`,
+    sideEffects: findStyle(effectDirectiveMaps[name]),
   }
 }
 
 export function DevUiResolver(options: DevResolverOptions = {}): ComponentResolver[] {
-  const config = { directive: true, importStyle: true, ...options }
+  const config = { directives: true, importStyle: true, ...options }
 
-  return [
-    { type: 'component', resolve: (name: string) => componentsResolver(name, config) },
-    { type: 'directive', resolve: (name: string) => directivesResolver(name, config) },
+  const resolvers: ComponentResolver[] = [
+    { type: 'component', resolve: componentsResolver },
   ]
+
+  if (config.directives)
+    resolvers.push({ type: 'directive', resolve: directivesResolver })
+
+  return resolvers
 }
