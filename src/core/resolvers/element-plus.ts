@@ -137,12 +137,12 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
  * @link https://element-plus.org/ for element-plus
  *
  */
-export function ElementPlusResolver(
+export async function ElementPlusResolver(
   options: ElementPlusResolverOptions = {},
-): ComponentResolver[] {
+): Promise<ComponentResolver[]> {
   const optionsResolved: ElementPlusResolverOptionsResolved = {
     ssr: false,
-    version: getPkgVersion('element-plus', '1.1.0-beta.21'),
+    version: await getPkgVersion('element-plus', '1.1.0-beta.21'),
     importStyle: 'css',
     directives: true,
     ...options,

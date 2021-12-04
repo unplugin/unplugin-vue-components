@@ -4,9 +4,14 @@ import minimatch from 'minimatch'
 import resolve from 'resolve'
 import { ResolvedConfig } from 'vite'
 import { slash, toArray } from '@antfu/utils'
+import {
+  isPackageExists,
+  getPackageInfo,
+} from 'local-pkg'
 import { ComponentInfo, ResolvedOptions, ImportInfo } from '../types'
 import { Context } from './context'
 import { DISABLE_COMMENT } from './constants'
+
 export interface ResolveComponent {
   filename: string
   namespace?: string
@@ -146,27 +151,16 @@ export function resolveAlias(filepath: string, alias: ResolvedConfig['resolve'][
   return result
 }
 
-export function getPkgVersion(pkgName: string, defaultVersion: string): string {
+export async function getPkgVersion(pkgName: string, defaultVersion: string): Promise<string> {
   try {
-    let pkg: {
-      version?: string
-    } = {}
-    resolve.sync(pkgName, {
-      basedir: __dirname,
-
-      readPackageSync: function defaultReadPackageSync(readFileSync, pkgfile) {
-        const body = readFileSync(pkgfile)
-
-        try {
-          pkg = JSON.parse(body.toString())
-          return pkg
-        }
-        catch (jsonErr) {}
-      },
-
-    })
-
-    return pkg.version ?? defaultVersion
+    const isExist = isPackageExists(pkgName)
+    if (isExist) {
+      const pkg = await getPackageInfo(pkgName)
+      return pkg?.version ?? defaultVersion
+    }
+    else {
+      return defaultVersion
+    }
   }
   catch (err) {
     console.error(err)
