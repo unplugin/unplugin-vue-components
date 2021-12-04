@@ -1,4 +1,5 @@
 import { parse } from 'path'
+import fs from 'fs'
 import minimatch from 'minimatch'
 import resolve from 'resolve'
 import { ResolvedConfig } from 'vite'
@@ -6,7 +7,6 @@ import { slash, toArray } from '@antfu/utils'
 import { ComponentInfo, ResolvedOptions, ImportInfo } from '../types'
 import { Context } from './context'
 import { DISABLE_COMMENT } from './constants'
-
 export interface ResolveComponent {
   filename: string
   namespace?: string
@@ -148,8 +148,25 @@ export function resolveAlias(filepath: string, alias: ResolvedConfig['resolve'][
 
 export function getPkgVersion(pkgName: string, defaultVersion: string): string {
   try {
-    /* eslint-disable @typescript-eslint/no-var-requires */
-    return require(`${pkgName}/package.json`).version
+    let pkg: {
+      version?: string
+    } = {}
+    resolve.sync(pkgName, {
+      basedir: __dirname,
+
+      readPackageSync: function defaultReadPackageSync(readFileSync, pkgfile) {
+        const body = readFileSync(pkgfile)
+
+        try {
+          pkg = JSON.parse(body.toString())
+          return pkg
+        }
+        catch (jsonErr) {}
+      },
+
+    })
+
+    return pkg.version ?? defaultVersion
   }
   catch (err) {
     console.error(err)
