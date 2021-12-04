@@ -1,4 +1,4 @@
-import compareVersions from 'compare-versions'
+import { compare } from 'compare-versions'
 import { ComponentInfo, ComponentResolver, SideEffectsInfo } from '../../types'
 import { getPkgVersion, kebabCase } from '../utils'
 
@@ -80,7 +80,7 @@ function resolveComponent(name: string, options: ElementPlusResolverOptionsResol
   const { version, ssr } = options
 
   // >=1.1.0-beta.1
-  if (compareVersions.compare(version, '1.1.0-beta.1', '>=')) {
+  if (compare(version, '1.1.0-beta.1', '>=')) {
     return {
       importName: name,
       path: `element-plus/${ssr ? 'lib' : 'es'}`,
@@ -88,7 +88,7 @@ function resolveComponent(name: string, options: ElementPlusResolverOptionsResol
     }
   }
   // >=1.0.2-beta.28
-  else if (compareVersions.compare(version, '1.0.2-beta.28', '>=')) {
+  else if (compare(version, '1.0.2-beta.28', '>=')) {
     return {
       path: `element-plus/es/el-${partialName}`,
       sideEffects: getSideEffectsLegacy(partialName, options),
@@ -118,7 +118,7 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
   const { version, ssr } = options
 
   // >=1.1.0-beta.1
-  if (compareVersions.compare(version, '1.1.0-beta.1', '>=')) {
+  if (compare(version, '1.1.0-beta.1', '>=')) {
     return {
       importName: directive.importName,
       path: `element-plus/${ssr ? 'lib' : 'es'}`,
