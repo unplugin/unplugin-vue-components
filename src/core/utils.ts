@@ -8,6 +8,7 @@ import {
   isPackageExists,
   getPackageInfo,
 } from 'local-pkg'
+import { doUntil } from 'async'
 import { ComponentInfo, ResolvedOptions, ImportInfo } from '../types'
 import { Context } from './context'
 import { DISABLE_COMMENT } from './constants'
@@ -151,16 +152,20 @@ export function resolveAlias(filepath: string, alias: ResolvedConfig['resolve'][
   return result
 }
 
-export async function getPkgVersion(pkgName: string, defaultVersion: string): Promise<string> {
+export function getPkgVersion(pkgName: string, defaultVersion: string): string {
   try {
     const isExist = isPackageExists(pkgName)
+    let version: string = defaultVersion
     if (isExist) {
-      const pkg = await getPackageInfo(pkgName)
-      return pkg?.version ?? defaultVersion
+      doUntil(async() => {
+        const pkg = await getPackageInfo(pkgName)
+        version = pkg?.version ?? defaultVersion
+      }, () => {
+
+      })
     }
-    else {
-      return defaultVersion
-    }
+
+    return version
   }
   catch (err) {
     console.error(err)
