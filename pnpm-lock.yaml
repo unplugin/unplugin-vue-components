@@ -10,14 +10,12 @@ importers:
       '@babel/traverse': ^7.16.3
       '@babel/types': ^7.16.0
       '@rollup/pluginutils': ^4.1.1
-      '@types/async': ^3.2.10
       '@types/debug': ^4.1.7
       '@types/jest': ^27.0.3
       '@types/minimatch': ^3.0.5
       '@types/node': ^16.11.9
       '@types/resolve': ^1.20.1
       '@typescript-eslint/eslint-plugin': ^5.4.0
-      async: ^3.2.2
       bumpp: ^7.1.1
       chokidar: ^3.5.2
       compare-versions: ^4.1.1
@@ -54,14 +52,12 @@ importers:
       '@babel/parser': 7.16.4
       '@babel/traverse': 7.16.3
       '@babel/types': 7.16.0
-      '@types/async': 3.2.10
       '@types/debug': 4.1.7
       '@types/jest': 27.0.3
       '@types/minimatch': 3.0.5
       '@types/node': 16.11.9
       '@types/resolve': 1.20.1
       '@typescript-eslint/eslint-plugin': 5.4.0_eslint@8.3.0+typescript@4.5.2
-      async: 3.2.2
       bumpp: 7.1.1
       compare-versions: 4.1.1
       element-plus: 1.1.0-beta.24_vue@3.2.22
@@ -2122,10 +2118,6 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /@types/async/3.2.10:
-    resolution: {integrity: sha512-/bPr8eB1/00J14EGHrZiGqCal/zA0nE/8W1YCM3lGnUcfiWPW6liQwThgGzjt/3uIrYbLtLCPg3ZmpUe6YmFRw==}
-    dev: true
-
   /@types/babel__core/7.1.14:
     resolution: {integrity: sha512-zGZJzzBUVDo/eV6KgbE0f0ZI7dInEYvo12Rb70uNQDshC3SkRMb67ja0GgRHZgAX3Za6rhaWlvbDO8rrGyAb1g==}
     dependencies:
@@ -3642,10 +3634,6 @@ packages:
     resolution: {integrity: sha512-zflvls11DCy+dQWzTW2dzuilv8Z5X/pjfmZOWba6TNIVDm+2UDaJmXSOXlasHKfNBs8oo3M0aT50fDEWfKZjXg==}
     dependencies:
       lodash: 4.17.21
-    dev: true
-
-  /async/3.2.2:
-    resolution: {integrity: sha512-H0E+qZaDEfx/FY4t7iLRv1W2fFI6+pyCeTw1uN20AQPiwqwM6ojPxHxdLv4z8hi2DtnW9BOckSspLucW7pIE5g==}
     dev: true
 
   /asynckit/0.4.0:
