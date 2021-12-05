@@ -1,6 +1,6 @@
 {
   "name": "unplugin-vue-components",
-  "version": "0.17.4",
+  "version": "0.17.5",
   "description": "Components auto importing for Vue",
   "homepage": "https://github.com/antfu/unplugin-vue-components",
   "bugs": "https://github.com/antfu/unplugin-vue-components/issues",
