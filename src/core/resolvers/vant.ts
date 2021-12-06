@@ -1,13 +1,28 @@
-import { ComponentResolver } from '../../types'
+import { ComponentResolver, SideEffectsInfo } from '../../types'
 import { kebabCase } from '../utils'
 
 export interface VantResolverOptions {
   /**
-   * import style along with components
+   * import style css or less along with components
    *
    * @default true
    */
-  importStyle?: boolean
+  importStyle?: boolean | 'css' | 'less'
+}
+
+function getSideEffects(dirName: string, options: VantResolverOptions): SideEffectsInfo | undefined {
+  const { importStyle = true } = options
+
+  if (!importStyle)
+    return
+
+  if (importStyle === 'less')
+    return `vant/es/${dirName}/style/less`
+
+  if (importStyle === 'css')
+    return `vant/es/${dirName}/style/index`
+
+  return `vant/es/${dirName}/style/index`
 }
 
 /**
@@ -19,14 +34,12 @@ export function VantResolver(options: VantResolverOptions = {}): ComponentResolv
   return {
     type: 'component',
     resolve: (name: string) => {
-      const { importStyle = true } = options
-
       if (name.startsWith('Van')) {
         const partialName = name.slice(3)
         return {
           importName: partialName,
           path: 'vant/es',
-          sideEffects: importStyle ? `vant/es/${kebabCase(partialName)}/style` : undefined,
+          sideEffects: getSideEffects(kebabCase(partialName), options),
         }
       }
     },
