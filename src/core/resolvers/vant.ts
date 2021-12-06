@@ -26,7 +26,7 @@ export function VantResolver(options: VantResolverOptions = {}): ComponentResolv
         return {
           importName: partialName,
           path: 'vant/es',
-          sideEffects: importStyle ? `vant/es/${kebabCase(partialName)}/style` : undefined,
+          sideEffects: importStyle ? `vant/es/${kebabCase(partialName)}/style/index` : undefined,
         }
       }
     },
