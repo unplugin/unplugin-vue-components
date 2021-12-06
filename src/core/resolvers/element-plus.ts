@@ -137,28 +137,35 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
  * @link https://element-plus.org/ for element-plus
  *
  */
-export async function ElementPlusResolver(
+export function ElementPlusResolver(
   options: ElementPlusResolverOptions = {},
-): Promise<ComponentResolver[]> {
-  const optionsResolved: ElementPlusResolverOptionsResolved = {
-    ssr: false,
-    version: await getPkgVersion('element-plus', '1.1.0-beta.21'),
-    importStyle: 'css',
-    directives: true,
-    ...options,
+): ComponentResolver[] {
+  let optionsResolved: ElementPlusResolverOptionsResolved | undefined
+
+  async function resolveOptions() {
+    if (optionsResolved)
+      return optionsResolved
+    optionsResolved = {
+      ssr: false,
+      version: await getPkgVersion('element-plus', '1.1.0-beta.21'),
+      importStyle: 'css',
+      directives: true,
+      ...options,
+    }
+    return optionsResolved
   }
 
   return [
     {
       type: 'component',
-      resolve: (name: string) => {
-        return resolveComponent(name, optionsResolved)
+      resolve: async(name: string) => {
+        return resolveComponent(name, await resolveOptions())
       },
     },
     {
       type: 'directive',
-      resolve: (name: string) => {
-        return resolveDirective(name, optionsResolved)
+      resolve: async(name: string) => {
+        return resolveDirective(name, await resolveOptions())
       },
     },
   ]
