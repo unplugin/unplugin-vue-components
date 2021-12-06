@@ -98,13 +98,13 @@ importers:
       typescript: ^4.4.2
       unplugin-icons: ^0.7.4
       unplugin-vue-components: workspace:*
-      vant: ^3.2.1
+      vant: ^3.3.6
       vite: ^2.5.3
       vite-plugin-inspect: ^0.2.2
       vite-plugin-md: ^0.11.0
       vite-plugin-vue-svg: ^0.1.0
     dependencies:
-      vant: 3.2.1
+      vant: 3.3.6_vue@3.2.22
     devDependencies:
       '@iconify/json': 1.1.396
       '@vitejs/plugin-vue': 1.6.0_@vue+compiler-sfc@3.2.6
@@ -112,7 +112,7 @@ importers:
       cross-env: 7.0.3
       has-pkg: 0.0.1
       typescript: 4.4.2
-      unplugin-icons: 0.7.4_7664d9c62076d0eef60b5d35df9b498c
+      unplugin-icons: 0.7.4_eeeab9661507044e14994e255d4c7016
       unplugin-vue-components: link:../..
       vite: 2.5.3
       vite-plugin-inspect: 0.2.2_vite@2.5.3
@@ -140,9 +140,9 @@ importers:
       '@vue/cli-plugin-typescript': 4.5.13_11e566dcedc01ccd344cd7ddf105215e
       '@vue/cli-service': 4.5.13_typescript@4.4.2
       typescript: 4.4.2
-      unplugin-icons: 0.7.4_rollup@2.57.0+vite@2.5.10
+      unplugin-icons: 0.7.4_rollup@2.60.0+vite@2.6.14
       unplugin-vue-components: link:../..
-      unplugin-vue2-script-setup: 0.5.5_rollup@2.57.0+vite@2.5.10
+      unplugin-vue2-script-setup: 0.5.5_rollup@2.60.0+vite@2.6.14
 
 packages:
 
@@ -1140,7 +1140,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.15.0
-      '@babel/helper-plugin-utils': 7.14.5
+      '@babel/helper-plugin-utils': 7.13.0
     dev: true
 
   /@babel/plugin-transform-arrow-functions/7.14.5_@babel+core@7.15.0:
@@ -2059,11 +2059,6 @@ packages:
 
   /@popperjs/core/2.10.2:
     resolution: {integrity: sha512-IXf3XA7+XyN7CP9gGh/XB0UxVMlvARGEgGXLubFICsUMGz6Q+DU+i4gGlpOxTjKvXjkJDJC8YdqdKkDj9qZHEQ==}
-    dev: true
-
-  /@popperjs/core/2.9.2:
-    resolution: {integrity: sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q==}
-    dev: false
 
   /@rollup/pluginutils/4.1.0_rollup@2.56.2:
     resolution: {integrity: sha512-TrBhfJkFxA+ER+ew2U2/fHbebhLT/l/2pRk0hfj9KusXUuRXd2v0R58AfaZK9VXDQ4TogOSEmICVrQAA3zFnHQ==}
@@ -2234,10 +2229,6 @@ packages:
     dependencies:
       jest-diff: 27.2.0
       pretty-format: 27.2.0
-    dev: true
-
-  /@types/json-schema/7.0.7:
-    resolution: {integrity: sha512-cxWFQVseBm6O9Gbw1IWb8r6OS4OhSt3hPZLkFApLjM8TEXROBuQGLAH2i2gZpcXdLBIrpXuTDhH7Vbm1iXmNGA==}
     dev: true
 
   /@types/json-schema/7.0.9:
@@ -2505,22 +2496,18 @@ packages:
       eslint-visitor-keys: 3.1.0
     dev: true
 
-  /@vant/icons/1.7.0:
-    resolution: {integrity: sha512-sqKvtYcSgSd6+AU1nBPaZARn2Nzf8hi0ErLhfXVR6f+Y7R0gojGZVoxuB83yUI6+0LwbitW5IfN3E6qzEsu21Q==}
-    dev: false
-
-  /@vant/lazyload/1.2.0:
-    resolution: {integrity: sha512-QsqNm8nNat4z9TdrTI4YkDXZXgg3dbGhHf7tC4mhel+gJ0u2WZcoMYKWkzQXvO+vo395cByT5iUE5a72360B2Q==}
+  /@vant/icons/1.7.1:
+    resolution: {integrity: sha512-66LPEq89w4kl258nALZcRNd14eUJC8VajvTJwvZKOaZawz6CUeVZ6ybhedTUhQhRjeA8SyWD7dFt4ALf33Sabw==}
     dev: false
 
   /@vant/popperjs/1.1.0:
     resolution: {integrity: sha512-8MD1gz146awV/uPxYjz4pet22f7a9YVKqk7T+gFkWFwT9mEcrIUEg/xPrdOnWKLP9puXyYtm7oVfSDSefZ/p/w==}
     dependencies:
-      '@popperjs/core': 2.9.2
+      '@popperjs/core': 2.10.2
     dev: false
 
-  /@vant/use/1.3.0:
-    resolution: {integrity: sha512-VJ9/4i7Ta4HKoM1ytf/r2EW/A/PzEHjqMM2eJW8cf8+SMfe1bnusREFYNpIcWgNHsfJrL24oEH174kVHDHrBBA==}
+  /@vant/use/1.3.4:
+    resolution: {integrity: sha512-XvZkPCjcmEBhD+T3vB68thOG6P9jazld6aBTMenhbAQd4FT/x9AiKIWPJx4MvhYoSIWt7fju6K01XTJldWs1hw==}
     dev: false
 
   /@vitejs/plugin-vue/1.6.0_@vue+compiler-sfc@3.2.6:
@@ -6986,8 +6973,8 @@ packages:
     engines: {node: '>=10', yarn: '>=1.0.0'}
     requiresBuild: true
     dependencies:
-      '@babel/code-frame': 7.14.5
-      '@types/json-schema': 7.0.7
+      '@babel/code-frame': 7.16.0
+      '@types/json-schema': 7.0.9
       chalk: 4.1.2
       cosmiconfig: 6.0.0
       deepmerge: 4.2.2
@@ -11308,7 +11295,7 @@ packages:
     resolution: {integrity: sha512-0ilKFI6QQF5nxDZLFn2dMjvc4hjg/Wkg7rHd3jK6/A4a1Hl9VFdQWvgB1UMGoU94pad1P/8N7fMcEnLnSiju8A==}
     engines: {node: '>= 8.9.0'}
     dependencies:
-      '@types/json-schema': 7.0.7
+      '@types/json-schema': 7.0.9
       ajv: 6.12.6
       ajv-keywords: 3.5.2_ajv@6.12.6
     dev: true
@@ -11318,7 +11305,7 @@ packages:
     resolution: {integrity: sha512-SHiNtMOUGWBQJwzISiVYKu82GiV4QYGePp3odlY1tuKO7gPtphAT5R/py0fA6xtbgLL/RvtJZnU9b8s0F1q0Xg==}
     engines: {node: '>= 8.9.0'}
     dependencies:
-      '@types/json-schema': 7.0.7
+      '@types/json-schema': 7.0.9
       ajv: 6.12.6
       ajv-keywords: 3.5.2_ajv@6.12.6
     dev: true
@@ -12552,7 +12539,7 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /unplugin-icons/0.7.4_7664d9c62076d0eef60b5d35df9b498c:
+  /unplugin-icons/0.7.4_eeeab9661507044e14994e255d4c7016:
     resolution: {integrity: sha512-XuV+fQ0NKzXiIF2uq7Dp5I+R07KZoFrCu8ISQinuCxLG9npdW/ukD8ASrc2JKX6TQs22PoYF4YVJvlWhz+9qBw==}
     peerDependencies:
       '@iconify/json': '*'
@@ -12574,14 +12561,14 @@ packages:
       '@iconify/json-tools': 1.0.10
       '@vue/compiler-sfc': 3.2.6
       has-pkg: 0.0.1
-      unplugin: 0.2.7_rollup@2.57.0+vite@2.5.3
+      unplugin: 0.2.7_rollup@2.60.0+vite@2.5.3
     transitivePeerDependencies:
       - rollup
       - vite
       - webpack
     dev: true
 
-  /unplugin-icons/0.7.4_rollup@2.57.0+vite@2.5.10:
+  /unplugin-icons/0.7.4_rollup@2.60.0+vite@2.6.14:
     resolution: {integrity: sha512-XuV+fQ0NKzXiIF2uq7Dp5I+R07KZoFrCu8ISQinuCxLG9npdW/ukD8ASrc2JKX6TQs22PoYF4YVJvlWhz+9qBw==}
     peerDependencies:
       '@iconify/json': '*'
@@ -12601,14 +12588,14 @@ packages:
     dependencies:
       '@iconify/json-tools': 1.0.10
       has-pkg: 0.0.1
-      unplugin: 0.2.7_rollup@2.57.0+vite@2.5.10
+      unplugin: 0.2.7_rollup@2.60.0+vite@2.6.14
     transitivePeerDependencies:
       - rollup
       - vite
       - webpack
     dev: true
 
-  /unplugin-vue2-script-setup/0.5.5_rollup@2.57.0+vite@2.5.10:
+  /unplugin-vue2-script-setup/0.5.5_rollup@2.60.0+vite@2.6.14:
     resolution: {integrity: sha512-Ii1b0yo4D5iOWU4oj7InFIVtB1rQ+/OfFLjB4DCIiwmrCM6bfKXITqcovPcyQFv6iMk9/7MurOJQS1mRgCXe8Q==}
     dependencies:
       '@babel/core': 7.15.0
@@ -12620,7 +12607,7 @@ packages:
       '@vue/shared': 3.2.6
       htmlparser2: 6.1.0
       magic-string: 0.25.7
-      unplugin: 0.2.7_rollup@2.57.0+vite@2.5.10
+      unplugin: 0.2.7_rollup@2.60.0+vite@2.6.14
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -12647,7 +12634,7 @@ packages:
       webpack-virtual-modules: 0.4.3
     dev: false
 
-  /unplugin/0.2.7_rollup@2.57.0+vite@2.5.10:
+  /unplugin/0.2.7_rollup@2.60.0+vite@2.5.3:
     resolution: {integrity: sha512-KcMTl+aF+UhNOUvUdxwxHiOhvIoFe++foE2GgblFmXsnjdRYYggd2Tg7wopljCnOyiv5IspQRKfAvpyc4qtzuw==}
     peerDependencies:
       rollup: ^2.50.0
@@ -12661,13 +12648,13 @@ packages:
       webpack:
         optional: true
     dependencies:
-      rollup: 2.57.0
+      rollup: 2.60.0
       upath: 2.0.1
-      vite: 2.5.10
+      vite: 2.5.3
       webpack-virtual-modules: 0.4.3
     dev: true
 
-  /unplugin/0.2.7_rollup@2.57.0+vite@2.5.3:
+  /unplugin/0.2.7_rollup@2.60.0+vite@2.6.14:
     resolution: {integrity: sha512-KcMTl+aF+UhNOUvUdxwxHiOhvIoFe++foE2GgblFmXsnjdRYYggd2Tg7wopljCnOyiv5IspQRKfAvpyc4qtzuw==}
     peerDependencies:
       rollup: ^2.50.0
@@ -12681,9 +12668,9 @@ packages:
       webpack:
         optional: true
     dependencies:
-      rollup: 2.57.0
+      rollup: 2.60.0
       upath: 2.0.1
-      vite: 2.5.3
+      vite: 2.6.14
       webpack-virtual-modules: 0.4.3
     dev: true
 
@@ -12827,15 +12814,15 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vant/3.2.1:
-    resolution: {integrity: sha512-aLhlIOMTUW1UJ3NxhehMwgs8StfO1svGhOoayffCcoQLtbYgIr9zISfDwUyxYJCefGwCf3zR3BxjuJhPQECQgQ==}
+  /vant/3.3.6_vue@3.2.22:
+    resolution: {integrity: sha512-z8Sts1ZDepI42Z4rKmklwazaT65FPJBJ7dnNrAB6VGPBrN5yOabSffvt3XnhTFCPK+Xa7NagjN1LdRR7n0udAg==}
     peerDependencies:
       vue: ^3.0.0
     dependencies:
-      '@vant/icons': 1.7.0
-      '@vant/lazyload': 1.2.0
+      '@vant/icons': 1.7.1
       '@vant/popperjs': 1.1.0
-      '@vant/use': 1.3.0
+      '@vant/use': 1.3.4
+      vue: 3.2.22
     dev: false
 
   /vary/1.1.2:
