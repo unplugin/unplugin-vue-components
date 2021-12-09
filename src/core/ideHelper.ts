@@ -44,13 +44,16 @@ export async function generateIdeHelper(ctx: Context, root: string, filepath: st
 `
 
   if (getVueVersion() === 'vue3') {
+    // @see https://youtrack.jetbrains.com/issue/WEB-48239
     code += `import { createApp } from "vue";
     
 ${lines.map(line => line[1]).join('\n')}
 
 const app = createApp({});
 
-${lines.map(line => `app.component('${line[0]}', ${line[0]})`).join('\n')}
+const Vue = app
+
+${lines.map(line => `Vue.component('${line[0]}', ${line[0]});`).join('\n')}
 
 app.mount("body");
 

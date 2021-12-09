@@ -28,7 +28,6 @@ importers:
       local-pkg: ^0.4.0
       magic-string: ^0.25.7
       minimatch: ^3.0.4
-      pnpm: ^6.23.6
       resolve: ^1.20.0
       rollup: ^2.60.0
       ts-jest: ^27.0.7
@@ -46,7 +45,6 @@ importers:
       local-pkg: 0.4.0
       magic-string: 0.25.7
       minimatch: 3.0.4
-      pnpm: 6.23.6
       resolve: 1.20.0
       unplugin: 0.2.21_rollup@2.60.0+vite@2.6.14
     devDependencies:
@@ -10216,12 +10214,6 @@ packages:
     transitivePeerDependencies:
       - typescript
     dev: true
-
-  /pnpm/6.23.6:
-    resolution: {integrity: sha512-H6PIzO4W2zg2Jqms13uS5U3fU8yBdWk8rXcpJLjs/in+nutgVA8GGlasEAI2eAiTpc9FYJUkCklbJ4a/M36N0w==}
-    engines: {node: '>=12.17'}
-    hasBin: true
-    dev: false
 
   /portfinder/1.0.28:
     resolution: {integrity: sha512-Se+2isanIcEqf2XMHjyUKskczxbPH7dQnlMjXX6+dybayyHvAf/TCgyMRlzf/B6QDhAEFOGes0pzRo3by4AbMA==}
