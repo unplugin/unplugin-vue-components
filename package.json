@@ -81,6 +81,7 @@
     "local-pkg": "^0.4.0",
     "magic-string": "^0.25.7",
     "minimatch": "^3.0.4",
+    "pnpm": "^6.23.6",
     "resolve": "^1.20.0",
     "unplugin": "^0.2.21"
   },
