@@ -34,6 +34,7 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
 
   if (resolved.globs) {
     resolved.globs = toArray(resolved.globs).map((glob: string) => slash(resolve(root, glob)))
+    resolved.resolvedDirs = []
   }
   else {
     const extsGlob = resolved.extensions.length === 1
