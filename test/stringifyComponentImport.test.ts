@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { Context } from '../src/core/context'
 import { stringifyComponentImport } from '../src/core/utils'
 

@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { ComponentResolver } from '../src'
 import { Context } from '../src/core/context'
 

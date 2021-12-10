@@ -1,8 +1,5 @@
 {
   "extends": "@antfu/eslint-config",
-  "env": {
-    "jest": true
-  },
   "rules": {
     "@typescript-eslint/no-unused-vars": "off"
   }

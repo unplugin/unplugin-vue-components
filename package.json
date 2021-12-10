@@ -56,8 +56,8 @@
     "example:dev": "npm -C examples/vite-vue3 run dev",
     "prepublishOnly": "npm run build",
     "release": "npx bumpp --commit --tag --push",
-    "test": "jest",
-    "test:update": "jest --u"
+    "test": "vitest",
+    "test:update": "vitest --u"
   },
   "peerDependencies": {
     "@babel/parser": "^7.15.8",
@@ -90,7 +90,6 @@
     "@babel/traverse": "^7.16.3",
     "@babel/types": "^7.16.0",
     "@types/debug": "^4.1.7",
-    "@types/jest": "^27.0.3",
     "@types/minimatch": "^3.0.5",
     "@types/node": "^16.11.9",
     "@types/resolve": "^1.20.1",
@@ -100,12 +99,11 @@
     "element-plus": "^1.1.0-beta.24",
     "eslint": "^8.3.0",
     "esno": "^0.12.1",
-    "jest": "^27.3.1",
     "rollup": "^2.60.0",
-    "ts-jest": "^27.0.7",
     "tsup": "^5.7.4",
     "typescript": "^4.5.2",
     "vite": "^2.6.14",
+    "vitest": "^0.0.50",
     "vue": "3"
   },
   "engines": {

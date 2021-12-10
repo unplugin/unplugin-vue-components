@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`search should with namespace 1`] = `
+exports[`search > should with namespace 1`] = `
 Array [
   Object {
     "name": "Avatar",
@@ -45,7 +45,7 @@ Array [
 ]
 `;
 
-exports[`search should work 1`] = `
+exports[`search > should work 1`] = `
 Array [
   Object {
     "name": "Avatar",
