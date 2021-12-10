@@ -46,6 +46,7 @@ export async function generateDeclaration(ctx: Context, root: string, filepath: 
     ...imports,
   })
     .sort((a, b) => a[0].localeCompare(b[0]))
+    .filter(([name]) => ctx.componentCustomMap[name] || ctx.componentNameMap[name])
     .map(([name, v]) => {
       if (!/^\w+$/.test(name))
         name = `'${name}'`
