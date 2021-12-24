@@ -119,6 +119,12 @@ export interface PrimeVueResolverOptions {
    * @default ''
    */
   importTheme?: string
+  /**
+   * prefix for components (e.g. 'P' to resolve Menu from PMenu)
+   *
+   * @default ''
+   */
+  prefix?: string
 }
 
 /**
@@ -142,6 +148,13 @@ export function PrimeVueResolver(options: PrimeVueResolverOptions = {}): Compone
         sideEffects.push(
           `primevue/resources/themes/${options.importTheme}/theme.css`,
         )
+      }
+
+      if (options.prefix) {
+        if (!name.startsWith(options.prefix)) {
+          return
+        }
+        name = name.substring(options.prefix.length)
       }
 
       if (components.includes(name)) {
