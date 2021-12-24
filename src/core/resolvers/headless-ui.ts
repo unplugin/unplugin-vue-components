@@ -42,17 +42,35 @@ const components = [
   'TabPanel',
 ]
 
+export interface HeadlessUiResolverOptions {
+  /**
+   * prefix for headless ui components used in templates
+   *
+   * @default ""
+   */
+  prefix?: string
+}
+
 /**
  * Resolver for headlessui
  *
  * @link https://github.com/tailwindlabs/headlessui
  */
-export function HeadlessUiResolver(): ComponentResolver {
+export function HeadlessUiResolver({
+  prefix = ""
+}: HeadlessUiResolverOptions): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (components.includes(name))
-        return { importName: name, path: '@headlessui/vue' }
+      if (name.startsWith(prefix)) {
+        const componentName = name.replace(new RegExp(`\^\(${prefix}\)`), "")
+        if (components.includes(componentName)) {
+          return {
+            importName: componentName,
+            path: "@headlessui/vue",
+          }
+        }
+      }
     }
   }
 }
