@@ -53,12 +53,12 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
       throw new Error('[unplugin-vue-components] `extensions` option is required to search for components')
   }
 
-  resolved.dts = !options.dts
+  resolved.dts = !resolved.dts
     ? false
     : resolve(
       root,
-      typeof options.dts === 'string'
-        ? options.dts
+      typeof resolved.dts === 'string'
+        ? resolved.dts
         : 'components.d.ts',
     )
   resolved.root = root
