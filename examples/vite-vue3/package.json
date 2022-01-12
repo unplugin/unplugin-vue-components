@@ -7,20 +7,20 @@
     "build": "cross-env DEBUG=unplugin-vue-components:* vite build"
   },
   "dependencies": {
-    "vant": "^3.3.6"
+    "vant": "^3.4.1"
   },
   "devDependencies": {
-    "@iconify/json": "^1.1.396",
-    "@vitejs/plugin-vue": "^1.6.0",
-    "@vue/compiler-sfc": "^3.2.6",
+    "@iconify/json": "^2.0.23",
+    "@vitejs/plugin-vue": "^2.0.1",
+    "@vue/compiler-sfc": "^3.2.26",
     "cross-env": "^7.0.3",
     "has-pkg": "^0.0.1",
-    "typescript": "^4.4.2",
-    "unplugin-icons": "^0.7.4",
+    "typescript": "^4.5.4",
+    "unplugin-icons": "^0.13.0",
     "unplugin-vue-components": "workspace:*",
-    "vite": "^2.5.3",
-    "vite-plugin-inspect": "^0.2.2",
-    "vite-plugin-md": "^0.11.0",
+    "vite": "^2.7.10",
+    "vite-plugin-inspect": "^0.3.13",
+    "vite-plugin-md": "^0.11.7",
     "vite-plugin-vue-svg": "^0.1.0"
   }
 }
