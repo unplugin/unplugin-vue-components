@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { ComponentResolver, SideEffectsInfo } from '../../types'
+import type { ComponentResolver, SideEffectsInfo } from '../../types'
 import { kebabCase } from '../utils'
 interface IMatcher {
   pattern: RegExp

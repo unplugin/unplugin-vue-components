@@ -1,12 +1,12 @@
 import path from 'path'
-import { UserConfig } from 'vite'
+import type { UserConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 import Markdown from 'vite-plugin-md'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
-// @ts-expect-error
+// @ts-expect-error missing types
 import SVG from 'vite-plugin-vue-svg'
 import Inspect from 'vite-plugin-inspect'
 

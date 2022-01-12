@@ -1,4 +1,4 @@
-import { ComponentResolver } from '../../types'
+import type { ComponentResolver } from '../../types'
 
 const components = [
   'Dialog',
@@ -57,20 +57,20 @@ export interface HeadlessUiResolverOptions {
  * @link https://github.com/tailwindlabs/headlessui
  */
 export function HeadlessUiResolver({
-  prefix = ""
+  prefix = '',
 }: HeadlessUiResolverOptions): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
       if (name.startsWith(prefix)) {
-        const componentName = name.replace(new RegExp(`\^\(${prefix}\)`), "")
+        const componentName = name.replace(new RegExp(`\^\(${prefix}\)`), '')
         if (components.includes(componentName)) {
           return {
             importName: componentName,
-            path: "@headlessui/vue",
+            path: '@headlessui/vue',
           }
         }
       }
-    }
+    },
   }
 }

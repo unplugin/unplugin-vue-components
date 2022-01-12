@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { ref, defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 
 const tree = ref({
   label: 'Top Level',

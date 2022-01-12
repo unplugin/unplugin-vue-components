@@ -1,7 +1,7 @@
-import { resolve, dirname, relative, isAbsolute } from 'path'
-import { promises as fs, existsSync } from 'fs'
+import { dirname, isAbsolute, relative, resolve } from 'path'
+import { existsSync, promises as fs } from 'fs'
 import { notNullish, slash } from '@antfu/utils'
-import { Context } from './context'
+import type { Context } from './context'
 import { getTransformedPath } from './utils'
 
 export function parseDeclaration(code: string): Record<string, string> {

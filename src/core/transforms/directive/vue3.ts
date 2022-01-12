@@ -1,5 +1,5 @@
 import type MagicString from 'magic-string'
-import { ResolveResult } from '../../transformer'
+import type { ResolveResult } from '../../transformer'
 
 export default function resolveVue3(code: string, s: MagicString): ResolveResult[] {
   const results: ResolveResult[] = []

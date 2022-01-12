@@ -1,15 +1,14 @@
 import { parse } from 'path'
-import fs from 'fs'
 import minimatch from 'minimatch'
 import resolve from 'resolve'
-import { ResolvedConfig } from 'vite'
+import type { ResolvedConfig } from 'vite'
 import { slash, toArray } from '@antfu/utils'
 import {
-  isPackageExists,
   getPackageInfo,
+  isPackageExists,
 } from 'local-pkg'
-import { ComponentInfo, ResolvedOptions, ImportInfo } from '../types'
-import { Context } from './context'
+import type { ComponentInfo, ImportInfo, ResolvedOptions } from '../types'
+import type { Context } from './context'
 import { DISABLE_COMMENT } from './constants'
 
 export interface ResolveComponent {
@@ -40,8 +39,7 @@ export function parseId(id: string) {
     return { path: id, query: {} }
   }
   else {
-    // @ts-ignore
-    const query = Object.fromEntries(new URLSearchParams(id.slice(index)))
+    const query = Object.fromEntries(new URLSearchParams(id.slice(index)) as any)
     return {
       path: id.slice(0, index),
       query,

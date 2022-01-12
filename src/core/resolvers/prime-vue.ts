@@ -1,4 +1,4 @@
-import { ComponentResolver, SideEffectsInfo } from '../../types'
+import type { ComponentResolver, SideEffectsInfo } from '../../types'
 
 const components = [
   'Accordion',
@@ -151,9 +151,9 @@ export function PrimeVueResolver(options: PrimeVueResolverOptions = {}): Compone
       }
 
       if (options.prefix) {
-        if (!name.startsWith(options.prefix)) {
+        if (!name.startsWith(options.prefix))
           return
-        }
+
         name = name.substring(options.prefix.length)
       }
 

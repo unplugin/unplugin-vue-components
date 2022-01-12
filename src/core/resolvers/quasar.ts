@@ -1,5 +1,5 @@
 
-import { ComponentResolver } from '../../types'
+import type { ComponentResolver } from '../../types'
 
 /**
  * Resolver for Quasar

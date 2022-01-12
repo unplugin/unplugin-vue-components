@@ -2,8 +2,8 @@ import Debug from 'debug'
 import type MagicString from 'magic-string'
 import { pascalCase, stringifyComponentImport } from '../utils'
 import type { Context } from '../context'
-import { ResolveResult } from '../transformer'
-import { SupportedTransformer } from '../..'
+import type { ResolveResult } from '../transformer'
+import type { SupportedTransformer } from '../..'
 
 const debug = Debug('unplugin-vue-components:transform:component')
 

@@ -1,7 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import chokidar from 'chokidar'
-import { Options } from '../types'
+import type { Options } from '../types'
 import { Context } from './context'
 import { shouldTransform } from './utils'
 

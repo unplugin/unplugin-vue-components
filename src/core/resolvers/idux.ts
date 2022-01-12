@@ -1,4 +1,4 @@
-import { ComponentResolver } from '../../types'
+import type { ComponentResolver } from '../../types'
 import { kebabCase } from '../utils'
 
 const specialComponents: Record<string, string> = {
@@ -37,14 +37,12 @@ export function IduxResolver(options: IduxResolverOptions = {}): ComponentResolv
     type: 'component',
     resolve: (name: string) => {
       const { importStyle, exclude = [] } = options
-      if (exclude.includes(name)) {
+      if (exclude.includes(name))
         return
-      }
 
       const packageName = getPackageName(name)
-      if (!packageName) {
+      if (!packageName)
         return
-      }
 
       let dirname = specialComponents[name]
       if (!dirname) {
@@ -55,9 +53,8 @@ export function IduxResolver(options: IduxResolverOptions = {}): ComponentResolv
       const path = `@idux/${packageName}/${dirname}`
 
       let sideEffects: string | undefined
-      if (packageName !== 'cdk' && importStyle) {
+      if (packageName !== 'cdk' && importStyle)
         sideEffects = `${path}/style/themes/${importStyle === 'css' ? 'default_css' : 'default'}`
-      }
 
       return { importName: name, path, sideEffects }
     },
@@ -67,13 +64,12 @@ export function IduxResolver(options: IduxResolverOptions = {}): ComponentResolv
 function getPackageName(name: string) {
   let packageName: 'cdk' | 'components' | 'pro' | undefined
 
-  if (name.match(/^Cdk[A-Z]/)) {
+  if (name.match(/^Cdk[A-Z]/))
     packageName = 'cdk'
-  } else if (name.match(/^IxPro[A-Z]/)) {
+  else if (name.match(/^IxPro[A-Z]/))
     packageName = 'pro'
-  } else if (name.match(/^Ix[A-Z]/)) {
+  else if (name.match(/^Ix[A-Z]/))
     packageName = 'components'
-  }
 
   return packageName
 }

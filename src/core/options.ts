@@ -1,7 +1,7 @@
 import { join, resolve } from 'path'
 import { slash, toArray } from '@antfu/utils'
 import { isPackageExists } from 'local-pkg'
-import { ResolvedOptions, Options, ComponentResolver, ComponentResolverObject } from '../types'
+import type { ComponentResolver, ComponentResolverObject, Options, ResolvedOptions } from '../types'
 import { LibraryResolver } from './helpers/libraryResolver'
 
 export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'transformer' | 'globs' |'directives'> = {

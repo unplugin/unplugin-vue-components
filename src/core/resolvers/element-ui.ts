@@ -1,4 +1,4 @@
-import {
+import type {
   ComponentResolver,
   SideEffectsInfo,
 } from '../../types'

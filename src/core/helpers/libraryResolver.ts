@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { dirname, join } from 'path'
 import Debug from 'debug'
-import { ComponentResolverObject, UILibraryOptions } from '../../types'
+import type { ComponentResolverObject, UILibraryOptions } from '../../types'
 import { camelCase, kebabCase, resolveImportPath } from '../utils'
 
 const debug = Debug('unplugin-vue-components:helper:library')

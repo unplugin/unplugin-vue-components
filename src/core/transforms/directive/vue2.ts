@@ -1,10 +1,10 @@
 import type {
-  CallExpression, ObjectProperty, File, VariableDeclaration, FunctionExpression, BlockStatement,
+  BlockStatement, CallExpression, File, FunctionExpression, ObjectProperty, VariableDeclaration,
 } from '@babel/types'
 import type MagicString from 'magic-string'
 import type { ParseResult } from '@babel/parser'
 import { importModule, isPackageExists } from 'local-pkg'
-import { ResolveResult } from '../../transformer'
+import type { ResolveResult } from '../../transformer'
 
 /**
  * get Vue 2 render function position

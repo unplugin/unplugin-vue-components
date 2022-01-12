@@ -1,4 +1,4 @@
-import { ComponentResolver, ComponentResolveResult } from '../../types'
+import type { ComponentResolveResult, ComponentResolver } from '../../types'
 import { kebabCase } from '../utils'
 
 export interface VarletUIResolverOptions {

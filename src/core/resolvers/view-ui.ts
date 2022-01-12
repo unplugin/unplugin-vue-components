@@ -1,4 +1,4 @@
-import { ComponentResolver } from '../../types'
+import type { ComponentResolver } from '../../types'
 import { kebabCase } from '../utils'
 
 function getSideEffects(componentName: string) {

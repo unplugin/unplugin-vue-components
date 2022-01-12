@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { ComponentResolver } from '../src'
+import { describe, expect, it } from 'vitest'
+import type { ComponentResolver } from '../src'
 import { Context } from '../src/core/context'
 
 const resolver: ComponentResolver[] = [

@@ -59,6 +59,7 @@
     "example:build": "npm -C examples/vite-vue3 run build",
     "example:dev": "npm -C examples/vite-vue3 run dev",
     "prepublishOnly": "npm run build",
+    "lint": "eslint --ext .js,.vue,.ts,.tsx .",
     "release": "npx bumpp --commit --tag --push",
     "test": "vitest",
     "test:update": "vitest --u"

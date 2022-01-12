@@ -17,7 +17,7 @@ export interface ComponentInfo extends ImportInfo {
 export type ComponentResolveResult = Awaitable<string | ComponentInfo | null | undefined | void>
 
 export type ComponentResolverFunction = (name: string) => ComponentResolveResult
-export type ComponentResolverObject = {
+export interface ComponentResolverObject {
   type: 'component' | 'directive'
   resolve: ComponentResolverFunction
 }
