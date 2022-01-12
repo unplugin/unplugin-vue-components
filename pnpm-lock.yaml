@@ -73,10 +73,10 @@ importers:
       unplugin-vue-components: workspace:*
       vite: ^2.7.10
       vite-plugin-vue2: ^1.9.2
-      vue: ^3.2.26
+      vue: ^2.6.14
       vue-template-compiler: ^2.6.14
     dependencies:
-      vue: 3.2.26
+      vue: 2.6.14
       vue-template-compiler: 2.6.14
     devDependencies:
       cross-env: 7.0.3
@@ -11492,6 +11492,10 @@ packages:
   /vue-template-es2015-compiler/1.9.1:
     resolution: {integrity: sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==}
     dev: true
+
+  /vue/2.6.14:
+    resolution: {integrity: sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==}
+    dev: false
 
   /vue/3.2.26:
     resolution: {integrity: sha512-KD4lULmskL5cCsEkfhERVRIOEDrfEL9CwAsLYpzptOGjaGFNWo3BQ9g8MAb7RaIO71rmVOziZ/uEN/rHwcUIhg==}
