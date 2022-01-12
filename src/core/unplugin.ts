@@ -36,7 +36,7 @@ export default createUnplugin<Options>((options = {}) => {
     vite: {
       configResolved(config) {
         ctx.setRoot(config.root)
-        ctx.sourcemap = config.build.sourcemap
+        ctx.sourcemap = true
 
         if (config.plugins.find(i => i.name === 'vite-plugin-vue2'))
           ctx.setTransformer('vue2')

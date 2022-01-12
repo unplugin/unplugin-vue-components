@@ -57,8 +57,8 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
     ? false
     : resolve(
       root,
-      typeof options.dts === 'string'
-        ? options.dts
+      typeof resolved.dts === 'string'
+        ? resolved.dts
         : 'components.d.ts',
     )
   resolved.root = root
