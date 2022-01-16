@@ -28,7 +28,7 @@ importers:
       minimatch: ^3.0.4
       resolve: ^1.21.0
       rollup: ^2.64.0
-      tsup: ^5.11.11
+      tsup: 5.7.4
       typescript: ^4.5.4
       unplugin: ^0.3.0
       vite: ^2.7.12
@@ -61,7 +61,7 @@ importers:
       eslint: 8.7.0
       esno: 0.14.0_typescript@4.5.4
       rollup: 2.64.0
-      tsup: 5.11.11_typescript@4.5.4
+      tsup: 5.7.4_typescript@4.5.4
       typescript: 4.5.4
       vite: 2.7.12
       vitest: 0.1.17
@@ -3763,14 +3763,6 @@ packages:
       globby: 11.0.4
       prompts: 2.4.1
       semver: 7.3.5
-    dev: true
-
-  /bundle-require/2.2.0_esbuild@0.14.11:
-    resolution: {integrity: sha512-JDVxYEAxEX1g8AWtadiIkCkFf42RulEl5AOIvUa4cpuEL/VKpK2lJwogyswHnp+qizNQxM0Ylamw7CjPRaJZuA==}
-    peerDependencies:
-      esbuild: '>=0.13'
-    dependencies:
-      esbuild: 0.14.11
     dev: true
 
   /bytes/3.0.0:
@@ -9728,8 +9720,8 @@ packages:
       inherits: 2.0.4
     dev: true
 
-  /rollup/2.63.0:
-    resolution: {integrity: sha512-nps0idjmD+NXl6OREfyYXMn/dar3WGcyKn+KBzPdaLecub3x/LrId0wUcthcr8oZUAcZAR8NKcfGGFlNgGL1kQ==}
+  /rollup/2.60.0:
+    resolution: {integrity: sha512-cHdv9GWd58v58rdseC8e8XIaPUo8a9cgZpnCMMDGZFDZKEODOiPPEQFXLriWr/TjXzhPPmG5bkAztPsOARIcGQ==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
@@ -10704,27 +10696,26 @@ packages:
       typescript: 4.5.4
     dev: true
 
-  /tsup/5.11.11_typescript@4.5.4:
-    resolution: {integrity: sha512-rgbTu+KhAI9PdGUS07rKohDXbRLTstBGJaxl75q7RZYRGF+n+kN8L4RlXY5pqYb9Hsq0gEB6nS39v7nSvVBS+g==}
+  /tsup/5.7.4_typescript@4.5.4:
+    resolution: {integrity: sha512-vASi5l+P3ZvQRKmtIH5PrR8165/dOYyuynBwllPGMSAL2hd1TnEjwrOexguCr87uQ+UpXlhhdVvygaYdVyQc7w==}
     hasBin: true
     peerDependencies:
-      typescript: ^4.1.0
+      typescript: ^4.2.3
     peerDependenciesMeta:
       typescript:
         optional: true
     dependencies:
-      bundle-require: 2.2.0_esbuild@0.14.11
       cac: 6.7.12
+      chalk: 4.1.2
       chokidar: 3.5.2
       debug: 4.3.3
-      esbuild: 0.14.11
+      esbuild: 0.13.15
       execa: 5.1.1
       globby: 11.0.4
       joycon: 3.0.1
       postcss-load-config: 3.0.1
       resolve-from: 5.0.0
       rollup: 2.64.0
-      source-map: 0.7.3
       sucrase: 3.20.3
       tree-kill: 1.2.2
       typescript: 4.5.4
@@ -11262,7 +11253,7 @@ packages:
       magic-string: 0.25.7
       prettier: 2.5.1
       querystring: 0.2.1
-      rollup: 2.63.0
+      rollup: 2.60.0
       slash: 3.0.0
       source-map: 0.7.3
       vite: 2.7.12
@@ -11291,7 +11282,7 @@ packages:
       esbuild: 0.13.15
       postcss: 8.4.5
       resolve: 1.21.0
-      rollup: 2.64.0
+      rollup: 2.60.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
