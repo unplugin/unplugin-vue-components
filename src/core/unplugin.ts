@@ -1,6 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import chokidar from 'chokidar'
+import type { ResolvedConfig, ViteDevServer } from 'vite'
 import type { Options } from '../types'
 import { Context } from './context'
 import { shouldTransform } from './utils'
@@ -34,7 +35,7 @@ export default createUnplugin<Options>((options = {}) => {
     },
 
     vite: {
-      configResolved(config) {
+      configResolved(config: ResolvedConfig) {
         ctx.setRoot(config.root)
         ctx.sourcemap = true
 
@@ -49,7 +50,7 @@ export default createUnplugin<Options>((options = {}) => {
         if (config.build.watch && config.command === 'build')
           ctx.setupWatcher(chokidar.watch(ctx.options.globs))
       },
-      configureServer(server) {
+      configureServer(server: ViteDevServer) {
         ctx.setupViteServer(server)
       },
     },

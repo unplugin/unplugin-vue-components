@@ -1,7 +1,6 @@
 import { parse } from 'path'
 import minimatch from 'minimatch'
 import resolve from 'resolve'
-import type { ResolvedConfig } from 'vite'
 import { slash, toArray } from '@antfu/utils'
 import {
   getPackageInfo,
@@ -140,7 +139,7 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
   return filename
 }
 
-export function resolveAlias(filepath: string, alias: ResolvedConfig['resolve']['alias'] = []) {
+export function resolveAlias(filepath: string, alias: any) {
   const result = filepath
   if (Array.isArray(alias)) {
     for (const { find, replacement } of alias)

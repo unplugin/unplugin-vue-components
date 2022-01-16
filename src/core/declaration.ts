@@ -1,4 +1,4 @@
-import { dirname, isAbsolute, relative, resolve } from 'path'
+import { dirname, isAbsolute, relative } from 'path'
 import { existsSync, promises as fs } from 'fs'
 import { notNullish, slash } from '@antfu/utils'
 import type { Context } from './context'
