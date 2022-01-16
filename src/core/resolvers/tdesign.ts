@@ -27,7 +27,7 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
 
   if (!importStyle) return
 
-  if (fileName === "config-provider") return
+  if (fileName === 'config-provider') return
 
   if (importStyle === 'less') return `tdesign-${library}/esm/${fileName}/style`
 
