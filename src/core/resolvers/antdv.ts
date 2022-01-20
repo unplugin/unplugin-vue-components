@@ -79,6 +79,10 @@ const matchComponents: IMatcher[] = [
     styleDir: 'tag',
   },
   {
+    pattern: /^TimeRangePicker/,
+    styleDir: 'time-picker',
+  },
+  {
     pattern: /^Layout/,
     styleDir: 'layout',
   },
