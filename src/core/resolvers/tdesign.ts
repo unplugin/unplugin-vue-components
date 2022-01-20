@@ -28,6 +28,8 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
   if (!importStyle) return
 
   if (fileName === 'config-provider') return
+  
+  if (fileName === 'radio-group' || fileName === 'radio-button') fileName = 'radio'
 
   if (importStyle === 'less') return `tdesign-${library}/esm/${fileName}/style`
 
