@@ -92,6 +92,10 @@ const matchComponents: IMatcher[] = [
     styleDir: 'table',
   },
   {
+    pattern: /^TimePicker|^TimeRangePicker/,
+    styleDir: 'time-picker',
+  },
+  {
     pattern: /^Radio/,
     styleDir: 'radio',
   },
