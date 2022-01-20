@@ -23,15 +23,19 @@ export interface TDesignResolverOptions {
 
 function getSideEffects(importName: string, options: TDesignResolverOptions): SideEffectsInfo | undefined {
   const { library = 'vue', importStyle = 'css' } = options
-  const fileName = kebabCase(importName)
+  let fileName = kebabCase(importName)
 
-  if (!importStyle) return
+  if (!importStyle)
+    return
 
-  if (fileName === 'config-provider') return
-  
-  if (fileName === 'radio-group' || fileName === 'radio-button') fileName = 'radio'
+  if (fileName === 'config-provider')
+    return
 
-  if (importStyle === 'less') return `tdesign-${library}/esm/${fileName}/style`
+  if (fileName === 'radio-group' || fileName === 'radio-button')
+    fileName = 'radio'
+
+  if (importStyle === 'less')
+    return `tdesign-${library}/esm/${fileName}/style`
 
   return `tdesign-${library}/es/${fileName}/style`
 }
