@@ -10,6 +10,103 @@ export interface VantResolverOptions {
   importStyle?: boolean | 'css' | 'less'
 }
 
+const primitiveNames = [
+  'ActionBar',
+  'ActionBarButton',
+  'ActionBarIcon',
+  'ActionSheet',
+  'AddressEdit',
+  'AddressList',
+  'Area',
+  'Badge',
+  'Button',
+  'Calendar',
+  'Card',
+  'Cascader',
+  'Cell',
+  'CellGroup',
+  'Checkbox',
+  'CheckboxGroup',
+  'Circle',
+  'Col',
+  'Collapse',
+  'CollapseItem',
+  'ConfigProvider',
+  'ContactCard',
+  'ContactEdit',
+  'ContactList',
+  'CountDown',
+  'Coupon',
+  'CouponCell',
+  'CouponList',
+  'DatetimePicker',
+  'Dialog',
+  'Divider',
+  'DropdownItem',
+  'DropdownMenu',
+  'Empty',
+  'Field',
+  'Form',
+  'Grid',
+  'GridItem',
+  'Icon',
+  'Image',
+  'ImagePreview',
+  'IndexAnchor',
+  'IndexBar',
+  'List',
+  'Loading',
+  'Locale',
+  'NavBar',
+  'NoticeBar',
+  'Notify',
+  'NumberKeyboard',
+  'Overlay',
+  'Pagination',
+  'PasswordInput',
+  'Picker',
+  'Popover',
+  'Popup',
+  'Progress',
+  'PullRefresh',
+  'Radio',
+  'RadioGroup',
+  'Rate',
+  'Row',
+  'Search',
+  'ShareSheet',
+  'Sidebar',
+  'SidebarItem',
+  'Skeleton',
+  'Slider',
+  'Step',
+  'Stepper',
+  'Steps',
+  'Sticky',
+  'SubmitBar',
+  'Swipe',
+  'SwipeCell',
+  'SwipeItem',
+  'Switch',
+  'Tab',
+  'Tabbar',
+  'TabbarItem',
+  'Tabs',
+  'Tag',
+  'Toast',
+  'TreeSelect',
+  'Uploader',
+]
+
+const prefix = 'Van'
+
+let vanNames: Set<string>
+
+function genAntdNames(primitiveNames: string[]): void {
+  vanNames = new Set(primitiveNames.map(name => `${prefix}${name}`))
+}
+genAntdNames(primitiveNames)
+
 function getSideEffects(dirName: string, options: VantResolverOptions): SideEffectsInfo | undefined {
   const { importStyle = true } = options
 
@@ -42,6 +139,9 @@ export function VantResolver(options: VantResolverOptions = {}): ComponentResolv
           sideEffects: getSideEffects(kebabCase(partialName), options),
         }
       }
+    },
+    getAllComponentNames: () => {
+      return [...vanNames]
     },
   }
 }
