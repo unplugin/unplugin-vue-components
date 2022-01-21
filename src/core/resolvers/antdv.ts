@@ -278,5 +278,8 @@ export function AntDesignVueResolver(options: AntDesignVueResolverOptions = {
         }
       }
     },
+    getAllComponentNames: () => {
+      return [...antdvNames]
+    },
   }
 }
