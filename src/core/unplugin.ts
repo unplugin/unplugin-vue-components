@@ -1,10 +1,13 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import chokidar from 'chokidar'
-import type { ResolvedConfig, ViteDevServer } from 'vite'
-import type { Options } from '../types'
+import Debug from 'debug'
+import type { ResolvedConfig, UserConfig, ViteDevServer } from 'vite'
+import type { ComponentInfo, Options } from '../types'
 import { Context } from './context'
 import { shouldTransform } from './utils'
+
+const debug = Debug('unplugin-vue-components:unplugin')
 
 export default createUnplugin<Options>((options = {}) => {
   const filter = createFilter(
@@ -35,6 +38,30 @@ export default createUnplugin<Options>((options = {}) => {
     },
 
     vite: {
+      config(config: UserConfig) {
+        if (ctx.options.preBuild) {
+          ctx.options.resolvers.forEach((r) => {
+            if (r.getAllComponentNames) {
+              const allComponentNames = r.getAllComponentNames()
+              const resolvedNames = allComponentNames
+                .map((name) => {
+                  const componentInfo = r.resolve(name) as ComponentInfo
+                  debug(componentInfo)
+
+                  const fullPath = componentInfo.name ? `${componentInfo.path}/${componentInfo.name}` : componentInfo.path
+
+                  const sideEffects = (componentInfo?.sideEffects as string) || ''
+
+                  return [fullPath, sideEffects]
+                })
+                .flat()
+              config.optimizeDeps = config.optimizeDeps || {}
+              config.optimizeDeps.include = Array.from(new Set([...(config.optimizeDeps.include || []), ...resolvedNames]))
+              config.optimizeDeps.include.sort()
+            }
+          })
+        }
+      },
       configResolved(config: ResolvedConfig) {
         ctx.setRoot(config.root)
         ctx.sourcemap = true

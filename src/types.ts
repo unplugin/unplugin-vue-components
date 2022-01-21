@@ -20,6 +20,7 @@ export type ComponentResolverFunction = (name: string) => ComponentResolveResult
 export interface ComponentResolverObject {
   type: 'component' | 'directive'
   resolve: ComponentResolverFunction
+  getAllComponentNames?: () => Array<string>
 }
 export type ComponentResolver = ComponentResolverFunction | ComponentResolverObject
 export interface UILibraryOptions {
@@ -152,6 +153,7 @@ Required<Options>,
   globs: string[]
   dts: string | false
   root: string
+  preBuild?: boolean
 }
 
 export type ComponentsImportMap = Record<string, string[] | undefined>
