@@ -100,12 +100,12 @@ const primitiveNames = [
 
 const prefix = 'Van'
 
-let vanNames: Set<string>
+let vantNames: Set<string>
 
-function genAntdNames(primitiveNames: string[]): void {
-  vanNames = new Set(primitiveNames.map(name => `${prefix}${name}`))
+function genVantNames(primitiveNames: string[]): void {
+  vantNames = new Set(primitiveNames.map(name => `${prefix}${name}`))
 }
-genAntdNames(primitiveNames)
+genVantNames(primitiveNames)
 
 function getSideEffects(dirName: string, options: VantResolverOptions): SideEffectsInfo | undefined {
   const { importStyle = true } = options
@@ -141,7 +141,7 @@ export function VantResolver(options: VantResolverOptions = {}): ComponentResolv
       }
     },
     getAllComponentNames: () => {
-      return [...vanNames]
+      return [...vantNames]
     },
   }
 }
