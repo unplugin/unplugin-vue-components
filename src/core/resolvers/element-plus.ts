@@ -28,6 +28,12 @@ export interface ElementPlusResolverOptions {
    * @default true
    */
   directives?: boolean
+
+  /**
+   * exclude component name, if match do not resolve the name
+   * @default null
+   */
+  exclude?: RegExp
 }
 
 type ElementPlusResolverOptionsResolved = Required<ElementPlusResolverOptions>
@@ -73,6 +79,9 @@ function getSideEffects(dirName: string, options: ElementPlusResolverOptionsReso
 }
 
 function resolveComponent(name: string, options: ElementPlusResolverOptionsResolved): ComponentInfo | undefined {
+  if (options.exclude && name.match(options.exclude))
+    return
+
   if (!name.match(/^El[A-Z]/))
     return
 
@@ -150,6 +159,7 @@ export function ElementPlusResolver(
       version: await getPkgVersion('element-plus', '1.1.0-beta.21'),
       importStyle: 'css',
       directives: true,
+      excludeReg: null,
       ...options,
     }
     return optionsResolved
