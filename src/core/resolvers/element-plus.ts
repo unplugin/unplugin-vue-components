@@ -31,12 +31,12 @@ export interface ElementPlusResolverOptions {
 
   /**
    * exclude component name, if match do not resolve the name
-   * @default null
    */
   exclude?: RegExp
 }
 
-type ElementPlusResolverOptionsResolved = Required<ElementPlusResolverOptions>
+type ElementPlusResolverOptionsResolved = Required<Omit<ElementPlusResolverOptions, 'exclude'>> &
+Pick<ElementPlusResolverOptions, 'exclude'>
 
 /**
  * @deprecated
@@ -149,7 +149,7 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
 export function ElementPlusResolver(
   options: ElementPlusResolverOptions = {},
 ): ComponentResolver[] {
-  let optionsResolved: ElementPlusResolverOptionsResolved | undefined
+  let optionsResolved: ElementPlusResolverOptionsResolved
 
   async function resolveOptions() {
     if (optionsResolved)
@@ -159,7 +159,7 @@ export function ElementPlusResolver(
       version: await getPkgVersion('element-plus', '1.1.0-beta.21'),
       importStyle: 'css',
       directives: true,
-      excludeReg: null,
+      exclude: undefined,
       ...options,
     }
     return optionsResolved
