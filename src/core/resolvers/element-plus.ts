@@ -33,7 +33,7 @@ export interface ElementPlusResolverOptions {
    * exclude component name, if match do not resolve the name
    * @default null
    */
-  excludeReg?: RegExp | null
+  exclude?: RegExp
 }
 
 type ElementPlusResolverOptionsResolved = Required<ElementPlusResolverOptions>
