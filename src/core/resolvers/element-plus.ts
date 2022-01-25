@@ -79,7 +79,7 @@ function getSideEffects(dirName: string, options: ElementPlusResolverOptionsReso
 }
 
 function resolveComponent(name: string, options: ElementPlusResolverOptionsResolved): ComponentInfo | undefined {
-  if (options.excludeReg && name.match(options.excludeReg))
+  if (options.exclude && name.match(options.exclude))
     return
 
   if (!name.match(/^El[A-Z]/))
