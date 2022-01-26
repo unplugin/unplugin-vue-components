@@ -56,12 +56,11 @@ export interface HeadlessUiResolverOptions {
  *
  * @link https://github.com/tailwindlabs/headlessui
  */
-export function HeadlessUiResolver({
-  prefix = '',
-}: HeadlessUiResolverOptions): ComponentResolver {
+export function HeadlessUiResolver(options: HeadlessUiResolverOptions = {}): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
+      const { prefix = '' } = options
       if (name.startsWith(prefix)) {
         const componentName = name.replace(new RegExp(`\^\(${prefix}\)`), '')
         if (components.includes(componentName)) {
