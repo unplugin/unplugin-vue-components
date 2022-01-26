@@ -28,7 +28,7 @@ function resolveComponent(name: string, options: MapvglResolverOptions): Compone
  * @link https://vue-mapvgl.guyixi.cn/ for vue-mapvgl
  *
  */
-export function VueMapvglPlusResolver(
+export function VueMapvglResolver(
   options: MapvglResolverOptions = {},
 ): ComponentResolver[] {
   let optionsResolved: MapvglResolverOptions

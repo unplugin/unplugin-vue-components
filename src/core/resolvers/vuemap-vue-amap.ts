@@ -28,7 +28,7 @@ function resolveComponent(name: string, options: MapResolverOptions): ComponentI
  * @link https://vue-amap.guyixi.cn/ for @vuemap/vue-amap
  *
  */
-export function VueAmapPlusResolver(
+export function VueAmapResolver(
   options: MapResolverOptions = {},
 ): ComponentResolver[] {
   let optionsResolved: MapResolverOptions

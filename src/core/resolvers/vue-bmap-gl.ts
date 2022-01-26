@@ -28,7 +28,7 @@ function resolveComponent(name: string, options: BmapResolverOptions): Component
  * @link https://vue-bmap-gl.guyixi.cn/ for vue-bmap-gl
  *
  */
-export function VueBmapPlusResolver(
+export function VueBmapGlResolver(
   options: BmapResolverOptions = {},
 ): ComponentResolver[] {
   let optionsResolved: BmapResolverOptions
