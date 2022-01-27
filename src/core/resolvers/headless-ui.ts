@@ -56,9 +56,8 @@ export interface HeadlessUiResolverOptions {
  *
  * @link https://github.com/tailwindlabs/headlessui
  */
-export function HeadlessUiResolver({
-  prefix = '',
-}: HeadlessUiResolverOptions): ComponentResolver {
+export function HeadlessUiResolver(options: HeadlessUiResolverOptions = {}): ComponentResolver {
+  const { prefix = '' } = options
   return {
     type: 'component',
     resolve: (name: string) => {
