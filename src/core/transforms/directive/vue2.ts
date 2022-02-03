@@ -43,7 +43,7 @@ export default async function resolveVue2(code: string, s: MagicString): Promise
   for (const node of nodes) {
     const { callee, arguments: args } = node
     // _c(_, {})
-    if (callee.type !== 'Identifier' || callee.name !== '_c' || args[1].type !== 'ObjectExpression')
+    if (callee.type !== 'Identifier' || callee.name !== '_c' || args[1] == null || args[1].type !== 'ObjectExpression')
       continue
 
     // { directives: [] }
