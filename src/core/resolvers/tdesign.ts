@@ -33,7 +33,8 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
 
   if (fileName === 'radio-group' || fileName === 'radio-button')
     fileName = 'radio'
-
+  if (fileName === "form-item")
+    fileName = "form"
   if (importStyle === 'less')
     return `tdesign-${library}/esm/${fileName}/style`
 
