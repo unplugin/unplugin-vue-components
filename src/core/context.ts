@@ -73,6 +73,8 @@ export class Context {
       .on('unlink', (path) => {
         if (!matchGlobs(path, globs))
           return
+
+        path = slash(path)
         this.removeComponents(path)
         this.onUpdate(path)
       })
@@ -80,6 +82,8 @@ export class Context {
       .on('add', (path) => {
         if (!matchGlobs(path, globs))
           return
+
+        path = slash(path)
         this.addComponents(path)
         this.onUpdate(path)
       })
