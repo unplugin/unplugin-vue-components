@@ -252,7 +252,7 @@ export class Context {
       return
 
     debug.decleration('generating')
-    generateDeclaration(this, this.options.root, this.options.dts)
+    generateDeclaration(this, this.options.root, this.options.dts, !this._server)
   }
 
   get componentNameMap() {
