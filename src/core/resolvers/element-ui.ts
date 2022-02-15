@@ -46,7 +46,7 @@ export function ElementUiResolver(options: ElementUiResolverOptions = {}): Compo
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name.startsWith('El')) {
+      if (/^El[A-Z]/.test(name)) {
         const compName = name.slice(2)
         const partialName = kebabCase(compName)
         if (partialName === 'collapse-transition') {
