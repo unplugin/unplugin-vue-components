@@ -1,3 +1,4 @@
+import { file } from '@babel/types'
 import type { ComponentResolver, SideEffectsInfo } from '../../types'
 import { kebabCase } from '../utils'
 
@@ -31,11 +32,34 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
   if (fileName === 'config-provider')
     return
 
-  if (fileName === 'radio-group' || fileName === 'radio-button')
-    fileName = 'radio'
+  if (fileName.includes('-') && fileName !== 'input-number') {
+    const prefix = fileName.slice(0, fileName.indexOf('-'))
+    const container = ['anchor', 'avatar', 'breadcrumb', 'checkbox', 'dropdown', 'form', 'input', 'list', 'menu', 'radio', 'slider', 'steps', 'swiper']
 
-  if (fileName === 'form-item')
-    fileName = 'form'
+    if (container.includes(prefix))
+      fileName = prefix
+  }
+
+  if (['row', 'col'].includes(fileName))
+    fileName = 'grid'
+
+  if (fileName === 'addon')
+    fileName = 'input'
+
+  if (['aside', 'layout', 'header', 'footer', 'content'].includes(fileName))
+    fileName = 'layout'
+
+  if (['option', 'option-group'].includes(fileName))
+    fileName = 'select'
+
+  if (['tab-nav', 'tab-panel'].includes(fileName))
+    fileName = 'tabs'
+
+  if (fileName === 'check-tag')
+    fileName = 'tag'
+
+  if (fileName === 'time-range-picker')
+    fileName = 'time-picker'
 
   if (importStyle === 'less')
     return `tdesign-${library}/esm/${fileName}/style`
