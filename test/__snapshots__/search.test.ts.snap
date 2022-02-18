@@ -1,44 +1,44 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
 exports[`search > should with namespace 1`] = `
-Array [
-  Object {
+[
+  {
     "name": "Avatar",
     "path": "src/components/global/avatar.vue",
   },
-  Object {
+  {
     "name": "Book",
     "path": "src/components/book/index.vue",
   },
-  Object {
+  {
     "name": "ComponentA",
     "path": "src/components/ComponentA.vue",
   },
-  Object {
+  {
     "name": "ComponentAsync",
     "path": "src/components/ComponentAsync.vue",
   },
-  Object {
+  {
     "name": "ComponentB",
     "path": "src/components/ComponentB.vue",
   },
-  Object {
+  {
     "name": "ComponentC",
     "path": "src/components/component-c.vue",
   },
-  Object {
+  {
     "name": "ComponentD",
     "path": "src/components/ComponentD.vue",
   },
-  Object {
+  {
     "name": "Recursive",
     "path": "src/components/Recursive.vue",
   },
-  Object {
+  {
     "name": "UiButton",
     "path": "src/components/ui/button.vue",
   },
-  Object {
+  {
     "name": "UiNestedCheckbox",
     "path": "src/components/ui/nested/checkbox.vue",
   },
@@ -46,44 +46,44 @@ Array [
 `;
 
 exports[`search > should work 1`] = `
-Array [
-  Object {
+[
+  {
     "name": "Avatar",
     "path": "src/components/global/avatar.vue",
   },
-  Object {
+  {
     "name": "Book",
     "path": "src/components/book/index.vue",
   },
-  Object {
+  {
     "name": "Button",
     "path": "src/components/ui/button.vue",
   },
-  Object {
+  {
     "name": "Checkbox",
     "path": "src/components/ui/nested/checkbox.vue",
   },
-  Object {
+  {
     "name": "ComponentA",
     "path": "src/components/ComponentA.vue",
   },
-  Object {
+  {
     "name": "ComponentAsync",
     "path": "src/components/ComponentAsync.vue",
   },
-  Object {
+  {
     "name": "ComponentB",
     "path": "src/components/ComponentB.vue",
   },
-  Object {
+  {
     "name": "ComponentC",
     "path": "src/components/component-c.vue",
   },
-  Object {
+  {
     "name": "ComponentD",
     "path": "src/components/ComponentD.vue",
   },
-  Object {
+  {
     "name": "Recursive",
     "path": "src/components/Recursive.vue",
   },

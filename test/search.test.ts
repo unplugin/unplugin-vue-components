@@ -1,5 +1,5 @@
 import path from 'upath'
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { Context } from '../src/core/context'
 
 const root = path.resolve(__dirname, '../examples/vite-vue3')

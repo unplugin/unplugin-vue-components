@@ -1,5 +1,5 @@
-import { compare } from 'compare-versions'
-import { ComponentInfo, ComponentResolver, SideEffectsInfo } from '../../types'
+import cv from 'compare-versions'
+import type { ComponentInfo, ComponentResolver, SideEffectsInfo } from '../../types'
 import { getPkgVersion, kebabCase } from '../utils'
 
 export interface ElementPlusResolverOptions {
@@ -28,9 +28,15 @@ export interface ElementPlusResolverOptions {
    * @default true
    */
   directives?: boolean
+
+  /**
+   * exclude component name, if match do not resolve the name
+   */
+  exclude?: RegExp
 }
 
-type ElementPlusResolverOptionsResolved = Required<ElementPlusResolverOptions>
+type ElementPlusResolverOptionsResolved = Required<Omit<ElementPlusResolverOptions, 'exclude'>> &
+Pick<ElementPlusResolverOptions, 'exclude'>
 
 /**
  * @deprecated
@@ -73,6 +79,9 @@ function getSideEffects(dirName: string, options: ElementPlusResolverOptionsReso
 }
 
 function resolveComponent(name: string, options: ElementPlusResolverOptionsResolved): ComponentInfo | undefined {
+  if (options.exclude && name.match(options.exclude))
+    return
+
   if (!name.match(/^El[A-Z]/))
     return
 
@@ -80,7 +89,7 @@ function resolveComponent(name: string, options: ElementPlusResolverOptionsResol
   const { version, ssr } = options
 
   // >=1.1.0-beta.1
-  if (compare(version, '1.1.0-beta.1', '>=')) {
+  if (cv.compare(version, '1.1.0-beta.1', '>=')) {
     return {
       importName: name,
       path: `element-plus/${ssr ? 'lib' : 'es'}`,
@@ -88,7 +97,7 @@ function resolveComponent(name: string, options: ElementPlusResolverOptionsResol
     }
   }
   // >=1.0.2-beta.28
-  else if (compare(version, '1.0.2-beta.28', '>=')) {
+  else if (cv.compare(version, '1.0.2-beta.28', '>=')) {
     return {
       path: `element-plus/es/el-${partialName}`,
       sideEffects: getSideEffectsLegacy(partialName, options),
@@ -106,7 +115,7 @@ function resolveComponent(name: string, options: ElementPlusResolverOptionsResol
 function resolveDirective(name: string, options: ElementPlusResolverOptionsResolved): ComponentInfo | undefined {
   if (!options.directives) return
 
-  const directives: Record<string, { importName: string; styleName: string}> = {
+  const directives: Record<string, { importName: string; styleName: string }> = {
     Loading: { importName: 'ElLoadingDirective', styleName: 'loading' },
     Popover: { importName: 'ElPopoverDirective', styleName: 'popover' },
     InfiniteScroll: { importName: 'ElInfiniteScroll', styleName: 'infinite-scroll' },
@@ -118,7 +127,7 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
   const { version, ssr } = options
 
   // >=1.1.0-beta.1
-  if (compare(version, '1.1.0-beta.1', '>=')) {
+  if (cv.compare(version, '1.1.0-beta.1', '>=')) {
     return {
       importName: directive.importName,
       path: `element-plus/${ssr ? 'lib' : 'es'}`,
@@ -140,7 +149,7 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
 export function ElementPlusResolver(
   options: ElementPlusResolverOptions = {},
 ): ComponentResolver[] {
-  let optionsResolved: ElementPlusResolverOptionsResolved | undefined
+  let optionsResolved: ElementPlusResolverOptionsResolved
 
   async function resolveOptions() {
     if (optionsResolved)
@@ -150,6 +159,7 @@ export function ElementPlusResolver(
       version: await getPkgVersion('element-plus', '1.1.0-beta.21'),
       importStyle: 'css',
       directives: true,
+      exclude: undefined,
       ...options,
     }
     return optionsResolved

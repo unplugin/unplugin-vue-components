@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { ComponentResolver, SideEffectsInfo } from '../../types'
+import type { ComponentResolver, SideEffectsInfo } from '../../types'
 import { kebabCase } from '../utils'
 interface IMatcher {
   pattern: RegExp
@@ -79,6 +79,10 @@ const matchComponents: IMatcher[] = [
     styleDir: 'tag',
   },
   {
+    pattern: /^TimeRangePicker/,
+    styleDir: 'time-picker',
+  },
+  {
     pattern: /^Layout/,
     styleDir: 'layout',
   },
@@ -90,6 +94,10 @@ const matchComponents: IMatcher[] = [
   {
     pattern: /^Table/,
     styleDir: 'table',
+  },
+  {
+    pattern: /^TimePicker|^TimeRangePicker/,
+    styleDir: 'time-picker',
   },
   {
     pattern: /^Radio/,

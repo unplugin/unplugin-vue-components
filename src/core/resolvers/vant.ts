@@ -1,4 +1,4 @@
-import { ComponentResolver, SideEffectsInfo } from '../../types'
+import type { ComponentResolver, SideEffectsInfo } from '../../types'
 import { kebabCase } from '../utils'
 
 export interface VantResolverOptions {

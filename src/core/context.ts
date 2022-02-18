@@ -1,10 +1,10 @@
 import { relative } from 'path'
-import fs from 'fs'
+import type fs from 'fs'
 import Debug from 'debug'
-import { UpdatePayload, ViteDevServer } from 'vite'
-import { throttle, toArray, slash } from '@antfu/utils'
-import { Options, ComponentInfo, ResolvedOptions, Transformer } from '../types'
-import { pascalCase, getNameFromFilePath, resolveAlias, matchGlobs, parseId } from './utils'
+import type { UpdatePayload, ViteDevServer } from 'vite'
+import { slash, throttle, toArray } from '@antfu/utils'
+import type { ComponentInfo, Options, ResolvedOptions, Transformer } from '../types'
+import { getNameFromFilePath, matchGlobs, parseId, pascalCase, resolveAlias } from './utils'
 import { resolveOptions } from './options'
 import { searchComponents } from './fs/glob'
 import { generateDeclaration } from './declaration'
@@ -73,6 +73,8 @@ export class Context {
       .on('unlink', (path) => {
         if (!matchGlobs(path, globs))
           return
+
+        path = slash(path)
         this.removeComponents(path)
         this.onUpdate(path)
       })
@@ -80,6 +82,8 @@ export class Context {
       .on('add', (path) => {
         if (!matchGlobs(path, globs))
           return
+
+        path = slash(path)
         this.addComponents(path)
         this.onUpdate(path)
       })
@@ -248,7 +252,7 @@ export class Context {
       return
 
     debug.decleration('generating')
-    generateDeclaration(this, this.options.root, this.options.dts)
+    generateDeclaration(this, this.options.root, this.options.dts, !this._server)
   }
 
   get componentNameMap() {

@@ -2,7 +2,7 @@ import Debug from 'debug'
 import type MagicString from 'magic-string'
 import { pascalCase, stringifyComponentImport } from '../../utils'
 import type { Context } from '../../context'
-import { SupportedTransformer } from '../../..'
+import type { SupportedTransformer } from '../../..'
 import vue2Resolver from './vue2'
 import vue3Resolver from './vue3'
 

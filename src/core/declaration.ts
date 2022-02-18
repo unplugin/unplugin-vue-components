@@ -1,7 +1,7 @@
-import { resolve, dirname, relative, isAbsolute } from 'path'
-import { promises as fs, existsSync } from 'fs'
+import { dirname, isAbsolute, relative } from 'path'
+import { existsSync, promises as fs } from 'fs'
 import { notNullish, slash } from '@antfu/utils'
-import { Context } from './context'
+import type { Context } from './context'
 import { getTransformedPath } from './utils'
 
 export function parseDeclaration(code: string): Record<string, string> {
@@ -10,7 +10,7 @@ export function parseDeclaration(code: string): Record<string, string> {
   return Object.fromEntries(Array.from(code.matchAll(/(?<!\/\/)\s+\s+['"]?(.+?)['"]?:\s(.+?)\n/g)).map(i => [i[1], i[2]]))
 }
 
-export async function generateDeclaration(ctx: Context, root: string, filepath: string) {
+export async function generateDeclaration(ctx: Context, root: string, filepath: string, removeUnused = false): Promise<void> {
   const imports: Record<string, string> = Object.fromEntries(
     Object.values({
       ...ctx.componentNameMap,
@@ -46,7 +46,7 @@ export async function generateDeclaration(ctx: Context, root: string, filepath: 
     ...imports,
   })
     .sort((a, b) => a[0].localeCompare(b[0]))
-    .filter(([name]) => ctx.componentCustomMap[name] || ctx.componentNameMap[name])
+    .filter(([name]) => removeUnused ? ctx.componentCustomMap[name] || ctx.componentNameMap[name] : true)
     .map(([name, v]) => {
       if (!/^\w+$/.test(name))
         name = `'${name}'`

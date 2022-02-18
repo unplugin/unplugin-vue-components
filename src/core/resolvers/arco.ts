@@ -1,4 +1,4 @@
-import { ComponentResolver } from '../../types'
+import type { ComponentResolver } from '../../types'
 import { kebabCase } from '../utils'
 
 const matchComponents = [
@@ -48,7 +48,7 @@ const matchComponents = [
     componentDir: 'form',
   },
   {
-    pattern: /^(Col|Row)$/,
+    pattern: /^(Col|Row|GridItem)$/,
     componentDir: 'grid',
   },
 
@@ -117,6 +117,8 @@ const matchComponents = [
 ]
 
 function getComponentStyleDir(importName: string, importStyle: boolean | 'css' | 'less') {
+  if (['ConfigProvider', 'Icon'].includes(importName)) return undefined
+
   let componentDir = kebabCase(importName)
   for (const item of matchComponents) {
     if (item.pattern.test(importName)) {

@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
 exports[`transform > vue2 transform should work 1`] = `
-Object {
+{
   "code": "/* unplugin-vue-components disabled */import __unplugin_directives_0 from 'test/directive/Loading';
 import __unplugin_components_0 from 'test/component/TestComp';
 
@@ -24,7 +24,7 @@ this.$options.directives[\\"loading\\"] = __unplugin_directives_0;
 `;
 
 exports[`transform > vue3 transform should work 1`] = `
-Object {
+{
   "code": "/* unplugin-vue-components disabled */import __unplugin_directives_0 from 'test/directive/Loading';
 import __unplugin_components_0 from 'test/component/TestComp';
 

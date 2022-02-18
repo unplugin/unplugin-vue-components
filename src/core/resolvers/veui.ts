@@ -1,6 +1,6 @@
 import { join, normalize } from 'path'
-import { ComponentResolver, SideEffectsInfo } from '../../types'
-import { kebabCase, camelCase, pascalCase, resolveImportPath } from '../utils'
+import type { ComponentResolver, SideEffectsInfo } from '../../types'
+import { camelCase, kebabCase, pascalCase, resolveImportPath } from '../utils'
 
 interface VeuiPeerConfig {
   /**

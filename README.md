@@ -8,7 +8,7 @@ On-demand components auto importing for Vue.
 
 - 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
 - ✨ Supports both components and directives.
-- ⚡️ Supports Vite, Webpack, Vue CLI, Rollup and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
+- ⚡️ Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
 - 🏝 Tree-shakable, only registers the components you use.
 - 🪐 Folder names as namespaces.
 - 🦾 Full TypeScript support.
@@ -104,6 +104,25 @@ module.exports = {
 
 <br></details>
 
+<details>
+<summary>esbuild</summary><br>
+
+```ts
+// esbuild.config.js
+import { build } from 'esbuild'
+
+build({
+  /* ... */
+  plugins: [
+    require('unplugin-vue-components/esbuild')({
+      /* options */
+    }),
+  ],
+})
+```
+
+<br></details>
+
 ## Usage
 
 Use components in templates as you would usually do, it will import components on demand, and there is no `import` and `component registration` required anymore! If you register the parent component asynchronously (or lazy route), the auto-imported components will be code-split along with their parent.
@@ -171,6 +190,7 @@ Supported Resolvers:
 - [Element UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/element-ui.ts)
 - [Headless UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/headless-ui.ts)
 - [IDux](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/idux.ts)
+- [Inkline](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/inkline.ts)
 - [Naive UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/naive-ui.ts)
 - [Prime Vue](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/prime-vue.ts)
 - [Vant](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vant.ts)
@@ -180,10 +200,12 @@ Supported Resolvers:
 - [Vuetify](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vuetify.ts)
 - [VueUse Components](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vueuse.ts)
 - [Quasar](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/quasar.ts)
+- [TDesign](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/tdesign.ts)
 
 ```ts
 // vite.config.js
-import ViteComponents, {
+import Components from 'unplugin-vue-components/vite'
+import {
   AntDesignVueResolver,
   ElementPlusResolver,
   VantResolver,
