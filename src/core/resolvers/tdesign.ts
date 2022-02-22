@@ -28,7 +28,7 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
   if (!importStyle)
     return
 
-  if (['config-provider','icon'].includes(fileName))
+  if (['config-provider', 'icon'].includes(fileName))
     return
 
   if (fileName.includes('-') && fileName !== 'input-number') {
@@ -50,7 +50,7 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
 
   if (fileName === 'head-menu')
     fileName = 'menu'
-  
+
   if (['option', 'option-group'].includes(fileName))
     fileName = 'select'
 
