@@ -1,7 +1,7 @@
 import type { ComponentResolver, SideEffectsInfo } from '../../types'
 import { kebabCase } from '../utils'
 
-const isServer = process.env.VITE_SSG === 'true'
+const isServer = Boolean(process.env.SSR || process.env.SSG || process.env.VITE_SSR || process.env.VITE_SSG)
 const moduleType = isServer ? 'lib' : 'es'
 
 export interface VantResolverOptions {
