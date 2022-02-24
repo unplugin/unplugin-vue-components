@@ -1,8 +1,7 @@
 import type { ComponentResolver, SideEffectsInfo } from '../../types'
-import { kebabCase } from '../utils'
+import { isSSR, kebabCase } from '../utils'
 
-const isServer = Boolean(process.env.SSR || process.env.SSG || process.env.VITE_SSR || process.env.VITE_SSG)
-const moduleType = isServer ? 'lib' : 'es'
+const moduleType = isSSR ? 'lib' : 'es'
 
 export interface VantResolverOptions {
   /**
@@ -16,7 +15,7 @@ export interface VantResolverOptions {
 function getSideEffects(dirName: string, options: VantResolverOptions): SideEffectsInfo | undefined {
   const { importStyle = true } = options
 
-  if (!importStyle || isServer)
+  if (!importStyle || isSSR)
     return
 
   if (importStyle === 'less')

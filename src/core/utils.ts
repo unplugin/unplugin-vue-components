@@ -10,6 +10,8 @@ import type { ComponentInfo, ImportInfo, ResolvedOptions } from '../types'
 import type { Context } from './context'
 import { DISABLE_COMMENT } from './constants'
 
+export const isSSR = Boolean(process.env.SSR || process.env.SSG || process.env.VITE_SSR || process.env.VITE_SSG)
+
 export interface ResolveComponent {
   filename: string
   namespace?: string
