@@ -1,6 +1,9 @@
 import type { ComponentResolver, SideEffectsInfo } from '../../types'
 import { kebabCase } from '../utils'
 
+const isServer = process.env.VITE_SSG === 'true'
+const moduleType = isServer ? 'lib' : 'es'
+
 export interface VantResolverOptions {
   /**
    * import style css or less along with components
@@ -13,16 +16,16 @@ export interface VantResolverOptions {
 function getSideEffects(dirName: string, options: VantResolverOptions): SideEffectsInfo | undefined {
   const { importStyle = true } = options
 
-  if (!importStyle)
+  if (!importStyle || isServer)
     return
 
   if (importStyle === 'less')
-    return `vant/es/${dirName}/style/less`
+    return `vant/${moduleType}/${dirName}/style/less`
 
   if (importStyle === 'css')
-    return `vant/es/${dirName}/style/index`
+    return `vant/${moduleType}/${dirName}/style/index`
 
-  return `vant/es/${dirName}/style/index`
+  return `vant/${moduleType}/${dirName}/style/index`
 }
 
 /**
@@ -38,7 +41,7 @@ export function VantResolver(options: VantResolverOptions = {}): ComponentResolv
         const partialName = name.slice(3)
         return {
           importName: partialName,
-          path: 'vant/es',
+          path: `vant/${moduleType}`,
           sideEffects: getSideEffects(kebabCase(partialName), options),
         }
       }
