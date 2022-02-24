@@ -1,6 +1,12 @@
 import type { ComponentResolver } from '../../types'
 
 const components = [
+  'Combobox',
+  'ComboboxButton',
+  'ComboboxInput',
+  'ComboboxLabel'
+  'ComboboxOption',
+  'ComboboxOptions',
   'Dialog',
   'DialogDescription',
   'DialogOverlay',
