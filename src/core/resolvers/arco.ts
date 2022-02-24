@@ -166,7 +166,7 @@ export function ArcoResolver(
           path: '@arco-design/web-vue/es/icon',
         }
       }
-      if (name.match(/^A/)) {
+      if (name.match(/^A\-/)) {
         const importStyle = options.importStyle ?? 'css'
 
         const importName = name.slice(1)
