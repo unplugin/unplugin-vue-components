@@ -4,7 +4,7 @@ const components = [
   'Combobox',
   'ComboboxButton',
   'ComboboxInput',
-  'ComboboxLabel'
+  'ComboboxLabel',
   'ComboboxOption',
   'ComboboxOptions',
   'Dialog',
