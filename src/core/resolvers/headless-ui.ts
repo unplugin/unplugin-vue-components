@@ -68,7 +68,7 @@ export function HeadlessUiResolver(options: HeadlessUiResolverOptions = {}): Com
     type: 'component',
     resolve: (name: string) => {
       if (name.startsWith(prefix)) {
-        const componentName = name.replace(new RegExp(`\^\(${prefix}\)`), '')
+        const componentName = name.substring(prefix.length)
         if (components.includes(componentName)) {
           return {
             importName: componentName,
