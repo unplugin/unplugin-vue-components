@@ -104,6 +104,7 @@
     "element-plus": "^2.0.4",
     "eslint": "^8.10.0",
     "esno": "^0.14.1",
+    "pathe": "^0.2.0",
     "rollup": "^2.69.0",
     "tsup": "5.11.13",
     "typescript": "^4.6.2",

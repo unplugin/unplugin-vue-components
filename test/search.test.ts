@@ -1,4 +1,4 @@
-import path from 'upath'
+import path from 'pathe'
 import { describe, expect, it } from 'vitest'
 import { Context } from '../src/core/context'
 

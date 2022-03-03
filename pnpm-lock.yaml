@@ -26,6 +26,7 @@ importers:
       local-pkg: ^0.4.1
       magic-string: ^0.25.8
       minimatch: ^5.0.1
+      pathe: ^0.2.0
       resolve: ^1.22.0
       rollup: ^2.69.0
       tsup: 5.11.13
@@ -60,6 +61,7 @@ importers:
       element-plus: 2.0.4_vue@3.2.31
       eslint: 8.10.0
       esno: 0.14.1
+      pathe: 0.2.0
       rollup: 2.69.0
       tsup: 5.11.13_typescript@4.6.2
       typescript: 4.6.2
@@ -6644,6 +6646,10 @@ packages:
 
   /pathe/0.0.2:
     resolution: {integrity: sha512-mmK20YtPb4yXHlaPuOD/uPIpRu7iIK45GA/GiRSlNpIdfWDG5aEQmFT1HHtBmJB+t/6DvFOtOsEipsPA8Bx2cw==}
+    dev: true
+
+  /pathe/0.2.0:
+    resolution: {integrity: sha512-sTitTPYnn23esFR3RlqYBWn4c45WGeLcsKzQiUpXJAyfcWkolvlYpV8FLo7JishK946oQwMFUCHXQ9AjGPKExw==}
     dev: true
 
   /pathval/1.1.1:
