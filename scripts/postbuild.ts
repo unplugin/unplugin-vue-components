@@ -17,7 +17,6 @@ async function run() {
     code = code.replace('exports.default =', 'module.exports =')
     code += 'exports.default = module.exports;'
     await fs.writeFile(file, code)
-    await fs.writeFile(`${name}.d.ts`, `export * from './dist/${name}'\nexport { default } from './dist/${name}'\n`)
   }
 }
 
