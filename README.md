@@ -74,8 +74,8 @@ export default {
 module.exports = {
   /* ... */
   plugins: [
-    require('unplugin-vue-components/webpack')({ /* options */ })
-  ]
+    require('unplugin-vue-components/webpack')({ /* options */ }),
+  ],
 }
 ```
 
@@ -217,7 +217,7 @@ Components({
     AntDesignVueResolver(),
     ElementPlusResolver(),
     VantResolver(),
-  ]
+  ],
 })
 ```
 
@@ -231,8 +231,8 @@ Components({
       // where `name` is always CapitalCase
       if (name.startsWith('Van'))
         return { importName: name.slice(3), path: 'vant' }
-    }
-  ]
+    },
+  ],
 })
 ```
 
@@ -298,7 +298,7 @@ Components({
   // resolvers for custom components
   resolvers: [],
 
-  // generate `components.d.ts` global declarations, 
+  // generate `components.d.ts` global declarations,
   // also accepts a path for custom filename
   dts: false,
 

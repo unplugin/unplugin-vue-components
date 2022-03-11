@@ -16,7 +16,7 @@
     "@vue/cli-plugin-typescript": "^5.0.1",
     "@vue/cli-service": "^5.0.1",
     "typescript": "^4.6.2",
-    "unplugin-icons": "^0.13.2",
+    "unplugin-icons": "^0.13.3",
     "unplugin-vue-components": "workspace:*",
     "unplugin-vue2-script-setup": "^0.10.0"
   }
