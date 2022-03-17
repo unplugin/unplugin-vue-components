@@ -34,7 +34,7 @@ export type Transformer = (code: string, id: string, path: string, query: Record
 
 export type SupportedTransformer = 'vue3' | 'vue2'
 
-export interface ComponentsApi {
+export interface PublicPluginAPI {
   /**
    * Resolves a component using the configured resolvers.
    */

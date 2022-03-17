@@ -2,7 +2,7 @@ import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import chokidar from 'chokidar'
 import type { ResolvedConfig, ViteDevServer } from 'vite'
-import type { Options, ComponentsApi } from '../types'
+import type { Options, PublicPluginAPI } from '../types'
 import { Context } from './context'
 import { shouldTransform, stringifyComponentImport } from './utils'
 
@@ -13,7 +13,7 @@ export default createUnplugin<Options>((options = {}) => {
   )
   const ctx: Context = new Context(options)
 
-  const api: ComponentsApi = {
+  const api: PublicPluginAPI = {
     async findComponent(name, filename) {
       return await ctx.findComponent(name, 'component', filename ? [filename] : [])
     },
