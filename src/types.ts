@@ -34,6 +34,17 @@ export type Transformer = (code: string, id: string, path: string, query: Record
 
 export type SupportedTransformer = 'vue3' | 'vue2'
 
+export interface PublicPluginAPI {
+  /**
+   * Resolves a component using the configured resolvers.
+   */
+  findComponent: (name: string, filename?: string) => Promise<ComponentInfo | undefined>
+  /**
+   * Obtain an import statement for a resolved component.
+   */
+  stringifyImport: (info: ComponentInfo) => string
+}
+
 /**
  * Plugin options.
  */
