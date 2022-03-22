@@ -14,3 +14,18 @@ export function VuetifyResolver(): ComponentResolver {
     },
   }
 }
+
+/**
+ * Resolver for Vuetify 3 Beta
+ *
+ * @link https://github.com/vuetifyjs/vuetify
+ */
+export function Vuetify3BetaResolver(): ComponentResolver {
+  return {
+    type: 'component',
+    resolve: (name: string) => {
+      if (name.match(/^V[A-Z]/))
+        return { importName: name, path: 'vuetify/components' }
+    },
+  }
+}
