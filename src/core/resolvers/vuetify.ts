@@ -20,7 +20,7 @@ export function VuetifyResolver(): ComponentResolver {
  *
  * @link https://github.com/vuetifyjs/vuetify
  */
-export function Vuetify3BetaResolver(): ComponentResolver {
+export function Vuetify3Resolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
