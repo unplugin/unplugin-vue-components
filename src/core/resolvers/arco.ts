@@ -180,9 +180,9 @@ export function ArcoResolver(
           importName,
           path: '@arco-design/web-vue',
         }
-        if (options.sideEffect !== false) {
+        if (options.sideEffect !== false)
           (config as any).sideEffects = getComponentStyleDir(importName, importStyle)
-        }
+
         return config
       }
     },
