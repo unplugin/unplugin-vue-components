@@ -144,11 +144,11 @@ export interface ArcoResolverOptions {
    */
   resolveIcons?: boolean
   /**
-   * disable style import
+   * Control style automatic import
    *
-   * @default false
+   * @default true
    */
-  disableSideEffect?: false
+  sideEffect?: boolean
 }
 
 /**
@@ -180,7 +180,7 @@ export function ArcoResolver(
           importName,
           path: '@arco-design/web-vue',
         }
-        if (!options.disableSideEffect) {
+        if (options.sideEffect !== false) {
           (config as any).sideEffects = getComponentStyleDir(importName, importStyle)
         }
         return config
