@@ -143,6 +143,12 @@ export interface ArcoResolverOptions {
    * @default false
    */
   resolveIcons?: boolean
+  /**
+   * disable style import
+   *
+   * @default false
+   */
+  disableSideEffect?: false
 }
 
 /**
@@ -170,11 +176,14 @@ export function ArcoResolver(
         const importStyle = options.importStyle ?? 'css'
 
         const importName = name.slice(1)
-        return {
+        const config = {
           importName,
           path: '@arco-design/web-vue',
-          sideEffects: getComponentStyleDir(importName, importStyle),
         }
+        if (!options.disableSideEffect) {
+          (config as any).sideEffects = getComponentStyleDir(importName, importStyle)
+        }
+        return config
       }
     },
   }
