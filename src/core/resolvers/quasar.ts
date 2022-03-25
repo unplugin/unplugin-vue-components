@@ -1,22 +1,21 @@
 
 import type { ComponentResolver } from '../../types'
-
+import { readFileSync } from 'fs'
+import { resolveModule } from 'local-pkg'
 /**
  * Resolver for Quasar
  *
  * @link https://github.com/quasarframework/quasar
  */
-export function QuasarResolver(): ComponentResolver {
+export function QuasarResolver (): ComponentResolver {
+  let components: unknown[] = []
+
   return {
     type: 'component',
-    resolve: (name: string) => {
-      let components = []
-
-      try {
-        /* eslint-disable @typescript-eslint/no-var-requires */
-        components = require('quasar/dist/transforms/api-list.json')
-      }
-      catch (e) {
+    resolve: async (name: string) => {
+      if (!components.length) {
+        const quasarApiListPath = resolveModule('quasar/dist/transforms/api-list.json')
+        if (quasarApiListPath) components = JSON.parse(readFileSync(quasarApiListPath).toString())
       }
 
       if (components.includes(name))
