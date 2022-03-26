@@ -117,7 +117,7 @@ const matchComponents = [
 
   {
     pattern: /^DescriptionsItem$/,
-    componentDir: "descriptions"
+    componentDir: 'descriptions',
   },
 ]
 
