@@ -1,4 +1,6 @@
 
+import { promises as fs } from 'fs'
+import { resolveModule } from 'local-pkg'
 import type { ComponentResolver } from '../../types'
 
 /**
@@ -7,16 +9,15 @@ import type { ComponentResolver } from '../../types'
  * @link https://github.com/quasarframework/quasar
  */
 export function QuasarResolver(): ComponentResolver {
+  let components: unknown[] = []
+
   return {
     type: 'component',
-    resolve: (name: string) => {
-      let components = []
-
-      try {
-        /* eslint-disable @typescript-eslint/no-var-requires */
-        components = require('quasar/dist/transforms/api-list.json')
-      }
-      catch (e) {
+    resolve: async(name: string) => {
+      if (!components.length) {
+        const quasarApiListPath = resolveModule('quasar/dist/transforms/api-list.json')
+        if (quasarApiListPath)
+          components = JSON.parse(await fs.readFile(quasarApiListPath, 'utf-8'))
       }
 
       if (components.includes(name))
