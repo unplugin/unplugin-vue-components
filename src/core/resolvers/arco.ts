@@ -114,6 +114,11 @@ const matchComponents = [
     pattern: /^(TypographyParagraph|TypographyTitle|TypographyText)$/,
     componentDir: 'typography',
   },
+
+  {
+    pattern: /^DescriptionsItem$/,
+    componentDir: "descriptions"
+  },
 ]
 
 function getComponentStyleDir(importName: string, importStyle: boolean | 'css' | 'less') {
