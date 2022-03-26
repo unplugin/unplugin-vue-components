@@ -9,12 +9,12 @@ const { readFile } = promises
  *
  * @link https://github.com/quasarframework/quasar
  */
-export function QuasarResolver (): ComponentResolver {
+export function QuasarResolver(): ComponentResolver {
   let components: unknown[] = []
 
   return {
     type: 'component',
-    resolve: async (name: string) => {
+    resolve: async(name: string) => {
       if (!components.length) {
         const quasarApiListPath = resolveModule('quasar/dist/transforms/api-list.json')
         if (quasarApiListPath) components = JSON.parse((await readFile(quasarApiListPath)).toString())
