@@ -1,7 +1,9 @@
 
-import type { ComponentResolver } from '../../types'
-import { readFileSync } from 'fs'
+import { promises } from 'fs'
 import { resolveModule } from 'local-pkg'
+import type { ComponentResolver } from '../../types'
+const { readFile } = promises
+
 /**
  * Resolver for Quasar
  *
@@ -15,7 +17,7 @@ export function QuasarResolver (): ComponentResolver {
     resolve: async (name: string) => {
       if (!components.length) {
         const quasarApiListPath = resolveModule('quasar/dist/transforms/api-list.json')
-        if (quasarApiListPath) components = JSON.parse(readFileSync(quasarApiListPath).toString())
+        if (quasarApiListPath) components = JSON.parse((await readFile(quasarApiListPath)).toString())
       }
 
       if (components.includes(name))
