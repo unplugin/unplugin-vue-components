@@ -1,5 +1,5 @@
 <template>
-  <h3>Namespaced Component: <code>iu/button.vue</code></h3>
+  <h3>Namespaced Component: <code>ui/button.vue</code></h3>
 </template>
 
 <script>
