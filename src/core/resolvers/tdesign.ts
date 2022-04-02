@@ -33,7 +33,7 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
 
   if (fileName.includes('-') && fileName !== 'input-number') {
     const prefix = fileName.slice(0, fileName.indexOf('-'))
-    const container = ['anchor', 'avatar', 'breadcrumb', 'checkbox', 'dropdown', 'form', 'input', 'list', 'menu', 'radio', 'slider', 'steps', 'swiper']
+    const container = ['anchor', 'avatar', 'breadcrumb', 'checkbox', 'dropdown', 'form', 'input', 'list', 'menu', 'radio', 'slider', 'swiper']
 
     if (container.includes(prefix))
       fileName = prefix
@@ -57,12 +57,18 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
   if (['tab-nav', 'tab-panel'].includes(fileName))
     fileName = 'tabs'
 
+  if (fileName === 'step-item')
+    fileName = 'steps'
+  
   if (fileName === 'check-tag')
     fileName = 'tag'
 
   if (fileName === 'time-range-picker')
     fileName = 'time-picker'
-
+  
+  if (fileName === 'date-range-picker')
+    fileName = 'date-picker'
+  
   if (importStyle === 'less')
     return `tdesign-${library}/esm/${fileName}/style`
 
