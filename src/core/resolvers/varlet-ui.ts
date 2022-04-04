@@ -70,7 +70,8 @@ export function VarletUIResolver(options: VarletUIResolverOptions = {}): Compone
     {
       type: 'component',
       resolve: (name: string) => {
-        if (name.startsWith('Var')) return getResolved(name.slice(3), options)
+        if (name.startsWith('Var'))
+          return getResolved(name.slice(3), options)
       },
     },
     {
@@ -78,7 +79,8 @@ export function VarletUIResolver(options: VarletUIResolverOptions = {}): Compone
       resolve: (name: string) => {
         const { directives = true } = options
 
-        if (!directives) return
+        if (!directives)
+          return
 
         return getResolved(name, options)
       },

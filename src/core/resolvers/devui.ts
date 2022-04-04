@@ -20,7 +20,8 @@ export interface DevResolverOptions {
 const LIB_NAME = 'vue-devui'
 
 const findStyle = (name: string) => {
-  if (!name || !Array.isArray(name)) return `${LIB_NAME}/${name}/style.css`
+  if (!name || !Array.isArray(name))
+    return `${LIB_NAME}/${name}/style.css`
 }
 
 const effectComponentMaps: Record<string, string> = {
@@ -48,7 +49,8 @@ function getSideEffects(name: string): string | undefined {
 }
 
 function componentsResolver(name: string) {
-  if (!name.match(/^D[A-Z]/)) return
+  if (!name.match(/^D[A-Z]/))
+    return
 
   // Alert => alert; DatePicker => date-picker
   const resolveId = kebabCase(name = name.slice(1))
@@ -61,7 +63,8 @@ function componentsResolver(name: string) {
 }
 
 function directivesResolver(name: string) {
-  if (!(name in effectDirectiveMaps)) return
+  if (!(name in effectDirectiveMaps))
+    return
 
   return {
     path: LIB_NAME,

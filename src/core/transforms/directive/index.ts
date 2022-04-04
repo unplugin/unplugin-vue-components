@@ -18,7 +18,8 @@ export default async function transformDirective(code: string, transformer: Supp
     ctx.updateUsageMap(sfcPath, [name])
 
     const directive = await ctx.findComponent(name, 'directive', [sfcPath])
-    if (!directive) continue
+    if (!directive)
+      continue
 
     const varName = `__unplugin_directives_${no}`
     s.prepend(`${stringifyComponentImport({ ...directive, name: varName }, ctx)};\n`)

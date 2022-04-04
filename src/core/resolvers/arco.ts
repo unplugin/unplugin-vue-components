@@ -14,7 +14,6 @@ const matchComponents = [
     pattern: /^BreadcrumbItem$/,
     componentDir: 'breadcrumb',
   },
-
   {
     pattern: /^ButtonGroup$/,
     componentDir: 'button',
@@ -122,7 +121,8 @@ const matchComponents = [
 ]
 
 function getComponentStyleDir(importName: string, importStyle: boolean | 'css' | 'less') {
-  if (['ConfigProvider', 'Icon'].includes(importName)) return undefined
+  if (['ConfigProvider', 'Icon'].includes(importName))
+    return undefined
 
   let componentDir = kebabCase(importName)
   for (const item of matchComponents) {
@@ -131,8 +131,10 @@ function getComponentStyleDir(importName: string, importStyle: boolean | 'css' |
       break
     }
   }
-  if (importStyle === 'less') return `@arco-design/web-vue/es/${componentDir}/style/index.js`
-  if (importStyle === 'css' || importStyle) return `@arco-design/web-vue/es/${componentDir}/style/css.js`
+  if (importStyle === 'less')
+    return `@arco-design/web-vue/es/${componentDir}/style/index.js`
+  if (importStyle === 'css' || importStyle)
+    return `@arco-design/web-vue/es/${componentDir}/style/css.js`
 }
 
 export interface ArcoResolverOptions {

@@ -113,7 +113,8 @@ function resolveComponent(name: string, options: ElementPlusResolverOptionsResol
 }
 
 function resolveDirective(name: string, options: ElementPlusResolverOptionsResolved): ComponentInfo | undefined {
-  if (!options.directives) return
+  if (!options.directives)
+    return
 
   const directives: Record<string, { importName: string; styleName: string }> = {
     Loading: { importName: 'ElLoadingDirective', styleName: 'loading' },
@@ -122,7 +123,8 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
   }
 
   const directive = directives[name]
-  if (!directive) return
+  if (!directive)
+    return
 
   const { version, ssr } = options
 

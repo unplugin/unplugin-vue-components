@@ -88,7 +88,8 @@ export function VeuiResolver(options: VeuiResolverOptions): ComponentResolver {
       if (name.match(/^Veui[A-Z]/)) {
         const componentName = name.slice(4)
 
-        if (!components!.has(componentName)) return
+        if (!components!.has(componentName))
+          return
 
         const sideEffects = getSideEffects(componentName, options)
 

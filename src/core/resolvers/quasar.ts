@@ -1,4 +1,3 @@
-
 import { promises as fs } from 'fs'
 import { resolveModule } from 'local-pkg'
 import type { ComponentResolver } from '../../types'
