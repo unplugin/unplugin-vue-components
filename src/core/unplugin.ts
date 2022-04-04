@@ -38,6 +38,7 @@ export default createUnplugin<Options>((options = {}) => {
       try {
         const result = await ctx.transform(code, id)
         ctx.generateDeclaration()
+        ctx.generateIdeHelper()
         return result
       }
       catch (e) {
@@ -56,6 +57,7 @@ export default createUnplugin<Options>((options = {}) => {
         if (options.dts) {
           ctx.searchGlob()
           ctx.generateDeclaration()
+          ctx.generateIdeHelper()
         }
 
         if (config.build.watch && config.command === 'build')

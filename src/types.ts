@@ -149,6 +149,15 @@ export interface Options {
    * @default undefined
    */
   directives?: boolean
+
+  /**
+   * Generate components.js helper for IntelliJ IDEs.
+   *
+   * Accept boolean or a path related to project root.
+   *
+   * @default false
+   */
+  generateIdeHelper?: boolean | string
 }
 
 export type ResolvedOptions = Omit<
@@ -162,6 +171,7 @@ Required<Options>,
   resolvedDirs: string[]
   globs: string[]
   dts: string | false
+  generateIdeHelper: string | false
   root: string
 }
 

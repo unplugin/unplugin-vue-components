@@ -19,6 +19,8 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'tr
   importPathTransform: v => v,
 
   allowOverrides: false,
+
+  generateIdeHelper: false,
 }
 
 function normalizeResolvers(resolvers: (ComponentResolver | ComponentResolver[])[]): ComponentResolverObject[] {
@@ -61,6 +63,16 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
         ? resolved.dts
         : 'components.d.ts',
     )
+
+  resolved.generateIdeHelper = !options.generateIdeHelper
+    ? false
+    : resolve(
+      root,
+      typeof options.generateIdeHelper === 'string'
+        ? options.generateIdeHelper
+        : '.components.gen.js',
+    )
+
   resolved.root = root
   resolved.transformer = options.transformer || getVueVersion() || 'vue3'
   resolved.directives = (typeof options.directives === 'boolean')
@@ -72,7 +84,7 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   return resolved
 }
 
-function getVueVersion() {
+export function getVueVersion() {
   try {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const vue = require('vue')

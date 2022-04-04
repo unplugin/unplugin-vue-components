@@ -8,6 +8,7 @@ import { getNameFromFilePath, matchGlobs, parseId, pascalCase, resolveAlias } fr
 import { resolveOptions } from './options'
 import { searchComponents } from './fs/glob'
 import { generateDeclaration } from './declaration'
+import { generateIdeHelper } from './ideHelper'
 import transformer from './transformer'
 
 const debug = {
@@ -15,6 +16,7 @@ const debug = {
   search: Debug('unplugin-vue-components:context:search'),
   hmr: Debug('unplugin-vue-components:context:hmr'),
   decleration: Debug('unplugin-vue-components:decleration'),
+  ideHelper: Debug('unplugin-vue-components:ideHelper'),
   env: Debug('unplugin-vue-components:env'),
 }
 
@@ -37,6 +39,7 @@ export class Context {
   ) {
     this.options = resolveOptions(rawOptions, this.root)
     this.generateDeclaration = throttle(500, false, this.generateDeclaration.bind(this))
+    this.generateIdeHelper = throttle(500, false, this.generateIdeHelper.bind(this))
     this.setTransformer(this.options.transformer)
   }
 
@@ -134,6 +137,7 @@ export class Context {
 
   onUpdate(path: string) {
     this.generateDeclaration()
+    this.generateIdeHelper()
 
     if (!this._server)
       return
@@ -253,6 +257,14 @@ export class Context {
 
     debug.decleration('generating')
     generateDeclaration(this, this.options.root, this.options.dts, !this._server)
+  }
+
+  generateIdeHelper() {
+    if (!this.options.generateIdeHelper)
+      return
+
+    debug.ideHelper('generating')
+    generateIdeHelper(this, this.options.root, this.options.generateIdeHelper)
   }
 
   get componentNameMap() {
