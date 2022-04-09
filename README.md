@@ -300,6 +300,7 @@ Components({
 
   // generate `components.d.ts` global declarations,
   // also accepts a path for custom filename
+  // default: `true` if package typescript is installed
   dts: false,
 
   // Allow subdirectories as namespace prefix for components.
