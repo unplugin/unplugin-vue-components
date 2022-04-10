@@ -12,29 +12,29 @@ export function parseDeclaration(code: string): Record<string, string> {
 }
 
 export async function generateDeclaration(ctx: Context, root: string, filepath: string, removeUnused = false): Promise<void> {
+  const items = [
+    ...Object.values({
+      ...ctx.componentNameMap,
+      ...ctx.componentCustomMap,
+    }),
+    ...resolveTypeImports(ctx.options.types),
+  ]
   const imports: Record<string, string> = Object.fromEntries(
-    [
-      ...Object.values({
-        ...ctx.componentNameMap,
-        ...ctx.componentCustomMap,
-      }),
-      ...resolveTypeImports(ctx.options.types),
-    ]
-      .map(({ from: path, as: name, name: importName }) => {
-        if (!name)
-          return undefined
-        path = getTransformedPath(path, ctx)
-        const related = isAbsolute(path)
-          ? `./${relative(dirname(filepath), path)}`
-          : path
+    items.map(({ from: path, as: name, name: importName }) => {
+      if (!name)
+        return undefined
+      path = getTransformedPath(path, ctx)
+      const related = isAbsolute(path)
+        ? `./${relative(dirname(filepath), path)}`
+        : path
 
-        let entry = `typeof import('${slash(related)}')`
-        if (importName)
-          entry += `['${importName}']`
-        else
-          entry += '[\'default\']'
-        return [name, entry]
-      })
+      let entry = `typeof import('${slash(related)}')`
+      if (importName)
+        entry += `['${importName}']`
+      else
+        entry += '[\'default\']'
+      return [name, entry]
+    })
       .filter(notNullish),
   )
 
@@ -50,7 +50,7 @@ export async function generateDeclaration(ctx: Context, root: string, filepath: 
     ...imports,
   })
     .sort((a, b) => a[0].localeCompare(b[0]))
-    .filter(([name]) => removeUnused ? ctx.componentCustomMap[name] || ctx.componentNameMap[name] : true)
+    .filter(([name]) => removeUnused ? items.find(i => i.as === name) : true)
     .map(([name, v]) => {
       if (!/^\w+$/.test(name))
         name = `'${name}'`
