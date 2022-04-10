@@ -230,7 +230,7 @@ Components({
     (componentName) => {
       // where `componentName` is always CapitalCase
       if (componentName.startsWith('Van'))
-        return { name: name.slice(3), from: 'vant' }
+        return { name: componentName.slice(3), from: 'vant' }
     },
   ],
 })
