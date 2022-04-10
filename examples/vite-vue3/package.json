@@ -10,7 +10,7 @@
     "vant": "^3.4.7"
   },
   "devDependencies": {
-    "@iconify/json": "^2.1.23",
+    "@iconify/json": "^2.1.26",
     "@vitejs/plugin-vue": "^2.3.1",
     "@vue/compiler-sfc": "^3.2.31",
     "cross-env": "^7.0.3",
