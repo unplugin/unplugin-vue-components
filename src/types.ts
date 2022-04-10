@@ -22,11 +22,6 @@ export interface ComponentResolverObject {
   resolve: ComponentResolverFunction
 }
 export type ComponentResolver = ComponentResolverFunction | ComponentResolverObject
-export interface UILibraryOptions {
-  name: string
-  prefix?: string
-  entries?: string[]
-}
 
 export type Matcher = (id: string) => boolean | null | undefined
 
@@ -98,11 +93,6 @@ export interface Options {
   globalNamespaces?: string[]
 
   /**
-   * comp libraries to use auto import
-   */
-  libraries?: (string | UILibraryOptions)[]
-
-  /**
    * Pass a custom function to resolve the component importing path from the component name.
    *
    * The component names are always in PascalCase
@@ -153,10 +143,9 @@ export interface Options {
 
 export type ResolvedOptions = Omit<
 Required<Options>,
-'resolvers'|'libraries'|'extensions'|'dirs'|'globalComponentsDeclaration'
+'resolvers'|'extensions'|'dirs'|'globalComponentsDeclaration'
 > & {
   resolvers: ComponentResolverObject[]
-  libraries: UILibraryOptions[]
   extensions: string[]
   dirs: string[]
   resolvedDirs: string[]

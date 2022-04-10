@@ -2,7 +2,6 @@ import { join, resolve } from 'path'
 import { slash, toArray } from '@antfu/utils'
 import { isPackageExists } from 'local-pkg'
 import type { ComponentResolver, ComponentResolverObject, Options, ResolvedOptions } from '../types'
-import { LibraryResolver } from './helpers/libraryResolver'
 
 export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'transformer' | 'globs' |'directives'> = {
   dirs: 'src/components',
@@ -13,7 +12,6 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'tr
   directoryAsNamespace: false,
   globalNamespaces: [],
 
-  libraries: [],
   resolvers: [],
 
   importPathTransform: v => v,
@@ -27,9 +25,7 @@ function normalizeResolvers(resolvers: (ComponentResolver | ComponentResolver[])
 
 export function resolveOptions(options: Options, root: string): ResolvedOptions {
   const resolved = Object.assign({}, defaultOptions, options) as ResolvedOptions
-  resolved.libraries = toArray(resolved.libraries).map(i => typeof i === 'string' ? { name: i } : i)
   resolved.resolvers = normalizeResolvers(resolved.resolvers)
-  resolved.resolvers.push(...resolved.libraries.map(lib => LibraryResolver(lib)))
   resolved.extensions = toArray(resolved.extensions)
 
   if (resolved.globs) {
