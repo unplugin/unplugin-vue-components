@@ -3,6 +3,7 @@ import { existsSync, promises as fs } from 'fs'
 import { notNullish, slash } from '@antfu/utils'
 import type { Context } from './context'
 import { getTransformedPath } from './utils'
+import { resolveTypeImports } from './type-imports/detect'
 
 export function parseDeclaration(code: string): Record<string, string> {
   if (!code)
@@ -12,10 +13,13 @@ export function parseDeclaration(code: string): Record<string, string> {
 
 export async function generateDeclaration(ctx: Context, root: string, filepath: string, removeUnused = false): Promise<void> {
   const imports: Record<string, string> = Object.fromEntries(
-    Object.values({
-      ...ctx.componentNameMap,
-      ...ctx.componentCustomMap,
-    })
+    [
+      ...Object.values({
+        ...ctx.componentNameMap,
+        ...ctx.componentCustomMap,
+      }),
+      ...resolveTypeImports(ctx.options.types),
+    ]
       .map(({ path, name, importName }) => {
         if (!name)
           return undefined

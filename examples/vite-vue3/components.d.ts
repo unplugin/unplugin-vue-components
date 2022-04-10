@@ -2,11 +2,10 @@
 // We suggest you to commit this file into source control
 // Read more: https://github.com/vuejs/vue-next/pull/3399
 
-declare module 'vue' {
+declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Avatar: typeof import('./src/components/global/avatar.vue')['default']
     Book: typeof import('./src/components/book/index.vue')['default']
-    CarbonSvg: typeof import('./src/components/CarbonSvg.svg?component')['default']
     ComponentA: typeof import('./src/components/ComponentA.vue')['default']
     ComponentAsync: typeof import('./src/components/ComponentAsync.vue')['default']
     ComponentB: typeof import('./src/components/ComponentB.vue')['default']
@@ -21,6 +20,8 @@ declare module 'vue' {
     MarkdownB: typeof import('./src/components/MarkdownB.md')['default']
     MyCustom: typeof import('./../../../../../../src/CustomResolved.vue')['default']
     Recursive: typeof import('./src/components/Recursive.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
     UiButton: typeof import('./src/components/ui/button.vue')['default']
     UiNestedCheckbox: typeof import('./src/components/ui/nested/checkbox.vue')['default']
     VanRadio: typeof import('vant/es')['Radio']

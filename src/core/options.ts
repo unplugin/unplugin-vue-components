@@ -2,8 +2,9 @@ import { join, resolve } from 'path'
 import { slash, toArray } from '@antfu/utils'
 import { isPackageExists } from 'local-pkg'
 import type { ComponentResolver, ComponentResolverObject, Options, ResolvedOptions } from '../types'
+import { detectTypeImports } from './type-imports/detect'
 
-export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'transformer' | 'globs' |'directives'> = {
+export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'transformer' | 'globs' | 'directives' | 'types'> = {
   dirs: 'src/components',
   extensions: 'vue',
   deep: true,
@@ -27,6 +28,10 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   const resolved = Object.assign({}, defaultOptions, options) as ResolvedOptions
   resolved.resolvers = normalizeResolvers(resolved.resolvers)
   resolved.extensions = toArray(resolved.extensions)
+
+  if (!resolved.types)
+    resolved.types = detectTypeImports()
+  resolved.types = resolved.types || []
 
   if (resolved.globs) {
     resolved.globs = toArray(resolved.globs).map((glob: string) => slash(resolve(root, glob)))

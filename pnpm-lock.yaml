@@ -101,6 +101,7 @@ importers:
       vite-plugin-inspect: ^0.4.3
       vite-plugin-md: ^0.12.4
       vite-plugin-vue-svg: ^0.1.0
+      vue-router: ^4.0.14
     dependencies:
       vant: 3.4.7_vue@3.2.31
     devDependencies:
@@ -116,6 +117,7 @@ importers:
       vite-plugin-inspect: 0.4.3_vite@2.9.1
       vite-plugin-md: 0.12.4_vite@2.9.1
       vite-plugin-vue-svg: 0.1.0_8d0fc691400edae0d0bd7a997b66fb5e
+      vue-router: 4.0.14_vue@3.2.31
 
   examples/vue-cli:
     specifiers:
@@ -2448,6 +2450,10 @@ packages:
     dependencies:
       vue: 3.2.31
     dev: false
+
+  /@vue/devtools-api/6.1.4:
+    resolution: {integrity: sha512-IiA0SvDrJEgXvVxjNkHPFfDx6SXw0b/TUkqMcDZWNg9fnCAHbTpoo59YfJ9QLFkwa3raau5vSlRVzMSLDnfdtQ==}
+    dev: true
 
   /@vue/reactivity-transform/3.2.31:
     resolution: {integrity: sha512-uS4l4z/W7wXdI+Va5pgVxBJ345wyGFKvpPYtdSgvfJfX/x2Ymm6ophQlXXB6acqGHtXuBqNyyO3zVp9b1r0MOA==}
@@ -8891,6 +8897,15 @@ packages:
       hash-sum: 2.0.0
       loader-utils: 2.0.2
       webpack: 5.70.0
+    dev: true
+
+  /vue-router/4.0.14_vue@3.2.31:
+    resolution: {integrity: sha512-wAO6zF9zxA3u+7AkMPqw9LjoUCjSxfFvINQj3E/DceTt6uEz1XZLraDhdg2EYmvVwTBSGlLYsUw8bDmx0754Mw==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.1.4
+      vue: 3.2.31
     dev: true
 
   /vue-style-loader/4.1.3:

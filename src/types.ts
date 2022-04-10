@@ -139,6 +139,11 @@ export interface Options {
    * @default undefined
    */
   directives?: boolean
+
+  /**
+   * Only provide types of components in library (registered globally)
+   **/
+  types?: TypeImport[]
 }
 
 export type ResolvedOptions = Omit<
@@ -155,3 +160,8 @@ Required<Options>,
 }
 
 export type ComponentsImportMap = Record<string, string[] | undefined>
+
+export interface TypeImport {
+  from: string
+  names: string[]
+}
