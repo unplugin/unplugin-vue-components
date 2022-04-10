@@ -59,6 +59,8 @@ export function getResolved(name: string, options: VarletUIResolverOptions): Com
   }
 }
 
+const varDirectives = ['Ripple', 'Lazy']
+
 /**
  * Resolver for VarletUI
  *
@@ -80,6 +82,9 @@ export function VarletUIResolver(options: VarletUIResolverOptions = {}): Compone
         const { directives = true } = options
 
         if (!directives)
+          return
+
+        if (!varDirectives.includes(name))
           return
 
         return getResolved(name, options)
