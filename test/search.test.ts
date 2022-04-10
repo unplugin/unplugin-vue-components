@@ -9,7 +9,7 @@ function cleanup(data: any) {
     delete e.absolute
     e.from = path.relative(root, e.from).replace(/\\/g, '/')
     return e
-  }).sort((a, b) => (a.as as string).localeCompare(b.name))
+  }).sort((a, b) => (a.as as string).localeCompare(b.as))
 }
 
 describe('search', () => {
