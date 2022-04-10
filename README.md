@@ -227,10 +227,10 @@ You can also write your own resolver quickly:
 Components({
   resolvers: [
     // example of importing Vant
-    (name) => {
-      // where `name` is always CapitalCase
-      if (name.startsWith('Van'))
-        return { importName: name.slice(3), path: 'vant' }
+    (componentName) => {
+      // where `componentName` is always CapitalCase
+      if (componentName.startsWith('Van'))
+        return { name: name.slice(3), from: 'vant' }
     },
   ],
 })
