@@ -56,7 +56,7 @@ export function ViewUiResolver(): ComponentResolver {
       if (name.match(/^I[A-Z]/)) {
         const compName = name.slice(1)
         return {
-          path: `view-design/src/components/${getCompDir(compName)}`,
+          from: `view-design/src/components/${getCompDir(compName)}`,
           sideEffects: getSideEffects(compName),
         }
       }

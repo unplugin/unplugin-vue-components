@@ -10,7 +10,7 @@ export function VuetifyResolver(): ComponentResolver {
     type: 'component',
     resolve: (name: string) => {
       if (name.match(/^V[A-Z]/))
-        return { importName: name, path: 'vuetify/lib' }
+        return { name, from: 'vuetify/lib' }
     },
   }
 }
@@ -25,7 +25,7 @@ export function Vuetify3Resolver(): ComponentResolver {
     type: 'component',
     resolve: (name: string) => {
       if (name.match(/^V[A-Z]/))
-        return { importName: name, path: 'vuetify/components' }
+        return { name, from: 'vuetify/components' }
     },
   }
 }

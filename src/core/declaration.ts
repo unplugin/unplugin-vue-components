@@ -20,7 +20,7 @@ export async function generateDeclaration(ctx: Context, root: string, filepath: 
       }),
       ...resolveTypeImports(ctx.options.types),
     ]
-      .map(({ path, name, importName }) => {
+      .map(({ from: path, as: name, name: importName }) => {
         if (!name)
           return undefined
         path = getTransformedPath(path, ctx)

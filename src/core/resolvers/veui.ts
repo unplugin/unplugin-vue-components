@@ -93,7 +93,7 @@ export function VeuiResolver(options: VeuiResolverOptions): ComponentResolver {
 
         const sideEffects = getSideEffects(componentName, options)
 
-        return { importName: componentName, path: alias, sideEffects }
+        return { name: componentName, from: alias, sideEffects }
       }
     },
   }

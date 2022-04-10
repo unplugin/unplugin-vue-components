@@ -83,8 +83,8 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
 
       if (options.resolveIcons && name.match(/[a-z]Icon$/)) {
         return {
-          importName: name,
-          path: `tdesign-icons-${library}`,
+          name,
+          from: `tdesign-icons-${library}`,
         }
       }
 
@@ -92,8 +92,8 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
         const importName = name.slice(1)
 
         return {
-          importName,
-          path: `tdesign-${library}`,
+          name: importName,
+          from: `tdesign-${library}`,
           sideEffects: getSideEffects(importName, options),
         }
       }

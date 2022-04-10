@@ -2,10 +2,27 @@ import type { FilterPattern } from '@rollup/pluginutils'
 import type { TransformResult } from 'unplugin'
 import type { Awaitable } from '@antfu/utils'
 
-export interface ImportInfo {
+export interface ImportInfoLegacy {
+  /**
+   * @deprecated renamed to `as`
+   */
   name?: string
+  /**
+   * @deprecated renamed to `name`
+   */
   importName?: string
+  /**
+   * @deprecated renamed to `from`
+   */
   path: string
+
+  sideEffects?: SideEffectsInfo
+}
+
+export interface ImportInfo {
+  as?: string
+  name?: string
+  from: string
 }
 
 export type SideEffectsInfo = (ImportInfo | string)[] | ImportInfo | string | undefined

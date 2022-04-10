@@ -159,7 +159,7 @@ export function PrimeVueResolver(options: PrimeVueResolverOptions = {}): Compone
 
       if (components.includes(name)) {
         return {
-          path: `primevue/${name.toLowerCase()}`,
+          from: `primevue/${name.toLowerCase()}`,
           sideEffects,
         }
       }

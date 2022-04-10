@@ -71,8 +71,8 @@ export function HeadlessUiResolver(options: HeadlessUiResolverOptions = {}): Com
         const componentName = name.substring(prefix.length)
         if (components.includes(componentName)) {
           return {
-            importName: componentName,
-            path: '@headlessui/vue',
+            name: componentName,
+            from: '@headlessui/vue',
           }
         }
       }

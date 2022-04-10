@@ -39,8 +39,8 @@ export function VantResolver(options: VantResolverOptions = {}): ComponentResolv
       if (name.startsWith('Van')) {
         const partialName = name.slice(3)
         return {
-          importName: partialName,
-          path: `vant/${moduleType}`,
+          name: partialName,
+          from: `vant/${moduleType}`,
           sideEffects: getSideEffects(kebabCase(partialName), options),
         }
       }

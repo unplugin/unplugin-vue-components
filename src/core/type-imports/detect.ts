@@ -10,5 +10,5 @@ export function detectTypeImports(): TypeImport[] {
 }
 
 export function resolveTypeImports(imports: TypeImport[]): ComponentInfo[] {
-  return imports.flatMap(i => i.names.map(n => ({ path: i.from, name: n, importName: n })))
+  return imports.flatMap(i => i.names.map(n => ({ from: i.from, name: n, as: n })))
 }

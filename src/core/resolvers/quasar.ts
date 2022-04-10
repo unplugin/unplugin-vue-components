@@ -20,7 +20,7 @@ export function QuasarResolver(): ComponentResolver {
       }
 
       if (components.includes(name))
-        return { importName: name, path: 'quasar' }
+        return { name, from: 'quasar' }
     },
   }
 }

@@ -1,4 +1,4 @@
-import type { ComponentResolver } from '../../types'
+import type { ComponentInfo, ComponentResolver } from '../../types'
 import { kebabCase } from '../utils'
 
 const matchComponents = [
@@ -175,21 +175,20 @@ export function ArcoResolver(
     resolve: (name: string) => {
       if (options.resolveIcons && name.match(/^Icon/)) {
         return {
-          importName: name,
-          path: '@arco-design/web-vue/es/icon',
+          name,
+          from: '@arco-design/web-vue/es/icon',
         }
       }
       if (name.match(/^A[A-Z]/)) {
         const importStyle = options.importStyle ?? 'css'
 
         const importName = name.slice(1)
-        const config = {
-          importName,
-          path: '@arco-design/web-vue',
+        const config: ComponentInfo = {
+          as: importName,
+          from: '@arco-design/web-vue',
         }
         if (options.sideEffect !== false)
-          (config as any).sideEffects = getComponentStyleDir(importName, importStyle)
-
+          config.sideEffects = getComponentStyleDir(importName, importStyle)
         return config
       }
     },

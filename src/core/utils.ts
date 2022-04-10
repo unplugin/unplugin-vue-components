@@ -6,7 +6,7 @@ import {
   getPackageInfo,
   isPackageExists,
 } from 'local-pkg'
-import type { ComponentInfo, ImportInfo, ResolvedOptions } from '../types'
+import type { ComponentInfo, ImportInfo, ImportInfoLegacy, ResolvedOptions } from '../types'
 import type { Context } from './context'
 import { DISABLE_COMMENT } from './constants'
 
@@ -77,19 +77,31 @@ export function getTransformedPath(path: string, ctx: Context): string {
 export function stringifyImport(info: ImportInfo | string) {
   if (typeof info === 'string')
     return `import '${info}'`
-  if (!info.name)
-    return `import '${info.path}'`
-  else if (info.importName)
-    return `import { ${info.importName} as ${info.name} } from '${info.path}'`
+  if (!info.as)
+    return `import '${info.from}'`
+  else if (info.name)
+    return `import { ${info.name} as ${info.as} } from '${info.from}'`
   else
-    return `import ${info.name} from '${info.path}'`
+    return `import ${info.as} from '${info.from}'`
 }
 
-export function stringifyComponentImport({ name, path, importName, sideEffects }: ComponentInfo, ctx: Context) {
+export function normalizeComponetInfo(info: ImportInfo | ImportInfoLegacy | ComponentInfo): ComponentInfo {
+  if ('path' in info) {
+    return {
+      from: info.path,
+      as: info.name,
+      name: info.importName,
+      sideEffects: info.sideEffects,
+    }
+  }
+  return info
+}
+
+export function stringifyComponentImport({ as: name, from: path, name: importName, sideEffects }: ComponentInfo, ctx: Context) {
   path = getTransformedPath(path, ctx)
 
   const imports = [
-    stringifyImport({ name, path, importName }),
+    stringifyImport({ as: name, from: path, name: importName }),
   ]
 
   if (sideEffects)

@@ -53,8 +53,8 @@ export function getResolved(name: string, options: VarletUIResolverOptions): Com
   }
 
   return {
-    path,
-    importName: `_${name}Component`,
+    from: path,
+    name: `_${name}Component`,
     sideEffects,
   }
 }

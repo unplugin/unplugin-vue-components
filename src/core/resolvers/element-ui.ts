@@ -51,11 +51,11 @@ export function ElementUiResolver(options: ElementUiResolverOptions = {}): Compo
         const partialName = kebabCase(compName)
         if (partialName === 'collapse-transition') {
           return {
-            path: `element-ui/lib/transitions/${partialName}`,
+            from: `element-ui/lib/transitions/${partialName}`,
           }
         }
         return {
-          path: `element-ui/lib/${partialName}`,
+          from: `element-ui/lib/${partialName}`,
           sideEffects: getSideEffects(partialName, options),
         }
       }
