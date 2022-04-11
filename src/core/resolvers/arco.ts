@@ -184,7 +184,7 @@ export function ArcoResolver(
 
         const importName = name.slice(1)
         const config: ComponentInfo = {
-          as: importName,
+          name: importName,
           from: '@arco-design/web-vue',
         }
         if (options.sideEffect !== false)
