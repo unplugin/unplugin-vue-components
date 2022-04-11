@@ -29,10 +29,6 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   resolved.resolvers = normalizeResolvers(resolved.resolvers)
   resolved.extensions = toArray(resolved.extensions)
 
-  if (!resolved.types)
-    resolved.types = detectTypeImports()
-  resolved.types = resolved.types || []
-
   if (resolved.globs) {
     resolved.globs = toArray(resolved.globs).map((glob: string) => slash(resolve(root, glob)))
     resolved.resolvedDirs = []
@@ -62,6 +58,11 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
         ? resolved.dts
         : 'components.d.ts',
     )
+
+  if (!resolved.types && resolved.dts)
+    resolved.types = detectTypeImports()
+  resolved.types = resolved.types || []
+
   resolved.root = root
   resolved.transformer = options.transformer || getVueVersion() || 'vue3'
   resolved.directives = (typeof options.directives === 'boolean')
