@@ -8,4 +8,11 @@ export const TypeImportPresets: TypeImport[] = [
       'RouterLink',
     ],
   },
+  {
+    from: 'vue-starport',
+    names: [
+      'Starport',
+      'StarportCarrier',
+    ],
+  },
 ]
