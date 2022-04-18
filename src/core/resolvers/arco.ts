@@ -39,7 +39,7 @@ const matchComponents = [
     componentDir: 'date-picker',
   },
   {
-    pattern: /^(Doption|Dgroup|Dsubmenu)$/,
+    pattern: /^(Doption|Dgroup|Dsubmenu|DropdownButton)$/,
     componentDir: 'dropdown',
   },
   {
