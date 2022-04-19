@@ -33,7 +33,7 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
 
   if (fileName.includes('-') && fileName !== 'input-number') {
     const prefix = fileName.slice(0, fileName.indexOf('-'))
-    const container = ['anchor', 'avatar', 'breadcrumb', 'checkbox', 'dropdown', 'form', 'input', 'list', 'menu', 'radio', 'slider', 'swiper']
+    const container = ['anchor', 'avatar', 'breadcrumb', 'checkbox', 'dropdown', 'form', 'input', 'list', 'menu', 'radio', 'slider', 'swiper', 'color-picker', 'text']
 
     if (container.includes(prefix))
       fileName = prefix
@@ -63,10 +63,10 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
   if (fileName === 'check-tag')
     fileName = 'tag'
 
-  if (fileName === 'time-range-picker')
+  if (['time-range-picker','time-range-picker-panel'].includes(fileName))
     fileName = 'time-picker'
 
-  if (fileName === 'date-range-picker')
+  if (['date-range-picker','date-range-picker-panel'].includes(fileName))
     fileName = 'date-picker'
 
   if (importStyle === 'less')
