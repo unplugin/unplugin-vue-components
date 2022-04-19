@@ -63,10 +63,10 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
   if (fileName === 'check-tag')
     fileName = 'tag'
 
-  if (['time-range-picker','time-range-picker-panel'].includes(fileName))
+  if (['time-range-picker', 'time-range-picker-panel'].includes(fileName))
     fileName = 'time-picker'
 
-  if (['date-range-picker','date-range-picker-panel'].includes(fileName))
+  if (['date-range-picker', 'date-range-picker-panel'].includes(fileName))
     fileName = 'date-picker'
 
   if (importStyle === 'less')
