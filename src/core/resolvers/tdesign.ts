@@ -33,7 +33,7 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
 
   if (fileName.includes('-') && fileName !== 'input-number') {
     const prefix = fileName.slice(0, fileName.indexOf('-'))
-    const container = ['anchor', 'avatar', 'breadcrumb', 'checkbox', 'dropdown', 'form', 'input', 'list', 'menu', 'radio', 'slider', 'swiper', 'color-picker', 'text']
+    const container = ['anchor', 'avatar', 'breadcrumb', 'checkbox', 'dropdown', 'form', 'input', 'list', 'menu', 'radio', 'slider', 'swiper', 'color-picker', 'text', 'collapse']
 
     if (container.includes(prefix))
       fileName = prefix
