@@ -4,27 +4,27 @@ import { camelCase } from '../utils'
 const matchComponents = [
   {
     pattern: /^LayAvatarList$/,
-    styleDir: "avatar",
+    styleDir: 'avatar',
   },
   {
     pattern: /^LayBreadcrumbItem$/,
-    styleDir: "breadcrumb",
+    styleDir: 'breadcrumb',
   },
   {
     pattern: /^(LayCarouselItem)$/,
-    styleDir: "carousel",
+    styleDir: 'carousel',
   },
   {
     pattern: /^(LayCheckboxGroup)$/,
-    styleDir: "checkbox",
+    styleDir: 'checkbox',
   },
   {
     pattern: /^LayCol$/,
-    styleDir: "row",
+    styleDir: 'row',
   },
   {
     pattern: /^(LayCollapseItem)$/,
-    styleDir: "collapse",
+    styleDir: 'collapse',
   },
   {
     pattern: /^LayConfigProvider$/,
@@ -36,41 +36,41 @@ const matchComponents = [
   },
   {
     pattern: /^(LayDropdownMenu|LayDropdownMenuItem)$/,
-    styleDir: "dropdown",
+    styleDir: 'dropdown',
   },
   {
     pattern: /^(LayFormItem)$/,
-    styleDir: "form",
+    styleDir: 'form',
   },
   {
     pattern: /^(LayMenuItem|LaySubMenu)$/,
-    styleDir: "menu",
+    styleDir: 'menu',
   },
   {
     pattern: /^LaySelectOption$/,
-    styleDir: "select",
+    styleDir: 'select',
   },
   {
     pattern: /^LaySkeletonItem$/,
-    styleDir: "skeleton",
+    styleDir: 'skeleton',
   },
   {
     pattern: /^LaySplitPanelItem$/,
-    styleDir: "splitPanel",
+    styleDir: 'splitPanel',
   },
   {
     pattern: /^LayStepItem$/,
-    styleDir: "step",
+    styleDir: 'step',
   },
   {
     pattern: /^(LayTabItem)$/,
-    styleDir: "tab",
+    styleDir: 'tab',
   },
   {
     pattern: /^LayTimelineItem$/,
-    styleDir: "timeline",
+    styleDir: 'timeline',
   },
-];
+]
 
 export interface LayuiVueResolverOptions {
   /**
@@ -78,37 +78,37 @@ export interface LayuiVueResolverOptions {
    *
    * @default 'css'
    */
-  importStyle?: boolean | "css";
+  importStyle?: boolean | 'css'
 
   /**
-   * resolve `@layui/layui-vue' icons
+   * resolve '@layui/layui-vue' icons
    * requires package `@layui/icons-vue`
    *
    * @default false
    */
-  resolveIcons?: boolean;
+  resolveIcons?: boolean
 
   /**
    * exclude components that do not require automatic import
    *
    */
-  exclude?: Array<string | RegExp>;
+  exclude?: Array<string | RegExp>
 }
 
-const layuiRE: RegExp = /^Lay[A-Z]/
-const layerRE: RegExp = /^(layer|LayLayer)$/
-const iconsRE: RegExp = /^([A-Z][\w]+Icon|LayIcon)$/
-let libName: string = '@layui/layui-vue'
+const layuiRE = /^Lay[A-Z]/
+const layerRE = /^(layer|LayLayer)$/
+const iconsRE = /^([A-Z][\w]+Icon|LayIcon)$/
+let libName = '@layui/layui-vue'
 
 function getSideEffects(importName: string, options: LayuiVueResolverOptions): SideEffectsInfo | undefined {
-  const { importStyle = "css" } = options
-  if (!importStyle) {
+  const { importStyle = 'css' } = options
+  if (!importStyle)
     return undefined
-  }
-  if (libName != '@layui/layui-vue') {
+
+  if (libName !== '@layui/layui-vue')
     return `${libName}/lib/index.css`
-  }
-  let styleDir: string | undefined = camelCase(importName.slice(3)); // LayBackTop -> backTop
+
+  let styleDir: string | undefined = camelCase(importName.slice(3)) // LayBackTop -> backTop
   for (const item of matchComponents) {
     if (item.pattern.test(importName)) {
       styleDir = item.styleDir
@@ -117,24 +117,26 @@ function getSideEffects(importName: string, options: LayuiVueResolverOptions): S
   }
   if (importStyle === 'css' || importStyle) {
     return styleDir
-      ? [`@layui/layui-vue/es/${styleDir}/index.css`, `@layui/layui-vue/es/index/index.css`]
+      ? [`@layui/layui-vue/es/${styleDir}/index.css`, '@layui/layui-vue/es/index/index.css']
       : undefined
   }
 }
 
-function resolveComponent(importName: string, options: LayuiVueResolverOptions): ComponentInfo | undefined  {
-  let name: string | undefined = undefined
+function resolveComponent(importName: string, options: LayuiVueResolverOptions): ComponentInfo | undefined {
+  let name: string | undefined
 
-  if (options.exclude && isExclude(importName, options.exclude)) {
+  if (options.exclude && isExclude(importName, options.exclude))
     return undefined
-  }
+
   if (options.resolveIcons && importName.match(iconsRE)) {
     name = importName
     libName = '@layui/icons-vue'
-  } else if (importName.match(layerRE)) {
+  }
+  else if (importName.match(layerRE)) {
     name = importName
     libName = '@layui/layer-vue'
-  } else if (importName.match(layuiRE)) {
+  }
+  else if (importName.match(layuiRE)) {
     name = importName
     libName = '@layui/layui-vue'
   }
@@ -145,24 +147,23 @@ function resolveComponent(importName: string, options: LayuiVueResolverOptions):
 
 function isExclude(name: string, exclude: Array<string | RegExp>): boolean {
   for (const item of exclude) {
-    if (name === item || name.match(item)) {
+    if (name === item || name.match(item))
       return true
-    }
   }
   return false
 }
 
 /**
  * Resolver for layui-vue
- * 
+ *
  * @link http://www.layui-vue.com/ for layui-vue
  *
  */
 export function LayuiVueResolver(
-  options: LayuiVueResolverOptions = {}
+  options: LayuiVueResolverOptions = {},
 ): ComponentResolver {
   return {
-    type: "component",
+    type: 'component',
     resolve: (name: string) => {
       return resolveComponent(name, options)
     },
