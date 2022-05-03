@@ -11,6 +11,7 @@ const components = [
   'DialogDescription',
   'DialogOverlay',
   'DialogTitle',
+  'DialogPanel',
   'Disclosure',
   'DisclosureButton',
   'DisclosurePanel',
