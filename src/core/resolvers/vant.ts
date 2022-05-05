@@ -37,7 +37,6 @@ export function VantResolver(options: VantResolverOptions = {}): ComponentResolv
     type: 'component',
     resolve: (name: string) => {
       if (name.startsWith('Vant')) {
-        // 'tName' would be a mistake
         const partialName = name.slice(4)
         return {
           name: partialName,
