@@ -6,8 +6,6 @@ import { VantResolver } from 'unplugin-vue-components/resolvers'
 import Markdown from 'vite-plugin-md'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
-// @ts-expect-error missing types
-import SVG from 'vite-plugin-vue-svg'
 import Inspect from 'vite-plugin-inspect'
 
 const config: UserConfig = {
@@ -21,7 +19,6 @@ const config: UserConfig = {
       include: [/\.vue$/, /\.md$/],
     }),
     Markdown(),
-    SVG(),
     Icons(),
     Inspect(),
     Components({
@@ -29,7 +26,6 @@ const config: UserConfig = {
       directoryAsNamespace: true,
       dts: true,
       globalNamespaces: ['global'],
-      importPathTransform: path => path.endsWith('.svg') ? `${path}?component` : undefined,
       include: [/\.vue$/, /\.md$/],
       resolvers: [
         (name) => {

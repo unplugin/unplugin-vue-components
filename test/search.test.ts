@@ -1,4 +1,4 @@
-import path from 'upath'
+import path from 'pathe'
 import { describe, expect, it } from 'vitest'
 import { Context } from '../src/core/context'
 
@@ -7,9 +7,9 @@ const root = path.resolve(__dirname, '../examples/vite-vue3')
 function cleanup(data: any) {
   return Object.values(data).map((e: any) => {
     delete e.absolute
-    e.path = path.relative(root, e.path).replace(/\\/g, '/')
+    e.from = path.relative(root, e.from).replace(/\\/g, '/')
     return e
-  }).sort((a, b) => (a.name as string).localeCompare(b.name))
+  }).sort((a, b) => (a.as as string).localeCompare(b.as))
 }
 
 describe('search', () => {

@@ -10,8 +10,8 @@ export function NaiveUiResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name.match(/^N[A-Z]/))
-        return { importName: name, path: 'naive-ui' }
+      if (name.match(/^(N[A-Z]|n-[a-z])/))
+        return { name, from: 'naive-ui' }
     },
   }
 }

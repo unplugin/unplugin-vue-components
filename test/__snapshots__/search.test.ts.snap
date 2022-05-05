@@ -3,44 +3,44 @@
 exports[`search > should with namespace 1`] = `
 [
   {
-    "name": "Avatar",
-    "path": "src/components/global/avatar.vue",
+    "as": "Avatar",
+    "from": "src/components/global/avatar.vue",
   },
   {
-    "name": "Book",
-    "path": "src/components/book/index.vue",
+    "as": "Book",
+    "from": "src/components/book/index.vue",
   },
   {
-    "name": "ComponentA",
-    "path": "src/components/ComponentA.vue",
+    "as": "ComponentA",
+    "from": "src/components/ComponentA.vue",
   },
   {
-    "name": "ComponentAsync",
-    "path": "src/components/ComponentAsync.vue",
+    "as": "ComponentAsync",
+    "from": "src/components/ComponentAsync.vue",
   },
   {
-    "name": "ComponentB",
-    "path": "src/components/ComponentB.vue",
+    "as": "ComponentB",
+    "from": "src/components/ComponentB.vue",
   },
   {
-    "name": "ComponentC",
-    "path": "src/components/component-c.vue",
+    "as": "ComponentC",
+    "from": "src/components/component-c.vue",
   },
   {
-    "name": "ComponentD",
-    "path": "src/components/ComponentD.vue",
+    "as": "ComponentD",
+    "from": "src/components/ComponentD.vue",
   },
   {
-    "name": "Recursive",
-    "path": "src/components/Recursive.vue",
+    "as": "Recursive",
+    "from": "src/components/Recursive.vue",
   },
   {
-    "name": "UiButton",
-    "path": "src/components/ui/button.vue",
+    "as": "UiButton",
+    "from": "src/components/ui/button.vue",
   },
   {
-    "name": "UiNestedCheckbox",
-    "path": "src/components/ui/nested/checkbox.vue",
+    "as": "UiNestedCheckbox",
+    "from": "src/components/ui/nested/checkbox.vue",
   },
 ]
 `;
@@ -48,44 +48,44 @@ exports[`search > should with namespace 1`] = `
 exports[`search > should work 1`] = `
 [
   {
-    "name": "Avatar",
-    "path": "src/components/global/avatar.vue",
+    "as": "Avatar",
+    "from": "src/components/global/avatar.vue",
   },
   {
-    "name": "Book",
-    "path": "src/components/book/index.vue",
+    "as": "Book",
+    "from": "src/components/book/index.vue",
   },
   {
-    "name": "Button",
-    "path": "src/components/ui/button.vue",
+    "as": "Button",
+    "from": "src/components/ui/button.vue",
   },
   {
-    "name": "Checkbox",
-    "path": "src/components/ui/nested/checkbox.vue",
+    "as": "Checkbox",
+    "from": "src/components/ui/nested/checkbox.vue",
   },
   {
-    "name": "ComponentA",
-    "path": "src/components/ComponentA.vue",
+    "as": "ComponentA",
+    "from": "src/components/ComponentA.vue",
   },
   {
-    "name": "ComponentAsync",
-    "path": "src/components/ComponentAsync.vue",
+    "as": "ComponentAsync",
+    "from": "src/components/ComponentAsync.vue",
   },
   {
-    "name": "ComponentB",
-    "path": "src/components/ComponentB.vue",
+    "as": "ComponentB",
+    "from": "src/components/ComponentB.vue",
   },
   {
-    "name": "ComponentC",
-    "path": "src/components/component-c.vue",
+    "as": "ComponentC",
+    "from": "src/components/component-c.vue",
   },
   {
-    "name": "ComponentD",
-    "path": "src/components/ComponentD.vue",
+    "as": "ComponentD",
+    "from": "src/components/ComponentD.vue",
   },
   {
-    "name": "Recursive",
-    "path": "src/components/Recursive.vue",
+    "as": "Recursive",
+    "from": "src/components/Recursive.vue",
   },
 ]
 `;

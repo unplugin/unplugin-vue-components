@@ -74,8 +74,8 @@ export default {
 module.exports = {
   /* ... */
   plugins: [
-    require('unplugin-vue-components/webpack')({ /* options */ })
-  ]
+    require('unplugin-vue-components/webpack')({ /* options */ }),
+  ],
 }
 ```
 
@@ -217,7 +217,7 @@ Components({
     AntDesignVueResolver(),
     ElementPlusResolver(),
     VantResolver(),
-  ]
+  ],
 })
 ```
 
@@ -227,16 +227,43 @@ You can also write your own resolver quickly:
 Components({
   resolvers: [
     // example of importing Vant
-    (name) => {
-      // where `name` is always CapitalCase
-      if (name.startsWith('Van'))
-        return { importName: name.slice(3), path: 'vant' }
-    }
-  ]
+    (componentName) => {
+      // where `componentName` is always CapitalCase
+      if (componentName.startsWith('Van'))
+        return { name: componentName.slice(3), from: 'vant' }
+    },
+  ],
 })
 ```
 
 If you successfully configured other UI libraries, please feel free to contribute and help others using them out-of-box. Thanks!
+
+## Types for global registered components
+
+Some libraries might register some global components for you to use anywhere (e.g. Vue Router provides `<RouterLink>` and `<RouterView>`). Since they are global available, there is no need for this plugin to import them. However, those are commonly not TypeScript friendly, and you might need to register their types manually.
+
+Thus `unplugin-vue-components` provided a way to only register types for global components.
+
+```ts
+Components({
+  dts: true,
+  types: [{
+    from: 'vue-router',
+    names: ['RouterLink', 'RouterView'],
+  }],
+})
+```
+
+So the `RouterLink` and `RouterView` will be presented in `components.d.ts`.
+
+By default, `unplugin-vue-components` detects supported libraries automatically (e.g. `vue-router`) when their are installed in the workspace. If you want to disable it completely, you can pass an empty array to it:
+
+```ts
+Components({
+  // Disable type only registration
+  types: [],
+})
+```
 
 ## Migrate from `vite-plugin-components`
 
@@ -298,8 +325,9 @@ Components({
   // resolvers for custom components
   resolvers: [],
 
-  // generate `components.d.ts` global declarations, 
+  // generate `components.d.ts` global declarations,
   // also accepts a path for custom filename
+  // default: `true` if package typescript is installed
   dts: false,
 
   // Allow subdirectories as namespace prefix for components.

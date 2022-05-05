@@ -1,4 +1,4 @@
-import type { ComponentResolver } from '../../types'
+import type { ComponentInfo, ComponentResolver } from '../../types'
 import { kebabCase } from '../utils'
 
 const matchComponents = [
@@ -14,7 +14,6 @@ const matchComponents = [
     pattern: /^BreadcrumbItem$/,
     componentDir: 'breadcrumb',
   },
-
   {
     pattern: /^ButtonGroup$/,
     componentDir: 'button',
@@ -40,7 +39,7 @@ const matchComponents = [
     componentDir: 'date-picker',
   },
   {
-    pattern: /^(Doption|Dgroup|Dsubmenu)$/,
+    pattern: /^(Doption|Dgroup|Dsubmenu|DropdownButton)$/,
     componentDir: 'dropdown',
   },
   {
@@ -114,10 +113,16 @@ const matchComponents = [
     pattern: /^(TypographyParagraph|TypographyTitle|TypographyText)$/,
     componentDir: 'typography',
   },
+
+  {
+    pattern: /^DescriptionsItem$/,
+    componentDir: 'descriptions',
+  },
 ]
 
 function getComponentStyleDir(importName: string, importStyle: boolean | 'css' | 'less') {
-  if (['ConfigProvider', 'Icon'].includes(importName)) return undefined
+  if (['ConfigProvider', 'Icon'].includes(importName))
+    return undefined
 
   let componentDir = kebabCase(importName)
   for (const item of matchComponents) {
@@ -126,8 +131,10 @@ function getComponentStyleDir(importName: string, importStyle: boolean | 'css' |
       break
     }
   }
-  if (importStyle === 'less') return `@arco-design/web-vue/es/${componentDir}/style/index.js`
-  if (importStyle === 'css' || importStyle) return `@arco-design/web-vue/es/${componentDir}/style/css.js`
+  if (importStyle === 'less')
+    return `@arco-design/web-vue/es/${componentDir}/style/index.js`
+  if (importStyle === 'css' || importStyle)
+    return `@arco-design/web-vue/es/${componentDir}/style/css.js`
 }
 
 export interface ArcoResolverOptions {
@@ -143,6 +150,12 @@ export interface ArcoResolverOptions {
    * @default false
    */
   resolveIcons?: boolean
+  /**
+   * Control style automatic import
+   *
+   * @default true
+   */
+  sideEffect?: boolean
 }
 
 /**
@@ -162,19 +175,21 @@ export function ArcoResolver(
     resolve: (name: string) => {
       if (options.resolveIcons && name.match(/^Icon/)) {
         return {
-          importName: name,
-          path: '@arco-design/web-vue/es/icon',
+          name,
+          from: '@arco-design/web-vue/es/icon',
         }
       }
-      if (name.match(/^A/)) {
+      if (name.match(/^A[A-Z]/)) {
         const importStyle = options.importStyle ?? 'css'
 
         const importName = name.slice(1)
-        return {
-          importName,
-          path: '@arco-design/web-vue',
-          sideEffects: getComponentStyleDir(importName, importStyle),
+        const config: ComponentInfo = {
+          name: importName,
+          from: '@arco-design/web-vue',
         }
+        if (options.sideEffect !== false)
+          config.sideEffects = getComponentStyleDir(importName, importStyle)
+        return config
       }
     },
   }

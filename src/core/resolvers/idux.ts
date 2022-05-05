@@ -56,7 +56,7 @@ export function IduxResolver(options: IduxResolverOptions = {}): ComponentResolv
       if (packageName !== 'cdk' && importStyle)
         sideEffects = `${path}/style/themes/${importStyle === 'css' ? 'default_css' : 'default'}`
 
-      return { importName: name, path, sideEffects }
+      return { name, from: path, sideEffects }
     },
   }
 }

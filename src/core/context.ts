@@ -4,7 +4,7 @@ import Debug from 'debug'
 import type { UpdatePayload, ViteDevServer } from 'vite'
 import { slash, throttle, toArray } from '@antfu/utils'
 import type { ComponentInfo, Options, ResolvedOptions, Transformer } from '../types'
-import { getNameFromFilePath, matchGlobs, parseId, pascalCase, resolveAlias } from './utils'
+import { getNameFromFilePath, matchGlobs, normalizeComponetInfo, parseId, pascalCase, resolveAlias } from './utils'
 import { resolveOptions } from './options'
 import { searchComponents } from './fs/glob'
 import { generateDeclaration } from './declaration'
@@ -116,8 +116,8 @@ export class Context {
   }
 
   addCustomComponents(info: ComponentInfo) {
-    if (info.name)
-      this._componentCustomMap[info.name] = info
+    if (info.as)
+      this._componentCustomMap[info.as] = info
   }
 
   removeComponents(paths: string | string[]) {
@@ -176,8 +176,8 @@ export class Context {
         }
 
         this._componentNameMap[name] = {
-          name,
-          path,
+          as: name,
+          from: path,
         }
       })
   }
@@ -185,7 +185,7 @@ export class Context {
   async findComponent(name: string, type: 'component' | 'directive', excludePaths: string[] = []): Promise<ComponentInfo | undefined> {
     // resolve from fs
     let info = this._componentNameMap[name]
-    if (info && !excludePaths.includes(info.path) && !excludePaths.includes(info.path.slice(1)))
+    if (info && !excludePaths.includes(info.from) && !excludePaths.includes(info.from.slice(1)))
       return info
 
     // custom resolvers
@@ -197,16 +197,16 @@ export class Context {
       if (result) {
         if (typeof result === 'string') {
           info = {
-            name,
-            path: result,
+            as: name,
+            from: result,
           }
           this.addCustomComponents(info)
           return info
         }
         else {
           info = {
-            name,
-            ...result,
+            as: name,
+            ...normalizeComponetInfo(result),
           }
           this.addCustomComponents(info)
           return info
@@ -252,7 +252,7 @@ export class Context {
       return
 
     debug.decleration('generating')
-    generateDeclaration(this, this.options.root, this.options.dts)
+    generateDeclaration(this, this.options.root, this.options.dts, !this._server)
   }
 
   get componentNameMap() {

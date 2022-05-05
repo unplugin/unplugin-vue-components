@@ -26,7 +26,7 @@ export function VueUseComponentsResolver(): ComponentResolver {
       }
 
       if (components && components.includes(name))
-        return { importName: name, path: '@vueuse/components' }
+        return { name, as: name, from: '@vueuse/components' }
     },
   }
 }

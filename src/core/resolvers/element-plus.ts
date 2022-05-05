@@ -91,29 +91,30 @@ function resolveComponent(name: string, options: ElementPlusResolverOptionsResol
   // >=1.1.0-beta.1
   if (cv.compare(version, '1.1.0-beta.1', '>=')) {
     return {
-      importName: name,
-      path: `element-plus/${ssr ? 'lib' : 'es'}`,
+      name,
+      from: `element-plus/${ssr ? 'lib' : 'es'}`,
       sideEffects: getSideEffects(partialName, options),
     }
   }
   // >=1.0.2-beta.28
   else if (cv.compare(version, '1.0.2-beta.28', '>=')) {
     return {
-      path: `element-plus/es/el-${partialName}`,
+      from: `element-plus/es/el-${partialName}`,
       sideEffects: getSideEffectsLegacy(partialName, options),
     }
   }
   // for <=1.0.1
   else {
     return {
-      path: `element-plus/lib/el-${partialName}`,
+      from: `element-plus/lib/el-${partialName}`,
       sideEffects: getSideEffectsLegacy(partialName, options),
     }
   }
 }
 
 function resolveDirective(name: string, options: ElementPlusResolverOptionsResolved): ComponentInfo | undefined {
-  if (!options.directives) return
+  if (!options.directives)
+    return
 
   const directives: Record<string, { importName: string; styleName: string }> = {
     Loading: { importName: 'ElLoadingDirective', styleName: 'loading' },
@@ -122,15 +123,16 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
   }
 
   const directive = directives[name]
-  if (!directive) return
+  if (!directive)
+    return
 
   const { version, ssr } = options
 
   // >=1.1.0-beta.1
   if (cv.compare(version, '1.1.0-beta.1', '>=')) {
     return {
-      importName: directive.importName,
-      path: `element-plus/${ssr ? 'lib' : 'es'}`,
+      name: directive.importName,
+      from: `element-plus/${ssr ? 'lib' : 'es'}`,
       sideEffects: getSideEffects(directive.styleName, options),
     }
   }

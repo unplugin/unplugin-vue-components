@@ -5,11 +5,11 @@ import { Context } from '../src/core/context'
 const resolver: ComponentResolver[] = [
   {
     type: 'component',
-    resolve: name => ({ path: `test/component/${name}` }),
+    resolve: name => ({ from: `test/component/${name}` }),
   },
   {
     type: 'directive',
-    resolve: name => ({ path: `test/directive/${name}` }),
+    resolve: name => ({ from: `test/directive/${name}` }),
   },
 ]
 

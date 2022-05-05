@@ -1,5 +1,5 @@
 import { kebabCase } from '../utils'
-import type { ComponentResolver } from '../../types'
+import type { ComponentInfo, ComponentResolver, ImportInfo } from '../../types'
 
 export interface DevResolverOptions {
   /**
@@ -20,7 +20,8 @@ export interface DevResolverOptions {
 const LIB_NAME = 'vue-devui'
 
 const findStyle = (name: string) => {
-  if (!name || !Array.isArray(name)) return `${LIB_NAME}/${name}/style.css`
+  if (!name || !Array.isArray(name))
+    return `${LIB_NAME}/${name}/style.css`
 }
 
 const effectComponentMaps: Record<string, string> = {
@@ -47,25 +48,27 @@ function getSideEffects(name: string): string | undefined {
   return (match && effectComponentMaps[match]) && findStyle(match)
 }
 
-function componentsResolver(name: string) {
-  if (!name.match(/^D[A-Z]/)) return
+function componentsResolver(name: string): ComponentInfo | undefined {
+  if (!name.match(/^D[A-Z]/))
+    return
 
   // Alert => alert; DatePicker => date-picker
   const resolveId = kebabCase(name = name.slice(1))
 
   return {
-    path: LIB_NAME,
-    importName: name,
+    from: LIB_NAME,
+    as: name,
     sideEffects: getSideEffects(resolveId),
   }
 }
 
-function directivesResolver(name: string) {
-  if (!(name in effectDirectiveMaps)) return
+function directivesResolver(name: string): ComponentInfo | undefined {
+  if (!(name in effectDirectiveMaps))
+    return
 
   return {
-    path: LIB_NAME,
-    importName: `${name}Directive`,
+    from: LIB_NAME,
+    as: `${name}Directive`,
     sideEffects: findStyle(effectDirectiveMaps[name]),
   }
 }

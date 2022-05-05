@@ -2,10 +2,27 @@ import type { FilterPattern } from '@rollup/pluginutils'
 import type { TransformResult } from 'unplugin'
 import type { Awaitable } from '@antfu/utils'
 
-export interface ImportInfo {
+export interface ImportInfoLegacy {
+  /**
+   * @deprecated renamed to `as`
+   */
   name?: string
+  /**
+   * @deprecated renamed to `name`
+   */
   importName?: string
+  /**
+   * @deprecated renamed to `from`
+   */
   path: string
+
+  sideEffects?: SideEffectsInfo
+}
+
+export interface ImportInfo {
+  as?: string
+  name?: string
+  from: string
 }
 
 export type SideEffectsInfo = (ImportInfo | string)[] | ImportInfo | string | undefined
@@ -22,17 +39,23 @@ export interface ComponentResolverObject {
   resolve: ComponentResolverFunction
 }
 export type ComponentResolver = ComponentResolverFunction | ComponentResolverObject
-export interface UILibraryOptions {
-  name: string
-  prefix?: string
-  entries?: string[]
-}
 
 export type Matcher = (id: string) => boolean | null | undefined
 
 export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => Awaitable<TransformResult | null>
 
 export type SupportedTransformer = 'vue3' | 'vue2'
+
+export interface PublicPluginAPI {
+  /**
+   * Resolves a component using the configured resolvers.
+   */
+  findComponent: (name: string, filename?: string) => Promise<ComponentInfo | undefined>
+  /**
+   * Obtain an import statement for a resolved component.
+   */
+  stringifyImport: (info: ComponentInfo) => string
+}
 
 /**
  * Plugin options.
@@ -87,11 +110,6 @@ export interface Options {
   globalNamespaces?: string[]
 
   /**
-   * comp libraries to use auto import
-   */
-  libraries?: (string | UILibraryOptions)[]
-
-  /**
    * Pass a custom function to resolve the component importing path from the component name.
    *
    * The component names are always in PascalCase
@@ -138,14 +156,18 @@ export interface Options {
    * @default undefined
    */
   directives?: boolean
+
+  /**
+   * Only provide types of components in library (registered globally)
+   **/
+  types?: TypeImport[]
 }
 
 export type ResolvedOptions = Omit<
 Required<Options>,
-'resolvers'|'libraries'|'extensions'|'dirs'|'globalComponentsDeclaration'
+'resolvers'|'extensions'|'dirs'|'globalComponentsDeclaration'
 > & {
   resolvers: ComponentResolverObject[]
-  libraries: UILibraryOptions[]
   extensions: string[]
   dirs: string[]
   resolvedDirs: string[]
@@ -155,3 +177,8 @@ Required<Options>,
 }
 
 export type ComponentsImportMap = Record<string, string[] | undefined>
+
+export interface TypeImport {
+  from: string
+  names: string[]
+}

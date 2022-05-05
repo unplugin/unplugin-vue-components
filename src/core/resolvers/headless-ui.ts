@@ -1,10 +1,17 @@
 import type { ComponentResolver } from '../../types'
 
 const components = [
+  'Combobox',
+  'ComboboxButton',
+  'ComboboxInput',
+  'ComboboxLabel',
+  'ComboboxOption',
+  'ComboboxOptions',
   'Dialog',
   'DialogDescription',
   'DialogOverlay',
   'DialogTitle',
+  'DialogPanel',
   'Disclosure',
   'DisclosureButton',
   'DisclosurePanel',
@@ -62,11 +69,11 @@ export function HeadlessUiResolver(options: HeadlessUiResolverOptions = {}): Com
     type: 'component',
     resolve: (name: string) => {
       if (name.startsWith(prefix)) {
-        const componentName = name.replace(new RegExp(`\^\(${prefix}\)`), '')
+        const componentName = name.substring(prefix.length)
         if (components.includes(componentName)) {
           return {
-            importName: componentName,
-            path: '@headlessui/vue',
+            name: componentName,
+            from: '@headlessui/vue',
           }
         }
       }

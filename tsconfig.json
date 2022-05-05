@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
+    "target": "es2017",
     "module": "esnext",
-    "target": "es2019",
-    "lib": ["esnext", "DOM"],
+    "lib": ["esnext"],
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
     "strictNullChecks": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "jsx": "preserve"
   }
 }

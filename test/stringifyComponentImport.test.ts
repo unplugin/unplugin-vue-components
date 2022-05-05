@@ -7,9 +7,9 @@ describe('stringifyComponentImport', () => {
     const ctx = new Context({})
     expect(
       stringifyComponentImport({
-        name: 'Test',
-        path: 'test',
-        importName: 'a',
+        as: 'Test',
+        from: 'test',
+        name: 'a',
       }, ctx),
     ).toMatchSnapshot()
   })
@@ -18,8 +18,8 @@ describe('stringifyComponentImport', () => {
     const ctx = new Context({})
     expect(
       stringifyComponentImport({
-        name: 'Test',
-        path: 'test',
+        as: 'Test',
+        from: 'test',
         sideEffects: 'test.css',
       }, ctx),
     ).toMatchSnapshot()
@@ -29,11 +29,11 @@ describe('stringifyComponentImport', () => {
     const ctx = new Context({})
     expect(
       stringifyComponentImport({
-        name: 'Test',
-        path: 'test',
+        as: 'Test',
+        from: 'test',
         sideEffects: [
           'test.css',
-          { name: 'css', path: 'test2.css' },
+          { as: 'css', from: 'test2.css' },
         ],
       }, ctx),
     ).toMatchSnapshot()

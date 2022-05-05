@@ -12,8 +12,8 @@ export function InklineResolver(): ComponentResolver {
     resolve: (name: string) => {
       if (name.match(/^I[A-Z]/)) {
         return {
-          importName: name,
-          path: '@inkline/inkline',
+          name,
+          from: '@inkline/inkline',
         }
       }
     },

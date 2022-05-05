@@ -59,7 +59,8 @@ export default async function resolveVue2(code: string, s: MagicString): Promise
     const renderStart = getRenderFnStart(ast)
 
     for (const directive of directives.elements) {
-      if (directive?.type !== 'ObjectExpression') continue
+      if (directive?.type !== 'ObjectExpression')
+        continue
 
       const nameNode = directive.properties.find(
         (p): p is ObjectProperty =>
@@ -67,9 +68,11 @@ export default async function resolveVue2(code: string, s: MagicString): Promise
             && p.key.type === 'Identifier'
             && p.key.name === 'name',
       )?.value
-      if (nameNode?.type !== 'StringLiteral') continue
+      if (nameNode?.type !== 'StringLiteral')
+        continue
       const name = nameNode.value
-      if (!name || name.startsWith('_')) continue
+      if (!name || name.startsWith('_'))
+        continue
       results.push({
         rawName: name,
         replace: (resolved) => {

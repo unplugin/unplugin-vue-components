@@ -262,8 +262,8 @@ export function AntDesignVueResolver(options: AntDesignVueResolverOptions = {
     resolve: (name: string) => {
       if (options.resolveIcons && name.match(/(Outlined|Filled|TwoTone)$/)) {
         return {
-          importName: name,
-          path: '@ant-design/icons-vue',
+          name,
+          from: '@ant-design/icons-vue',
         }
       }
 
@@ -272,8 +272,8 @@ export function AntDesignVueResolver(options: AntDesignVueResolverOptions = {
         const { cjs = false } = options
         const path = `ant-design-vue/${cjs ? 'lib' : 'es'}`
         return {
-          importName,
-          path,
+          name: importName,
+          from: path,
           sideEffects: getSideEffects(importName, options),
         }
       }

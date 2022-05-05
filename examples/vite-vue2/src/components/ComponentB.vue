@@ -1,7 +1,3 @@
-<template>
-  <h3>Component B: {{ msg }}</h3>
-</template>
-
 <script>
 export default {
   props: {
@@ -9,3 +5,7 @@ export default {
   },
 }
 </script>
+
+<template>
+  <h3>Component B: {{ msg }}</h3>
+</template>
