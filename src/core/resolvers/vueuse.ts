@@ -14,6 +14,7 @@ export function VueUseComponentsResolver(): ComponentResolver {
     type: 'component',
     resolve: (name: string) => {
       if (!components) {
+        let indexesJson: any
         try {
           const corePath = resolveModule('@vueuse/core') || process.cwd()
           const path = resolveModule('@vueuse/core/indexes.json')
