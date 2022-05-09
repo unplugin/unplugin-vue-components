@@ -5,13 +5,13 @@
     "dev": "cross-env DEBUG=unplugin-vue-components:* vite"
   },
   "dependencies": {
-    "vue": "^3.2.31",
+    "vue": "^3.2.33",
     "vue-template-compiler": "^2.6.14"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
     "unplugin-vue-components": "workspace:*",
-    "vite": "^2.9.1",
-    "vite-plugin-vue2": "^1.9.3"
+    "vite": "^2.9.8",
+    "vite-plugin-vue2": "^2.0.0"
   }
 }

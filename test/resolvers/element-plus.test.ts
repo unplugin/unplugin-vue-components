@@ -3,7 +3,7 @@ import { ElementPlusResolver } from '../../src/resolvers'
 import { Context } from '../../src/core/context'
 
 describe('Element Plus Resolver', () => {
-  it('components and directives should be transformed', async() => {
+  it('components and directives should be transformed', async () => {
     const code = `
 (_ctx, _cache) => {
   const _component_el_button = _resolveComponent("el-button")

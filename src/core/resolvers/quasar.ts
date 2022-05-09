@@ -12,7 +12,7 @@ export function QuasarResolver(): ComponentResolver {
 
   return {
     type: 'component',
-    resolve: async(name: string) => {
+    resolve: async (name: string) => {
       if (!components.length) {
         const quasarApiListPath = resolveModule('quasar/dist/transforms/api-list.json')
         if (quasarApiListPath)

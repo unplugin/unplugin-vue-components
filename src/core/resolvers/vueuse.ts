@@ -1,6 +1,6 @@
-import type { ComponentResolver } from '../../types'
 import { readFileSync } from 'fs'
 import { resolveModule } from 'local-pkg'
+import type { ComponentResolver } from '../../types'
 
 let components: string[] | undefined
 

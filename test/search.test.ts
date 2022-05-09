@@ -13,7 +13,7 @@ function cleanup(data: any) {
 }
 
 describe('search', () => {
-  it('should work', async() => {
+  it('should work', async () => {
     const ctx = new Context({})
     ctx.setRoot(root)
     ctx.searchGlob()
@@ -21,7 +21,7 @@ describe('search', () => {
     expect(cleanup(ctx.componentNameMap)).toMatchSnapshot()
   })
 
-  it('should with namespace', async() => {
+  it('should with namespace', async () => {
     const ctx = new Context({
       directoryAsNamespace: true,
       globalNamespaces: ['global'],

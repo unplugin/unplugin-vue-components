@@ -68,8 +68,8 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   resolved.directives = (typeof options.directives === 'boolean')
     ? options.directives
     : !resolved.resolvers.some(i => i.type === 'directive')
-      ? false
-      : getVueVersion() === 'vue3'
+        ? false
+        : getVueVersion() === 'vue3'
 
   return resolved
 }

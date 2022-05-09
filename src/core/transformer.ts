@@ -16,7 +16,7 @@ export interface ResolveResult {
 }
 
 export default function transformer(ctx: Context, transformer: SupportedTransformer): Transformer {
-  return async(code, id, path) => {
+  return async (code, id, path) => {
     ctx.searchGlob()
 
     const sfcPath = ctx.normalizePath(path)

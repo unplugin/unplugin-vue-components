@@ -14,7 +14,7 @@ const resolver: ComponentResolver[] = [
 ]
 
 describe('transform', () => {
-  it('vue2 transform should work', async() => {
+  it('vue2 transform should work', async () => {
     const code = `
     var render = function () {
       var _vm = this
@@ -40,7 +40,7 @@ describe('transform', () => {
     expect(await ctx.transform(code, '')).toMatchSnapshot()
   })
 
-  it('vue3 transform should work', async() => {
+  it('vue3 transform should work', async () => {
     const code = `
     const render = (_ctx, _cache) => {
       const _component_test_comp = _resolveComponent("test-comp")

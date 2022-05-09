@@ -3,7 +3,7 @@ import { Context } from '../src/core/context'
 import { stringifyComponentImport } from '../src/core/utils'
 
 describe('stringifyComponentImport', () => {
-  it('importName', async() => {
+  it('importName', async () => {
     const ctx = new Context({})
     expect(
       stringifyComponentImport({
@@ -14,7 +14,7 @@ describe('stringifyComponentImport', () => {
     ).toMatchSnapshot()
   })
 
-  it('plain css sideEffects', async() => {
+  it('plain css sideEffects', async () => {
     const ctx = new Context({})
     expect(
       stringifyComponentImport({
@@ -25,7 +25,7 @@ describe('stringifyComponentImport', () => {
     ).toMatchSnapshot()
   })
 
-  it('multiple sideEffects', async() => {
+  it('multiple sideEffects', async () => {
     const ctx = new Context({})
     expect(
       stringifyComponentImport({
