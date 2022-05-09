@@ -14,7 +14,7 @@ export function VueUseComponentsResolver(): ComponentResolver {
       if (!components) {
         try {
           /* eslint-disable @typescript-eslint/no-var-requires */
-          const indexesJson = require('@vueuse/core/indexes.json')
+          const indexesJson = require('@vueuse/metadata/index.json')
           components = indexesJson
             .functions
             .filter((i: any) => i.component && i.name)
