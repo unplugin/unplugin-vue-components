@@ -1,13 +1,13 @@
-import path from 'pathe'
+import { relative, resolve } from 'pathe'
 import { describe, expect, it } from 'vitest'
 import { Context } from '../src/core/context'
 
-const root = path.resolve(__dirname, '../examples/vite-vue3')
+const root = resolve(__dirname, '../examples/vite-vue3')
 
 function cleanup(data: any) {
   return Object.values(data).map((e: any) => {
     delete e.absolute
-    e.from = path.relative(root, e.from).replace(/\\/g, '/')
+    e.from = relative(root, e.from).replace(/\\/g, '/')
     return e
   }).sort((a, b) => (a.as as string).localeCompare(b.as))
 }
