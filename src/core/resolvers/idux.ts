@@ -6,12 +6,14 @@ const specialComponents: Record<string, string> = {
   IxAutoComplete: 'auto-complete',
   IxBackTop: 'back-top',
   IxDatePicker: 'date-picker',
+  IxDateRangePicker: 'date-picker',
   IxCol: 'grid',
   IxRow: 'grid',
   IxInputNumber: 'input-number',
   IxTab: 'tabs',
   IxTreeSelect: 'tree-select',
   IxTimePicker: 'time-picker',
+  IxTimeRangePicker: 'time-picker',
 }
 
 export interface IduxResolverOptions {
