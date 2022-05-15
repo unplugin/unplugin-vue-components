@@ -139,7 +139,7 @@ function resolveComponent(importName: string, options: LayuiVueResolverOptions):
     name = importName
     libName = '@layui/layer-vue'
   }
-  else if (importName.match(layuiRE)) {
+  else if (importName.match(layuiRE) && !importName.match(iconsRE)) {
     name = importName
     libName = '@layui/layui-vue'
   }
