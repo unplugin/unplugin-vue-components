@@ -170,13 +170,13 @@ export function ElementPlusResolver(
   return [
     {
       type: 'component',
-      resolve: async(name: string) => {
+      resolve: async (name: string) => {
         return resolveComponent(name, await resolveOptions())
       },
     },
     {
       type: 'directive',
-      resolve: async(name: string) => {
+      resolve: async (name: string) => {
         return resolveDirective(name, await resolveOptions())
       },
     },
