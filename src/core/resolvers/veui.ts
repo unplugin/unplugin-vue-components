@@ -67,7 +67,7 @@ let components: Set<string> | undefined
  *
  * @link https://github.com/ecomfe/veui
  */
-export function VeuiResolver(options: VeuiResolverOptions): ComponentResolver {
+export function VeuiResolver(options: VeuiResolverOptions = {}): ComponentResolver {
   const { alias = VEUI_PACKAGE_NAME } = options
 
   if (!components) {
