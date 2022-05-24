@@ -158,7 +158,7 @@ export function ElementPlusResolver(
       return optionsResolved
     optionsResolved = {
       ssr: false,
-      version: await getPkgVersion('element-plus', '1.1.0-beta.21'),
+      version: await getPkgVersion('element-plus', '2.2.2'),
       importStyle: 'css',
       directives: true,
       exclude: undefined,
