@@ -14,7 +14,7 @@
   "funding": "https://github.com/sponsors/antfu",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "types": "index.d.ts",
   "exports": {
     ".": {
       "require": "./dist/index.js",
@@ -51,8 +51,7 @@
     }
   },
   "files": [
-    "dist",
-    "*.d.ts"
+    "dist"
   ],
   "typesVersions": {
     "*": {
