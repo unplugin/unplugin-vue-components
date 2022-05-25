@@ -176,7 +176,7 @@ Components({
 
 Once the setup is done, a `components.d.ts` will be generated and updates automatically with the type definitions. Feel free to commit it into git or not as you want.
 
-**Make sure you also add `components.d.ts` to your `tsconfig.json` under `includes`.**
+> **Make sure you also add `components.d.ts` to your `tsconfig.json` under `includes`.**
 
 ## Importing from UI Libraries
 
@@ -341,7 +341,13 @@ Components({
   // Babel is needed to do the transformation for Vue 2, it's disabled by default for performance concerns.
   // To install Babel, run: `npm install -D @babel/parser @babel/traverse`
   directives: true,
-
+  
+  // Transform path before resolving
+  importPathTransform: v => v,
+  
+  // Allow for components to override other components with the same name
+  allowOverrides: false,
+  
   // filters for transforming targets
   include: [/\.vue$/, /\.vue\?vue/],
   exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
@@ -349,8 +355,23 @@ Components({
 ```
 
 ## Example
+#### importPathTransform
+```javascript
+{
+...
+  importPathTransform: (importPath: string) => {
+    if(importPath.includes('custom-component-name')){
+      return importPath.replace('custom-component-name', 'MyCustomComponent');
+    }
 
-See the [Vitesse](https://github.com/antfu/vitesse) starter template.
+    return importPath
+  };
+ ...
+}
+```
+
+#### See also
+[Vitesse](https://github.com/antfu/vitesse) starter template.
 
 ## Thanks
 
