@@ -256,7 +256,7 @@ Components({
 
 So the `RouterLink` and `RouterView` will be presented in `components.d.ts`.
 
-By default, `unplugin-vue-components` detects supported libraries automatically (e.g. `vue-router`) when their are installed in the workspace. If you want to disable it completely, you can pass an empty array to it:
+By default, `unplugin-vue-components` detects supported libraries automatically (e.g. `vue-router`) when they are installed in the workspace. If you want to disable it completely, you can pass an empty array to it:
 
 ```ts
 Components({
