@@ -1,5 +1,4 @@
 import type { ComponentInfo, ComponentResolver, SideEffectsInfo } from '../../types'
-import { camelCase } from '../utils'
 
 const matchComponents = [
   {
@@ -100,6 +99,10 @@ const layerRE = /^(layer|LayLayer)$/
 const iconsRE = /^([A-Z][\w]+Icon|LayIcon)$/
 let libName = '@layui/layui-vue'
 
+function lowerCamelCase(str: string) {
+  return str.charAt(0).toLowerCase() + str.slice(1)
+}
+
 function getSideEffects(importName: string, options: LayuiVueResolverOptions): SideEffectsInfo | undefined {
   const { importStyle = 'css' } = options
   if (!importStyle)
@@ -108,7 +111,7 @@ function getSideEffects(importName: string, options: LayuiVueResolverOptions): S
   if (libName !== '@layui/layui-vue')
     return `${libName}/lib/index.css`
 
-  let styleDir: string | undefined = camelCase(importName.slice(3)) // LayBackTop -> backTop
+  let styleDir: string | undefined = lowerCamelCase(importName.slice(3)) // LayBackTop -> backTop
   for (const item of matchComponents) {
     if (item.pattern.test(importName)) {
       styleDir = item.styleDir
@@ -136,7 +139,7 @@ function resolveComponent(importName: string, options: LayuiVueResolverOptions):
     name = importName
     libName = '@layui/layer-vue'
   }
-  else if (importName.match(layuiRE)) {
+  else if (importName.match(layuiRE) && !importName.match(iconsRE)) {
     name = importName
     libName = '@layui/layui-vue'
   }
