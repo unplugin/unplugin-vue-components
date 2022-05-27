@@ -27,6 +27,12 @@ export interface IduxResolverOptions {
    * import style along with components
    */
   importStyle?: 'css' | 'less'
+  /**
+   * theme for import style
+   * 
+   * @default 'default'
+   */
+  importStyleTheme?: string
 }
 
 /**
@@ -38,7 +44,7 @@ export function IduxResolver(options: IduxResolverOptions = {}): ComponentResolv
   return {
     type: 'component',
     resolve: (name: string) => {
-      const { importStyle, exclude = [] } = options
+      const { importStyle, importStyleTheme = 'default', exclude = [] } = options
       if (exclude.includes(name))
         return
 
@@ -56,7 +62,7 @@ export function IduxResolver(options: IduxResolverOptions = {}): ComponentResolv
 
       let sideEffects: string | undefined
       if (packageName !== 'cdk' && importStyle)
-        sideEffects = `${path}/style/themes/${importStyle === 'css' ? 'default_css' : 'default'}`
+        sideEffects = `${path}/style/themes/${importStyle === 'css' ? `${importStyleTheme}_css` : importStyleTheme}`
 
       return { name, from: path, sideEffects }
     },
