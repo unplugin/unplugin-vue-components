@@ -29,7 +29,7 @@ export interface IduxResolverOptions {
   importStyle?: 'css' | 'less'
   /**
    * theme for import style
-   * 
+   *
    * @default 'default'
    */
   importStyleTheme?: string
