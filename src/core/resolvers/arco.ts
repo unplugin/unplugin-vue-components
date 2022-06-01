@@ -27,6 +27,10 @@ const matchComponents = [
     componentDir: 'carousel',
   },
   {
+    pattern: /^CascaderPanel$/,
+    componentDir: 'cascader',
+  },
+  {
     pattern: /^CheckboxGroup$/,
     componentDir: 'checkbox',
   },
@@ -37,6 +41,10 @@ const matchComponents = [
   {
     pattern: /^(WeekPicker|MonthPicker|YearPicker|QuarterPicker|RangePicker)$/,
     componentDir: 'date-picker',
+  },
+  {
+    pattern: /^DescriptionsItem$/,
+    componentDir: 'descriptions',
   },
   {
     pattern: /^(Doption|Dgroup|Dsubmenu|DropdownButton)$/,
@@ -50,7 +58,6 @@ const matchComponents = [
     pattern: /^(Col|Row|GridItem)$/,
     componentDir: 'grid',
   },
-
   {
     pattern: /^(ImagePreview|ImagePreviewGroup)$/,
     componentDir: 'image',
@@ -83,23 +90,24 @@ const matchComponents = [
 
   {
     pattern: /^(SkeletonLine|SkeletonShape)$/,
-    componentDir: 'table',
+    componentDir: 'skeleton',
   },
   {
     pattern: /^Countdown$/,
     componentDir: 'statistic',
   },
-
   {
     pattern: /^Step$/,
     componentDir: 'steps',
   },
-
   {
     pattern: /^(Thead|Td|Th|Tr|Tbody|TableColumn)$/,
     componentDir: 'table',
   },
-
+  {
+    pattern: /^TagGroup$/,
+    componentDir: 'tag',
+  },
   {
     pattern: /^TabPane$/,
     componentDir: 'tabs',
@@ -108,15 +116,9 @@ const matchComponents = [
     pattern: /^TimelineItem$/,
     componentDir: 'timeline',
   },
-
   {
     pattern: /^(TypographyParagraph|TypographyTitle|TypographyText)$/,
     componentDir: 'typography',
-  },
-
-  {
-    pattern: /^DescriptionsItem$/,
-    componentDir: 'descriptions',
   },
 ]
 
