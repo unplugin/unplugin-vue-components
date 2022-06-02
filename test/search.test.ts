@@ -31,4 +31,16 @@ describe('search', () => {
 
     expect(cleanup(ctx.componentNameMap)).toMatchSnapshot()
   })
+
+  it('should with namespace & collapse', async () => {
+    const ctx = new Context({
+      directoryAsNamespace: true,
+      collapseSamePrefixes: true,
+      globalNamespaces: ['global'],
+    })
+    ctx.setRoot(root)
+    ctx.searchGlob()
+
+    expect(cleanup(ctx.componentNameMap)).toMatchSnapshot()
+  })
 })
