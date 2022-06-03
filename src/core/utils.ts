@@ -111,7 +111,7 @@ export function stringifyComponentImport({ as: name, from: path, name: importNam
 }
 
 export function getNameFromFilePath(filePath: string, options: ResolvedOptions): string {
-  const { resolvedDirs, directoryAsNamespace, globalNamespaces } = options
+  const { resolvedDirs, directoryAsNamespace, globalNamespaces, collapseSamePrefixes } = options
 
   const parsedFilePath = parse(slash(filePath))
 
@@ -144,7 +144,30 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
 
     if (!isEmpty(folders)) {
       // add folders to filename
-      filename = [...folders, filename].filter(Boolean).join('-')
+      let namespaced = [...folders, filename]
+
+      if (collapseSamePrefixes) {
+        const collapsed: string[] = []
+
+        for (const fileOrFolderName of namespaced) {
+          const collapsedFilename = collapsed.join('')
+          if (
+            collapsedFilename
+            && fileOrFolderName.toLowerCase().startsWith(collapsedFilename.toLowerCase())
+          ) {
+            const collapseSamePrefix = fileOrFolderName.slice(collapsedFilename.length)
+
+            collapsed.push(collapseSamePrefix)
+            continue
+          }
+
+          collapsed.push(fileOrFolderName)
+        }
+
+        namespaced = collapsed
+      }
+
+      filename = namespaced.filter(Boolean).join('-')
     }
 
     return filename
