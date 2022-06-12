@@ -143,7 +143,7 @@ export interface Options {
    *
    * Accept boolean or a path related to project root
    *
-   * @see https://github.com/vuejs/vue-next/pull/3399
+   * @see https://github.com/vuejs/core/pull/3399
    * @see https://github.com/johnsoncodehk/volar#using
    * @default true
    */
