@@ -38,6 +38,11 @@ export interface ElementPlusResolverOptions {
    * a list of component names that have no styles, so resolving their styles file should be prevented
    */
   noStylesComponents?: string[]
+
+  /**
+   * use UMD format for Nuxt, which is compatible with both CommonJS (server) and ESM (browser)
+   */
+  nuxt?: boolean
 }
 
 type ElementPlusResolverOptionsResolved = Required<Omit<ElementPlusResolverOptions, 'exclude'>> &
@@ -98,13 +103,14 @@ function resolveComponent(name: string, options: ElementPlusResolverOptionsResol
   }
 
   const partialName = kebabCase(name.slice(2))// ElTableColumn -> table-column
-  const { version, ssr } = options
+  const { version, ssr, nuxt } = options
 
   // >=1.1.0-beta.1
   if (compare(version, '1.1.0-beta.1', '>=')) {
     return {
       name,
-      from: `element-plus/${ssr ? 'lib' : 'es'}`,
+      // Fix issue with Nuxt: https://github.com/element-plus/element-plus-nuxt-starter/issues/17
+      from: `element-plus/${ssr ? (nuxt ? 'dist/index.full.js' : 'lib') : 'es'}`,
       sideEffects: getSideEffects(partialName, options),
     }
   }
@@ -177,6 +183,7 @@ export function ElementPlusResolver(
       directives: true,
       exclude: undefined,
       noStylesComponents: options.noStylesComponents || [],
+      nuxt: false,
       ...options,
     }
     return optionsResolved
