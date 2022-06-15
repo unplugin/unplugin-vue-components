@@ -1,4 +1,3 @@
-import { resolve } from 'path'
 import type { ComponentResolver, SideEffectsInfo } from '../../types'
 import { kebabCase } from '../utils'
 interface IMatcher {
@@ -222,8 +221,13 @@ function getSideEffects(compName: string, options: AntDesignVueResolverOptions):
   const lib = options.cjs ? 'lib' : 'es'
 
   if (importStyle === 'less' || importLess) {
-    const styleDir = getStyleDir(compName)
-    return `ant-design-vue/${lib}/${styleDir}/style`
+    if (compName === 'Col' || compName === 'Row') {
+      return `ant-design-vue/${lib}/style/index.less`
+    }
+    else {
+      const styleDir = getStyleDir(compName)
+      return `ant-design-vue/${lib}/${styleDir}/style/index.less`
+    }
   }
   else {
     const styleDir = getStyleDir(compName)
