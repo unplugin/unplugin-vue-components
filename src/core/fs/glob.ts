@@ -16,7 +16,7 @@ export function searchComponents(ctx: Context) {
   })
 
   if (!files.length && !ctx.options.resolvers?.length)
-    // eslint-disable-next-line no-console
+
     console.warn('[unplugin-vue-components] no components found')
 
   debug(`${files.length} components found.`)

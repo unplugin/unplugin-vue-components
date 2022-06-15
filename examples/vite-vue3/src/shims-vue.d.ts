@@ -1,5 +1,3 @@
-/* eslint-disable import/no-duplicates */
-
 declare module '*.vue' {
   import type { defineComponent } from 'vue'
   const Component: ReturnType<typeof defineComponent>

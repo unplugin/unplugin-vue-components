@@ -3,18 +3,15 @@
   "version": "0.19.8",
   "packageManager": "pnpm@7.1.5",
   "description": "Components auto importing for Vue",
-  "homepage": "https://github.com/antfu/unplugin-vue-components",
-  "bugs": "https://github.com/antfu/unplugin-vue-components/issues",
-  "license": "MIT",
   "author": "antfu <anthonyfu117@hotmail.com>",
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/antfu",
+  "homepage": "https://github.com/antfu/unplugin-vue-components",
   "repository": {
     "type": "git",
     "url": "https://github.com/antfu/unplugin-vue-components"
   },
-  "funding": "https://github.com/sponsors/antfu",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "index.d.ts",
+  "bugs": "https://github.com/antfu/unplugin-vue-components/issues",
   "exports": {
     ".": {
       "require": "./dist/index.js",
@@ -50,15 +47,21 @@
       "import": "./dist/esbuild.mjs"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
         "./dist/*"
       ]
     }
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=14"
   },
   "scripts": {
     "build": "tsup && esno scripts/postbuild.ts",
@@ -118,8 +121,5 @@
     "vite": "^2.9.12",
     "vitest": "^0.15.0",
     "vue": "3.2.37"
-  },
-  "engines": {
-    "node": ">=14"
   }
 }
