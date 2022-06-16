@@ -65,5 +65,28 @@ export default createUnplugin<Options>((options = {}) => {
         ctx.setupViteServer(server)
       },
     },
+
+    webpack(compiler) {
+      if (compiler.options.mode !== 'development')
+        return
+      let fileDepQueue: { path: string; type: 'unlink' | 'add' }[] = []
+      ctx.setupWatcherWebpack(chokidar.watch(ctx.options.globs), (path: string, type: 'unlink' | 'add') => {
+        fileDepQueue.push({ path, type })
+        process.nextTick(() => {
+          compiler.watching.invalidate()
+        })
+      })
+      compiler.hooks.compilation.tap('unplugin-vue-components', (compilation) => {
+        if (fileDepQueue.length) {
+          fileDepQueue.forEach(({ path, type }) => {
+            if (type === 'unlink')
+              compilation.fileDependencies.delete(path)
+            else
+              compilation.fileDependencies.add(path)
+          })
+          fileDepQueue = []
+        }
+      })
+    },
   }
 })
