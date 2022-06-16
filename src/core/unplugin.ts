@@ -69,22 +69,22 @@ export default createUnplugin<Options>((options = {}) => {
     webpack(compiler) {
       if (compiler.options.mode !== 'development')
         return
-      let addPath: { path: string; type: 'unlink' | 'add' }[] = []
+      let fileDepQueue: { path: string; type: 'unlink' | 'add' }[] = []
       ctx.setupWatcherWebpack(chokidar.watch(ctx.options.globs), (path: string, type: 'unlink' | 'add') => {
-        addPath.push({ path, type })
+        fileDepQueue.push({ path, type })
         process.nextTick(() => {
           compiler.watching.invalidate()
         })
       })
       compiler.hooks.compilation.tap('unplugin-vue-components', (compilation) => {
-        if (addPath.length) {
-          addPath.forEach(({ path, type }) => {
+        if (fileDepQueue.length) {
+          fileDepQueue.forEach(({ path, type }) => {
             if (type === 'unlink')
               compilation.fileDependencies.delete(path)
             else
               compilation.fileDependencies.add(path)
           })
-          addPath = []
+          fileDepQueue = []
         }
       })
     },
