@@ -90,6 +90,32 @@ export class Context {
   }
 
   /**
+   * start watcher for webpack
+   */
+  setupWatcherWebpack(watcher: fs.FSWatcher, emitUpdate: (path: string, type: 'unlink' | 'add') => void) {
+    const { globs } = this.options
+
+    watcher
+      .on('unlink', (path) => {
+        if (!matchGlobs(path, globs))
+          return
+
+        path = slash(path)
+        this.removeComponents(path)
+        emitUpdate(path, 'unlink')
+      })
+    watcher
+      .on('add', (path) => {
+        if (!matchGlobs(path, globs))
+          return
+
+        path = slash(path)
+        this.addComponents(path)
+        emitUpdate(path, 'add')
+      })
+  }
+
+  /**
    * Record the usage of components
    * @param path
    * @param paths paths of used components

@@ -65,5 +65,26 @@ export default createUnplugin<Options>((options = {}) => {
         ctx.setupViteServer(server)
       },
     },
+
+    webpack(compiler) {
+      let addPath: { path: string; type: 'unlink' | 'add' }[] = []
+      ctx.setupWatcherWebpack(chokidar.watch(ctx.options.globs), (path: string, type: 'unlink' | 'add') => {
+        addPath.push({ path, type })
+        process.nextTick(() => {
+          compiler.watching.invalidate()
+        })
+      })
+      compiler.hooks.compilation.tap('unplugin-vue-components', (compilation) => {
+        if (addPath.length) {
+          addPath.forEach(({ path, type }) => {
+            if (type === 'unlink')
+              compilation.fileDependencies.delete(path)
+            else
+              compilation.fileDependencies.add(path)
+          })
+          addPath = []
+        }
+      })
+    },
   }
 })
