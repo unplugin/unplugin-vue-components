@@ -67,6 +67,8 @@ export default createUnplugin<Options>((options = {}) => {
     },
 
     webpack(compiler) {
+      if (compiler.options.mode !== 'development')
+        return
       let addPath: { path: string; type: 'unlink' | 'add' }[] = []
       ctx.setupWatcherWebpack(chokidar.watch(ctx.options.globs), (path: string, type: 'unlink' | 'add') => {
         addPath.push({ path, type })
