@@ -5,10 +5,9 @@ export default {
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App2" />
-  <HelloWorldTest msg="Welcome to Your Vue.js App3" />
-  <HelloWorldTest1 msg="Welcome to Your Vue.js App4" />
+  <HelloWorld1 msg="one" />
+  <HelloWorld2 msg="two" />
+  <HelloWorld3 msg="three" />
 </template>
 
 <style>
