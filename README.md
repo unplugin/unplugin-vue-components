@@ -339,7 +339,7 @@ Components({
   // auto import for directives
   // default: `true` for Vue 3, `false` for Vue 2
   // Babel is needed to do the transformation for Vue 2, it's disabled by default for performance concerns.
-  // To install Babel, run: `npm install -D @babel/parser @babel/traverse`
+  // To install Babel, run: `npm install -D @babel/parser estree-walker`
   directives: true,
 
   // Transform path before resolving

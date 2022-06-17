@@ -1,5 +1,5 @@
 import type {
-  BlockStatement, CallExpression, File, FunctionExpression, ObjectProperty, VariableDeclaration,
+  BlockStatement, CallExpression, File, FunctionExpression, Node, ObjectProperty, VariableDeclaration,
 } from '@babel/types'
 import type MagicString from 'magic-string'
 import type { ParseResult } from '@babel/parser'
@@ -17,25 +17,27 @@ const getRenderFnStart = (ast: ParseResult<File>): number => {
       && node.declarations[0].id.type === 'Identifier'
       && node.declarations[0].id.name === 'render',
   )
-  const start = (((renderFn?.declarations[0].init as FunctionExpression).body) as BlockStatement).start
-  if (start === null)
+  const start = (((renderFn?.declarations[0].init as FunctionExpression)?.body) as BlockStatement)?.start
+  if (start === null || start === undefined)
     throw new Error('[unplugin-vue-components:directive] Cannot find render function position.')
   return start + 1
 }
 
 export default async function resolveVue2(code: string, s: MagicString): Promise<ResolveResult[]> {
-  if (!isPackageExists('@babel/parser') || !isPackageExists('@babel/traverse'))
-    throw new Error('[unplugin-vue-components:directive] To use Vue 2 directive you will need to install Babel first: "npm install -D @babel/parser @babel/traverse"')
+  if (!isPackageExists('@babel/parser') || !isPackageExists('estree-walker'))
+    throw new Error('[unplugin-vue-components:directive] To use Vue 2 directive you will need to install Babel first: "npm install -D @babel/parser estree-walker"')
 
-  const { parse } = await importModule('@babel/parser') as typeof import('@babel/parser')
+  const { parse } = await importModule<typeof import('@babel/parser')>('@babel/parser')
   const ast = parse(code, {
     sourceType: 'module',
   })
+
   const nodes: CallExpression[] = []
-  const { default: traverse } = await importModule('@babel/traverse') as typeof import('@babel/traverse')
-  traverse(ast, {
-    CallExpression(path) {
-      nodes.push(path.node)
+  const { walk } = await importModule<typeof import('estree-walker')>('estree-walker')
+  walk(ast.program as any, {
+    enter(node: any) {
+      if ((node as Node).type === 'CallExpression')
+        nodes.push(node)
     },
   })
 
@@ -43,7 +45,7 @@ export default async function resolveVue2(code: string, s: MagicString): Promise
   for (const node of nodes) {
     const { callee, arguments: args } = node
     // _c(_, {})
-    if (callee.type !== 'Identifier' || callee.name !== '_c' || args[1] == null || args[1].type !== 'ObjectExpression')
+    if (callee.type !== 'Identifier' || callee.name !== '_c' || args[1]?.type !== 'ObjectExpression')
       continue
 
     // { directives: [] }
