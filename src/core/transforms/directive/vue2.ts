@@ -24,8 +24,8 @@ const getRenderFnStart = (ast: ParseResult<File>): number => {
 }
 
 export default async function resolveVue2(code: string, s: MagicString): Promise<ResolveResult[]> {
-  if (!isPackageExists('@babel/parser') || !isPackageExists('estree-walker'))
-    throw new Error('[unplugin-vue-components:directive] To use Vue 2 directive you will need to install Babel first: "npm install -D @babel/parser estree-walker"')
+  if (!isPackageExists('@babel/parser'))
+    throw new Error('[unplugin-vue-components:directive] To use Vue 2 directive you will need to install Babel first: "npm install -D @babel/parser"')
 
   const { parse } = await importModule<typeof import('@babel/parser')>('@babel/parser')
   const ast = parse(code, {
@@ -33,7 +33,7 @@ export default async function resolveVue2(code: string, s: MagicString): Promise
   })
 
   const nodes: CallExpression[] = []
-  const { walk } = await importModule<typeof import('estree-walker')>('estree-walker')
+  const { walk } = await import('estree-walker')
   walk(ast.program as any, {
     enter(node: any) {
       if ((node as Node).type === 'CallExpression')

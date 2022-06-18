@@ -21,7 +21,7 @@ importers:
       element-plus: ^2.2.5
       eslint: ^8.17.0
       esno: ^0.16.3
-      estree-walker: ^2.0.2
+      estree-walker: ^3.0.1
       fast-glob: ^3.2.11
       local-pkg: ^0.4.1
       magic-string: ^0.26.2
@@ -60,7 +60,7 @@ importers:
       element-plus: 2.2.5_vue@3.2.37
       eslint: 8.17.0
       esno: 0.16.3
-      estree-walker: 2.0.2
+      estree-walker: 3.0.1
       pathe: 0.3.0
       rollup: 2.75.6
       tsup: 6.1.2_typescript@4.7.3
@@ -6322,6 +6322,10 @@ packages:
 
   /estree-walker/2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
+
+  /estree-walker/3.0.1:
+    resolution: {integrity: sha512-woY0RUD87WzMBUiZLx8NsYr23N5BKsOMZHhu2hoNRVh6NXGfoiT1KOL8G3UHlJAnEDGmfa5ubNA/AacfG+Kb0g==}
+    dev: true
 
   /esutils/2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}

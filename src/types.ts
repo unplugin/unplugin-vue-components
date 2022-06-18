@@ -162,7 +162,7 @@ export interface Options {
    * default: `true` for Vue 3, `false` for Vue 2
    *
    * Babel is needed to do the transformation for Vue 2, it's disabled by default for performance concerns.
-   * To install Babel, run: `npm install -D @babel/parser estree-walker`
+   * To install Babel, run: `npm install -D @babel/parser`
    * @default undefined
    */
   directives?: boolean

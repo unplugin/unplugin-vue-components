@@ -76,14 +76,10 @@
   },
   "peerDependencies": {
     "@babel/parser": "^7.15.8",
-    "estree-walker": "^2.0.2",
     "vue": "2 || 3"
   },
   "peerDependenciesMeta": {
     "@babel/parser": {
-      "optional": true
-    },
-    "estree-walker": {
       "optional": true
     }
   },
@@ -113,7 +109,7 @@
     "element-plus": "^2.2.5",
     "eslint": "^8.17.0",
     "esno": "^0.16.3",
-    "estree-walker": "^2.0.2",
+    "estree-walker": "^3.0.1",
     "pathe": "^0.3.0",
     "rollup": "^2.75.6",
     "tsup": "^6.1.2",
