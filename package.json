@@ -76,14 +76,10 @@
   },
   "peerDependencies": {
     "@babel/parser": "^7.15.8",
-    "@babel/traverse": "^7.15.4",
     "vue": "2 || 3"
   },
   "peerDependenciesMeta": {
     "@babel/parser": {
-      "optional": true
-    },
-    "@babel/traverse": {
       "optional": true
     }
   },
@@ -102,7 +98,6 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.25.1",
     "@babel/parser": "^7.18.5",
-    "@babel/traverse": "^7.18.5",
     "@babel/types": "^7.18.4",
     "@types/debug": "^4.1.7",
     "@types/minimatch": "^3.0.5",
@@ -114,6 +109,7 @@
     "element-plus": "^2.2.5",
     "eslint": "^8.17.0",
     "esno": "^0.16.3",
+    "estree-walker": "^3.0.1",
     "pathe": "^0.3.0",
     "rollup": "^2.75.6",
     "tsup": "^6.1.2",

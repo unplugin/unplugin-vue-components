@@ -7,7 +7,6 @@ importers:
       '@antfu/eslint-config': ^0.25.1
       '@antfu/utils': ^0.5.2
       '@babel/parser': ^7.18.5
-      '@babel/traverse': ^7.18.5
       '@babel/types': ^7.18.4
       '@rollup/pluginutils': ^4.2.1
       '@types/debug': ^4.1.7
@@ -22,6 +21,7 @@ importers:
       element-plus: ^2.2.5
       eslint: ^8.17.0
       esno: ^0.16.3
+      estree-walker: ^3.0.1
       fast-glob: ^3.2.11
       local-pkg: ^0.4.1
       magic-string: ^0.26.2
@@ -49,7 +49,6 @@ importers:
     devDependencies:
       '@antfu/eslint-config': 0.25.1_ud6rd4xtew5bv4yhvkvu24pzm4
       '@babel/parser': 7.18.5
-      '@babel/traverse': 7.18.5
       '@babel/types': 7.18.4
       '@types/debug': 4.1.7
       '@types/minimatch': 3.0.5
@@ -61,6 +60,7 @@ importers:
       element-plus: 2.2.5_vue@3.2.37
       eslint: 8.17.0
       esno: 0.16.3
+      estree-walker: 3.0.1
       pathe: 0.3.0
       rollup: 2.75.6
       tsup: 6.1.2_typescript@4.7.3
@@ -2763,7 +2763,7 @@ packages:
     dependencies:
       '@babel/core': 7.18.5
       '@vue/babel-preset-app': 5.0.4_vue@3.2.37
-      '@vue/cli-service': 5.0.4
+      '@vue/cli-service': 5.0.4_@babel+core@7.18.5
       '@vue/cli-shared-utils': 5.0.4
       babel-loader: 8.2.3_o7sdmn6una4l5qvkwlgctgywly
       thread-loader: 3.0.4_webpack@5.70.0
@@ -2783,7 +2783,7 @@ packages:
     peerDependencies:
       '@vue/cli-service': ^3.0.0 || ^4.0.0 || ^5.0.0-0
     dependencies:
-      '@vue/cli-service': 5.0.4
+      '@vue/cli-service': 5.0.4_@babel+core@7.18.5
       '@vue/cli-shared-utils': 5.0.4
     transitivePeerDependencies:
       - encoding
@@ -2831,7 +2831,7 @@ packages:
     peerDependencies:
       '@vue/cli-service': ^3.0.0 || ^4.0.0 || ^5.0.0-0
     dependencies:
-      '@vue/cli-service': 5.0.4
+      '@vue/cli-service': 5.0.4_@babel+core@7.18.5
     dev: true
 
   /@vue/cli-service/5.0.4:
@@ -6322,6 +6322,10 @@ packages:
 
   /estree-walker/2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
+
+  /estree-walker/3.0.1:
+    resolution: {integrity: sha512-woY0RUD87WzMBUiZLx8NsYr23N5BKsOMZHhu2hoNRVh6NXGfoiT1KOL8G3UHlJAnEDGmfa5ubNA/AacfG+Kb0g==}
+    dev: true
 
   /esutils/2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
