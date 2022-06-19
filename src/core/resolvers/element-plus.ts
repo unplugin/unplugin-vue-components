@@ -85,6 +85,13 @@ function resolveComponent(name: string, options: ElementPlusResolverOptionsResol
   if (!name.match(/^El[A-Z]/))
     return
 
+  if (name.match(/^ElIcon.+/)) {
+    return {
+      name: name.replace(/^ElIcon/, ''),
+      from: '@element-plus/icons-vue',
+    }
+  }
+
   const partialName = kebabCase(name.slice(2))// ElTableColumn -> table-column
   const { version, ssr } = options
 
