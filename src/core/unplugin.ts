@@ -2,9 +2,12 @@ import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import chokidar from 'chokidar'
 import type { ResolvedConfig, ViteDevServer } from 'vite'
+import type { Watching } from 'webpack'
 import type { Options, PublicPluginAPI } from '../types'
 import { Context } from './context'
 import { shouldTransform, stringifyComponentImport } from './utils'
+
+const PLUGIN_NAME = 'unplugin:webpack'
 
 export default createUnplugin<Options>((options = {}) => {
   const filter = createFilter(
@@ -67,16 +70,22 @@ export default createUnplugin<Options>((options = {}) => {
     },
 
     webpack(compiler) {
-      if (compiler.options.mode !== 'development')
-        return
+      let watcher: Watching
       let fileDepQueue: { path: string; type: 'unlink' | 'add' }[] = []
-      ctx.setupWatcherWebpack(chokidar.watch(ctx.options.globs), (path: string, type: 'unlink' | 'add') => {
-        fileDepQueue.push({ path, type })
-        process.nextTick(() => {
-          compiler.watching.invalidate()
-        })
+      compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
+        // ensure watcher is ready
+        if (!watcher && compiler.watching) {
+          watcher = compiler.watching
+          ctx.setupWatcherWebpack(chokidar.watch(ctx.options.globs), (path: string, type: 'unlink' | 'add') => {
+            fileDepQueue.push({ path, type })
+            // process.nextTick is for aggregated file change event
+            process.nextTick(() => {
+              watcher.invalidate()
+            })
+          })
+        }
       })
-      compiler.hooks.compilation.tap('unplugin-vue-components', (compilation) => {
+      compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
         if (fileDepQueue.length) {
           fileDepQueue.forEach(({ path, type }) => {
             if (type === 'unlink')
