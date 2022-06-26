@@ -73,7 +73,7 @@ export default createUnplugin<Options>((options = {}) => {
       let watcher: Watching
       let fileDepQueue: { path: string; type: 'unlink' | 'add' }[] = []
       compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
-        // ensure watcher is ready
+        // ensure watcher is ready(supported since webpack@5.0.0-rc.1)
         if (!watcher && compiler.watching) {
           watcher = compiler.watching
           ctx.setupWatcherWebpack(chokidar.watch(ctx.options.globs), (path: string, type: 'unlink' | 'add') => {
