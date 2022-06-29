@@ -3,6 +3,7 @@ import type MagicString from 'magic-string'
 import { pascalCase, stringifyComponentImport } from '../../utils'
 import type { Context } from '../../context'
 import type { SupportedTransformer } from '../../..'
+import { DIRECTIVE_IMPORT_PREFIX } from '../../constants'
 import vue2Resolver from './vue2'
 import vue3Resolver from './vue3'
 
@@ -14,7 +15,7 @@ export default async function transformDirective(code: string, transformer: Supp
   const results = await (transformer === 'vue2' ? vue2Resolver(code, s) : vue3Resolver(code, s))
   for (const { rawName, replace } of results) {
     debug(`| ${rawName}`)
-    const name = pascalCase(rawName)
+    const name = `${DIRECTIVE_IMPORT_PREFIX}${pascalCase(rawName)}`
     ctx.updateUsageMap(sfcPath, [name])
 
     const directive = await ctx.findComponent(name, 'directive', [sfcPath])
