@@ -6,7 +6,7 @@ import {
   getPackageInfo,
   isPackageExists,
 } from 'local-pkg'
-import type { ComponentInfo, ImportInfo, ImportInfoLegacy, ResolvedOptions } from '../types'
+import type { ComponentInfo, ImportInfo, ImportInfoLegacy, Options, ResolvedOptions } from '../types'
 import type { Context } from './context'
 import { DISABLE_COMMENT } from './constants'
 
@@ -64,9 +64,9 @@ export function matchGlobs(filepath: string, globs: string[]) {
   return false
 }
 
-export function getTransformedPath(path: string, ctx: Context): string {
-  if (ctx.options.importPathTransform) {
-    const result = ctx.options.importPathTransform(path)
+export function getTransformedPath(path: string, importPathTransform?: Options['importPathTransform']): string {
+  if (importPathTransform) {
+    const result = importPathTransform(path)
     if (result != null)
       path = result
   }
@@ -98,7 +98,7 @@ export function normalizeComponetInfo(info: ImportInfo | ImportInfoLegacy | Comp
 }
 
 export function stringifyComponentImport({ as: name, from: path, name: importName, sideEffects }: ComponentInfo, ctx: Context) {
-  path = getTransformedPath(path, ctx)
+  path = getTransformedPath(path, ctx.options.importPathTransform)
 
   const imports = [
     stringifyImport({ as: name, from: path, name: importName }),

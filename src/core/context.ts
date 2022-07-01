@@ -8,7 +8,7 @@ import { DIRECTIVE_IMPORT_PREFIX } from './constants'
 import { getNameFromFilePath, matchGlobs, normalizeComponetInfo, parseId, pascalCase, resolveAlias } from './utils'
 import { resolveOptions } from './options'
 import { searchComponents } from './fs/glob'
-import { generateDeclaration } from './declaration'
+import { writeDeclaration } from './declaration'
 import transformer from './transformer'
 
 const debug = {
@@ -27,6 +27,7 @@ export class Context {
   private _componentNameMap: Record<string, ComponentInfo> = {}
   private _componentUsageMap: Record<string, Set<string>> = {}
   private _componentCustomMap: Record<string, ComponentInfo> = {}
+  private _directiveCustomMap: Record<string, ComponentInfo> = {}
   private _server: ViteDevServer | undefined
 
   root = process.cwd()
@@ -37,7 +38,10 @@ export class Context {
     private rawOptions: Options,
   ) {
     this.options = resolveOptions(rawOptions, this.root)
-    this.generateDeclaration = throttle(500, false, this.generateDeclaration.bind(this))
+    this.generateDeclaration
+      = throttle(500, false, this._generateDeclaration.bind(this)) as
+      // `throttle` will omit return value.
+      ((removeUnused?: boolean) => void)
     this.setTransformer(this.options.transformer)
   }
 
@@ -147,6 +151,11 @@ export class Context {
       this._componentCustomMap[info.as] = info
   }
 
+  addCustomDirectives(info: ComponentInfo) {
+    if (info.as)
+      this._directiveCustomMap[info.as] = info
+  }
+
   removeComponents(paths: string | string[]) {
     debug.components('remove', paths)
 
@@ -220,24 +229,26 @@ export class Context {
         continue
 
       const result = await resolver.resolve(type === 'directive' ? name.slice(DIRECTIVE_IMPORT_PREFIX.length) : name)
-      if (result) {
-        if (typeof result === 'string') {
-          info = {
-            as: name,
-            from: result,
-          }
-          this.addCustomComponents(info)
-          return info
-        }
-        else {
-          info = {
-            as: name,
-            ...normalizeComponetInfo(result),
-          }
-          this.addCustomComponents(info)
-          return info
+      if (!result)
+        continue
+
+      if (typeof result === 'string') {
+        info = {
+          as: name,
+          from: result,
         }
       }
+      else {
+        info = {
+          as: name,
+          ...normalizeComponetInfo(result),
+        }
+      }
+      if (type === 'component')
+        this.addCustomComponents(info)
+      else if (type === 'directive')
+        this.addCustomDirectives(info)
+      return info
     }
 
     return undefined
@@ -260,9 +271,6 @@ export class Context {
    * This search for components in with the given options.
    * Will be called multiple times to ensure file loaded,
    * should normally run only once.
-   *
-   * @param ctx
-   * @param force
    */
   searchGlob() {
     if (this._searched)
@@ -273,13 +281,15 @@ export class Context {
     this._searched = true
   }
 
-  generateDeclaration() {
+  _generateDeclaration(removeUnused = !this._server) {
     if (!this.options.dts)
       return
 
     debug.decleration('generating')
-    generateDeclaration(this, this.options.root, this.options.dts, !this._server)
+    return writeDeclaration(this, this.options.dts, removeUnused)
   }
+
+  generateDeclaration
 
   get componentNameMap() {
     return this._componentNameMap
@@ -287,5 +297,9 @@ export class Context {
 
   get componentCustomMap() {
     return this._componentCustomMap
+  }
+
+  get directiveCustomMap() {
+    return this._directiveCustomMap
   }
 }
