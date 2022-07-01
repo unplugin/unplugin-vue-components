@@ -4,6 +4,7 @@ import Debug from 'debug'
 import type { UpdatePayload, ViteDevServer } from 'vite'
 import { slash, throttle, toArray } from '@antfu/utils'
 import type { ComponentInfo, Options, ResolvedOptions, Transformer } from '../types'
+import { DIRECTIVE_IMPORT_PREFIX } from './constants'
 import { getNameFromFilePath, matchGlobs, normalizeComponetInfo, parseId, pascalCase, resolveAlias } from './utils'
 import { resolveOptions } from './options'
 import { searchComponents } from './fs/glob'
@@ -218,7 +219,7 @@ export class Context {
       if (resolver.type !== type)
         continue
 
-      const result = await resolver.resolve(name)
+      const result = await resolver.resolve(type === 'directive' ? name.slice(DIRECTIVE_IMPORT_PREFIX.length) : name)
       if (result) {
         if (typeof result === 'string') {
           info = {
