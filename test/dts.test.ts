@@ -42,7 +42,7 @@ const _directive_loading = _resolveDirective("loading")`
 const _component_test_comp = _resolveComponent("test-comp")
 const _directive_loading = _resolveDirective("loading")`
     await ctx.transform(code, '')
-    await ctx.generateDeclaration()
+    await ctx._generateDeclaration()
 
     expect(await readFile(filepath, 'utf-8')).matchSnapshot()
   })
@@ -77,9 +77,9 @@ const _directive_loading = _resolveDirective("loading")`
     await ctx._generateDeclaration(false)
 
     const contents = await readFile(filepath, 'utf-8')
+    expect(contents).matchSnapshot()
     expect(contents).not.toContain('OldComp')
     expect(contents).not.toContain('comment')
     expect(contents).toContain('vSome')
-    expect(contents).matchSnapshot()
   })
 })
