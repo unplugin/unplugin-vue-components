@@ -32,5 +32,4 @@ declare module '@vue/runtime-core' {
     VanRadioGroup: typeof import('vant/es')['RadioGroup']
     VanRate: typeof import('vant/es')['Rate']
   }
-
 }
