@@ -82,4 +82,29 @@ const _directive_loading = _resolveDirective("loading")`
     expect(contents).not.toContain('comment')
     expect(contents).toContain('vSome')
   })
+
+  test('components only', async () => {
+    const ctx = new Context({
+      resolvers: resolver,
+      directives: true,
+    })
+    const code = 'const _component_test_comp = _resolveComponent("test-comp")'
+    await ctx.transform(code, '')
+
+    const declarations = getDeclaration(ctx, 'test.d.ts')
+    expect(declarations).toMatchSnapshot()
+  })
+
+  test('directive only', async () => {
+    const ctx = new Context({
+      resolvers: resolver,
+      directives: true,
+      types: [],
+    })
+    const code = 'const _directive_loading = _resolveDirective("loading")'
+    await ctx.transform(code, '')
+
+    const declarations = getDeclaration(ctx, 'test.d.ts')
+    expect(declarations).toMatchSnapshot()
+  })
 })

@@ -127,8 +127,7 @@ declare module '@vue/runtime-core' {`
     code += `
   export interface GlobalComponents {
     ${declarations.component.join('\n    ')}
-  }
-`
+  }`
   }
   if (Object.keys(declarations.directive).length > 0) {
     code += `
