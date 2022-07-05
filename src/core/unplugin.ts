@@ -1,3 +1,4 @@
+import { existsSync } from 'fs'
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import chokidar from 'chokidar'
@@ -56,9 +57,10 @@ export default createUnplugin<Options>((options = {}) => {
         if (config.plugins.find(i => i.name === 'vite-plugin-vue2'))
           ctx.setTransformer('vue2')
 
-        if (options.dts) {
+        if (ctx.options.dts) {
           ctx.searchGlob()
-          ctx.generateDeclaration()
+          if (!existsSync(ctx.options.dts))
+            ctx.generateDeclaration()
         }
 
         if (config.build.watch && config.command === 'build')
