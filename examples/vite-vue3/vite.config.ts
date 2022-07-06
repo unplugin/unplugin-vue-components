@@ -30,7 +30,7 @@ const config: UserConfig = {
       resolvers: [
         (name) => {
           if (name === 'MyCustom')
-            return '/src/CustomResolved.vue'
+            return path.resolve(__dirname, 'src/CustomResolved.vue').replaceAll('\\', '/')
         },
         VantResolver(),
         IconsResolver({
