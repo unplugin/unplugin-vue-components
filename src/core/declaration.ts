@@ -12,7 +12,7 @@ const multilineCommentsRE = /\/\*.*?\*\//gms
 const singlelineCommentsRE = /\/\/.*$/gm
 
 function extractImports(code: string) {
-  return Object.fromEntries(Array.from(code.matchAll(/['"]?([\S]+?)['"]?\s*:\s*(.+?)[,;\n]/g)).map(i => [i[1], i[2]]))
+  return Object.fromEntries(Array.from(code.matchAll(/['"]?([^\s'"]+)['"]?\s*:\s*(.+?)[,;\n]/g)).map(i => [i[1], i[2]]))
 }
 
 export function parseDeclaration(code: string): DeclarationImports | undefined {
