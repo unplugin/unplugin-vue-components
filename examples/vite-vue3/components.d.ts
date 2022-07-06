@@ -22,7 +22,7 @@ declare module '@vue/runtime-core' {
     IRiApps2Line: typeof import('~icons/ri/apps2-line')['default']
     MarkdownA: typeof import('./src/components/MarkdownA.md')['default']
     MarkdownB: typeof import('./src/components/MarkdownB.md')['default']
-    MyCustom: typeof import('./../../../../../src/CustomResolved.vue')['default']
+    MyCustom: typeof import('./src/CustomResolved.vue')['default']
     Recursive: typeof import('./src/components/Recursive.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
