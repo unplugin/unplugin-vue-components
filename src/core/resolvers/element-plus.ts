@@ -145,6 +145,8 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
   }
 }
 
+const noStylesComponent = ['ElAutoResizer']
+
 /**
  * Resolver for Element Plus
  *
@@ -178,7 +180,11 @@ export function ElementPlusResolver(
     {
       type: 'component',
       resolve: async (name: string) => {
-        return resolveComponent(name, await resolveOptions())
+        const options = await resolveOptions()
+
+        if (noStylesComponent.includes(name))
+          return resolveComponent(name, { ...options, importStyle: false })
+        else return resolveComponent(name, options)
       },
     },
     {
