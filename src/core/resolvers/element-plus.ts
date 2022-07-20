@@ -33,6 +33,11 @@ export interface ElementPlusResolverOptions {
    * exclude component name, if match do not resolve the name
    */
   exclude?: RegExp
+
+  /**
+   * a list of component names that have no styles, so resolving their styles file should be prevented
+   */
+  noStylesComponents?: string[]
 }
 
 type ElementPlusResolverOptionsResolved = Required<Omit<ElementPlusResolverOptions, 'exclude'>> &
@@ -145,7 +150,7 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
   }
 }
 
-const noStylesComponent = ['ElAutoResizer']
+const noStylesComponents = ['ElAutoResizer']
 
 /**
  * Resolver for Element Plus
@@ -171,6 +176,7 @@ export function ElementPlusResolver(
       importStyle: 'css',
       directives: true,
       exclude: undefined,
+      noStylesComponents: options.noStylesComponents || [],
       ...options,
     }
     return optionsResolved
@@ -182,7 +188,7 @@ export function ElementPlusResolver(
       resolve: async (name: string) => {
         const options = await resolveOptions()
 
-        if (noStylesComponent.includes(name))
+        if ([...options.noStylesComponents, ...noStylesComponents].includes(name))
           return resolveComponent(name, { ...options, importStyle: false })
         else return resolveComponent(name, options)
       },
