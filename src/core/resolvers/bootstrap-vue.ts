@@ -72,7 +72,7 @@ export function BootstrapVueResolver(_options: BootstrapVueResolverOptions = {})
     resolvers.push({
       type: 'directive',
       resolve: (name) => {
-        if (options.directives && name.match(/^B[A-Z]/)) {
+        if (name.match(/^B[A-Z]/)) {
           return {
             name: `V${name}`,
             from: 'bootstrap-vue',
