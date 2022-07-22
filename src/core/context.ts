@@ -286,7 +286,7 @@ export class Context {
       return
 
     debug.decleration('generating')
-    return writeDeclaration(this, this.options.dts, removeUnused)
+    return writeDeclaration(this, this.options.dts, this.options.dtsTransform, removeUnused)
   }
 
   generateDeclaration

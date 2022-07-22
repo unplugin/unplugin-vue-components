@@ -9,6 +9,7 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'tr
   extensions: 'vue',
   deep: true,
   dts: isPackageExists('typescript'),
+  dtsTransform: v => v,
 
   directoryAsNamespace: false,
   collapseSamePrefixes: false,
@@ -59,6 +60,10 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
         ? resolved.dts
         : 'components.d.ts',
     )
+  
+  if(typeof resolved.dtsTransform !== 'function'){
+    resolved.dtsTransform = (declarations) => declarations
+  }
 
   if (!resolved.types && resolved.dts)
     resolved.types = detectTypeImports()

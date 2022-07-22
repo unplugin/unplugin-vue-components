@@ -44,6 +44,9 @@ export type Matcher = (id: string) => boolean | null | undefined
 
 export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => Awaitable<TransformResult | null>
 
+export type DeclarationOutput = { [Key in ComponentResolverObject["type"]]: string[] }
+export type DeclarationTransformer = (declaration: DeclarationOutput) => DeclarationOutput
+
 export type SupportedTransformer = 'vue3' | 'vue2'
 
 export interface PublicPluginAPI {
@@ -150,6 +153,11 @@ export interface Options {
   dts?: boolean | string
 
   /**
+   * Transform TypeScript declaration
+   */
+  dtsTransform?: DeclarationTransformer
+
+  /**
    * Do not emit warning on component overriding
    *
    * @default false
@@ -183,6 +191,7 @@ Required<Options>,
   resolvedDirs: string[]
   globs: string[]
   dts: string | false
+  dtsTransform: DeclarationTransformer
   root: string
 }
 

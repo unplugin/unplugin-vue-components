@@ -31,6 +31,28 @@ const _directive_loading = _resolveDirective("loading")`
     expect(declarations).toMatchSnapshot()
   })
 
+  test('getDeclaration and transform', async () => {
+    const ctx = new Context({
+      resolvers: resolver,
+      directives: true,
+    })
+    const code = `
+const _component_test_comp = _resolveComponent("test-comp")
+const _component_test_ignore = _resolveComponent("test-ignore")
+const _directive_loading = _resolveDirective("loading")
+const _directive_loading-ignore = _resolveDirective("loading-ignore")`
+    await ctx.transform(code, '')
+
+    const declarations = getDeclaration(ctx, "test.d.ts", ({ component, directive }) => {
+      return {
+        component: component.filter((line)=> !line.match(/ignore/i)),
+        directive: directive.filter((line)=> !line.match(/ignore/i)),
+      }
+    })
+    
+    expect(declarations).toMatchSnapshot()
+  })
+
   test('writeDeclaration', async () => {
     const filepath = path.resolve(__dirname, 'tmp/dts-test.d.ts')
     const ctx = new Context({
