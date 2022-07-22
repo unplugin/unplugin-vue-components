@@ -43,13 +43,13 @@ const _directive_loading = _resolveDirective("loading")
 const _directive_loading-ignore = _resolveDirective("loading-ignore")`
     await ctx.transform(code, '')
 
-    const declarations = getDeclaration(ctx, "test.d.ts", ({ component, directive }) => {
+    const declarations = getDeclaration(ctx, 'test.d.ts', ({ component, directive }) => {
       return {
-        component: component.filter((line)=> !line.match(/ignore/i)),
-        directive: directive.filter((line)=> !line.match(/ignore/i)),
+        component: component.filter(line => !line.match(/ignore/i)),
+        directive: directive.filter(line => !line.match(/ignore/i)),
       }
     })
-    
+
     expect(declarations).toMatchSnapshot()
   })
 

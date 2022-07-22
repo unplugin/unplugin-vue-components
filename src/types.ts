@@ -44,7 +44,7 @@ export type Matcher = (id: string) => boolean | null | undefined
 
 export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => Awaitable<TransformResult | null>
 
-export type DeclarationOutput = { [Key in ComponentResolverObject["type"]]: string[] }
+export type DeclarationOutput = { [Key in ComponentResolverObject['type']]: string[] }
 export type DeclarationTransformer = (declaration: DeclarationOutput) => DeclarationOutput
 
 export type SupportedTransformer = 'vue3' | 'vue2'
