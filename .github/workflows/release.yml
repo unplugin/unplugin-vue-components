@@ -15,17 +15,8 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: '14'
-          registry-url: https://registry.npmjs.org/
+          node-version: 16.x
 
-      - run: corepack enable
-
-      - run: npm i -g @antfu/ni
-      - run: nci
-      - run: nr test --if-present
-      - run: npm publish --access public
+      - run: npx changelogithub
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      - run: npx conventional-github-releaser -p angular
-        env:
-          CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

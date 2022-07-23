@@ -34,7 +34,7 @@ const matchComponents = [
     styleDir: undefined,
   },
   {
-    pattern: /^(LayDropdownMenu|LayDropdownMenuItem)$/,
+    pattern: /^(LayDropdownMenu|LayDropdownMenuItem|LayDropdownSubMenu)$/,
     styleDir: 'dropdown',
   },
   {
@@ -44,6 +44,10 @@ const matchComponents = [
   {
     pattern: /^(LayMenuItem|LaySubMenu)$/,
     styleDir: 'menu',
+  },
+  {
+    pattern: /^(LayRadioGroup)$/,
+    styleDir: 'radio',
   },
   {
     pattern: /^LaySelectOption$/,

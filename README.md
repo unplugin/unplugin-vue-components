@@ -166,7 +166,7 @@ export default {
 
 ## TypeScript
 
-To get TypeScript support for auto-imported components, there is [a PR](https://github.com/vuejs/vue-next/pull/3399) to Vue 3 extending the interface of global components. Currently, [Volar](https://github.com/johnsoncodehk/volar) has supported this usage already. If you are using Volar, you can change the config as following to get the support.
+To get TypeScript support for auto-imported components, there is [a PR](https://github.com/vuejs/core/pull/3399) to Vue 3 extending the interface of global components. Currently, [Volar](https://github.com/johnsoncodehk/volar) has supported this usage already. If you are using Volar, you can change the config as following to get the support.
 
 ```ts
 Components({
@@ -339,7 +339,7 @@ Components({
   // auto import for directives
   // default: `true` for Vue 3, `false` for Vue 2
   // Babel is needed to do the transformation for Vue 2, it's disabled by default for performance concerns.
-  // To install Babel, run: `npm install -D @babel/parser @babel/traverse`
+  // To install Babel, run: `npm install -D @babel/parser`
   directives: true,
 
   // Transform path before resolving

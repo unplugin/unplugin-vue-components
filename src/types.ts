@@ -143,7 +143,7 @@ export interface Options {
    *
    * Accept boolean or a path related to project root
    *
-   * @see https://github.com/vuejs/vue-next/pull/3399
+   * @see https://github.com/vuejs/core/pull/3399
    * @see https://github.com/johnsoncodehk/volar#using
    * @default true
    */
@@ -162,7 +162,7 @@ export interface Options {
    * default: `true` for Vue 3, `false` for Vue 2
    *
    * Babel is needed to do the transformation for Vue 2, it's disabled by default for performance concerns.
-   * To install Babel, run: `npm install -D @babel/parser @babel/traverse`
+   * To install Babel, run: `npm install -D @babel/parser`
    * @default undefined
    */
   directives?: boolean

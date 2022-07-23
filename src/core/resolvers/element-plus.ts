@@ -33,6 +33,11 @@ export interface ElementPlusResolverOptions {
    * exclude component name, if match do not resolve the name
    */
   exclude?: RegExp
+
+  /**
+   * a list of component names that have no styles, so resolving their styles file should be prevented
+   */
+  noStylesComponents?: string[]
 }
 
 type ElementPlusResolverOptionsResolved = Required<Omit<ElementPlusResolverOptions, 'exclude'>> &
@@ -84,6 +89,13 @@ function resolveComponent(name: string, options: ElementPlusResolverOptionsResol
 
   if (!name.match(/^El[A-Z]/))
     return
+
+  if (name.match(/^ElIcon.+/)) {
+    return {
+      name: name.replace(/^ElIcon/, ''),
+      from: '@element-plus/icons-vue',
+    }
+  }
 
   const partialName = kebabCase(name.slice(2))// ElTableColumn -> table-column
   const { version, ssr } = options
@@ -138,6 +150,8 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
   }
 }
 
+const noStylesComponents = ['ElAutoResizer']
+
 /**
  * Resolver for Element Plus
  *
@@ -162,6 +176,7 @@ export function ElementPlusResolver(
       importStyle: 'css',
       directives: true,
       exclude: undefined,
+      noStylesComponents: options.noStylesComponents || [],
       ...options,
     }
     return optionsResolved
@@ -171,7 +186,11 @@ export function ElementPlusResolver(
     {
       type: 'component',
       resolve: async (name: string) => {
-        return resolveComponent(name, await resolveOptions())
+        const options = await resolveOptions()
+
+        if ([...options.noStylesComponents, ...noStylesComponents].includes(name))
+          return resolveComponent(name, { ...options, importStyle: false })
+        else return resolveComponent(name, options)
       },
     },
     {
