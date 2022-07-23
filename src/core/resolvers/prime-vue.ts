@@ -120,11 +120,25 @@ export interface PrimeVueResolverOptions {
    */
   importTheme?: string
   /**
+   * import `primeflex` flex
+   * 
+   * requires package `primeflex`
+   * 
+   * @default true
+   */
+  importFlex?: boolean
+  /**
    * prefix for components (e.g. 'P' to resolve Menu from PMenu)
    *
    * @default ''
    */
   prefix?: string
+  /**
+   * excludes for components (e.g. ['FullCalendar'] to excludes components while auto importing)
+   * 
+   * @default []
+   */
+  excludes?: Array<string>
 }
 
 /**
@@ -149,6 +163,12 @@ export function PrimeVueResolver(options: PrimeVueResolverOptions = {}): Compone
           `primevue/resources/themes/${options.importTheme}/theme.css`,
         )
       }
+
+      if (options.importFlex)
+        sideEffects.push('primeflex/primeflex.css')
+      
+      if (options.excludes && options.excludes.includes(name)) 
+        return
 
       if (options.prefix) {
         if (!name.startsWith(options.prefix))
