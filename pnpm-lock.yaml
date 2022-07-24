@@ -88,11 +88,19 @@ importers:
 
   examples/vite-vue3:
     specifiers:
+      '@fullcalendar/core': ^5.11.0
+      '@fullcalendar/daygrid': ^5.11.0
+      '@fullcalendar/interaction': ^5.11.0
+      '@fullcalendar/timegrid': ^5.11.0
+      '@fullcalendar/vue3': ^5.11.1
       '@iconify/json': ^2.1.70
       '@vitejs/plugin-vue': ^2.3.3
       '@vue/compiler-sfc': ^3.2.37
       cross-env: ^7.0.3
       has-pkg: ^0.0.1
+      primeflex: ^3.2.1
+      primeicons: ^5.0.0
+      primevue: ^3.15.0
       typescript: ^4.7.4
       unplugin-icons: ^0.14.7
       unplugin-vue-components: workspace:*
@@ -102,6 +110,14 @@ importers:
       vite-plugin-vue-markdown: ^0.20.1
       vue-router: ^4.0.16
     dependencies:
+      '@fullcalendar/core': 5.11.0
+      '@fullcalendar/daygrid': 5.11.0
+      '@fullcalendar/interaction': 5.11.0
+      '@fullcalendar/timegrid': 5.11.0
+      '@fullcalendar/vue3': 5.11.1
+      primeflex: 3.2.1
+      primeicons: 5.0.0
+      primevue: 3.15.0_primeicons@5.0.0
       vant: 3.5.2
     devDependencies:
       '@iconify/json': 2.1.70
@@ -2028,6 +2044,51 @@ packages:
     dependencies:
       '@floating-ui/core': 0.7.3
     dev: true
+
+  /@fullcalendar/common/5.11.0:
+    resolution: {integrity: sha512-gWjbMAnN1u73Oqlgjbyky7i+3bY0hvFSnGT0YBPx44n874AkQa9e9OU12PMLTMOPy0tXPb8DEwRelFQ7CJNbcw==}
+    dependencies:
+      tslib: 2.3.1
+    dev: false
+
+  /@fullcalendar/core/5.11.0:
+    resolution: {integrity: sha512-cF/d9LuJb/6xw14ms0urv1H4BiA70c4jrufe/EuVzLR6qTDpK92IZ3JK7GVtZtzptfTYZ/NQgDV9YCzIaO9Blw==}
+    dependencies:
+      '@fullcalendar/common': 5.11.0
+      preact: 10.10.0
+      tslib: 2.3.1
+    dev: false
+
+  /@fullcalendar/daygrid/5.11.0:
+    resolution: {integrity: sha512-Ybh/dfHn/VL0qOVIRVyJc9I8oYiqqHl6xQONk8xXCe456QbPzAQLsAxpLLJLH+3smWNCfoQgvDKzR9e9XTzLMQ==}
+    dependencies:
+      '@fullcalendar/common': 5.11.0
+      tslib: 2.3.1
+    dev: false
+
+  /@fullcalendar/interaction/5.11.0:
+    resolution: {integrity: sha512-9XTI5+ydqrSX+IL3iWgKBURXfnPewn57Tmsv9mJZhiqrUEF7/+qtftLoKEAc8ZdWk/+01aBe67PFL16uPXj2Jg==}
+    dependencies:
+      '@fullcalendar/common': 5.11.0
+      tslib: 2.3.1
+    dev: false
+
+  /@fullcalendar/timegrid/5.11.0:
+    resolution: {integrity: sha512-GNy+/PwAj510PS4Fu18Mf/CytNBVftFU7M8XwsUXOCJ6ouyroHZje0a7k5cH/nE5IQ6NJZfH2eAPBlxGath1MQ==}
+    dependencies:
+      '@fullcalendar/common': 5.11.0
+      '@fullcalendar/daygrid': 5.11.0
+      tslib: 2.3.1
+    dev: false
+
+  /@fullcalendar/vue3/5.11.1:
+    resolution: {integrity: sha512-cTWQvPcrRGNWDc9INmh37v7Oyw6Y0TgpcRCrSkaaDNjVC9pROqiDZjNnCSJIcC6FhCaEWQTX8BCGXxLXA8/qLw==}
+    peerDependencies:
+      vue: ^3.0.11
+    dependencies:
+      '@fullcalendar/core': 5.11.0
+      tslib: 2.3.1
+    dev: false
 
   /@hapi/hoek/9.2.1:
     resolution: {integrity: sha512-gfta+H8aziZsm8pZa0vj04KO6biEiisppNgA1kbJvFrrWu9Vm7eaUEy76DIxsuTaWvti5fkJVhllWc6ZTE+Mdw==}
@@ -8460,6 +8521,10 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
+  /preact/10.10.0:
+    resolution: {integrity: sha512-fszkg1iJJjq68I4lI8ZsmBiaoQiQHbxf1lNq+72EmC/mZOsFF5zn3k1yv9QGoFgIXzgsdSKtYymLJsrJPoamjQ==}
+    dev: false
+
   /prelude-ls/1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
@@ -8477,6 +8542,23 @@ packages:
       lodash: 4.17.21
       renderkid: 3.0.0
     dev: true
+
+  /primeflex/3.2.1:
+    resolution: {integrity: sha512-sGDJ4mh2fG19xa1yc4IPGSQ8MUMyu5nU+tYnl27AFuFHhX8XwEA7fWCtWyBbclclVhXtre+Kf9WobWPnfxWAEQ==}
+    dev: false
+
+  /primeicons/5.0.0:
+    resolution: {integrity: sha512-heygWF0X5HFI1otlZE62pp6ye7sZ8om78J9au2BRkg8O7Y8AHTZ9qKMRzchZUHLe8zUAvdi6hZzzm9XxgwIExw==}
+    dev: false
+
+  /primevue/3.15.0_primeicons@5.0.0:
+    resolution: {integrity: sha512-WOOjUJ53DUbYqh+jhxciNNrHiets4tgGaCkAaPSP3CrFvXBK2Vs38cPbVd+iVhJMsUoT//+pkP58j7eE8BcF8Q==}
+    peerDependencies:
+      primeicons: ^5.0.0
+      vue: ^3.0.0
+    dependencies:
+      primeicons: 5.0.0
+    dev: false
 
   /process-nextick-args/2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
@@ -9483,7 +9565,6 @@ packages:
 
   /tslib/2.3.1:
     resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}
-    dev: true
 
   /tsup/6.1.2_typescript@4.7.4:
     resolution: {integrity: sha512-Hw4hKDHaAQkm2eVavlArEOrAPA93bziRDamdfwaNs0vXQdUUFfItvUWY0L/F6oQQMVh6GvjQq1+HpDXw8UKtPA==}

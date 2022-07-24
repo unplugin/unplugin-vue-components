@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import { defineAsyncComponent, ref } from 'vue'
+import ComponentPrimeVue from './components/ComponentPrimeVue.vue'
 
 const tree = ref({
   label: 'Top Level',
@@ -81,6 +82,11 @@ const radio = ref('1')
     <i-ri-apps-2-line />
     <i-mdi:dice-d12 />
     <i-mdi-light-alarm />
+  </div>
+
+  <div class="block">
+    <h1>PrimeVue</h1>
+    <ComponentPrimeVue />
   </div>
 </template>
 
