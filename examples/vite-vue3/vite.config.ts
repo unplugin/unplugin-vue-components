@@ -2,7 +2,7 @@ import path from 'path'
 import type { UserConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
-import { PrimeVueResolver, VantResolver } from 'unplugin-vue-components/resolvers'
+import { VantResolver } from 'unplugin-vue-components/resolvers'
 import Markdown from 'vite-plugin-vue-markdown'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
@@ -35,13 +35,6 @@ const config: UserConfig = {
         VantResolver(),
         IconsResolver({
           componentPrefix: 'i',
-        }),
-        PrimeVueResolver({
-          importStyle: true,
-          importIcons: true,
-          importFlex: true,
-          importTheme: 'lara-light-indigo',
-          excludes: ['FullCalendar'],
         }),
       ],
     }),

@@ -7,28 +7,20 @@
     "build": "cross-env DEBUG=unplugin-vue-components:* vite build"
   },
   "dependencies": {
-    "@fullcalendar/core": "^5.11.0",
-    "@fullcalendar/daygrid": "^5.11.0",
-    "@fullcalendar/interaction": "^5.11.0",
-    "@fullcalendar/timegrid": "^5.11.0",
-    "@fullcalendar/vue3": "^5.11.1",
-    "primeflex": "^3.2.1",
-    "primeicons": "^5.0.0",
-    "primevue": "^3.15.0",
     "vant": "^3.5.2"
   },
   "devDependencies": {
-    "@iconify/json": "^2.1.70",
-    "@vitejs/plugin-vue": "^2.3.3",
+    "@iconify/json": "^2.1.82",
+    "@vitejs/plugin-vue": "^3.0.1",
     "@vue/compiler-sfc": "^3.2.37",
     "cross-env": "^7.0.3",
     "has-pkg": "^0.0.1",
     "typescript": "^4.7.4",
     "unplugin-icons": "^0.14.7",
     "unplugin-vue-components": "workspace:*",
-    "vite": "^2.9.13",
-    "vite-plugin-inspect": "^0.5.1",
+    "vite": "^3.0.3",
+    "vite-plugin-inspect": "^0.6.0",
     "vite-plugin-vue-markdown": "^0.20.1",
-    "vue-router": "^4.0.16"
+    "vue-router": "^4.1.2"
   }
 }
