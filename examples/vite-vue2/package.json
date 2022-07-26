@@ -8,9 +8,9 @@
     "vue": "^2.7"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue2": "^1.1.2",
     "cross-env": "^7.0.3",
     "unplugin-vue-components": "workspace:*",
-    "vite": "^3.0.3",
-    "@vitejs/plugin-vue2": "^1.1.2"
+    "vite": "^3.0.3"
   }
 }
