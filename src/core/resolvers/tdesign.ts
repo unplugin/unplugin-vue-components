@@ -80,11 +80,12 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
     type: 'component',
     resolve: (name: string) => {
       const { library = 'vue' } = options
+      const importFrom = options.importStyle === 'less' ? '/esm' : '';
 
       if (options.resolveIcons && name.match(/[a-z]Icon$/)) {
         return {
           name,
-          from: `tdesign-icons-${library}`,
+          from: `tdesign-icons-${library}${importFrom}`,
         }
       }
 
@@ -93,7 +94,7 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
 
         return {
           name: importName,
-          from: `tdesign-${library}`,
+          from: `tdesign-${library}${importFrom}`,
           sideEffects: getSideEffects(importName, options),
         }
       }
