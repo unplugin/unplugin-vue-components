@@ -21,10 +21,10 @@ export interface TDesignResolverOptions {
   resolveIcons?: boolean
 
   /**
-   * import components as module
+   * whether to import ESM version
    * @default false
    */
-  importAsModule?: boolean
+  esm?: boolean
 }
 
 function getSideEffects(importName: string, options: TDesignResolverOptions): SideEffectsInfo | undefined {
