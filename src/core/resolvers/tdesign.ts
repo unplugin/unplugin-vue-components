@@ -86,7 +86,7 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
     type: 'component',
     resolve: (name: string) => {
       const { library = 'vue' } = options
-      const importFrom = options.importAsModule ? '/esm' : ''
+      const importFrom = options.esm ? '/esm' : ''
 
       if (options.resolveIcons && name.match(/[a-z]Icon$/)) {
         return {
