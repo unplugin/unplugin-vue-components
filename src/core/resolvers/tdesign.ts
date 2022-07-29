@@ -19,6 +19,12 @@ export interface TDesignResolverOptions {
    * @default false
    */
   resolveIcons?: boolean
+
+  /**
+   * import components as module
+   * @default false
+   */
+  importAsModule: boolean
 }
 
 function getSideEffects(importName: string, options: TDesignResolverOptions): SideEffectsInfo | undefined {
@@ -80,7 +86,7 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
     type: 'component',
     resolve: (name: string) => {
       const { library = 'vue' } = options
-      const importFrom = options.importStyle === 'less' ? '/esm' : ''
+      const importFrom = options.importAsModule ? '/esm' : ''
 
       if (options.resolveIcons && name.match(/[a-z]Icon$/)) {
         return {
