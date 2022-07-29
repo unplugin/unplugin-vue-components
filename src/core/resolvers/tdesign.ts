@@ -24,7 +24,7 @@ export interface TDesignResolverOptions {
    * import components as module
    * @default false
    */
-  importAsModule: boolean
+  importAsModule?: boolean
 }
 
 function getSideEffects(importName: string, options: TDesignResolverOptions): SideEffectsInfo | undefined {
