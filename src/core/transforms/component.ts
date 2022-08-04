@@ -29,7 +29,10 @@ const resolveVue2 = (code: string, s: MagicString) => {
 const resolveVue3 = (code: string, s: MagicString) => {
   const results: ResolveResult[] = []
 
-  for (const match of code.matchAll(/_resolveComponent\("(.+?)"\)/g)) {
+  /**
+   * when using some plugin like plugin-vue-jsx, resolveComponent will be imported as resolveComponent1 to avoid duplicate import
+   */
+  for (const match of code.matchAll(/_resolveComponent[0-9]*\("(.+?)"\)/g)) {
     const matchedName = match[1]
     if (match.index != null && matchedName && !matchedName.startsWith('_')) {
       const start = match.index
