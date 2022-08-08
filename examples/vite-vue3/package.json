@@ -7,10 +7,10 @@
     "build": "cross-env DEBUG=unplugin-vue-components:* vite build"
   },
   "dependencies": {
-    "vant": "^3.5.3"
+    "vant": "^3.5.4"
   },
   "devDependencies": {
-    "@iconify/json": "^2.1.87",
+    "@iconify/json": "^2.1.88",
     "@vitejs/plugin-vue": "^3.0.1",
     "@vue/compiler-sfc": "^3.2.37",
     "cross-env": "^7.0.3",
