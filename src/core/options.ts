@@ -1,4 +1,5 @@
 import { join, resolve } from 'path'
+import { createRequire } from 'module'
 import { slash, toArray } from '@antfu/utils'
 import { isPackageExists } from 'local-pkg'
 import type { ComponentResolver, ComponentResolverObject, Options, ResolvedOptions } from '../types'
@@ -75,10 +76,10 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   return resolved
 }
 
+const _require = createRequire(import.meta.url)
 function getVueVersion() {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const vue = require('vue')
+    const vue = _require('vue')
     const version = vue?.default?.version || vue?.version || '3'
     return version.startsWith('2.') ? 'vue2' : 'vue3'
   }
