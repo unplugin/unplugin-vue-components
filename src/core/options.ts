@@ -76,7 +76,7 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   return resolved
 }
 
-const _require = createRequire(import.meta.url)
+const _require = typeof require === 'undefined' ? createRequire(import.meta.url) : require
 function getVueVersion() {
   try {
     const vue = _require('vue')
