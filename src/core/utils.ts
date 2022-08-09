@@ -213,3 +213,14 @@ export function resolveImportPath(importName: string): string | undefined {
     preserveSymlinks: false,
   })
 }
+
+// @see https://jacobdeichert.ca/blog/2020/02/a-super-hacky-alternative-to-import-meta-url/
+export function getFileUrl() {
+  const stackTraceFrames = String(new Error('fake error').stack)
+    .replace(/^Error.*\n/, '')
+    .split('\n')
+
+  const callerFrame = stackTraceFrames[1]
+
+  return callerFrame.match(/file:.*\.m?js/)?.[0] ?? ''
+}

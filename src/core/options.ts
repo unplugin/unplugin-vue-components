@@ -4,6 +4,7 @@ import { slash, toArray } from '@antfu/utils'
 import { isPackageExists } from 'local-pkg'
 import type { ComponentResolver, ComponentResolverObject, Options, ResolvedOptions } from '../types'
 import { detectTypeImports } from './type-imports/detect'
+import { getFileUrl } from './utils'
 
 export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'transformer' | 'globs' | 'directives' | 'types'> = {
   dirs: 'src/components',
@@ -76,7 +77,7 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   return resolved
 }
 
-const _require = typeof require === 'undefined' ? createRequire(import.meta.url) : require
+const _require = typeof require === 'undefined' ? createRequire(getFileUrl()) : require
 function getVueVersion() {
   try {
     const vue = _require('vue')
