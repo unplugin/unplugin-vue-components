@@ -1,7 +1,6 @@
 import { join, resolve } from 'path'
-import { createRequire } from 'module'
 import { slash, toArray } from '@antfu/utils'
-import { isPackageExists } from 'local-pkg'
+import { getPackageInfoSync, isPackageExists } from 'local-pkg'
 import type { ComponentResolver, ComponentResolverObject, Options, ResolvedOptions } from '../types'
 import { detectTypeImports } from './type-imports/detect'
 
@@ -76,14 +75,7 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   return resolved
 }
 
-const _require = typeof require === 'undefined' ? createRequire(import.meta.url) : require
 function getVueVersion() {
-  try {
-    const vue = _require('vue')
-    const version = vue?.default?.version || vue?.version || '3'
-    return version.startsWith('2.') ? 'vue2' : 'vue3'
-  }
-  catch {
-    return null
-  }
+  const version = getPackageInfoSync('vue')?.version || '3'
+  return version.startsWith('2.') ? 'vue2' : 'vue3'
 }
