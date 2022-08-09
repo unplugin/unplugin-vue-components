@@ -91,6 +91,30 @@ describe('Component and directive as same name', () => {
     expect(await ctx.transform(code, '')).toMatchSnapshot()
   })
 
+  it('vue2.7 transform should work', async () => {
+    const code = `
+    import { defineComponent as _defineComponent } from "vue";
+    const _sfc_main = /* @__PURE__ */ _defineComponent({
+      __name: "App",
+      setup(__props) {
+        return { __sfc: true };
+      }
+    });
+    var _sfc_render = function render() {
+      var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+      return _c("div", { directives: [{ name: "loading", rawName: "v-loading", value: 123, expression: "123" }] }, [], 1);
+    };
+    `
+
+    const ctx = new Context({
+      resolvers: [resolver],
+      transformer: 'vue2',
+      directives: true,
+    })
+    ctx.sourcemap = false
+    expect(await ctx.transform(code, '')).toMatchSnapshot()
+  })
+
   it('vue3 transform should work', async () => {
     const code = `
     const render = (_ctx, _cache) => {

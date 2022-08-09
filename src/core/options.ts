@@ -65,17 +65,16 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   resolved.types = resolved.types || []
 
   resolved.root = root
-  resolved.transformer = options.transformer || getVueVersion() || 'vue3'
+  resolved.transformer = options.transformer || getVueVersion(root) || 'vue3'
   resolved.directives = (typeof options.directives === 'boolean')
     ? options.directives
     : !resolved.resolvers.some(i => i.type === 'directive')
         ? false
-        : getVueVersion() === 'vue3'
-
+        : getVueVersion(root) === 'vue3'
   return resolved
 }
 
-function getVueVersion() {
-  const version = getPackageInfoSync('vue')?.version || '3'
+function getVueVersion(root: string) {
+  const version = getPackageInfoSync('vue', { paths: [root] })?.version || '3'
   return version.startsWith('2.') ? 'vue2' : 'vue3'
 }
