@@ -23,6 +23,27 @@ this.$options.directives[\\"loading\\"] = __unplugin_directives_0;
 }
 `;
 
+exports[`Component and directive as same name > vue2.7 transform should work 1`] = `
+{
+  "code": "/* unplugin-vue-components disabled */import __unplugin_directives_0 from 'test/directive/Loading';
+import __unplugin_components_0 from 'test/component/Div';
+
+    import { defineComponent as _defineComponent } from \\"vue\\";
+    const _sfc_main = /* @__PURE__ */ _defineComponent({
+      __name: \\"App\\",
+      setup(__props) {
+        return { __sfc: true };
+      }
+    });
+    var _sfc_render = function render() {
+this.$options.directives[\\"loading\\"] = __unplugin_directives_0;
+      var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+      return _c(__unplugin_components_0, { directives: [{ name: \\"loading\\", rawName: \\"v-loading\\", value: 123, expression: \\"123\\" }] }, [], 1);
+    };
+    ",
+}
+`;
+
 exports[`Component and directive as same name > vue3 transform should work 1`] = `
 {
   "code": "/* unplugin-vue-components disabled */import __unplugin_directives_0 from 'test/directive/ElInfiniteScroll';
