@@ -15,7 +15,7 @@ const getRenderFnStart = (ast: ParseResult<File>): number => {
   const renderFn = ast.program.body.find((node): node is VariableDeclaration =>
     node.type === 'VariableDeclaration'
       && node.declarations[0].id.type === 'Identifier'
-      && node.declarations[0].id.name === 'render',
+      && ['render', '_sfc_render'].includes(node.declarations[0].id.name),
   )
   const start = (((renderFn?.declarations[0].init as FunctionExpression)?.body) as BlockStatement)?.start
   if (start === null || start === undefined)
@@ -41,7 +41,11 @@ export default async function resolveVue2(code: string, s: MagicString): Promise
     },
   })
 
+  if (nodes.length === 0)
+    return []
+
   const results: ResolveResult[] = []
+  const renderStart = getRenderFnStart(ast)
   for (const node of nodes) {
     const { callee, arguments: args } = node
     // _c(_, {})
@@ -57,8 +61,6 @@ export default async function resolveVue2(code: string, s: MagicString): Promise
     )?.value
     if (!directives || directives.type !== 'ArrayExpression')
       continue
-
-    const renderStart = getRenderFnStart(ast)
 
     for (const directive of directives.elements) {
       if (directive?.type !== 'ObjectExpression')
