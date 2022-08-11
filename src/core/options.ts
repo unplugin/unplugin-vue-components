@@ -22,7 +22,7 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'tr
 }
 
 function normalizeResolvers(resolvers: (ComponentResolver | ComponentResolver[])[]): ComponentResolverObject[] {
-  return toArray(resolvers).flat().map(r => typeof r === 'function' ? { resolve: r, type: 'component' } : r)
+  return toArray(resolvers).flatMap(r => typeof r === 'function' ? [{ resolve: r, type: 'component' }] : [r])
 }
 
 export function resolveOptions(options: Options, root: string): ResolvedOptions {
