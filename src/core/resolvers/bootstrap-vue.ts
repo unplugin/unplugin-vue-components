@@ -30,7 +30,7 @@ const COMPONENT_ALIASES: Record<string, string> = {
   BDdText: 'BDropdownText',
   BDropdownItemBtn: 'BDropdownItemButton',
   BFile: 'BFormFile',
-  BFormDatepicker: 'BDatepicker',
+  BDatepicker: 'BFormDatepicker',
   BInput: 'BFormInput',
   BNavDd: 'BNavItemDropdown',
   BNavDropdown: 'BNavItemDropdown',
