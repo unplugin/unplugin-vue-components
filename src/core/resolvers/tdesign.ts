@@ -75,7 +75,7 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
   if (['date-range-picker', 'date-range-picker-panel'].includes(fileName))
     fileName = 'date-picker'
 
-  if (['color-picker', 'color-picker-panel'].includes(fileName)) 
+  if (['color-picker', 'color-picker-panel'].includes(fileName))
     fileName = 'color-picker'
 
   if (importStyle === 'less')
