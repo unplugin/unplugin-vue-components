@@ -196,6 +196,8 @@ export interface AntDesignVueResolverOptions {
 
   /**
    * rename package
+   *
+   * @default 'ant-design-vue'
    */
   packageName?: string
 }
