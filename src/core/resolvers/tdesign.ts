@@ -77,7 +77,7 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
 
   if (['color-picker', 'color-picker-panel'].includes(fileName))
     fileName = 'color-picker'
-  
+
   if (['enhanced-table', 'base-table'].includes(fileName))
     fileName = 'table'
 
