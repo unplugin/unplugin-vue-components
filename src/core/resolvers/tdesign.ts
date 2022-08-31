@@ -39,7 +39,7 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
 
   if (fileName.includes('-') && fileName !== 'input-number') {
     const prefix = fileName.slice(0, fileName.indexOf('-'))
-    const container = ['anchor', 'avatar', 'breadcrumb', 'checkbox', 'dropdown', 'form', 'input', 'list', 'menu', 'radio', 'slider', 'swiper', 'color-picker', 'text', 'collapse']
+    const container = ['anchor', 'avatar', 'breadcrumb', 'checkbox', 'dropdown', 'form', 'input', 'list', 'menu', 'radio', 'slider', 'swiper', 'color-picker', 'text', 'collapse', 'timeline']
 
     if (container.includes(prefix))
       fileName = prefix
@@ -69,14 +69,17 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
   if (fileName === 'check-tag')
     fileName = 'tag'
 
-  if (['time-range-picker', 'time-range-picker-panel'].includes(fileName))
+  if (['time-range-picker', 'time-range-picker-panel', 'time-picker-panel'].includes(fileName))
     fileName = 'time-picker'
 
-  if (['date-range-picker', 'date-range-picker-panel'].includes(fileName))
+  if (['date-range-picker', 'date-range-picker-panel', 'date-picker-panel'].includes(fileName))
     fileName = 'date-picker'
 
   if (['color-picker', 'color-picker-panel'].includes(fileName))
     fileName = 'color-picker'
+
+  if (['enhanced-table', 'base-table'].includes(fileName))
+    fileName = 'table'
 
   if (importStyle === 'less')
     return `tdesign-${library}/esm/${fileName}/style`
