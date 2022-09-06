@@ -35,7 +35,8 @@ export interface IduxResolverOptions {
   importStyleTheme?: string
 
   /**
-   * The scope of '@idux` package.
+   * The scope of the packages.
+   *
    * @default '@idux'
    */
    scope?: string
