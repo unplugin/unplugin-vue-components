@@ -39,7 +39,7 @@ export interface IduxResolverOptions {
    *
    * @default '@idux'
    */
-   scope?: string
+  scope?: string
 }
 
 /**
@@ -51,7 +51,7 @@ export function IduxResolver(options: IduxResolverOptions = {}): ComponentResolv
   return {
     type: 'component',
     resolve: (name: string) => {
-      const { importStyle, importStyleTheme = 'default', exclude = [], scope = '@idux'  } = options
+      const { importStyle, importStyleTheme = 'default', exclude = [], scope = '@idux' } = options
       if (exclude.includes(name))
         return
 
