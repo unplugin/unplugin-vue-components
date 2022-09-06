@@ -33,6 +33,12 @@ export interface IduxResolverOptions {
    * @default 'default'
    */
   importStyleTheme?: string
+
+  /**
+   * The scope of '@idux` package.
+   * @default '@idux'
+   */
+   scope?: string
 }
 
 /**
@@ -44,7 +50,7 @@ export function IduxResolver(options: IduxResolverOptions = {}): ComponentResolv
   return {
     type: 'component',
     resolve: (name: string) => {
-      const { importStyle, importStyleTheme = 'default', exclude = [] } = options
+      const { importStyle, importStyleTheme = 'default', exclude = [], scope = '@idux'  } = options
       if (exclude.includes(name))
         return
 
@@ -58,7 +64,7 @@ export function IduxResolver(options: IduxResolverOptions = {}): ComponentResolv
         dirname = kebabCase(name).split('-')[nameIndex]
       }
 
-      const path = `@idux/${packageName}/${dirname}`
+      const path = `${scope}/${packageName}/${dirname}`
 
       let sideEffects: string | undefined
       if (packageName !== 'cdk' && importStyle)
