@@ -11,6 +11,11 @@ export interface ElementUiResolverOptions {
    * @default 'css'
    */
   importStyle?: boolean | 'css' | 'sass'
+
+  /**
+   * exclude component name, if match do not resolve the name
+   */
+  exclude?: RegExp
 }
 
 function getSideEffects(
@@ -46,6 +51,8 @@ export function ElementUiResolver(options: ElementUiResolverOptions = {}): Compo
   return {
     type: 'component',
     resolve: (name: string) => {
+      if (options.exclude && name.match(options.exclude))
+        return
       if (/^El[A-Z]/.test(name)) {
         const compName = name.slice(2)
         const partialName = kebabCase(compName)
