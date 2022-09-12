@@ -12,7 +12,7 @@ const PLUGIN_NAME = 'unplugin:webpack'
 
 export default createUnplugin<Options>((options = {}) => {
   const filter = createFilter(
-    options.include || [/\.vue$/, /\.vue\?vue/],
+    options.include || [/\.vue$/, /\.vue\?vue/, /\.vue\?v=/],
     options.exclude || [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
   )
   const ctx: Context = new Context(options)
