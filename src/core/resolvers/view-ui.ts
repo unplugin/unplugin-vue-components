@@ -10,7 +10,7 @@ function getSideEffects(componentName: string) {
   if (/^Table|^Slider|^Tab/.test(componentName))
     sideEffects.push('element-resize-detector')
 
-  if (/^Date/.test(componentName))
+  if (componentName.startsWith('Date'))
     sideEffects.push('js-calendar')
 
   return sideEffects
