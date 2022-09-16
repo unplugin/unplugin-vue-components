@@ -87,8 +87,8 @@ export function VarletUIResolver(options: VarletUIResolverOptions = {}): Compone
         if (autoImport && varFunctions.includes(name))
           return getResolved(name, options)
 
-        if (name.startsWith("Var"))
-          return getResolved(name.slice(3), options);
+        if (name.startsWith('Var'))
+          return getResolved(name.slice(3), options)
       },
     },
     {
