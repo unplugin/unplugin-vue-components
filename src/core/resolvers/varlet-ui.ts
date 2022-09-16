@@ -9,6 +9,7 @@ export interface VarletUIResolverOptions {
    * @default 'vue3'
    */
   version?: 'vue3' | 'vue2'
+
   /**
    * import style along with components
    *
@@ -24,6 +25,13 @@ export interface VarletUIResolverOptions {
   directives?: boolean
 
   /**
+   * compatible with unplugin-auto-import
+   *
+   * @default false
+   */
+  autoImport?: boolean
+
+  /**
    * @deprecated use `importStyle: 'css'` instead
    */
   importCss?: boolean
@@ -34,11 +42,15 @@ export interface VarletUIResolverOptions {
   importLess?: boolean
 }
 
+const varFunctions = ['Snackbar', 'Picker', 'ActionSheet', 'Dialog', 'Locale', 'StyleProvider']
+const varDirectives = ['Ripple', 'Lazy']
+
 export function getResolved(name: string, options: VarletUIResolverOptions): ComponentResolveResult {
   const {
     importStyle = 'css',
     importCss = true,
     importLess,
+    autoImport = false,
     version = 'vue3',
   } = options
 
@@ -54,12 +66,10 @@ export function getResolved(name: string, options: VarletUIResolverOptions): Com
 
   return {
     from: path,
-    name: `_${name}Component`,
+    name: autoImport ? name : `_${name}Component`,
     sideEffects,
   }
 }
-
-const varDirectives = ['Ripple', 'Lazy']
 
 /**
  * Resolver for VarletUI
@@ -72,6 +82,11 @@ export function VarletUIResolver(options: VarletUIResolverOptions = {}): Compone
     {
       type: 'component',
       resolve: (name: string) => {
+        const { autoImport = false } = options
+
+        if (autoImport && varFunctions.includes(name))
+          return getResolved(name, options)
+
         if (name.startsWith('Var'))
           return getResolved(name.slice(3), options)
       },
