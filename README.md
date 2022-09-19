@@ -128,7 +128,7 @@ build({
 Use components in templates as you would usually do, it will import components on demand, and there is no `import` and `component registration` required anymore! If you register the parent component asynchronously (or lazy route), the auto-imported components will be code-split along with their parent.
 
 > **Note**
-> that by default this plugin will only import components from the `src/components` path, you customize this using the `dirs` property in the plugin options.
+> that by default this plugin will import components from the `src/components` path. You can customize this using the `dirs` property in the plugin options.
 
 It will automatically turn this
 
