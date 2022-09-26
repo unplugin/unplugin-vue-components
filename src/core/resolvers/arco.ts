@@ -1,5 +1,7 @@
+import Debug from 'debug'
 import type { ComponentInfo, ComponentResolver } from '../../types'
-import { kebabCase } from '../utils'
+import { kebabCase, pascalCase } from '../utils'
+const debug = Debug('unplugin-vue-components:resolvers:arco')
 
 const matchComponents = [
   {
@@ -139,6 +141,31 @@ function getComponentStyleDir(importName: string, importStyle: boolean | 'css' |
     return `@arco-design/web-vue/es/${componentDir}/style/css.js`
 }
 
+function canResolveIcons(options?: ResolveIconsOption): options is AllowResolveIconOption {
+  if (options === undefined)
+    return false
+  if (typeof options === 'boolean')
+    return options
+  else
+    return options.enable
+}
+
+function getResolveIconPrefix(options?: ResolveIconsOption) {
+  if (canResolveIcons(options)) {
+    if (typeof options === 'boolean' && options)
+      return ''
+    else if (options.enable)
+      return options.iconPrefix ?? ''
+    else
+      return ''
+  }
+  return ''
+}
+
+export type DisallowResolveIconOption = undefined | false | { enable: false }
+export type AllowResolveIconOption = true | { enable: true; iconPrefix?: string }
+export type ResolveIconsOption = DisallowResolveIconOption | AllowResolveIconOption
+
 export interface ArcoResolverOptions {
   /**
    * import style css or less with components
@@ -151,7 +178,7 @@ export interface ArcoResolverOptions {
    *
    * @default false
    */
-  resolveIcons?: boolean
+  resolveIcons?: ResolveIconsOption
   /**
    * Control style automatic import
    *
@@ -175,10 +202,18 @@ export function ArcoResolver(
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (options.resolveIcons && name.match(/^Icon/)) {
-        return {
-          name,
-          from: '@arco-design/web-vue/es/icon',
+      if (canResolveIcons(options.resolveIcons)) {
+        const iconPrefix = pascalCase(getResolveIconPrefix(options.resolveIcons))
+        const newNameRegexp = new RegExp(`^${iconPrefix}Icon`)
+        if (newNameRegexp.test(name)) {
+          debug('found icon component name %s', name)
+          const rawComponentName = name.slice(iconPrefix.length)
+          debug('found icon component raw name %s', rawComponentName)
+          return {
+            name: rawComponentName,
+            as: name,
+            from: '@arco-design/web-vue/es/icon',
+          }
         }
       }
       if (name.match(/^A[A-Z]/)) {
