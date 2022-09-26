@@ -163,6 +163,8 @@ export default {
 }
 </script>
 ```
+> **Note**
+> By default this plugin will import components in the `src/components` path. You can customize it using the `dirs` option.
 
 ## TypeScript
 
