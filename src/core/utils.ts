@@ -139,7 +139,7 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
     if (globalNamespaces.some((name: string) => folders.includes(name)))
       folders = folders.filter(f => !globalNamespaces.includes(f))
 
-    folders = folders.map(f => f.replace(/[^a-zA-Z0-9]/g, ''))
+    folders = folders.map(f => f.replace(/[^a-zA-Z0-9\-]/g, ''))
 
     if (filename.toLowerCase() === 'index')
       filename = ''
