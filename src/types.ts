@@ -175,7 +175,7 @@ export interface Options {
   /**
    * Passing Project Vue Version for Declaration
    */
-  vueVersion?: String
+  version?: number
 }
 
 export type ResolvedOptions = Omit<

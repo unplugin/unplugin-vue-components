@@ -114,7 +114,7 @@ export function getDeclaration(ctx: Context, filepath: string, originalImports?:
     directive: stringifyDeclarationImports({ ...originalImports?.directive, ...imports.directive }),
   }
 
-  const isVue27 = ctx.options.vueVersion ? ctx.options.vueVersion.startsWith('2.7') : false
+  const isVue27 = ctx.options.version ? ctx.options.version === 2.7 : false
   const dtsHead = isVue27
     ? `  
 export {}

@@ -359,7 +359,7 @@ Components({
   exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
 
   // The dts file have different namespace if the vue is version 2.7
-  vueVersion: '2.7.0'
+  version: 2.7
 })
 ```
 

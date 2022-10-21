@@ -100,7 +100,7 @@ const _directive_loading = _resolveDirective("loading")`
       resolvers: resolver,
       directives: true,
     })
-    ctx.options.vueVersion = '2.7.1'
+    ctx.options.version = 2.7
     const code = 'const _component_test_comp = _resolveComponent("test-comp")'
     await ctx.transform(code, '')
 
