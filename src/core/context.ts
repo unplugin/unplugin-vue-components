@@ -22,6 +22,7 @@ const debug = {
 export class Context {
   options: ResolvedOptions
   transformer: Transformer = undefined!
+  vue27 = false
 
   private _componentPaths = new Set<string>()
   private _componentNameMap: Record<string, ComponentInfo> = {}
@@ -56,6 +57,15 @@ export class Context {
   setTransformer(name: Options['transformer']) {
     debug.env('transformer', name)
     this.transformer = transformer(this, name || 'vue3')
+  }
+
+  setVue27(vue27Flag: boolean) {
+    debug.env('vue2.7+', vue27Flag)
+    this.vue27 = vue27Flag
+  }
+
+  getVue27() {
+    return this.vue27
   }
 
   transform(code: string, id: string) {
