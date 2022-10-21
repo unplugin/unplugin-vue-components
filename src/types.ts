@@ -173,7 +173,7 @@ export interface Options {
   types?: TypeImport[]
 
   /**
-   * Passing Project Vue Version for Declaration
+   * Vue version of project. It will detect automatically if not specified.
    */
   version?: number
 }

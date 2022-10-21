@@ -358,7 +358,7 @@ Components({
   include: [/\.vue$/, /\.vue\?vue/],
   exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
 
-  // The dts file have different namespace if the vue is version 2.7
+  // Vue version of project. It will detect automatically if not specified.
   version: 2.7
 })
 ```
