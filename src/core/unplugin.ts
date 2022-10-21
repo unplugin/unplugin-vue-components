@@ -54,11 +54,8 @@ export default createUnplugin<Options>((options = {}) => {
         ctx.setRoot(config.root)
         ctx.sourcemap = true
 
-        if (config.plugins.find(i => i.name === 'vite-plugin-vue2' || i.name === '@vitejs/plugin-vue2')) {
+        if (config.plugins.find(i => i.name === 'vite-plugin-vue2'))
           ctx.setTransformer('vue2')
-          if (config.plugins.find(i => i.name === '@vitejs/plugin-vue2'))
-            ctx.setVue27(true)
-        }
 
         if (ctx.options.dts) {
           ctx.searchGlob()
