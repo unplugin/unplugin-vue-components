@@ -171,6 +171,11 @@ export interface Options {
    * Only provide types of components in library (registered globally)
    **/
   types?: TypeImport[]
+
+  /**
+   * Passing Project Vue Version for Declaration
+   */
+  vueVersion?: String
 }
 
 export type ResolvedOptions = Omit<
