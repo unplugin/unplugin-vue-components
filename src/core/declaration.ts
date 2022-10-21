@@ -115,13 +115,12 @@ export function getDeclaration(ctx: Context, filepath: string, originalImports?:
   }
 
   const isVue27 = ctx.options.vueVersion ? ctx.options.vueVersion.startsWith('2.7') : false
-  let dtsHead = ''
-  isVue27
-    ? dtsHead = `  
+  const dtsHead = isVue27
+    ? `  
 export {}
         
 declare module 'vue' {`
-    : dtsHead = `
+    : `
 import '@vue/runtime-core'
 
 export {}
