@@ -357,6 +357,9 @@ Components({
   // filters for transforming targets
   include: [/\.vue$/, /\.vue\?vue/],
   exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
+
+  // The dts file have different namespace if the vue is version 2.7
+  vueVersion: '2.7.0'
 })
 ```
 
