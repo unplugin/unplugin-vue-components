@@ -64,6 +64,7 @@ const components = [
   'ProgressSpinner',
   'RadioButton',
   'Rating',
+  'Row',
   'ScrollPanel',
   'ScrollTop',
   'SelectButton',
