@@ -66,6 +66,9 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
 
   resolved.root = root
   resolved.version = resolved.version ?? getVueVersion(root)
+  if (resolved.version < 2 || resolved.version >= 4)
+    throw new Error(`[unplugin-vue-components] unsupported version: ${resolved.version}`)
+
   resolved.transformer = options.transformer || `vue${Math.trunc(resolved.version) as 2 | 3}`
   resolved.directives = (typeof options.directives === 'boolean')
     ? options.directives
@@ -75,7 +78,12 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   return resolved
 }
 
-function getVueVersion(root: string): number {
-  const version = getPackageInfoSync('vue', { paths: [root] })?.version || '3'
-  return +(version.split('.').slice(0, 2).join('.'))
+function getVueVersion(root: string): 2 | 2.7 | 3 {
+  const raw = getPackageInfoSync('vue', { paths: [root] })?.version || '3'
+  const version = +(raw.split('.').slice(0, 2).join('.'))
+  if (version === 2.7)
+    return 2.7
+  else if (version >= 3)
+    return 3
+  return 2
 }

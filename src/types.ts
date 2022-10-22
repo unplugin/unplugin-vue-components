@@ -175,7 +175,7 @@ export interface Options {
   /**
    * Vue version of project. It will detect automatically if not specified.
    */
-  version?: number
+  version?: 2 | 2.7 | 3
 }
 
 export type ResolvedOptions = Omit<

@@ -359,6 +359,7 @@ Components({
   exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
 
   // Vue version of project. It will detect automatically if not specified.
+  // Acceptable value: 2 | 2.7 | 3
   version: 2.7
 })
 ```
