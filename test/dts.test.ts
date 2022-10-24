@@ -95,13 +95,13 @@ const _directive_loading = _resolveDirective("loading")`
     expect(declarations).toMatchSnapshot()
   })
 
-  test('components only vue2.7', async () => {
+  test('vue 2.7 components only', async () => {
     const ctx = new Context({
       resolvers: resolver,
       directives: true,
+      version: 2.7,
     })
-    ctx.options.vueVersion = '2.7.1'
-    const code = 'const _component_test_comp = _resolveComponent("test-comp")'
+    const code = 'const _component_test_comp = _c("test-comp")'
     await ctx.transform(code, '')
 
     const declarations = getDeclaration(ctx, 'test.d.ts')

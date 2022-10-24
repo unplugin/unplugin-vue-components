@@ -4,7 +4,7 @@ import { getPackageInfoSync, isPackageExists } from 'local-pkg'
 import type { ComponentResolver, ComponentResolverObject, Options, ResolvedOptions } from '../types'
 import { detectTypeImports } from './type-imports/detect'
 
-export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'transformer' | 'globs' | 'directives' | 'types' | 'vueVersion'> = {
+export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'transformer' | 'globs' | 'directives' | 'types' | 'version'> = {
   dirs: 'src/components',
   extensions: 'vue',
   deep: true,
@@ -65,16 +65,25 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   resolved.types = resolved.types || []
 
   resolved.root = root
-  resolved.transformer = options.transformer || getVueVersion(root) || 'vue3'
+  resolved.version = resolved.version ?? getVueVersion(root)
+  if (resolved.version < 2 || resolved.version >= 4)
+    throw new Error(`[unplugin-vue-components] unsupported version: ${resolved.version}`)
+
+  resolved.transformer = options.transformer || `vue${Math.trunc(resolved.version) as 2 | 3}`
   resolved.directives = (typeof options.directives === 'boolean')
     ? options.directives
     : !resolved.resolvers.some(i => i.type === 'directive')
         ? false
-        : getVueVersion(root) === 'vue3'
+        : resolved.version >= 3
   return resolved
 }
 
-function getVueVersion(root: string) {
-  const version = getPackageInfoSync('vue', { paths: [root] })?.version || '3'
-  return version.startsWith('2.') ? 'vue2' : 'vue3'
+function getVueVersion(root: string): 2 | 2.7 | 3 {
+  const raw = getPackageInfoSync('vue', { paths: [root] })?.version || '3'
+  const version = +(raw.split('.').slice(0, 2).join('.'))
+  if (version === 2.7)
+    return 2.7
+  else if (version >= 3)
+    return 3
+  return 2
 }

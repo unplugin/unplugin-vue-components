@@ -173,9 +173,9 @@ export interface Options {
   types?: TypeImport[]
 
   /**
-   * Passing Project Vue Version for Declaration
+   * Vue version of project. It will detect automatically if not specified.
    */
-  vueVersion?: String
+  version?: 2 | 2.7 | 3
 }
 
 export type ResolvedOptions = Omit<
