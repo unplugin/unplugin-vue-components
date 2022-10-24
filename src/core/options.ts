@@ -83,7 +83,7 @@ function getVueVersion(root: string): 2 | 2.7 | 3 {
   const version = +(raw.split('.').slice(0, 2).join('.'))
   if (version === 2.7)
     return 2.7
-  else if (version >= 3)
-    return 3
-  return 2
+  else if (version < 2.7)
+    return 2
+  return 3
 }
