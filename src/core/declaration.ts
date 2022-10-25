@@ -116,7 +116,7 @@ export function getDeclaration(ctx: Context, filepath: string, originalImports?:
 
   const head = ctx.options.version === 2.7
     ? `export {}
-        
+
 declare module 'vue' {`
     : `import '@vue/runtime-core'
 
