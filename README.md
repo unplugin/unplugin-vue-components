@@ -284,7 +284,7 @@ Components({
 }
 ```
 
-`vite.config.json`
+`vite.config.js`
 
 ```diff
 - import Components, { ElementPlusResolver } from 'vite-plugin-components'
