@@ -111,7 +111,7 @@ export function stringifyComponentImport({ as: name, from: path, name: importNam
 }
 
 export function getNameFromFilePath(filePath: string, options: ResolvedOptions): string {
-  const { resolvedDirs, directoryAsNamespace, globalNamespaces, collapseSamePrefixes } = options
+  const { resolvedDirs, directoryAsNamespace, globalNamespaces, collapseSamePrefixes, root } = options
 
   const parsedFilePath = parse(slash(filePath))
 
@@ -130,6 +130,10 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
 
   // set parent directory as filename if it is index
   if (filename === 'index' && !directoryAsNamespace) {
+    // when use `globs` option, `resolvedDirs` will always empty, and `folders` will also empty
+    if (isEmpty(folders))
+      folders = parsedFilePath.dir.slice(root.length + 1).split('/').filter(Boolean)
+
     filename = `${folders.slice(-1)[0]}`
     return filename
   }
