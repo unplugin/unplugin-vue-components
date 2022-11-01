@@ -39,7 +39,7 @@ export class Context {
   ) {
     this.options = resolveOptions(rawOptions, this.root)
     this.generateDeclaration
-      = throttle(500, false, this._generateDeclaration.bind(this)) as
+      = throttle(500, this._generateDeclaration.bind(this), { noTrailing: false }) as
       // `throttle` will omit return value.
       ((removeUnused?: boolean) => void)
     this.setTransformer(this.options.transformer)
