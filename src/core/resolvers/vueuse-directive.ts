@@ -25,6 +25,7 @@ export function VueUseDirectiveResolver(): ComponentResolver {
             .functions
             .filter((i: any) => i.directive && i.name)
             .map(({ name }: any) => name[0].toUpperCase() + name.slice(1))
+            .map((name: string) => name.startsWith('Use') ? name.slice(3) : name)
         }
         catch (error) {
           console.error(error)
