@@ -42,7 +42,7 @@ export interface VarletUIResolverOptions {
   importLess?: boolean
 }
 
-const varFunctions = ['Snackbar', 'Picker', 'ActionSheet', 'Dialog', 'Locale', 'StyleProvider']
+const varFunctions = ['ImagePreview', 'Snackbar', 'Picker', 'ActionSheet', 'Dialog', 'Locale', 'StyleProvider']
 const varDirectives = ['Ripple', 'Lazy']
 
 export function getResolved(name: string, options: VarletUIResolverOptions): ComponentResolveResult {
