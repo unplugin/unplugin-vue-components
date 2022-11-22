@@ -1,6 +1,6 @@
 {
   "name": "unplugin-vue-components",
-  "version": "0.22.10",
+  "version": "0.22.11",
   "packageManager": "pnpm@7.13.4",
   "description": "Components auto importing for Vue",
   "author": "antfu <anthonyfu117@hotmail.com>",
