@@ -84,7 +84,7 @@
     }
   },
   "dependencies": {
-    "@antfu/utils": "^0.6.3",
+    "@antfu/utils": "^0.7.0",
     "@rollup/pluginutils": "^5.0.2",
     "chokidar": "^3.5.3",
     "debug": "^4.3.4",
