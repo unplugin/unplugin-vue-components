@@ -10,7 +10,7 @@ const debug = Debug('unplugin-vue-components:transform:component')
 const resolveVue2 = (code: string, s: MagicString) => {
   const results: ResolveResult[] = []
 
-  for (const match of code.matchAll(/_c\([\s\n\t]*['"](.+?)["']([,)])/g)) {
+  for (const match of code.matchAll(/[(_c)h]\([\s\n\t]*['"](.+?)["']([,)])/g)) {
     const [full, matchedName, append] = match
 
     if (match.index != null && matchedName && !matchedName.startsWith('_')) {
@@ -18,7 +18,7 @@ const resolveVue2 = (code: string, s: MagicString) => {
       const end = start + full.length
       results.push({
         rawName: matchedName,
-        replace: resolved => s.overwrite(start, end, `_c(${resolved}${append}`),
+        replace: resolved => s.overwrite(start, end, `${full.split('(')[0]}(${resolved}${append}`),
       })
     }
   }
