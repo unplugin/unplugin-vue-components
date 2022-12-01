@@ -86,6 +86,23 @@ this.$options.directives[\\"loading\\"] = __unplugin_directives_0;
 }
 `;
 
+exports[`transform > vue2 transform with jsx should work 1`] = `
+{
+  "code": "/* unplugin-vue-components disabled */import __unplugin_components_0 from 'test/component/TestComp';
+
+    export default {
+      render(){
+        return h(__unplugin_components_0, {
+        directives: [
+          { name: \\"loading\\", rawName: \\"v-loading\\", value: 123, expression: \\"123\\" }
+        ]
+      })
+      }
+    }
+    ",
+}
+`;
+
 exports[`transform > vue3 transform should work 1`] = `
 {
   "code": "/* unplugin-vue-components disabled */import __unplugin_directives_0 from 'test/directive/Loading';

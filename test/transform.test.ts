@@ -40,6 +40,28 @@ describe('transform', () => {
     expect(await ctx.transform(code, '')).toMatchSnapshot()
   })
 
+  it('vue2 transform with jsx should work', async () => {
+    const code = `
+    export default {
+      render(){
+        return h("test-comp", {
+        directives: [
+          { name: "loading", rawName: "v-loading", value: 123, expression: "123" }
+        ]
+      })
+      }
+    }
+    `
+
+    const ctx = new Context({
+      resolvers: [resolver],
+      transformer: 'vue2',
+      directives: true,
+    })
+    ctx.sourcemap = false
+    expect(await ctx.transform(code, '')).toMatchSnapshot()
+  })
+
   it('vue3 transform should work', async () => {
     const code = `
     const render = (_ctx, _cache) => {
