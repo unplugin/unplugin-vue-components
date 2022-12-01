@@ -156,18 +156,24 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
         const collapsed: string[] = []
 
         for (const fileOrFolderName of namespaced) {
-          const collapsedFilename = collapsed.join('')
-          if (
-            collapsedFilename
-            && fileOrFolderName.toLowerCase().startsWith(collapsedFilename.toLowerCase())
-          ) {
-            const collapseSamePrefix = fileOrFolderName.slice(collapsedFilename.length)
+          let cumulativePrefix = ''
+          let didCollapse = false
 
-            collapsed.push(collapseSamePrefix)
-            continue
+          for (const parentFolder of [...collapsed].reverse()) {
+            cumulativePrefix = `${capitalize(parentFolder)}${cumulativePrefix}`
+
+            if (pascalCase(fileOrFolderName).startsWith(pascalCase(cumulativePrefix))) {
+              const collapseSamePrefix = fileOrFolderName.slice(cumulativePrefix.length)
+
+              collapsed.push(collapseSamePrefix)
+
+              didCollapse = true
+              break
+            }
           }
 
-          collapsed.push(fileOrFolderName)
+          if (!didCollapse)
+            collapsed.push(fileOrFolderName)
         }
 
         namespaced = collapsed
