@@ -9,16 +9,14 @@ const debug = Debug('unplugin-vue-components:transform:component')
 
 const resolveVue2 = (code: string, s: MagicString) => {
   const results: ResolveResult[] = []
-
-  for (const match of code.matchAll(/_c\([\s\n\t]*['"](.+?)["']([,)])/g)) {
-    const [full, matchedName, append] = match
-
+  for (const match of code.matchAll(/\b(_c|h)\([\s\n\t]*['"](.+?)["']([,)])/g)) {
+    const [full, renderFunctionName, matchedName, append] = match
     if (match.index != null && matchedName && !matchedName.startsWith('_')) {
       const start = match.index
       const end = start + full.length
       results.push({
         rawName: matchedName,
-        replace: resolved => s.overwrite(start, end, `_c(${resolved}${append}`),
+        replace: resolved => s.overwrite(start, end, `${renderFunctionName}(${resolved}${append}`),
       })
     }
   }
