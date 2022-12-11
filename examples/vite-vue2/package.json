@@ -5,12 +5,12 @@
     "dev": "cross-env DEBUG=unplugin-vue-components:* vite"
   },
   "dependencies": {
-    "vue": "^2.7.8"
+    "vue": "^2.7.14"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue2": "^2.0.1",
+    "@vitejs/plugin-vue2": "^2.2.0",
     "cross-env": "^7.0.3",
     "unplugin-vue-components": "workspace:*",
-    "vite": "^3.2.4"
+    "vite": "^4.0.0"
   }
 }
