@@ -103,8 +103,8 @@ export interface Options {
   directoryAsNamespace?: boolean
 
   /**
-   * Collapse same prefixes (case-insensitive) of folders and components
-   * to prevent duplication inside namespaced component name
+   * Collapse same prefixes (camel-sensitive) of folders and components
+   * to prevent duplication inside namespaced component name.
    *
    * Works when `directoryAsNamespace: true`
    * @default false
