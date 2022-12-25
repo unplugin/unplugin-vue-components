@@ -85,6 +85,7 @@
   },
   "dependencies": {
     "@antfu/utils": "^0.7.2",
+    "@nuxt/kit": "^3.0.0",
     "@rollup/pluginutils": "^5.0.2",
     "chokidar": "^3.5.3",
     "debug": "^4.3.4",
@@ -99,6 +100,7 @@
     "@antfu/eslint-config": "^0.33.1",
     "@babel/parser": "^7.20.5",
     "@babel/types": "^7.20.5",
+    "@nuxt/schema": "^3.0.0",
     "@types/debug": "^4.1.7",
     "@types/minimatch": "^5.1.2",
     "@types/node": "^18.11.13",
