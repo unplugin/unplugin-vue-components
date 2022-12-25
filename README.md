@@ -338,7 +338,12 @@ Components({
 
   // Allow subdirectories as namespace prefix for components.
   directoryAsNamespace: false,
-  // Subdirectory paths for ignoring namespace prefixes
+
+  // Collapse same prefixes (camel-sensitive) of folders and components
+  // to prevent duplication inside namespaced component name.
+  // works when `directoryAsNamespace: true`
+  collapseSamePrefixes: false,
+  // Subdirectory paths for ignoring namespace prefixes.
   // works when `directoryAsNamespace: true`
   globalNamespaces: [],
 
