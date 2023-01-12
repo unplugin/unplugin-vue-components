@@ -61,7 +61,7 @@ export function getResolved(name: string, options: VarletUIResolverOptions): Com
     if (importStyle === 'less' || importLess)
       sideEffects.push(`${path}/es/${kebabCase(name)}/style/less.js`)
     else
-      sideEffects.push(`${path}/es/${kebabCase(name)}/style`)
+      sideEffects.push(`${path}/es/${kebabCase(name)}/style/index.js`)
   }
 
   return {
