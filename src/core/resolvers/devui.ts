@@ -54,6 +54,14 @@ function componentsResolver(name: string, { ssr }: DevResolverOptions): Componen
   // Alert => alert; DatePicker => date-picker
   const resolveId = kebabCase(name = name.slice(1))
 
+  if (['row', 'col'].includes(resolveId)) {
+    return {
+      name,
+      sideEffects: getSideEffects(resolveId),
+      from: resolveDirectory('grid', `index.${ssr ? 'umd' : 'es'}.js`),
+    }
+  }
+
   return {
     name,
     sideEffects: getSideEffects(resolveId),
