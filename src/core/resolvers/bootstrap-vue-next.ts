@@ -1,6 +1,6 @@
 import type { ComponentResolver } from '../../types'
 
-export interface BootstrapVue3ResolverOptions {
+export interface BootstrapVueNextResolverOptions {
   /**
    * Auto import for directives.
    *
@@ -10,17 +10,17 @@ export interface BootstrapVue3ResolverOptions {
 }
 
 /**
- * Resolver for BootstrapVue
+ * Resolver for BootstrapVue Next
  *
- * @link https://github.com/cdmoro/bootstrap-vue-3
+ * @link https://github.com/bootstrap-vue/bootstrap-vue-next
  */
-export const BootstrapVue3Resolver = (_options: BootstrapVue3ResolverOptions = {}): Array<ComponentResolver> => {
+export const BootstrapVueNextResolver = (_options: BootstrapVueNextResolverOptions = {}): Array<ComponentResolver> => {
   const options = { directives: true, ..._options }
   const resolvers: Array<ComponentResolver> = [{
     type: 'component',
     resolve: (name) => {
       if (name.match(/^B[A-Z]/))
-        return { name, from: 'bootstrap-vue-3' }
+        return { name, from: 'bootstrap-vue-next' }
     },
   }]
 
@@ -29,7 +29,7 @@ export const BootstrapVue3Resolver = (_options: BootstrapVue3ResolverOptions = {
       type: 'directive',
       resolve: (name) => {
         if (name.match(/^B[A-Z]/))
-          return { name: `V${name}`, from: 'bootstrap-vue-3' }
+          return { name: `V${name}`, from: 'bootstrap-vue-next' }
       },
     })
   }
