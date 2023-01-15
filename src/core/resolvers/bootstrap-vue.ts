@@ -113,7 +113,6 @@ export const BootstrapVueNextResolver = (_options: BootstrapVueResolverOptions =
   return resolvers
 }
 
-
 /**
  * Resolver for legacy BootstrapVue3 apps
  *
