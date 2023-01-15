@@ -284,7 +284,7 @@ Components({
 }
 ```
 
-`vite.config.json`
+`vite.config.js`
 
 ```diff
 - import Components, { ElementPlusResolver } from 'vite-plugin-components'
@@ -338,7 +338,12 @@ Components({
 
   // Allow subdirectories as namespace prefix for components.
   directoryAsNamespace: false,
-  // Subdirectory paths for ignoring namespace prefixes
+
+  // Collapse same prefixes (camel-sensitive) of folders and components
+  // to prevent duplication inside namespaced component name.
+  // works when `directoryAsNamespace: true`
+  collapseSamePrefixes: false,
+  // Subdirectory paths for ignoring namespace prefixes.
   // works when `directoryAsNamespace: true`
   globalNamespaces: [],
 
@@ -357,6 +362,10 @@ Components({
   // filters for transforming targets
   include: [/\.vue$/, /\.vue\?vue/],
   exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
+
+  // Vue version of project. It will detect automatically if not specified.
+  // Acceptable value: 2 | 2.7 | 3
+  version: 2.7
 })
 ```
 

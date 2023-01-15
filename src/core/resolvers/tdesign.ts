@@ -25,6 +25,12 @@ export interface TDesignResolverOptions {
    * @default false
    */
   esm?: boolean
+
+  /**
+   * exclude component name, if match do not resolve the name
+   *
+   */
+  exclude?: string | RegExp | (string | RegExp)[]
 }
 
 function getSideEffects(importName: string, options: TDesignResolverOptions): SideEffectsInfo | undefined {
@@ -81,6 +87,9 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
   if (['enhanced-table', 'base-table'].includes(fileName))
     fileName = 'table'
 
+  if (['pagination-mini'].includes(fileName))
+    fileName = 'pagination'
+
   if (importStyle === 'less')
     return `tdesign-${library}/esm/${fileName}/style`
 
@@ -91,8 +100,11 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
   return {
     type: 'component',
     resolve: (name: string) => {
-      const { library = 'vue' } = options
+      const { library = 'vue', exclude } = options
       const importFrom = options.esm ? '/esm' : ''
+
+      if (options.exclude && isExclude(name, exclude))
+        return
 
       if (options.resolveIcons && name.match(/[a-z]Icon$/)) {
         return {
@@ -112,4 +124,20 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
       }
     },
   }
+}
+
+function isExclude(name: string, exclude: string | RegExp | (string | RegExp)[] | undefined): boolean {
+  if (typeof exclude === 'string')
+    return name === exclude
+
+  if (exclude instanceof RegExp)
+    return !!name.match(exclude)
+
+  if (Array.isArray(exclude)) {
+    for (const item of exclude) {
+      if (name === item || name.match(item))
+        return true
+    }
+  }
+  return false
 }

@@ -42,7 +42,7 @@ export interface VarletUIResolverOptions {
   importLess?: boolean
 }
 
-const varFunctions = ['Snackbar', 'Picker', 'ActionSheet', 'Dialog', 'Locale', 'StyleProvider']
+const varFunctions = ['ImagePreview', 'Snackbar', 'Picker', 'ActionSheet', 'Dialog', 'Locale', 'StyleProvider', 'LoadingBar']
 const varDirectives = ['Ripple', 'Lazy']
 
 export function getResolved(name: string, options: VarletUIResolverOptions): ComponentResolveResult {
@@ -59,9 +59,9 @@ export function getResolved(name: string, options: VarletUIResolverOptions): Com
 
   if (importStyle || importCss) {
     if (importStyle === 'less' || importLess)
-      sideEffects.push(`${path}/es/${kebabCase(name)}/style/less.js`)
+      sideEffects.push(`${path}/es/${kebabCase(name)}/style/less`)
     else
-      sideEffects.push(`${path}/es/${kebabCase(name)}/style`)
+      sideEffects.push(`${path}/es/${kebabCase(name)}/style/index`)
   }
 
   return {
