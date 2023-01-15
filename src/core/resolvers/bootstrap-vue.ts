@@ -117,7 +117,7 @@ export const BootstrapVueNextResolver = (_options: BootstrapVueResolverOptions =
 /**
  * Resolver for legacy BootstrapVue3 apps
  *
- * @deprecated
+ * @deprecated use BootstrapVueNextResolver with https://github.com/bootstrap-vue/bootstrap-vue-next
  * @link https://www.npmjs.com/package/bootstrap-vue-3
  */
 export const BootstrapVue3Resolver = (_options: BootstrapVueResolverOptions = {}): Array<ComponentResolver> => {
