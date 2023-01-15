@@ -54,7 +54,7 @@ const COMPONENT_ALIASES: Record<string, string> = {
  *
  * @link https://github.com/bootstrap-vue/bootstrap-vue
  */
-export function BootstrapVueResolver(_options: BootstrapVueResolverOptions = {}): ComponentResolver[] {
+export const BootstrapVueResolver = (_options: BootstrapVueResolverOptions = {}): ComponentResolver[] => {
   const options = { directives: true, ..._options }
   const resolvers: ComponentResolver[] = [{
     type: 'component',
@@ -78,6 +78,64 @@ export function BootstrapVueResolver(_options: BootstrapVueResolverOptions = {})
             from: 'bootstrap-vue',
           }
         }
+      },
+    })
+  }
+
+  return resolvers
+}
+
+/**
+ * Resolver for BootstrapVueNext
+ *
+ * @link https://github.com/bootstrap-vue/bootstrap-vue-next
+ */
+export const BootstrapVueNextResolver = (_options: BootstrapVueResolverOptions = {}): Array<ComponentResolver> => {
+  const options = { directives: true, ..._options }
+  const resolvers: Array<ComponentResolver> = [{
+    type: 'component',
+    resolve: (name) => {
+      if (name.match(/^B[A-Z]/))
+        return { name, from: 'bootstrap-vue-next' }
+    },
+  }]
+
+  if (options.directives) {
+    resolvers.push({
+      type: 'directive',
+      resolve: (name) => {
+        if (name.match(/^B[A-Z]/))
+          return { name: `V${name}`, from: 'bootstrap-vue-next' }
+      },
+    })
+  }
+
+  return resolvers
+}
+
+
+/**
+ * Resolver for legacy BootstrapVue3 apps
+ *
+ * @deprecated
+ * @link https://www.npmjs.com/package/bootstrap-vue-3
+ */
+export const BootstrapVue3Resolver = (_options: BootstrapVueResolverOptions = {}): Array<ComponentResolver> => {
+  const options = { directives: true, ..._options }
+  const resolvers: Array<ComponentResolver> = [{
+    type: 'component',
+    resolve: (name) => {
+      if (name.match(/^B[A-Z]/))
+        return { name, from: 'bootstrap-vue-3' }
+    },
+  }]
+
+  if (options.directives) {
+    resolvers.push({
+      type: 'directive',
+      resolve: (name) => {
+        if (name.match(/^B[A-Z]/))
+          return { name: `V${name}`, from: 'bootstrap-vue-3' }
       },
     })
   }
