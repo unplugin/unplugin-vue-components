@@ -246,6 +246,8 @@ const primitiveNames = ['Affix', 'Anchor', 'AnchorLink', 'AutoComplete', 'AutoCo
 let antdvNames: Set<string>
 
 function genAntdNames(primitiveNames: string[]): void {
+  // use primitiveNames to construct antdvNames,
+  // in order to make options.resolvePrefix compatible
   antdvNames = new Set(primitiveNames)
 }
 genAntdNames(primitiveNames)
@@ -276,6 +278,9 @@ export function AntDesignVueResolver(options: AntDesignVueResolverOptions = {
           from: '@ant-design/icons-vue',
         }
       }
+      // if options.resolvePrefix is undefined or true,
+      // then eg.'ALayout' -> 'Layout',
+      // and use `name` directly in the following content
       (options?.resolvePrefix === undefined || options.resolvePrefix) && (name = name.slice(1))
       if (isAntdv(name) && !options?.exclude?.includes(name)) {
         const { cjs = false, packageName = 'ant-design-vue' } = options
