@@ -200,9 +200,9 @@ export interface AntDesignVueResolverOptions {
    */
   packageName?: string
   /**
-   * resolve prefix 'A' ?
+   * customize prefix of component
    */
-  resolvePrefix?: boolean
+  prefix?: string
 }
 
 function getStyleDir(compName: string): string {
@@ -272,17 +272,18 @@ export function AntDesignVueResolver(options: AntDesignVueResolverOptions = {
   return {
     type: 'component',
     resolve: (name: string) => {
+      // if options.prefix is undefined, then give it a default value 'A'
+      options.prefix === undefined && (options.prefix = 'A')
       if (options.resolveIcons && name.match(/(Outlined|Filled|TwoTone)$/)) {
         return {
           name,
           from: '@ant-design/icons-vue',
         }
       }
-      // if options.resolvePrefix is undefined or true,
-      // then eg.'ALayout' -> 'Layout',
-      // and use `name` directly in the following content
-      (options?.resolvePrefix === undefined || options.resolvePrefix) && (name = name.slice(1))
-      if (isAntdv(name) && !options?.exclude?.includes(name)) {
+      let prefix
+      // divide component name and prefix
+      [name, prefix] = [name.slice(options.prefix.length), name.slice(0, options.prefix.length)]
+      if (prefix === options.prefix && isAntdv(name) && !options?.exclude?.includes(name)) {
         const { cjs = false, packageName = 'ant-design-vue' } = options
         const path = `${packageName}/${cjs ? 'lib' : 'es'}`
         return {
