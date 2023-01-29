@@ -1,6 +1,6 @@
 import { dirname, isAbsolute, relative } from 'path'
 import { existsSync } from 'fs'
-import { readFile, writeFile } from 'fs/promises'
+import { mkdir, readFile, writeFile as writeFile_ } from 'fs/promises'
 import { notNullish, slash } from '@antfu/utils'
 import type { ComponentInfo } from '../../dist'
 import type { Options } from '../types'
@@ -145,6 +145,11 @@ ${head}`
   return code
 }
 
+async function writeFile(filePath: string, content: string) {
+  await mkdir(dirname(filePath), { recursive: true })
+  return await writeFile_(filePath, content, 'utf-8')
+}
+
 export async function writeDeclaration(ctx: Context, filepath: string, removeUnused = false) {
   const originalContent = existsSync(filepath) ? await readFile(filepath, 'utf-8') : ''
   const originalImports = removeUnused ? undefined : parseDeclaration(originalContent)
@@ -154,5 +159,5 @@ export async function writeDeclaration(ctx: Context, filepath: string, removeUnu
     return
 
   if (code !== originalContent)
-    await writeFile(filepath, code, 'utf-8')
+    await writeFile(filepath, code)
 }

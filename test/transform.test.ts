@@ -160,4 +160,3 @@ describe('Component and directive as same name', () => {
     expect(await ctx.transform(code, '')).toMatchSnapshot()
   })
 })
-
