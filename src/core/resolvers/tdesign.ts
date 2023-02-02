@@ -87,6 +87,9 @@ function getSideEffects(importName: string, options: TDesignResolverOptions): Si
   if (['enhanced-table', 'base-table'].includes(fileName))
     fileName = 'table'
 
+  if (['pagination-mini'].includes(fileName))
+    fileName = 'pagination'
+
   if (importStyle === 'less')
     return `tdesign-${library}/esm/${fileName}/style`
 
