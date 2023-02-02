@@ -1,4 +1,4 @@
-import type { ComponentResolver } from '../../types'
+import type { ComponentResolveResult, ComponentResolver } from '../../types'
 
 export interface NutUIResolverOptions {
   /**
@@ -7,6 +7,34 @@ export interface NutUIResolverOptions {
    * @default false
    */
   taro?: boolean
+
+  /**
+   * compatible with unplugin-auto-import
+   *
+   * @default false
+   */
+  autoImport?: boolean
+}
+
+const nutFunctions = ['showToast', 'showNotify', 'showDialog', 'showImagePreview']
+
+function getNutResolved(name: string, options: NutUIResolverOptions): ComponentResolveResult {
+  const {
+    taro = false,
+    autoImport = false,
+  } = options
+
+  const packageName = taro ? '@nutui/nutui-taro' : '@nutui/nutui'
+
+  const componentName = autoImport ? name.slice(4) : name
+
+  const style = `${packageName}/dist/packages/${componentName.toLowerCase()}/style`
+
+  return {
+    name,
+    from: packageName,
+    sideEffects: style,
+  }
 }
 
 /**
@@ -15,19 +43,16 @@ export interface NutUIResolverOptions {
  * @link https://github.com/jdf2e/nutui
  */
 export function NutUIResolver(options: NutUIResolverOptions = {}): ComponentResolver {
-  const { taro = false } = options
-  const packageName = taro ? '@nutui/nutui-taro' : '@nutui/nutui'
   return {
     type: 'component',
     resolve: (name) => {
-      if (name.startsWith('Nut')) {
-        const partialName = name.slice(3)
-        return {
-          name: partialName,
-          from: packageName,
-          sideEffects: `${packageName}/dist/packages/${partialName.toLowerCase()}/style`,
-        }
-      }
+      const { autoImport = false } = options
+
+      if (autoImport && nutFunctions.includes(name))
+        return getNutResolved(name, options)
+
+      if (name.startsWith('Nut'))
+        return getNutResolved(name.slice(3), options)
     },
   }
 }
