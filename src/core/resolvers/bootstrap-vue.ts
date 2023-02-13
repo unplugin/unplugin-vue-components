@@ -105,7 +105,7 @@ export const BootstrapVueNextResolver = (_options: BootstrapVueResolverOptions =
       type: 'directive',
       resolve: (name) => {
         if (name.match(/^B[A-Z]/))
-          return { name: `V${name}`, from: 'bootstrap-vue-next' }
+          return { name: `v${name}`, from: 'bootstrap-vue-next' }
       },
     })
   }
