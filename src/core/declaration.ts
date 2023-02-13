@@ -134,13 +134,13 @@ ${head}`
   if (Object.keys(declarations.component).length > 0) {
     code += `
   export interface GlobalComponents {
-    ${declarations.component.join('\n    ')}
+    ${declarations.component.join(';\n    ')}
   }`
   }
   if (Object.keys(declarations.directive).length > 0) {
     code += `
   export interface ComponentCustomProperties {
-    ${declarations.directive.join('\n    ')}
+    ${declarations.directive.join(';\n    ')}
   }`
   }
   code += '\n}\n'
