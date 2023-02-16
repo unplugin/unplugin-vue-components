@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { TDesignResolver } from '../../src/resolvers'
 
-import type { ComponentResolveResult, ComponentResolverObject } from '../../src'
+import type { ComponentResolverObject } from '../../src'
 
 describe('TDesignResolver', () => {
   it('name matching string rule should not be resolved', async () => {

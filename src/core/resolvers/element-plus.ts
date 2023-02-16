@@ -77,14 +77,16 @@ function getSideEffects(dirName: string, options: ElementPlusResolverOptionsReso
   const themeFolder = 'element-plus/theme-chalk'
   const esComponentsFolder = 'element-plus/es/components'
 
-  if (importStyle === 'sass')
-    return ssr ?
-    [`${themeFolder}/src/base.scss`, `${themeFolder}/src/${dirName}.scss`] :
-    [`${esComponentsFolder}/base/style/index`, `${esComponentsFolder}/${dirName}/style/index`]
-  else if (importStyle === true || importStyle === 'css')
-    return ssr ?
-    [`${themeFolder}/base.css`, `${themeFolder}/el-${dirName}.css`] :
-    [`${esComponentsFolder}/base/style/css`, `${esComponentsFolder}/${dirName}/style/css`]
+  if (importStyle === 'sass') {
+    return ssr
+      ? [`${themeFolder}/src/base.scss`, `${themeFolder}/src/${dirName}.scss`]
+      : [`${esComponentsFolder}/base/style/index`, `${esComponentsFolder}/${dirName}/style/index`]
+  }
+  else if (importStyle === true || importStyle === 'css') {
+    return ssr
+      ? [`${themeFolder}/base.css`, `${themeFolder}/el-${dirName}.css`]
+      : [`${esComponentsFolder}/base/style/css`, `${esComponentsFolder}/${dirName}/style/css`]
+  }
 }
 
 function resolveComponent(name: string, options: ElementPlusResolverOptionsResolved): ComponentInfo | undefined {

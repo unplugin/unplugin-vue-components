@@ -1,5 +1,5 @@
 import { kebabCase } from '../utils'
-import type { ComponentInfo, ComponentResolver, ImportInfo } from '../../types'
+import type { ComponentInfo, ComponentResolver } from '../../types'
 
 export interface DevResolverOptions {
   /**
