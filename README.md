@@ -242,7 +242,7 @@ Components({
 })
 ```
 
-If you successfully configured other UI libraries, please feel free to contribute and help others using them out-of-box. Thanks!
+> [We no longer accept new resolvers](./src/core/resolvers/_READ_BEFORE_CONTRIBUTE.md).
 
 ## Types for global registered components
 
