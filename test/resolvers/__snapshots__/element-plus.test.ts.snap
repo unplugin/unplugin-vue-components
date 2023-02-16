@@ -2,9 +2,9 @@
 
 exports[`Element Plus Resolver > components and directives should be transformed 1`] = `
 {
-  "code": "/* unplugin-vue-components disabled */import { ElLoadingDirective as __unplugin_directives_0 } from 'element-plus/es';import 'element-plus/es/components/loading/style/css';
+  "code": "/* unplugin-vue-components disabled */import { ElLoadingDirective as __unplugin_directives_0 } from 'element-plus/es';import 'element-plus/es/components/base/style/css';import 'element-plus/es/components/loading/style/css';
 import { Apple as __unplugin_components_1 } from '@element-plus/icons-vue';
-import { ElButton as __unplugin_components_0 } from 'element-plus/es';import 'element-plus/es/components/button/style/css';
+import { ElButton as __unplugin_components_0 } from 'element-plus/es';import 'element-plus/es/components/base/style/css';import 'element-plus/es/components/button/style/css';
 
 (_ctx, _cache) => {
   const _component_el_button = __unplugin_components_0
