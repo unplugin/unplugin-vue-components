@@ -326,8 +326,14 @@ Components({
 
   // valid file extensions for components.
   extensions: ['vue'],
+
+  // Glob patterns to match file names to be detected as components.
+  // When specified, the `dirs` and `extensions` options will be ignored.
+  globs: ['src/components/*.{vue}'],
+
   // search for subdirectories
   deep: true,
+
   // resolvers for custom components
   resolvers: [],
 
@@ -343,6 +349,7 @@ Components({
   // to prevent duplication inside namespaced component name.
   // works when `directoryAsNamespace: true`
   collapseSamePrefixes: false,
+
   // Subdirectory paths for ignoring namespace prefixes.
   // works when `directoryAsNamespace: true`
   globalNamespaces: [],
@@ -365,7 +372,10 @@ Components({
 
   // Vue version of project. It will detect automatically if not specified.
   // Acceptable value: 2 | 2.7 | 3
-  version: 2.7
+  version: 2.7,
+
+  // Only provide types of components in library (registered globally)
+  types: []
 })
 ```
 
