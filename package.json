@@ -84,16 +84,19 @@
   },
   "peerDependencies": {
     "@babel/parser": "^7.15.8",
-    "vue": "2 || 3"
+    "vue": "2 || 3",
+    "@nuxt/kit": "^3.2.2"
   },
   "peerDependenciesMeta": {
     "@babel/parser": {
+      "optional": true
+    },
+    "@nuxt/kit": {
       "optional": true
     }
   },
   "dependencies": {
     "@antfu/utils": "^0.7.2",
-    "@nuxt/kit": "^3.2.0",
     "@rollup/pluginutils": "^5.0.2",
     "chokidar": "^3.5.3",
     "debug": "^4.3.4",
@@ -108,7 +111,7 @@
     "@antfu/eslint-config": "^0.35.2",
     "@babel/parser": "^7.20.15",
     "@babel/types": "^7.20.7",
-    "@nuxt/schema": "^3.2.0",
+    "@nuxt/kit": "^3.2.2",
     "@types/debug": "^4.1.7",
     "@types/minimatch": "^5.1.2",
     "@types/node": "^18.13.0",
