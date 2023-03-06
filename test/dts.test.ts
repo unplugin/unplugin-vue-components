@@ -1,5 +1,5 @@
-import { readFile, writeFile } from 'fs/promises'
-import path from 'path'
+import { readFile, writeFile } from 'node:fs/promises'
+import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 import type { ComponentResolver } from '../src'
 import { Context } from '../src/core/context'

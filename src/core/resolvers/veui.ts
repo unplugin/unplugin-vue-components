@@ -1,4 +1,4 @@
-import { join, normalize } from 'path'
+import { join, normalize } from 'node:path'
 import type { ComponentResolver, SideEffectsInfo } from '../../types'
 import { camelCase, kebabCase, pascalCase, resolveImportPath } from '../utils'
 

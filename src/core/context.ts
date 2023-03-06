@@ -1,5 +1,5 @@
-import { relative } from 'path'
-import type fs from 'fs'
+import { relative } from 'node:path'
+import type fs from 'node:fs'
 import Debug from 'debug'
 import type { UpdatePayload, ViteDevServer } from 'vite'
 import { slash, throttle, toArray } from '@antfu/utils'

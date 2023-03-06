@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 import type { UserConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'

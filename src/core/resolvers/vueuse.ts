@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs'
+import { readFileSync } from 'node:fs'
 import { resolveModule } from 'local-pkg'
 import type { ComponentResolver } from '../../types'
 

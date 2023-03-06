@@ -84,8 +84,8 @@
   },
   "peerDependencies": {
     "@babel/parser": "^7.15.8",
-    "vue": "2 || 3",
-    "@nuxt/kit": "^3.2.2"
+    "@nuxt/kit": "^3.2.2",
+    "vue": "2 || 3"
   },
   "peerDependenciesMeta": {
     "@babel/parser": {

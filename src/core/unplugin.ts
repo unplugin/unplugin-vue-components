@@ -1,4 +1,4 @@
-import { existsSync } from 'fs'
+import { existsSync } from 'node:fs'
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import chokidar from 'chokidar'
