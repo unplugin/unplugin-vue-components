@@ -1,10 +1,12 @@
 import { readFile, writeFile } from 'fs/promises'
 import path from 'path'
+import { resolve } from 'pathe'
 import { describe, expect, test } from 'vitest'
 import type { ComponentResolver } from '../src'
 import { Context } from '../src/core/context'
 import { getDeclaration, parseDeclaration } from '../src/core/declaration'
 
+const root = resolve(__dirname, '../examples/vite-vue3')
 const resolver: ComponentResolver[] = [
   {
     type: 'component',
@@ -194,5 +196,39 @@ declare module '@vue/runtime-core' {
 
     const imports = parseDeclaration(code)
     expect(imports).matchSnapshot()
+  })
+
+  test('generate components with prefix - object', async () => {
+    const ctx = new Context({
+      resolvers: resolver,
+      directives: true,
+      compPrefix: {
+        prefix: 'El',
+        include: ['src/components/global', 'src/components/ui'],
+        exclude: ['src/components/collapse'],
+      },
+      dirs: ['src/components'],
+    })
+    ctx.setRoot(root)
+    const code = 'const _component_test_comp = _resolveComponent("test-comp")'
+    await ctx.transform(code, '')
+
+    const declarations = getDeclaration(ctx, 'test.d.ts')
+    expect(declarations).toMatchSnapshot()
+  })
+
+  test('generate components with prefix - string', async () => {
+    const ctx = new Context({
+      resolvers: resolver,
+      directives: true,
+      compPrefix: 'El',
+      dirs: ['src/components'],
+    })
+    ctx.setRoot(root)
+    const code = 'const _component_test_comp = _resolveComponent("test-comp")'
+    await ctx.transform(code, '')
+
+    const declarations = getDeclaration(ctx, 'test.d.ts')
+    expect(declarations).toMatchSnapshot()
   })
 })

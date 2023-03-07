@@ -4,7 +4,7 @@ import { getPackageInfoSync, isPackageExists } from 'local-pkg'
 import type { ComponentResolver, ComponentResolverObject, Options, ResolvedOptions } from '../types'
 import { detectTypeImports } from './type-imports/detect'
 
-export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'transformer' | 'globs' | 'directives' | 'types' | 'version'> = {
+export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'transformer' | 'globs' | 'directives' | 'types' | 'version' | 'compPrefix'> = {
   dirs: 'src/components',
   extensions: 'vue',
   deep: true,
@@ -75,6 +75,8 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
     : !resolved.resolvers.some(i => i.type === 'directive')
         ? false
         : resolved.version >= 3
+
+  resolved.compPrefix = options.compPrefix
   return resolved
 }
 

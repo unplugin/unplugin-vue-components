@@ -46,6 +46,12 @@ export type Transformer = (code: string, id: string, path: string, query: Record
 
 export type SupportedTransformer = 'vue3' | 'vue2'
 
+export type CompPrefix = string | {
+  prefix: string
+  include?: string[]
+  exclude?: string[]
+}
+
 export interface PublicPluginAPI {
   /**
    * Resolves a component using the configured resolvers.
@@ -176,11 +182,20 @@ export interface Options {
    * Vue version of project. It will detect automatically if not specified.
    */
   version?: 2 | 2.7 | 3
+
+  /**
+   * Generate components with prefix.
+   *
+   * when set the typeof compPrefix is `string` it will add prefix with all dirs components.
+   *
+   * or you can use `include` / `exclude` to filter Default `include` value is `dirs`.
+   */
+  compPrefix?: CompPrefix
 }
 
 export type ResolvedOptions = Omit<
 Required<Options>,
-'resolvers' | 'extensions' | 'dirs' | 'globalComponentsDeclaration'
+'resolvers' | 'extensions' | 'dirs' | 'globalComponentsDeclaration' | 'compPrefix'
 > & {
   resolvers: ComponentResolverObject[]
   extensions: string[]
@@ -189,6 +204,7 @@ Required<Options>,
   globs: string[]
   dts: string | false
   root: string
+  compPrefix?: CompPrefix
 }
 
 export type ComponentsImportMap = Record<string, string[] | undefined>

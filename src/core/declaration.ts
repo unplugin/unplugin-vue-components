@@ -1,11 +1,11 @@
 import { dirname, isAbsolute, relative } from 'path'
 import { existsSync } from 'fs'
 import { mkdir, readFile, writeFile as writeFile_ } from 'fs/promises'
-import { notNullish, slash } from '@antfu/utils'
+import { isString, notNullish, slash } from '@antfu/utils'
 import type { ComponentInfo } from '../../dist'
-import type { Options } from '../types'
+import type { CompPrefix, Options } from '../types'
 import type { Context } from './context'
-import { getTransformedPath } from './utils'
+import { capitalize, getTransformedPath } from './utils'
 import { resolveTypeImports } from './type-imports/detect'
 
 const multilineCommentsRE = /\/\*.*?\*\//gms
@@ -72,6 +72,9 @@ export interface DeclarationImports {
 }
 
 export function getDeclarationImports(ctx: Context, filepath: string): DeclarationImports | undefined {
+  const compPrefix = ctx.options.compPrefix
+  compPrefix && Object.keys(ctx.componentNameMap).length && addPrefixToComp(compPrefix)
+
   const component = stringifyComponentsInfo(filepath, [
     ...Object.values({
       ...ctx.componentNameMap,
@@ -92,6 +95,32 @@ export function getDeclarationImports(ctx: Context, filepath: string): Declarati
     return
 
   return { component, directive }
+
+  function addPrefixToComp(compPrefix: CompPrefix) {
+    if (isString(compPrefix)) {
+      Object.keys(ctx.componentNameMap).forEach((comp) => {
+        const ctxCompMapValue = ctx.componentNameMap[comp]
+        ctx.componentNameMap[comp] = { ...ctxCompMapValue, as: `${capitalize(compPrefix)}${comp}` }
+      })
+    }
+    else {
+      const { prefix, include = ctx.options.dirs, exclude = null } = compPrefix
+      const resultList = Object.entries(ctx.componentNameMap)
+        .flatMap(([comp, compInfo]) => include.filter((includePath) => {
+          if (exclude) {
+            return exclude.some(excludePath => (
+              !compInfo.from.includes(excludePath) && compInfo.from.includes(includePath)
+            ))
+          }
+
+          return compInfo.from.includes(includePath)
+        }).map(() => [comp, compInfo]))
+
+      resultList.forEach(([comp, ctxCompMapValue]) => {
+        ctx.componentNameMap[comp as string] = { ...(ctxCompMapValue as ComponentInfo), as: `${capitalize(prefix)}${comp}` }
+      })
+    }
+  }
 }
 
 export function stringifyDeclarationImports(imports: Record<string, string>) {
