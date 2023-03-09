@@ -225,3 +225,10 @@ export function resolveImportPath(importName: string): string | undefined {
     preserveSymlinks: false,
   })
 }
+
+export function removeDuplicatesPrepend(content: string, s: MagicString) {
+  const r = !(s as any).intro
+    ? `${content};`
+    : `${content.split(';').filter(item => !(s as any).intro.includes(item)).join(';')};\n`
+  return s.prepend(r)
+}

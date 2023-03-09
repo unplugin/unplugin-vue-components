@@ -1,6 +1,6 @@
 import Debug from 'debug'
 import type MagicString from 'magic-string'
-import { pascalCase, stringifyComponentImport } from '../../utils'
+import { pascalCase, removeDuplicatesPrepend, stringifyComponentImport } from '../../utils'
 import type { Context } from '../../context'
 import type { SupportedTransformer } from '../../..'
 import { DIRECTIVE_IMPORT_PREFIX } from '../../constants'
@@ -23,7 +23,7 @@ export default async function transformDirective(code: string, transformer: Supp
       continue
 
     const varName = `__unplugin_directives_${no}`
-    s.prepend(`${stringifyComponentImport({ ...directive, as: varName }, ctx)};\n`)
+    removeDuplicatesPrepend(`${stringifyComponentImport({ ...directive, as: varName }, ctx)}`, s)
     no += 1
     replace(varName)
   }

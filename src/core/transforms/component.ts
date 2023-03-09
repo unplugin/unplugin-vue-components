@@ -1,6 +1,6 @@
 import Debug from 'debug'
 import type MagicString from 'magic-string'
-import { pascalCase, stringifyComponentImport } from '../utils'
+import { pascalCase, removeDuplicatesPrepend, stringifyComponentImport, stringifyImport } from '../utils'
 import type { Context } from '../context'
 import type { ResolveResult } from '../transformer'
 import type { SupportedTransformer } from '../..'
@@ -57,11 +57,37 @@ export default async function transformComponent(code: string, transformer: Supp
     const component = await ctx.findComponent(name, 'component', [sfcPath])
     if (component) {
       const varName = `__unplugin_components_${no}`
-      s.prepend(`${stringifyComponentImport({ ...component, as: varName }, ctx)};\n`)
+      removeDuplicatesPrepend(`${stringifyComponentImport({ ...component, as: varName }, ctx)}`, s)
       no += 1
       replace(varName)
     }
   }
 
+  // Prevent templates and imports from being duplicated
+  const onlyStyle = onlyInjectStyle(code).filter(item => !results.some(({ rawName }) => rawName === item))
+
+  for (const rawName of onlyStyle) {
+    const name = pascalCase(rawName)
+    ctx.updateUsageMap(sfcPath, [name])
+    const component = await ctx.findComponent(name, 'component', [sfcPath])
+    if (!component || !component.sideEffects)
+      continue
+
+    removeDuplicatesPrepend(`${(component.sideEffects as string[]).map(stringifyImport).join(';')}`, s)
+  }
+
   debug(`^ (${no})`)
+}
+
+function onlyInjectStyle(code: string) {
+  const results: string[] = []
+  const matcher = code.match(/const __returned__ = {(.*)}/)
+  if (matcher) {
+    for (const match of matcher[1].matchAll(/get (\w+)\(\)/g) || []) {
+      const matchedName = match[1]
+      if (!results.includes(matchedName))
+        results.push(matchedName)
+    }
+  }
+  return results
 }
