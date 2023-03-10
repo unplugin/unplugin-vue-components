@@ -1,0 +1,105 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Ant Design Vue Resolver > components and directives should be transformed 1`] = `
+{
+  "code": "/* unplugin-vue-components disabled */import 'ant-design-vue/es/message/style/css';
+import { Button as __unplugin_components_0 } from 'ant-design-vue/es';import 'ant-design-vue/es/button/style/css';
+    import { defineComponent as _defineComponent } from \\"vue\\";
+' +
+    'import { message } from \\"ant-design-vue\\";
+' +
+    'import { ElMessage } from \\"element-plus\\";
+' +
+    'const _sfc_main = /* @__PURE__ */ _defineComponent({
+' +
+    '  __name: \\"App\\",
+' +
+    '  setup(__props, { expose }) {
+' +
+    '    expose();
+' +
+    '    const test1 = () => {
+' +
+    '      ElMessage.success(\\"message\\");
+' +
+    '    };
+' +
+    '    const handleClick = () => {
+' +
+    '      message.success(\\"\\\\u6D4B\\\\u8BD5 jsx \\\\u4F7F\\\\u7528 a-button \\\\u548C mesage\\");
+' +
+    '    };
+' +
+    '    const __returned__ = { test1, handleClick };
+' +
+    '    Object.defineProperty(__returned__, \\"__isScriptSetup\\", { enumerable: false, value: true });
+' +
+    '    return __returned__;
+' +
+    '  }
+' +
+    '});
+' +
+    'import { createTextVNode as _createTextVNode, resolveComponent as _resolveComponent, withCtx as _withCtx, createVNode as _createVNode, openBlock as _openBlock, createElementBlock as _createElementBlock, pushScopeId as _pushScopeId, popScopeId as _popScopeId } from \\"vue\\";
+' +
+    'const _withScopeId = (n) => (_pushScopeId(\\"data-v-7a7a37b1\\"), n = n(), _popScopeId(), n);
+' +
+    'const _hoisted_1 = { class: \\"block\\" };
+' +
+    'function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+' +
+    '  const _component_a_button = __unplugin_components_0;
+' +
+    '  return _openBlock(), _createElementBlock(\\"div\\", _hoisted_1, [
+' +
+    '    _createVNode(_component_a_button, { onClick: $setup.handleClick }, {
+' +
+    '      default: _withCtx(() => [
+' +
+    '        _createTextVNode(\\" \\\\u70B9\\\\u6211 \\")
+' +
+    '      ]),
+' +
+    '      _: 1
+' +
+    '      /* STABLE */
+' +
+    '    })
+' +
+    '  ]);
+' +
+    '}
+' +
+    'import \\"/Users/hejian/Documents/Github/unplugin-vue-components/examples/vite-vue3/src/App.vue?vue&type=style&index=0&scoped=7a7a37b1&lang.css\\";
+' +
+    '_sfc_main.__hmrId = \\"7a7a37b1\\";
+' +
+    'typeof __VUE_HMR_RUNTIME__ !== \\"undefined\\" && __VUE_HMR_RUNTIME__.createRecord(_sfc_main.__hmrId, _sfc_main);
+' +
+    'import.meta.hot.accept((mod) => {
+' +
+    '  if (!mod)
+' +
+    '    return;
+' +
+    '  const { default: updated, _rerender_only } = mod;
+' +
+    '  if (_rerender_only) {
+' +
+    '    __VUE_HMR_RUNTIME__.rerender(updated.__hmrId, updated.render);
+' +
+    '  } else {
+' +
+    '    __VUE_HMR_RUNTIME__.reload(updated.__hmrId, updated);
+' +
+    '  }
+' +
+    '});
+' +
+    'import _export_sfc from \\"\\\\0plugin-vue:export-helper\\";
+' +
+    'export default /* @__PURE__ */ _export_sfc(_sfc_main, [[\\"render\\", _sfc_render], [\\"__scopeId\\", \\"data-v-7a7a37b1\\"], [\\"__file\\", \\"/Users/hejian/Documents/Github/unplugin-vue-components/examples/vite-vue3/src/App.vue\\"]]);
+
+",
+}
+`;

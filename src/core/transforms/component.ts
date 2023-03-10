@@ -1,3 +1,4 @@
+import { toArray } from '@antfu/utils'
 import Debug from 'debug'
 import type MagicString from 'magic-string'
 import { pascalCase, removeDuplicatesPrepend, stringifyComponentImport, stringifyImport } from '../utils'
@@ -45,9 +46,19 @@ const resolveVue3 = (code: string, s: MagicString) => {
   return results
 }
 
+const componentUi = [{
+  prefix: 'A',
+  name: 'ant-design-vue',
+}, {
+  prefix: '',
+  name: 'element-plus',
+}, {
+  prefix: '',
+  name: 'vant',
+}]
+
 export default async function transformComponent(code: string, transformer: SupportedTransformer, s: MagicString, ctx: Context, sfcPath: string) {
   let no = 0
-
   const results = transformer === 'vue2' ? resolveVue2(code, s) : resolveVue3(code, s)
 
   for (const { rawName, replace } of results) {
@@ -65,15 +76,15 @@ export default async function transformComponent(code: string, transformer: Supp
 
   // Prevent templates and imports from being duplicated
   const onlyStyle = onlyInjectStyle(code).filter(item => !results.some(({ rawName }) => rawName === item))
-
   for (const rawName of onlyStyle) {
     const name = pascalCase(rawName)
     ctx.updateUsageMap(sfcPath, [name])
     const component = await ctx.findComponent(name, 'component', [sfcPath])
     if (!component || !component.sideEffects)
       continue
+    const sideEffects = toArray(component.sideEffects)
 
-    removeDuplicatesPrepend(`${(component.sideEffects as string[]).map(stringifyImport).join(';')}`, s)
+    removeDuplicatesPrepend(`${sideEffects.map(stringifyImport).join(';')}`, s)
   }
 
   debug(`^ (${no})`)
@@ -81,13 +92,16 @@ export default async function transformComponent(code: string, transformer: Supp
 
 function onlyInjectStyle(code: string) {
   const results: string[] = []
-  const matcher = code.match(/const __returned__ = {(.*)}/)
-  if (matcher) {
-    for (const match of matcher[1].matchAll(/get (\w+)\(\)/g) || []) {
-      const matchedName = match[1]
-      if (!results.includes(matchedName))
-        results.push(matchedName)
-    }
+  for (const ui of componentUi) {
+    const { name, prefix } = ui
+    const ulReg = new RegExp(`import {(.*)} from ['"]${name}["']`)
+    const matcher = code.match(ulReg)
+    if (!matcher)
+      continue
+    results.push(...matcher[1].split(',').map((i) => {
+      i = i.trim()
+      return `${prefix}${i[0].toUpperCase() + i.slice(1)}`
+    }))
   }
   return results
 }
