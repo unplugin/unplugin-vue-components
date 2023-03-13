@@ -6,6 +6,7 @@ import {
   getPackageInfo,
   isPackageExists,
 } from 'local-pkg'
+import type MagicString from 'magic-string'
 import type { ComponentInfo, ImportInfo, ImportInfoLegacy, Options, ResolvedOptions } from '../types'
 import type { Context } from './context'
 import { DISABLE_COMMENT } from './constants'
