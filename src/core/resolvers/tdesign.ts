@@ -2,12 +2,6 @@ import type { ComponentResolver } from '../../types'
 
 export interface TDesignResolverOptions {
   /**
-   * import style along with components
-   * @default 'css'
-   */
-  importStyle?: boolean | 'css' | 'less'
-
-  /**
    * select the specified library
    * @default 'vue'
    */
