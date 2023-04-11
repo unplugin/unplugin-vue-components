@@ -446,9 +446,8 @@ export function AntdResolver(options: AntdResolverOptions = {}): ComponentResolv
     resolve: (name: string) => {
       if (exclude.includes(name)) return;
 
-      const matcher = name.match(new RegExp(`^${prefix}([A-Z].*)$`));
-      if (!matcher) return;
-      const exportedName = matcher[1];
+      if (!name.startsWith(prefix)) return;
+      const exportedName = name.slice(prefix.length);
       if (!exportedName) return;
 
       const exportedInfo = antdExportedMap[exportedName];
@@ -467,8 +466,8 @@ export function AntdResolver(options: AntdResolverOptions = {}): ComponentResolv
       const stylePath = !importStyle
         ? undefined
         : !styleDir
-        ? undefined
-        : `${path}/${styleDir}/${importStyle === 'less' ? 'style/index' : 'style/css'}`;
+          ? undefined
+          : `${path}/${styleDir}/${importStyle === 'less' ? 'style/index' : 'style/css'}`;
 
       return {
         name: importName,
