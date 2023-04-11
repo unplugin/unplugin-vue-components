@@ -1,15 +1,15 @@
 // ref: https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/antdv.ts
 
-import type { ComponentResolver } from '../../types';
+import type { ComponentResolverObject } from '../../types';
 
-interface AntdComponent {
+interface AntdExported {
   local: string;
   exported: string;
   source: string;
-  styleDir: string;
+  styleDir?: string | null | undefined | void;
 }
 
-const antdComponentMap: { [x: string]: AntdComponent } = {
+const antdExportedMap: { [x: string]: AntdExported } = {
   Affix: {
     local: 'default',
     exported: 'Affix',
@@ -420,34 +420,25 @@ export interface AntdResolverOptions {
   format?: 'esm' | 'cjs';
 
   /**
-   * import style along with components
-   *
    * @default 'css'
    */
   importStyle?: boolean | 'css' | 'less';
 
   /**
-   * import component from specific path
-   *
    * @default false
    */
   specificImport?: boolean;
 
   /**
-   * exclude components that do not require automatic import
-   *
    * @default []
    */
   exclude?: string[];
 }
 
 /**
- * Resolver for Ant Design Vue
- *
- * Requires ant-design-vue@1.x
- *
+ * Resolver for ant-design-vue@1.x
  */
-export function AntdResolver(options: AntdResolverOptions = {}): ComponentResolver {
+export function AntdResolver(options: AntdResolverOptions = {}): ComponentResolverObject {
   const { prefix = 'A', format = 'esm', importStyle = 'css', specificImport = false, exclude = [] } = options;
 
   return {
@@ -455,29 +446,33 @@ export function AntdResolver(options: AntdResolverOptions = {}): ComponentResolv
     resolve: (name: string) => {
       if (exclude.includes(name)) return;
 
-      const exportedName = name.slice(prefix.length);
-      const exportedInfo = antdComponentMap[exportedName];
+      const matcher = name.match(new RegExp(`^${prefix}([A-Z].*)$`));
+      if (!matcher) return;
+      const exportedName = matcher[1];
+      if (!exportedName) return;
+
+      const exportedInfo = antdExportedMap[exportedName];
       if (!exportedInfo) return;
 
       const { local, exported, source, styleDir } = exportedInfo;
       const path = `ant-design-vue/${format === 'esm' ? 'es' : 'lib'}`;
 
-      let componentName = exported;
-      let componentPath = path;
-      let stylePath = undefined;
-
+      let importPath = path;
+      let importName = exported;
       if (specificImport) {
-        componentName = local;
-        componentPath = `${path}/${source}`;
+        importPath = `${path}/${source}`;
+        importName = local;
       }
 
-      if (importStyle) {
-        stylePath = `${path}/${styleDir}/${importStyle === 'less' ? 'style/index' : 'style/css'}`;
-      }
+      const stylePath = !importStyle
+        ? undefined
+        : !styleDir
+        ? undefined
+        : `${path}/${styleDir}/${importStyle === 'less' ? 'style/index' : 'style/css'}`;
 
       return {
-        name: componentName,
-        from: componentPath,
+        name: importName,
+        from: importPath,
         sideEffects: stylePath,
       };
     },
