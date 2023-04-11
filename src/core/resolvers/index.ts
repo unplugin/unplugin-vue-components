@@ -1,3 +1,4 @@
+export * from './antd'
 export * from './antdv'
 export * from './element-plus'
 export * from './element-ui'
