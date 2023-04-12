@@ -422,7 +422,7 @@ export interface AntdResolverOptions {
   /**
    * @default 'css'
    */
-  importStyle?: boolean | 'css' | 'less';
+  importStyle?: boolean | 'css' | 'source';
 
   /**
    * @default false
@@ -440,6 +440,7 @@ export interface AntdResolverOptions {
  */
 export function AntdResolver(options: AntdResolverOptions = {}): ComponentResolverObject {
   const { prefix = 'A', format = 'esm', importStyle = 'css', specificImport = false, exclude = [] } = options;
+  const lib = 'ant-design-vue';
 
   return {
     type: 'component',
@@ -450,11 +451,11 @@ export function AntdResolver(options: AntdResolverOptions = {}): ComponentResolv
       const exportedName = name.slice(prefix.length);
       if (!exportedName) return;
 
-      const exportedInfo = antdExportedMap[exportedName];
+      const exportedInfo = antdExportedMap[exportedName]; /* || antdExportedMap[name] */
       if (!exportedInfo) return;
 
       const { local, exported, source, styleDir } = exportedInfo;
-      const path = `ant-design-vue/${format === 'esm' ? 'es' : 'lib'}`;
+      const path = `${lib}/${format === 'esm' ? 'es' : 'lib'}`;
 
       let importPath = path;
       let importName = exported;
@@ -467,7 +468,7 @@ export function AntdResolver(options: AntdResolverOptions = {}): ComponentResolv
         ? undefined
         : !styleDir
           ? undefined
-          : `${path}/${styleDir}/${importStyle === 'less' ? 'style/index' : 'style/css'}`;
+          : `${path}/${styleDir}/${importStyle === 'source' ? 'style/index' : 'style/css'}`;
 
       return {
         name: importName,
