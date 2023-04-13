@@ -346,12 +346,6 @@ const antdExportedMap: { [x: string]: AntdExported } = {
     source: 'upload/index',
     styleDir: 'upload',
   },
-  version: {
-    local: 'default',
-    exported: 'version',
-    source: 'version/index',
-    styleDir: 'version',
-  },
   Drawer: {
     local: 'default',
     exported: 'Drawer',
@@ -451,7 +445,7 @@ export function AntdResolver(options: AntdResolverOptions = {}): ComponentResolv
       const exportedName = name.slice(prefix.length);
       if (!exportedName) return;
 
-      const exportedInfo = antdExportedMap[exportedName]; /* || antdExportedMap[name] */
+      const exportedInfo = antdExportedMap[exportedName];
       if (!exportedInfo) return;
 
       const { local, exported, source, styleDir } = exportedInfo;
