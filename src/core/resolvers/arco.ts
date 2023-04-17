@@ -168,6 +168,12 @@ export type ResolveIconsOption = DisallowResolveIconOption | AllowResolveIconOpt
 
 export interface ArcoResolverOptions {
   /**
+   * exclude components that do not require automatic import
+   *
+   * @default []
+   */
+    exclude?: string[]
+  /**
    * import style css or less with components
    *
    * @default 'css'
@@ -216,7 +222,7 @@ export function ArcoResolver(
           }
         }
       }
-      if (name.match(/^A[A-Z]/)) {
+      if (name.match(/^A[A-Z]/) && !options?.exclude?.includes(name)) {
         const importStyle = options.importStyle ?? 'css'
 
         const importName = name.slice(1)
