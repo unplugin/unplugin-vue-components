@@ -48,6 +48,11 @@
       "require": "./dist/webpack.js",
       "import": "./dist/webpack.mjs"
     },
+    "./rspack": {
+      "types": "./dist/rspack.d.ts",
+      "require": "./dist/rspack.js",
+      "import": "./dist/rspack.mjs"
+    },
     "./esbuild": {
       "types": "./dist/esbuild.d.ts",
       "require": "./dist/esbuild.js",

@@ -8,7 +8,7 @@ On-demand components auto importing for Vue.
 
 - 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
 - ✨ Supports both components and directives.
-- ⚡️ Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
+- ⚡️ Supports Vite, Webpack, Rspack, Vue CLI, Rollup, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
 - 🏝 Tree-shakable, only registers the components you use.
 - 🪐 Folder names as namespaces.
 - 🦾 Full TypeScript support.
@@ -75,6 +75,21 @@ module.exports = {
   /* ... */
   plugins: [
     require('unplugin-vue-components/webpack')({ /* options */ }),
+  ],
+}
+```
+
+<br></details>
+
+<details>
+<summary>Rspack</summary><br>
+
+```ts
+// rspack.config.js
+module.exports = {
+  /* ... */
+  plugins: [
+    require('unplugin-vue-components/rspack')({ /* options */ }),
   ],
 }
 ```
