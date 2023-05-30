@@ -1,6 +1,7 @@
 import Debug from 'debug'
 import type { ComponentInfo, ComponentResolver } from '../../types'
-import { kebabCase, pascalCase, isExclude } from '../utils'
+import { kebabCase, pascalCase } from '../utils'
+import { isExclude } from './_utils'
 const debug = Debug('unplugin-vue-components:resolvers:arco')
 
 const matchComponents = [
@@ -222,7 +223,7 @@ export function ArcoResolver(
           }
         }
       }
-      if (name.match(/^A[A-Z]/) && options.exclude && !isExclude(name, options.exclude)) {
+      if (name.match(/^A[A-Z]/) && !isExclude(name, options.exclude)) {
         const importStyle = options.importStyle ?? 'css'
 
         const importName = name.slice(1)
