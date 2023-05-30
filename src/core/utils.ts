@@ -6,6 +6,7 @@ import {
   getPackageInfo,
   isPackageExists,
 } from 'local-pkg'
+import type MagicString from 'magic-string'
 import type { ComponentInfo, ImportInfo, ImportInfoLegacy, Options, ResolvedOptions } from '../types'
 import type { Context } from './context'
 import { DISABLE_COMMENT } from './constants'
@@ -224,4 +225,11 @@ export function resolveImportPath(importName: string): string | undefined {
   return resolve.sync(importName, {
     preserveSymlinks: false,
   })
+}
+
+export function removeDuplicatesPrepend(content: string, s: MagicString) {
+  const r = !(s as any).intro
+    ? `${content};`
+    : `${content.split(';').filter(item => !(s as any).intro.includes(item)).join(';')};\n`
+  return s.prepend(r)
 }

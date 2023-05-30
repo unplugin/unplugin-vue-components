@@ -1,6 +1,7 @@
+import { toArray } from '@antfu/utils'
 import Debug from 'debug'
 import type MagicString from 'magic-string'
-import { pascalCase, stringifyComponentImport } from '../utils'
+import { pascalCase, removeDuplicatesPrepend, stringifyComponentImport, stringifyImport } from '../utils'
 import type { Context } from '../context'
 import type { ResolveResult } from '../transformer'
 import type { SupportedTransformer } from '../..'
@@ -45,9 +46,19 @@ const resolveVue3 = (code: string, s: MagicString) => {
   return results
 }
 
+const componentUi = [{
+  prefix: 'A',
+  name: 'ant-design-vue',
+}, {
+  prefix: '',
+  name: 'element-plus',
+}, {
+  prefix: '',
+  name: 'vant',
+}]
+
 export default async function transformComponent(code: string, transformer: SupportedTransformer, s: MagicString, ctx: Context, sfcPath: string) {
   let no = 0
-
   const results = transformer === 'vue2' ? resolveVue2(code, s) : resolveVue3(code, s)
 
   for (const { rawName, replace } of results) {
@@ -57,11 +68,40 @@ export default async function transformComponent(code: string, transformer: Supp
     const component = await ctx.findComponent(name, 'component', [sfcPath])
     if (component) {
       const varName = `__unplugin_components_${no}`
-      s.prepend(`${stringifyComponentImport({ ...component, as: varName }, ctx)};\n`)
+      removeDuplicatesPrepend(`${stringifyComponentImport({ ...component, as: varName }, ctx)}`, s)
       no += 1
       replace(varName)
     }
   }
 
+  // Prevent templates and imports from being duplicated
+  const onlyStyle = onlyInjectStyle(code).filter(item => !results.some(({ rawName }) => rawName === item))
+  for (const rawName of onlyStyle) {
+    const name = pascalCase(rawName)
+    ctx.updateUsageMap(sfcPath, [name])
+    const component = await ctx.findComponent(name, 'component', [sfcPath])
+    if (!component || !component.sideEffects)
+      continue
+    const sideEffects = toArray(component.sideEffects)
+
+    removeDuplicatesPrepend(`${sideEffects.map(stringifyImport).join(';')}`, s)
+  }
+
   debug(`^ (${no})`)
+}
+
+function onlyInjectStyle(code: string) {
+  const results: string[] = []
+  for (const ui of componentUi) {
+    const { name, prefix } = ui
+    const ulReg = new RegExp(`import {(.*)} from ['"]${name}["']`)
+    const matcher = code.match(ulReg)
+    if (!matcher)
+      continue
+    results.push(...matcher[1].split(',').map((i) => {
+      i = i.trim()
+      return `${prefix}${i[0].toUpperCase() + i.slice(1)}`
+    }))
+  }
+  return results
 }
