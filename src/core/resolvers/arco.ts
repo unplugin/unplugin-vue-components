@@ -1,6 +1,7 @@
 import Debug from 'debug'
 import type { ComponentInfo, ComponentResolver } from '../../types'
 import { kebabCase, pascalCase } from '../utils'
+import { isExclude } from './_utils'
 
 const debug = Debug('unplugin-vue-components:resolvers:arco')
 
@@ -169,6 +170,12 @@ export type ResolveIconsOption = DisallowResolveIconOption | AllowResolveIconOpt
 
 export interface ArcoResolverOptions {
   /**
+   * exclude components that do not require automatic import
+   *
+   * @default []
+   */
+  exclude?: string | RegExp | (string | RegExp)[]
+  /**
    * import style css or less with components
    *
    * @default 'css'
@@ -217,7 +224,7 @@ export function ArcoResolver(
           }
         }
       }
-      if (name.match(/^A[A-Z]/)) {
+      if (name.match(/^A[A-Z]/) && !isExclude(name, options.exclude)) {
         const importStyle = options.importStyle ?? 'css'
 
         const importName = name.slice(1)
