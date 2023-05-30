@@ -10,6 +10,7 @@ We recommend to have it under a submodule, or publish as a separate package.
 
 ```ts
 import Components from 'unplugin-vue-components'
+
 import MyLibResolver from 'my-lib/auto-import-resolver' // <--
 
 export default defineConfig({

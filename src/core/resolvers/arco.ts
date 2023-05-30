@@ -1,6 +1,7 @@
 import Debug from 'debug'
 import type { ComponentInfo, ComponentResolver } from '../../types'
 import { kebabCase, pascalCase } from '../utils'
+
 const debug = Debug('unplugin-vue-components:resolvers:arco')
 
 const matchComponents = [

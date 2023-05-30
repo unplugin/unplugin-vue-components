@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import type { ResolvedOptions } from '../src'
 import { getNameFromFilePath } from '../src/core/utils'
+
 describe('getNameFromFilePath', () => {
   const options: Partial<ResolvedOptions> = {
     directoryAsNamespace: true,
