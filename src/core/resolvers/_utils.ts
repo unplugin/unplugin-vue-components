@@ -1,9 +1,7 @@
-
 export function isExclude(name: string, exclude?: string | RegExp | (string | RegExp)[] | undefined): boolean {
-  if (!exclude) {
+  if (!exclude)
     return false
-  }
- 
+
   if (typeof exclude === 'string')
     return name === exclude
 
