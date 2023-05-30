@@ -48,6 +48,11 @@
       "require": "./dist/webpack.js",
       "import": "./dist/webpack.mjs"
     },
+    "./rspack": {
+      "types": "./dist/rspack.d.ts",
+      "require": "./dist/rspack.js",
+      "import": "./dist/rspack.mjs"
+    },
     "./esbuild": {
       "types": "./dist/esbuild.d.ts",
       "require": "./dist/esbuild.js",
@@ -105,7 +110,7 @@
     "magic-string": "^0.30.0",
     "minimatch": "^7.4.2",
     "resolve": "^1.22.1",
-    "unplugin": "^1.1.0"
+    "unplugin": "^1.3.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.36.0",
