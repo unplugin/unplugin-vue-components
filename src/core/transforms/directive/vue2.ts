@@ -10,7 +10,7 @@ import type { ResolveResult } from '../../transformer'
  * @param ast
  * @returns
  */
-const getRenderFnStart = (program: Program): number => {
+function getRenderFnStart(program: Program): number {
   const renderFn = program.body.find((node): node is VariableDeclaration =>
     node.type === 'VariableDeclaration'
       && node.declarations[0].id.type === 'Identifier'

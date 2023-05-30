@@ -1,5 +1,6 @@
 import type { ComponentResolver, SideEffectsInfo } from '../../types'
 import { kebabCase } from '../utils'
+
 interface IMatcher {
   pattern: RegExp
   styleDir: string

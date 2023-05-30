@@ -72,7 +72,7 @@ export function VeuiResolver(options: VeuiResolverOptions = {}): ComponentResolv
 
   if (!components) {
     try {
-      /* eslint-disable @typescript-eslint/no-var-requires */
+      /* eslint-disable @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports */
       const componentsData = require(`${alias}/components.json`) as ComponentInfo[]
 
       components = new Set(componentsData.map(({ name }) => name))
