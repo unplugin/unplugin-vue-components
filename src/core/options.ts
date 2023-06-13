@@ -10,6 +10,8 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'tr
   deep: true,
   dts: isPackageExists('typescript'),
 
+  ignore: ['node_modules'],
+
   directoryAsNamespace: false,
   collapseSamePrefixes: false,
   globalNamespaces: [],
@@ -29,6 +31,7 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   const resolved = Object.assign({}, defaultOptions, options) as ResolvedOptions
   resolved.resolvers = normalizeResolvers(resolved.resolvers)
   resolved.extensions = toArray(resolved.extensions)
+  resolved.ignore = toArray(resolved.ignore).map((i: string) => slash(resolve(root, i)))
 
   if (resolved.globs) {
     resolved.globs = toArray(resolved.globs).map((glob: string) => slash(resolve(root, glob)))

@@ -91,6 +91,12 @@ export interface Options {
   globs?: string | string[]
 
   /**
+   * An array of glob patterns to exclude matches, This is an alternative way to use negative patterns.
+   * @default ['node_modules']
+   */
+  ignore?: string[]
+
+  /**
    * Search for subdirectories
    * @default true
    */
