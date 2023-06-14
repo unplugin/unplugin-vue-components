@@ -120,7 +120,7 @@ export function getDeclaration(ctx: Context, filepath: string, originalImports?:
 declare module 'vue' {`
     : `export {}
 
-declare module 'vue' {`
+declare module '@vue/runtime-core' {`
 
   let code = `/* eslint-disable */
 /* prettier-ignore */

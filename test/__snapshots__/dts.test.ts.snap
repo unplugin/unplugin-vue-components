@@ -8,7 +8,7 @@ exports[`dts > components only 1`] = `
 // Read more: https://github.com/vuejs/core/pull/3399
 export {}
 
-declare module 'vue' {
+declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -26,7 +26,7 @@ exports[`dts > directive only 1`] = `
 // Read more: https://github.com/vuejs/core/pull/3399
 export {}
 
-declare module 'vue' {
+declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
     vLoading: typeof import('test/directive/Loading')['default']
   }
@@ -42,7 +42,7 @@ exports[`dts > getDeclaration 1`] = `
 // Read more: https://github.com/vuejs/core/pull/3399
 export {}
 
-declare module 'vue' {
+declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -118,7 +118,7 @@ exports[`dts > writeDeclaration - keep unused 1`] = `
 // Read more: https://github.com/vuejs/core/pull/3399
 export {}
 
-declare module 'vue' {
+declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -142,7 +142,7 @@ exports[`dts > writeDeclaration 1`] = `
 // Read more: https://github.com/vuejs/core/pull/3399
 export {}
 
-declare module 'vue' {
+declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

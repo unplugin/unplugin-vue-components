@@ -52,7 +52,7 @@ const _directive_loading = _resolveDirective("loading")`
     await writeFile(
       filepath,
       `
-declare module 'vue' {
+declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     SomeComp: typeof import('test/component/SomeComp')['default']
     TestComp: typeof import('test/component/OldComp')['default']
