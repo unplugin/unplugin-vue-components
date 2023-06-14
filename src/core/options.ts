@@ -26,8 +26,8 @@ function normalizeResolvers(resolvers: (ComponentResolver | ComponentResolver[])
 }
 
 function resolveGlobsExclude(root: string, glob: string) {
-  const reg = /^!/
-  return `${reg.test(glob) ? '!' : ''}${resolve(root, glob.replace(reg, ''))}`
+  const excludeReg = /^!/
+  return `${excludeReg.test(glob) ? '!' : ''}${resolve(root, glob.replace(excludeReg, ''))}`
 }
 
 export function resolveOptions(options: Options, root: string): ResolvedOptions {
