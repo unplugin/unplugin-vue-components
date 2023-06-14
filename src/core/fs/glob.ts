@@ -9,7 +9,7 @@ export function searchComponents(ctx: Context) {
   const root = ctx.root
 
   const files = fg.sync(ctx.options.globs, {
-    ignore: ctx.options.ignore,
+    ignore: ['node_modules'],
     onlyFiles: true,
     cwd: root,
     absolute: true,

@@ -10,8 +10,6 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'tr
   deep: true,
   dts: isPackageExists('typescript'),
 
-  ignore: ['node_modules'],
-
   directoryAsNamespace: false,
   collapseSamePrefixes: false,
   globalNamespaces: [],
@@ -27,14 +25,18 @@ function normalizeResolvers(resolvers: (ComponentResolver | ComponentResolver[])
   return toArray(resolvers).flat().map(r => typeof r === 'function' ? { resolve: r, type: 'component' } : r)
 }
 
+function resolveGlobsExclude(root: string, glob: string) {
+  const reg = /^!/
+  return `${reg.test(glob) ? '!' : ''}${resolve(root, glob.replace(reg, ''))}`
+}
+
 export function resolveOptions(options: Options, root: string): ResolvedOptions {
   const resolved = Object.assign({}, defaultOptions, options) as ResolvedOptions
   resolved.resolvers = normalizeResolvers(resolved.resolvers)
   resolved.extensions = toArray(resolved.extensions)
-  resolved.ignore = toArray(resolved.ignore).map((i: string) => slash(resolve(root, i)))
 
   if (resolved.globs) {
-    resolved.globs = toArray(resolved.globs).map((glob: string) => slash(resolve(root, glob)))
+    resolved.globs = toArray(resolved.globs).map((glob: string) => slash(resolveGlobsExclude(root, glob)))
     resolved.resolvedDirs = []
   }
   else {
@@ -43,7 +45,7 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
       : `{${resolved.extensions.join(',')}}`
 
     resolved.dirs = toArray(resolved.dirs)
-    resolved.resolvedDirs = resolved.dirs.map(i => slash(resolve(root, i)))
+    resolved.resolvedDirs = resolved.dirs.map(i => slash(resolveGlobsExclude(root, i)))
 
     resolved.globs = resolved.resolvedDirs.map(i => resolved.deep
       ? slash(join(i, `**/*.${extsGlob}`))
