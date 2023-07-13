@@ -27,6 +27,7 @@ export interface TDesignResolverOptions {
 }
 
 export function TDesignResolver(options: TDesignResolverOptions = {}): ComponentResolver {
+  const pluginList = ['DialogPlugin', 'LoadingPlugin', 'MessagePlugin', 'NotifyPlugin']
   return {
     type: 'component',
     resolve: (name: string) => {
@@ -43,8 +44,8 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
         }
       }
 
-      if (name.match(/^T[A-Z]/)) {
-        const importName = name.slice(1)
+      if (name.match(/^T[A-Z]/) || pluginList.includes(name)) {
+        const importName = name.match(/^T[A-Z]/) ? name.slice(1) : name
 
         return {
           name: importName,
