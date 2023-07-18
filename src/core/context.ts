@@ -1,5 +1,6 @@
 import { relative } from 'node:path'
 import type fs from 'node:fs'
+import process from 'node:process'
 import Debug from 'debug'
 import type { UpdatePayload, ViteDevServer } from 'vite'
 import { slash, throttle, toArray } from '@antfu/utils'

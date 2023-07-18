@@ -1,4 +1,5 @@
 import { parse } from 'node:path'
+import process from 'node:process'
 import { minimatch } from 'minimatch'
 import resolve from 'resolve'
 import { slash, toArray } from '@antfu/utils'
