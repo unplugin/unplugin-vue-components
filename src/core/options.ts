@@ -25,13 +25,18 @@ function normalizeResolvers(resolvers: (ComponentResolver | ComponentResolver[])
   return toArray(resolvers).flat().map(r => typeof r === 'function' ? { resolve: r, type: 'component' } : r)
 }
 
+function resolveGlobsExclude(root: string, glob: string) {
+  const excludeReg = /^!/
+  return `${excludeReg.test(glob) ? '!' : ''}${resolve(root, glob.replace(excludeReg, ''))}`
+}
+
 export function resolveOptions(options: Options, root: string): ResolvedOptions {
   const resolved = Object.assign({}, defaultOptions, options) as ResolvedOptions
   resolved.resolvers = normalizeResolvers(resolved.resolvers)
   resolved.extensions = toArray(resolved.extensions)
 
   if (resolved.globs) {
-    resolved.globs = toArray(resolved.globs).map((glob: string) => slash(resolve(root, glob)))
+    resolved.globs = toArray(resolved.globs).map((glob: string) => slash(resolveGlobsExclude(root, glob)))
     resolved.resolvedDirs = []
   }
   else {
@@ -40,7 +45,7 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
       : `{${resolved.extensions.join(',')}}`
 
     resolved.dirs = toArray(resolved.dirs)
-    resolved.resolvedDirs = resolved.dirs.map(i => slash(resolve(root, i)))
+    resolved.resolvedDirs = resolved.dirs.map(i => slash(resolveGlobsExclude(root, i)))
 
     resolved.globs = resolved.resolvedDirs.map(i => resolved.deep
       ? slash(join(i, `**/*.${extsGlob}`))
