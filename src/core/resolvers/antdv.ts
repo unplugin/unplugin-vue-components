@@ -311,6 +311,7 @@ const primitiveNames = [
   'Rate',
   'Result',
   'Row',
+  'Segmented',
   'Select',
   'SelectOption',
   'SelectOptionGroup',
