@@ -54,7 +54,7 @@ const COMPONENT_ALIASES: Record<string, string> = {
  *
  * @link https://github.com/bootstrap-vue/bootstrap-vue
  */
-export const BootstrapVueResolver = (_options: BootstrapVueResolverOptions = {}): ComponentResolver[] => {
+export function BootstrapVueResolver(_options: BootstrapVueResolverOptions = {}): ComponentResolver[] {
   const options = { directives: true, ..._options }
   const resolvers: ComponentResolver[] = [{
     type: 'component',
@@ -90,7 +90,7 @@ export const BootstrapVueResolver = (_options: BootstrapVueResolverOptions = {})
  *
  * @link https://github.com/bootstrap-vue/bootstrap-vue-next
  */
-export const BootstrapVueNextResolver = (_options: BootstrapVueResolverOptions = {}): Array<ComponentResolver> => {
+export function BootstrapVueNextResolver(_options: BootstrapVueResolverOptions = {}): Array<ComponentResolver> {
   const options = { directives: true, ..._options }
   const resolvers: Array<ComponentResolver> = [{
     type: 'component',
@@ -119,7 +119,7 @@ export const BootstrapVueNextResolver = (_options: BootstrapVueResolverOptions =
  * @deprecated use BootstrapVueNextResolver with https://github.com/bootstrap-vue/bootstrap-vue-next
  * @link https://www.npmjs.com/package/bootstrap-vue-3
  */
-export const BootstrapVue3Resolver = (_options: BootstrapVueResolverOptions = {}): Array<ComponentResolver> => {
+export function BootstrapVue3Resolver(_options: BootstrapVueResolverOptions = {}): Array<ComponentResolver> {
   const options = { directives: true, ..._options }
   const resolvers: Array<ComponentResolver> = [{
     type: 'component',

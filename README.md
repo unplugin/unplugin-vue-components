@@ -8,7 +8,7 @@ On-demand components auto importing for Vue.
 
 - 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
 - ✨ Supports both components and directives.
-- ⚡️ Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
+- ⚡️ Supports Vite, Webpack, Rspack, Vue CLI, Rollup, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
 - 🏝 Tree-shakable, only registers the components you use.
 - 🪐 Folder names as namespaces.
 - 🦾 Full TypeScript support.
@@ -75,6 +75,21 @@ module.exports = {
   /* ... */
   plugins: [
     require('unplugin-vue-components/webpack')({ /* options */ }),
+  ],
+}
+```
+
+<br></details>
+
+<details>
+<summary>Rspack</summary><br>
+
+```ts
+// rspack.config.js
+module.exports = {
+  /* ... */
+  plugins: [
+    require('unplugin-vue-components/rspack')({ /* options */ }),
   ],
 }
 ```
@@ -203,7 +218,7 @@ Supported Resolvers:
 - [Varlet UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/varlet-ui.ts)
 - [VEUI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/veui.ts)
 - [View UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/view-ui.ts)
-- [Vuetify](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vuetify.ts)
+- [Vuetify](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vuetify.ts) &mdash; Prefer first-party plugins when possible: [v3 + vite](https://www.npmjs.com/package/vite-plugin-vuetify), [v3 + webpack](https://www.npmjs.com/package/webpack-plugin-vuetify), [v2 + webpack](https://npmjs.com/package/vuetify-loader)
 - [VueUse Components](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vueuse.ts)
 - [VueUse Directives](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vueuse-directive.ts)
 - [Dev UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/devui.ts)

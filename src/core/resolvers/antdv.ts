@@ -1,5 +1,6 @@
 import type { ComponentResolver, SideEffectsInfo } from '../../types'
 import { kebabCase } from '../utils'
+
 interface IMatcher {
   pattern: RegExp
   styleDir: string
@@ -56,6 +57,10 @@ const matchComponents: IMatcher[] = [
     styleDir: 'dropdown',
   },
 
+  {
+    pattern: /^FloatButton/,
+    styleDir: 'float-button',
+  },
   {
     pattern: /^Form/,
     styleDir: 'form',
@@ -155,6 +160,10 @@ const matchComponents: IMatcher[] = [
     pattern: /^Upload/,
     styleDir: 'upload',
   },
+  {
+    pattern: /^Qrcode/,
+    styleDir: 'qrcode',
+  },
 ]
 
 export interface AntDesignVueResolverOptions {
@@ -201,6 +210,7 @@ export interface AntDesignVueResolverOptions {
   packageName?: string
   /**
    * customize prefix of component
+   * @default 'A'
    */
   prefix?: string
 }
@@ -241,7 +251,7 @@ function getSideEffects(compName: string, options: AntDesignVueResolverOptions):
     return `${packageName}/${lib}/${styleDir}/style/css`
   }
 }
-const primitiveNames = ['Affix', 'Anchor', 'AnchorLink', 'AutoComplete', 'AutoCompleteOptGroup', 'AutoCompleteOption', 'Alert', 'Avatar', 'AvatarGroup', 'BackTop', 'Badge', 'BadgeRibbon', 'Breadcrumb', 'BreadcrumbItem', 'BreadcrumbSeparator', 'Button', 'ButtonGroup', 'Calendar', 'Card', 'CardGrid', 'CardMeta', 'Collapse', 'CollapsePanel', 'Carousel', 'Cascader', 'Checkbox', 'CheckboxGroup', 'Col', 'Comment', 'ConfigProvider', 'DatePicker', 'MonthPicker', 'WeekPicker', 'RangePicker', 'QuarterPicker', 'Descriptions', 'DescriptionsItem', 'Divider', 'Dropdown', 'DropdownButton', 'Drawer', 'Empty', 'Form', 'FormItem', 'FormItemRest', 'Grid', 'Input', 'InputGroup', 'InputPassword', 'InputSearch', 'Textarea', 'Image', 'ImagePreviewGroup', 'InputNumber', 'Layout', 'LayoutHeader', 'LayoutSider', 'LayoutFooter', 'LayoutContent', 'List', 'ListItem', 'ListItemMeta', 'Menu', 'MenuDivider', 'MenuItem', 'MenuItemGroup', 'SubMenu', 'Mentions', 'MentionsOption', 'Modal', 'Statistic', 'StatisticCountdown', 'PageHeader', 'Pagination', 'Popconfirm', 'Popover', 'Progress', 'Radio', 'RadioButton', 'RadioGroup', 'Rate', 'Result', 'Row', 'Select', 'SelectOptGroup', 'SelectOption', 'Skeleton', 'SkeletonButton', 'SkeletonAvatar', 'SkeletonInput', 'SkeletonImage', 'Slider', 'Space', 'Spin', 'Steps', 'Step', 'Switch', 'Table', 'TableColumn', 'TableColumnGroup', 'TableSummary', 'TableSummaryRow', 'TableSummaryCell', 'Transfer', 'Tree', 'TreeNode', 'DirectoryTree', 'TreeSelect', 'TreeSelectNode', 'Tabs', 'TabPane', 'Tag', 'CheckableTag', 'TimePicker', 'TimeRangePicker', 'Timeline', 'TimelineItem', 'Tooltip', 'Typography', 'TypographyLink', 'TypographyParagraph', 'TypographyText', 'TypographyTitle', 'Upload', 'UploadDragger', 'LocaleProvider']
+const primitiveNames = ['Affix', 'Anchor', 'AnchorLink', 'AutoComplete', 'AutoCompleteOptGroup', 'AutoCompleteOption', 'Alert', 'Avatar', 'AvatarGroup', 'BackTop', 'Badge', 'BadgeRibbon', 'Breadcrumb', 'BreadcrumbItem', 'BreadcrumbSeparator', 'Button', 'ButtonGroup', 'Calendar', 'Card', 'CardGrid', 'CardMeta', 'Collapse', 'CollapsePanel', 'Carousel', 'Cascader', 'Checkbox', 'CheckboxGroup', 'Col', 'Comment', 'ConfigProvider', 'DatePicker', 'MonthPicker', 'WeekPicker', 'RangePicker', 'QuarterPicker', 'Descriptions', 'DescriptionsItem', 'Divider', 'Dropdown', 'DropdownButton', 'Drawer', 'Empty', 'Form', 'FormItem', 'FormItemRest', 'Grid', 'Input', 'InputGroup', 'InputPassword', 'InputSearch', 'Textarea', 'Image', 'ImagePreviewGroup', 'InputNumber', 'Layout', 'LayoutHeader', 'LayoutSider', 'LayoutFooter', 'LayoutContent', 'List', 'ListItem', 'ListItemMeta', 'Menu', 'MenuDivider', 'MenuItem', 'MenuItemGroup', 'SubMenu', 'Mentions', 'MentionsOption', 'Modal', 'Statistic', 'StatisticCountdown', 'PageHeader', 'Pagination', 'Popconfirm', 'Popover', 'Progress', 'Radio', 'RadioButton', 'RadioGroup', 'Rate', 'Result', 'Row', 'Select', 'SelectOptGroup', 'SelectOption', 'Skeleton', 'SkeletonButton', 'SkeletonAvatar', 'SkeletonInput', 'SkeletonImage', 'Slider', 'Space', 'Spin', 'Steps', 'Step', 'Switch', 'Table', 'TableColumn', 'TableColumnGroup', 'TableSummary', 'TableSummaryRow', 'TableSummaryCell', 'Transfer', 'Tree', 'TreeNode', 'DirectoryTree', 'TreeSelect', 'TreeSelectNode', 'Tabs', 'TabPane', 'Tag', 'CheckableTag', 'TimePicker', 'TimeRangePicker', 'Timeline', 'TimelineItem', 'Tooltip', 'Typography', 'TypographyLink', 'TypographyParagraph', 'TypographyText', 'TypographyTitle', 'Upload', 'UploadDragger', 'LocaleProvider', 'FloatButton', 'FloatButtonGroup', 'Qrcode', 'Watermark', 'Segmented', 'Tour']
 
 let antdvNames: Set<string>
 
@@ -254,6 +264,12 @@ genAntdNames(primitiveNames)
 
 function isAntdv(compName: string): boolean {
   return antdvNames.has(compName)
+}
+
+function getImportName(compName: string): string {
+  if (compName === 'Qrcode')
+    return 'QRCode'
+  return compName
 }
 
 /**
@@ -269,27 +285,25 @@ function isAntdv(compName: string): boolean {
 export function AntDesignVueResolver(options: AntDesignVueResolverOptions = {
 
 }): ComponentResolver {
+  const originPrefix = options.prefix ?? 'A'
   return {
     type: 'component',
     resolve: (name: string) => {
-      // if options.prefix is undefined, then give it a default value 'A'
-      options.prefix === undefined && (options.prefix = 'A')
       if (options.resolveIcons && name.match(/(Outlined|Filled|TwoTone)$/)) {
         return {
           name,
           from: '@ant-design/icons-vue',
         }
       }
-      let prefix
-      // divide component name and prefix
-      [name, prefix] = [name.slice(options.prefix.length), name.slice(0, options.prefix.length)]
-      if (prefix === options.prefix && isAntdv(name) && !options?.exclude?.includes(name)) {
+
+      const [compName, prefix] = [name.slice(originPrefix.length), name.slice(0, originPrefix.length)]
+      if (prefix === originPrefix && isAntdv(compName) && !options?.exclude?.includes(compName)) {
         const { cjs = false, packageName = 'ant-design-vue' } = options
         const path = `${packageName}/${cjs ? 'lib' : 'es'}`
         return {
-          name,
+          name: getImportName(compName),
           from: path,
-          sideEffects: getSideEffects(name, options),
+          sideEffects: getSideEffects(compName, options),
         }
       }
     },

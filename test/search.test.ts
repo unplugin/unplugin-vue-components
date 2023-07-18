@@ -43,4 +43,30 @@ describe('search', () => {
 
     expect(cleanup(ctx.componentNameMap)).toMatchSnapshot()
   })
+
+  it('should globs exclude work', () => {
+    const ctx = new Context({
+      globs: [
+        'src/components/*.vue',
+        '!src/components/ComponentA.vue',
+      ],
+    })
+    ctx.setRoot(root)
+    ctx.searchGlob()
+
+    expect(cleanup(ctx.componentNameMap).map(i => i.as)).not.toEqual(expect.arrayContaining(['ComponentA']))
+  })
+
+  it('should globs exclude work with dirs', () => {
+    const ctx = new Context({
+      dirs: [
+        'src/components',
+        '!src/components/book',
+      ],
+    })
+    ctx.setRoot(root)
+    ctx.searchGlob()
+
+    expect(cleanup(ctx.componentNameMap).map(i => i.as)).not.toEqual(expect.arrayContaining(['Book']))
+  })
 })

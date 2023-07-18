@@ -118,11 +118,9 @@ export function getDeclaration(ctx: Context, filepath: string, originalImports?:
     ? `export {}
 
 declare module 'vue' {`
-    : `import '@vue/runtime-core'
+    : `export {}
 
-export {}
-
-declare module '@vue/runtime-core' {`
+declare module 'vue' {`
 
   let code = `/* eslint-disable */
 /* prettier-ignore */

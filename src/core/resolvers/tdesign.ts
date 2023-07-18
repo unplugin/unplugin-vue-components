@@ -1,13 +1,6 @@
-import type { ComponentResolver, SideEffectsInfo } from '../../types'
-import { kebabCase } from '../utils'
+import type { ComponentResolver } from '../../types'
 
 export interface TDesignResolverOptions {
-  /**
-   * import style along with components
-   * @default 'css'
-   */
-  importStyle?: boolean | 'css' | 'less'
-
   /**
    * select the specified library
    * @default 'vue'
@@ -33,70 +26,8 @@ export interface TDesignResolverOptions {
   exclude?: string | RegExp | (string | RegExp)[]
 }
 
-function getSideEffects(importName: string, options: TDesignResolverOptions): SideEffectsInfo | undefined {
-  const { library = 'vue', importStyle = 'css' } = options
-  let fileName = kebabCase(importName)
-
-  if (!importStyle)
-    return
-
-  if (['config-provider', 'icon'].includes(fileName))
-    return
-
-  if (fileName.includes('-') && fileName !== 'input-number') {
-    const prefix = fileName.slice(0, fileName.indexOf('-'))
-    const container = ['anchor', 'avatar', 'breadcrumb', 'checkbox', 'dropdown', 'form', 'input', 'list', 'menu', 'radio', 'slider', 'swiper', 'color-picker', 'text', 'collapse', 'timeline']
-
-    if (container.includes(prefix))
-      fileName = prefix
-  }
-
-  if (['row', 'col'].includes(fileName))
-    fileName = 'grid'
-
-  if (fileName === 'addon')
-    fileName = 'input'
-
-  if (['aside', 'layout', 'header', 'footer', 'content'].includes(fileName))
-    fileName = 'layout'
-
-  if (['head-menu', 'submenu'].includes(fileName))
-    fileName = 'menu'
-
-  if (['option', 'option-group'].includes(fileName))
-    fileName = 'select'
-
-  if (['tab-nav', 'tab-panel'].includes(fileName))
-    fileName = 'tabs'
-
-  if (fileName === 'step-item')
-    fileName = 'steps'
-
-  if (fileName === 'check-tag')
-    fileName = 'tag'
-
-  if (['time-range-picker', 'time-range-picker-panel', 'time-picker-panel'].includes(fileName))
-    fileName = 'time-picker'
-
-  if (['date-range-picker', 'date-range-picker-panel', 'date-picker-panel'].includes(fileName))
-    fileName = 'date-picker'
-
-  if (['color-picker', 'color-picker-panel'].includes(fileName))
-    fileName = 'color-picker'
-
-  if (['enhanced-table', 'base-table'].includes(fileName))
-    fileName = 'table'
-
-  if (['pagination-mini'].includes(fileName))
-    fileName = 'pagination'
-
-  if (importStyle === 'less')
-    return `tdesign-${library}/esm/${fileName}/style`
-
-  return `tdesign-${library}/es/${fileName}/style`
-}
-
 export function TDesignResolver(options: TDesignResolverOptions = {}): ComponentResolver {
+  const pluginList = ['DialogPlugin', 'LoadingPlugin', 'MessagePlugin', 'NotifyPlugin']
   return {
     type: 'component',
     resolve: (name: string) => {
@@ -113,13 +44,12 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
         }
       }
 
-      if (name.match(/^T[A-Z]/)) {
-        const importName = name.slice(1)
+      if (name.match(/^T[A-Z]/) || pluginList.includes(name)) {
+        const importName = name.match(/^T[A-Z]/) ? name.slice(1) : name
 
         return {
           name: importName,
           from: `tdesign-${library}${importFrom}`,
-          sideEffects: getSideEffects(importName, options),
         }
       }
     },

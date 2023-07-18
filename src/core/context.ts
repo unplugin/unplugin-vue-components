@@ -1,5 +1,6 @@
 import { relative } from 'node:path'
 import type fs from 'node:fs'
+import process from 'node:process'
 import Debug from 'debug'
 import type { UpdatePayload, ViteDevServer } from 'vite'
 import { slash, throttle, toArray } from '@antfu/utils'
@@ -15,7 +16,7 @@ const debug = {
   components: Debug('unplugin-vue-components:context:components'),
   search: Debug('unplugin-vue-components:context:search'),
   hmr: Debug('unplugin-vue-components:context:hmr'),
-  decleration: Debug('unplugin-vue-components:decleration'),
+  declaration: Debug('unplugin-vue-components:declaration'),
   env: Debug('unplugin-vue-components:env'),
 }
 
@@ -282,7 +283,7 @@ export class Context {
     if (!this.options.dts)
       return
 
-    debug.decleration('generating')
+    debug.declaration('generating')
     return writeDeclaration(this, this.options.dts, removeUnused)
   }
 
