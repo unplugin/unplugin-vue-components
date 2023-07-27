@@ -3,6 +3,11 @@ import { kebabCase } from '../utils'
 
 const specialComponents: Record<string, string> = {
   CdkVirtualScroll: 'scroll',
+  CdkClickOutside: 'click-outside',
+  CdkDraggable: 'drag-drop',
+  CdkResizable: 'resize',
+  CdkResizableHandle: 'resize',
+  CdkResizeObserver: 'resize',
   IxAutoComplete: 'auto-complete',
   IxBackTop: 'back-top',
   IxDatePicker: 'date-picker',
@@ -14,6 +19,8 @@ const specialComponents: Record<string, string> = {
   IxTreeSelect: 'tree-select',
   IxTimePicker: 'time-picker',
   IxTimeRangePicker: 'time-picker',
+  IxLoadingBar: 'loading-bar',
+  IxLoadingBarProvider: 'loading-bar',
 }
 
 export interface IduxResolverOptions {
