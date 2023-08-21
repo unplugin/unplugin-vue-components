@@ -26,7 +26,7 @@ const config: UserConfig = {
       directoryAsNamespace: true,
       dts: true,
       globalNamespaces: ['global'],
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+      include: [/\.vue($|\?)/, /\.md($|\?)/],
       resolvers: [
         (name) => {
           if (name === 'MyCustom')
