@@ -115,7 +115,7 @@ function resolveComponent(name: string, options: ElementPlusResolverOptionsResol
   if (compare(version, '1.1.0-beta.1', '>=') || nightly) {
     return {
       name,
-      from: `${ nightly ? '@element-plus/nightly' : 'element-plus'}/${ssr ? 'lib' : 'es'}`,
+      from: `${nightly ? '@element-plus/nightly' : 'element-plus'}/${ssr ? 'lib' : 'es'}`,
       sideEffects: getSideEffects(partialName, options),
     }
   }
@@ -155,7 +155,7 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
   if (compare(version, '1.1.0-beta.1', '>=') || nightly) {
     return {
       name: directive.importName,
-      from: `${ nightly ? '@element-plus/nightly' : 'element-plus' }/${ssr ? 'lib' : 'es'}`,
+      from: `${nightly ? '@element-plus/nightly' : 'element-plus'}/${ssr ? 'lib' : 'es'}`,
       sideEffects: getSideEffects(directive.styleName, options),
     }
   }
