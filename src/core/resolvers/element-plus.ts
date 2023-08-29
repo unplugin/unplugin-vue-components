@@ -38,6 +38,11 @@ export interface ElementPlusResolverOptions {
    * a list of component names that have no styles, so resolving their styles file should be prevented
    */
   noStylesComponents?: string[]
+
+  /**
+   * nightly version
+  */
+  nightly?: boolean
 }
 
 type ElementPlusResolverOptionsResolved = Required<Omit<ElementPlusResolverOptions, 'exclude'>> &
@@ -73,9 +78,9 @@ function getSideEffectsLegacy(
 }
 
 function getSideEffects(dirName: string, options: ElementPlusResolverOptionsResolved): SideEffectsInfo | undefined {
-  const { importStyle, ssr } = options
-  const themeFolder = 'element-plus/theme-chalk'
-  const esComponentsFolder = 'element-plus/es/components'
+  const { importStyle, ssr, nightly } = options
+  const themeFolder = nightly ? '@element-plus/nightly/theme-chalk' : 'element-plus/theme-chalk'
+  const esComponentsFolder = nightly ? '@element-plus/nightly/es/components' : 'element-plus/es/components'
 
   if (importStyle === 'sass') {
     return ssr
@@ -104,13 +109,13 @@ function resolveComponent(name: string, options: ElementPlusResolverOptionsResol
   }
 
   const partialName = kebabCase(name.slice(2))// ElTableColumn -> table-column
-  const { version, ssr } = options
+  const { version, ssr, nightly } = options
 
   // >=1.1.0-beta.1
-  if (compare(version, '1.1.0-beta.1', '>=')) {
+  if (compare(version, '1.1.0-beta.1', '>=') || nightly) {
     return {
       name,
-      from: `element-plus/${ssr ? 'lib' : 'es'}`,
+      from: `${ nightly ? '@element-plus/nightly' : 'element-plus'}/${ssr ? 'lib' : 'es'}`,
       sideEffects: getSideEffects(partialName, options),
     }
   }
@@ -144,13 +149,13 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
   if (!directive)
     return
 
-  const { version, ssr } = options
+  const { version, ssr, nightly } = options
 
   // >=1.1.0-beta.1
-  if (compare(version, '1.1.0-beta.1', '>=')) {
+  if (compare(version, '1.1.0-beta.1', '>=') || nightly) {
     return {
       name: directive.importName,
-      from: `element-plus/${ssr ? 'lib' : 'es'}`,
+      from: `${ nightly ? '@element-plus/nightly' : 'element-plus' }/${ssr ? 'lib' : 'es'}`,
       sideEffects: getSideEffects(directive.styleName, options),
     }
   }
@@ -183,6 +188,7 @@ export function ElementPlusResolver(
       directives: true,
       exclude: undefined,
       noStylesComponents: options.noStylesComponents || [],
+      nightly: false,
       ...options,
     }
     return optionsResolved
