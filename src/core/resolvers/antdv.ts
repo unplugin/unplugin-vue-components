@@ -212,6 +212,11 @@ export interface AntDesignVueResolverOptions {
    * @default 'ant-design-vue'
    */
   packageName?: string
+  /**
+   * customize prefix of component
+   * @default 'A'
+   */
+  prefix?: string
 }
 
 function getStyleDir(compName: string): string {
@@ -251,12 +256,13 @@ function getSideEffects(compName: string, options: AntDesignVueResolverOptions):
   }
 }
 const primitiveNames = ['Affix', 'Anchor', 'AnchorLink', 'AutoComplete', 'AutoCompleteOptGroup', 'AutoCompleteOption', 'Alert', 'Avatar', 'AvatarGroup', 'BackTop', 'Badge', 'BadgeRibbon', 'Breadcrumb', 'BreadcrumbItem', 'BreadcrumbSeparator', 'Button', 'ButtonGroup', 'Calendar', 'Card', 'CardGrid', 'CardMeta', 'Collapse', 'CollapsePanel', 'Carousel', 'Cascader', 'Checkbox', 'CheckboxGroup', 'Col', 'Comment', 'ConfigProvider', 'DatePicker', 'MonthPicker', 'WeekPicker', 'RangePicker', 'QuarterPicker', 'Descriptions', 'DescriptionsItem', 'Divider', 'Dropdown', 'DropdownButton', 'Drawer', 'Empty', 'Form', 'FormItem', 'FormItemRest', 'Grid', 'Input', 'InputGroup', 'InputPassword', 'InputSearch', 'Textarea', 'Image', 'ImagePreviewGroup', 'InputNumber', 'Layout', 'LayoutHeader', 'LayoutSider', 'LayoutFooter', 'LayoutContent', 'List', 'ListItem', 'ListItemMeta', 'Menu', 'MenuDivider', 'MenuItem', 'MenuItemGroup', 'SubMenu', 'Mentions', 'MentionsOption', 'Modal', 'Statistic', 'StatisticCountdown', 'PageHeader', 'Pagination', 'Popconfirm', 'Popover', 'Progress', 'Radio', 'RadioButton', 'RadioGroup', 'Rate', 'Result', 'Row', 'Select', 'SelectOptGroup', 'SelectOption', 'Skeleton', 'SkeletonButton', 'SkeletonAvatar', 'SkeletonInput', 'SkeletonImage', 'Slider', 'Space', 'Spin', 'Steps', 'Step', 'Switch', 'Table', 'TableColumn', 'TableColumnGroup', 'TableSummary', 'TableSummaryRow', 'TableSummaryCell', 'Transfer', 'Tree', 'TreeNode', 'DirectoryTree', 'TreeSelect', 'TreeSelectNode', 'Tabs', 'TabPane', 'Tag', 'CheckableTag', 'TimePicker', 'TimeRangePicker', 'Timeline', 'TimelineItem', 'Tooltip', 'Typography', 'TypographyLink', 'TypographyParagraph', 'TypographyText', 'TypographyTitle', 'Upload', 'UploadDragger', 'LocaleProvider', 'FloatButton', 'FloatButtonGroup', 'Qrcode', 'Watermark', 'Segmented', 'Tour', 'SpaceCompact', 'StyleProvider']
-const prefix = 'A'
 
 let antdvNames: Set<string>
 
 function genAntdNames(primitiveNames: string[]): void {
-  antdvNames = new Set(primitiveNames.map(name => `${prefix}${name}`))
+  // use primitiveNames to construct antdvNames,
+  // in order to make options.resolvePrefix compatible
+  antdvNames = new Set(primitiveNames)
 }
 genAntdNames(primitiveNames)
 
@@ -285,6 +291,7 @@ function getImportName(compName: string): string {
 export function AntDesignVueResolver(options: AntDesignVueResolverOptions = {
 
 }): ComponentResolver {
+  const originPrefix = options.prefix ?? 'A'
   return {
     type: 'component',
     resolve: (name: string) => {
@@ -295,15 +302,14 @@ export function AntDesignVueResolver(options: AntDesignVueResolverOptions = {
         }
       }
 
-      if (isAntdv(name) && !options?.exclude?.includes(name)) {
-        const importName = name.slice(1)
-        // console.log('importName----', importName)
+      const [compName, prefix] = [name.slice(originPrefix.length), name.slice(0, originPrefix.length)]
+      if (prefix === originPrefix && isAntdv(compName) && !options?.exclude?.includes(compName)) {
         const { cjs = false, packageName = 'ant-design-vue' } = options
         const path = `${packageName}/${cjs ? 'lib' : 'es'}`
         return {
-          name: getImportName(importName),
+          name: getImportName(compName),
           from: path,
-          sideEffects: getSideEffects(importName, options),
+          sideEffects: getSideEffects(compName, options),
         }
       }
     },
