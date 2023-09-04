@@ -6,7 +6,7 @@ import type { UpdatePayload, ViteDevServer } from 'vite'
 import { slash, throttle, toArray } from '@antfu/utils'
 import type { ComponentInfo, Options, ResolvedOptions, Transformer } from '../types'
 import { DIRECTIVE_IMPORT_PREFIX } from './constants'
-import { getNameFromFilePath, matchGlobs, normalizeComponetInfo, parseId, pascalCase, resolveAlias } from './utils'
+import { getNameFromFilePath, matchGlobs, normalizeComponentInfo, parseId, pascalCase, resolveAlias } from './utils'
 import { resolveOptions } from './options'
 import { searchComponents } from './fs/glob'
 import { writeDeclaration } from './declaration'
@@ -239,7 +239,7 @@ export class Context {
       else {
         info = {
           as: name,
-          ...normalizeComponetInfo(result),
+          ...normalizeComponentInfo(result),
         }
       }
       if (type === 'component')

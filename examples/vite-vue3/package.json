@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "cross-env DEBUG=unplugin-vue-components:* vite",
-    "build": "cross-env DEBUG=unplugin-vue-components:* vite build"
+    "build": "cross-env DEBUG=unplugin-vue-components:* vite build",
+    "preview": "cross-env DEBUG=unplugin-vue-components:* vite preview"
   },
   "dependencies": {
     "vant": "^4.6.2"
