@@ -86,7 +86,7 @@ export function stringifyImport(info: ImportInfo | string) {
     return `import ${info.as} from '${info.from}'`
 }
 
-export function normalizeComponetInfo(info: ImportInfo | ImportInfoLegacy | ComponentInfo): ComponentInfo {
+export function normalizeComponentInfo(info: ImportInfo | ImportInfoLegacy | ComponentInfo): ComponentInfo {
   if ('path' in info) {
     return {
       from: info.path,
