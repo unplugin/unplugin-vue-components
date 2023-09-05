@@ -32,7 +32,7 @@ export default function transformer(ctx: Context, transformer: SupportedTransfor
 
     const result: TransformResult = { code: s.toString() }
     if (ctx.sourcemap)
-      result.map = s.generateMap({ source: id, includeContent: true })
+      result.map = s.generateMap({ source: id, includeContent: true, hires: true })
     return result
   }
 }
