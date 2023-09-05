@@ -404,4 +404,4 @@ Thanks to [@brattonross](https://github.com/brattonross), this project is heavil
 
 ## License
 
-MIT License © 2020-PRESENT [Anthony Fu](https://github.com/antfu)
+[MIT](./LICENSE) License © 2020-PRESENT [Anthony Fu](https://github.com/antfu)
