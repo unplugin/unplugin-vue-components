@@ -15,6 +15,7 @@ declare module 'vue' {
     TestComp: typeof import('test/component/TestComp')['default']
   }
 }
+/* prettier-ignore */
 "
 `;
 
@@ -32,6 +33,7 @@ declare module 'vue' {
   }
 }
 "
+/* prettier-ignore */
 `;
 
 exports[`dts > getDeclaration 1`] = `
@@ -53,6 +55,7 @@ declare module 'vue' {
   }
 }
 "
+/* prettier-ignore */
 `;
 
 exports[`dts > parseDeclaration - has icon component like <IMdi:diceD12> 1`] = `
@@ -108,6 +111,7 @@ declare module 'vue' {
   }
 }
 "
+/* prettier-ignore */
 `;
 
 exports[`dts > writeDeclaration - keep unused 1`] = `
@@ -132,6 +136,7 @@ declare module 'vue' {
   }
 }
 "
+/* prettier-ignore */
 `;
 
 exports[`dts > writeDeclaration 1`] = `
@@ -153,4 +158,5 @@ declare module 'vue' {
   }
 }
 "
+/* prettier-ignore */
 `;

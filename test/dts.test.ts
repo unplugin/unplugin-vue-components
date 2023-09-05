@@ -136,7 +136,8 @@ declare module 'vue' {
     ComponentB: typeof import('./src/components/ComponentB.vue')['default']
     ComponentC: typeof import('./src/components/component-c.vue')['default']
   }
-}`
+}
+/* prettier-ignore */`
 
     const imports = parseDeclaration(code)
     expect(imports).matchSnapshot()
@@ -157,7 +158,8 @@ declare module 'vue' {
     'IMdi:diceD12': typeof import('~icons/mdi/dice-d12')['default']
     IMdiLightAlarm: typeof import('~icons/mdi-light/alarm')['default']
   }
-}`
+}
+/* prettier-ignore */`
 
     const imports = parseDeclaration(code)
     expect(imports).matchSnapshot()
@@ -184,7 +186,8 @@ declare module 'vue' {
     vLoading: typeof import('test/directive/Loading')['default']
     vSome: typeof import('test/directive/Some')['default']
   }
-}`
+}
+/* prettier-ignore */`
 
     const imports = parseDeclaration(code)
     expect(imports).matchSnapshot()

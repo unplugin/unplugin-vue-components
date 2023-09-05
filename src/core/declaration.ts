@@ -141,7 +141,7 @@ ${head}`
     ${declarations.directive.join('\n    ')}
   }`
   }
-  code += '\n}\n'
+  code += '\n}\n/* prettier-ignore */\n'
   return code
 }
 
