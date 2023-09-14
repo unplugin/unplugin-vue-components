@@ -30,7 +30,7 @@ function resolveVue3(code: string, s: MagicString) {
   /**
    * when using some plugin like plugin-vue-jsx, resolveComponent will be imported as resolveComponent1 to avoid duplicate import
    */
-  for (const match of code.matchAll(/_resolveComponent[0-9]*\("(.+?)"\)/g)) {
+  for (const match of code.matchAll(/_?resolveComponent[0-9]*\(['"](.+?)['"]\)/g)) {
     const matchedName = match[1]
     if (match.index != null && matchedName && !matchedName.startsWith('_')) {
       const start = match.index
