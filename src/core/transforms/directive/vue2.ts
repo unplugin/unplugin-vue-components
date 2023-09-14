@@ -6,9 +6,7 @@ import { importModule, isPackageExists } from 'local-pkg'
 import type { ResolveResult } from '../../transformer'
 
 /**
- * get Vue 2 render function position
- * @param ast
- * @returns
+ * Get Vue 2 render function position
  */
 function getRenderFnStart(program: Program): number {
   const renderFn = program.body.find((node): node is VariableDeclaration =>

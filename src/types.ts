@@ -169,7 +169,7 @@ export interface Options {
 
   /**
    * Only provide types of components in library (registered globally)
-   **/
+   */
   types?: TypeImport[]
 
   /**

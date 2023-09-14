@@ -7,8 +7,8 @@ const debug = Debug('unplugin-vue-components:glob')
 export function searchComponents(ctx: Context) {
   debug(`started with: [${ctx.options.globs.join(', ')}]`)
   const root = ctx.root
-  
-  ctx.options.globs = ctx.options.globs.map((dir) => fg.convertPathToPattern(dir))
+
+  ctx.options.globs = ctx.options.globs.map(dir => fg.convertPathToPattern(dir))
   const files = fg.sync(ctx.options.globs, {
     ignore: ['node_modules'],
     onlyFiles: true,

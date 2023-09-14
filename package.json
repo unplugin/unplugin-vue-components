@@ -1,7 +1,7 @@
 {
   "name": "unplugin-vue-components",
   "version": "0.25.2",
-  "packageManager": "pnpm@8.6.8",
+  "packageManager": "pnpm@8.7.5",
   "description": "Components auto importing for Vue",
   "author": "antfu <anthonyfu117@hotmail.com>",
   "license": "MIT",
@@ -15,48 +15,48 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     },
     "./nuxt": {
       "types": "./dist/nuxt.d.ts",
-      "require": "./dist/nuxt.js",
-      "import": "./dist/nuxt.mjs"
+      "import": "./dist/nuxt.mjs",
+      "require": "./dist/nuxt.js"
     },
     "./resolvers": {
       "types": "./dist/resolvers.d.ts",
-      "require": "./dist/resolvers.js",
-      "import": "./dist/resolvers.mjs"
+      "import": "./dist/resolvers.mjs",
+      "require": "./dist/resolvers.js"
     },
     "./rollup": {
       "types": "./dist/rollup.d.ts",
-      "require": "./dist/rollup.js",
-      "import": "./dist/rollup.mjs"
+      "import": "./dist/rollup.mjs",
+      "require": "./dist/rollup.js"
     },
     "./types": {
       "types": "./dist/types.d.ts",
-      "require": "./dist/types.js",
-      "import": "./dist/types.mjs"
+      "import": "./dist/types.mjs",
+      "require": "./dist/types.js"
     },
     "./vite": {
       "types": "./dist/vite.d.ts",
-      "require": "./dist/vite.js",
-      "import": "./dist/vite.mjs"
+      "import": "./dist/vite.mjs",
+      "require": "./dist/vite.js"
     },
     "./webpack": {
       "types": "./dist/webpack.d.ts",
-      "require": "./dist/webpack.js",
-      "import": "./dist/webpack.mjs"
+      "import": "./dist/webpack.mjs",
+      "require": "./dist/webpack.js"
     },
     "./rspack": {
       "types": "./dist/rspack.d.ts",
-      "require": "./dist/rspack.js",
-      "import": "./dist/rspack.mjs"
+      "import": "./dist/rspack.mjs",
+      "require": "./dist/rspack.js"
     },
     "./esbuild": {
       "types": "./dist/esbuild.d.ts",
-      "require": "./dist/esbuild.js",
-      "import": "./dist/esbuild.mjs"
+      "import": "./dist/esbuild.mjs",
+      "require": "./dist/esbuild.js"
     },
     "./*": "./*"
   },
@@ -101,39 +101,39 @@
     }
   },
   "dependencies": {
-    "@antfu/utils": "^0.7.5",
-    "@rollup/pluginutils": "^5.0.2",
+    "@antfu/utils": "^0.7.6",
+    "@rollup/pluginutils": "^5.0.4",
     "chokidar": "^3.5.3",
     "debug": "^4.3.4",
-    "fast-glob": "^3.3.0",
+    "fast-glob": "^3.3.1",
     "local-pkg": "^0.4.3",
-    "magic-string": "^0.30.1",
+    "magic-string": "^0.30.3",
     "minimatch": "^9.0.3",
-    "resolve": "^1.22.2",
+    "resolve": "^1.22.4",
     "unplugin": "^1.4.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.39.8",
-    "@babel/parser": "^7.22.7",
-    "@babel/types": "^7.22.5",
-    "@nuxt/kit": "^3.6.3",
+    "@antfu/eslint-config": "^0.42.0",
+    "@babel/parser": "^7.22.16",
+    "@babel/types": "^7.22.17",
+    "@nuxt/kit": "^3.7.3",
     "@types/debug": "^4.1.8",
     "@types/minimatch": "^5.1.2",
-    "@types/node": "^20.4.2",
+    "@types/node": "^20.6.0",
     "@types/resolve": "^1.20.2",
-    "@typescript-eslint/eslint-plugin": "^6.1.0",
-    "bumpp": "^9.1.1",
-    "compare-versions": "^6.0.0",
-    "element-plus": "^2.3.8",
-    "eslint": "^8.45.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "bumpp": "^9.2.0",
+    "compare-versions": "^6.1.0",
+    "element-plus": "^2.3.12",
+    "eslint": "^8.49.0",
     "esno": "^0.17.0",
     "estree-walker": "^3.0.3",
     "pathe": "^1.1.1",
-    "rollup": "^3.26.3",
-    "tsup": "^7.1.0",
-    "typescript": "^5.1.6",
-    "vite": "^4.4.4",
-    "vitest": "^0.33.0",
+    "rollup": "^3.29.1",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.9",
+    "vitest": "^0.34.4",
     "vue": "3.2.45"
   }
 }

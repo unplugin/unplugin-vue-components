@@ -41,7 +41,7 @@ export interface ElementPlusResolverOptions {
 
   /**
    * nightly version
-  */
+   */
   nightly?: boolean
 }
 
@@ -52,8 +52,6 @@ Pick<ElementPlusResolverOptions, 'exclude'>
  * @deprecated
  * @param partialName
  * @param options
- *
- * @returns
  */
 function getSideEffectsLegacy(
   partialName: string,
