@@ -182,7 +182,7 @@ export interface AntDesignVueResolverOptions {
    *
    * @default 'css'
    */
-  importStyle?: boolean | 'css' | 'less'
+  importStyle?: boolean | 'css' | 'less'| 'CSSinJS'
   /**
    * resolve `ant-design-vue' icons
    *
@@ -246,7 +246,7 @@ function getSideEffects(compName: string, options: AntDesignVueResolverOptions):
   const lib = options.cjs ? 'lib' : 'es'
   const packageName = options?.packageName || 'ant-design-vue'
 
-  if (importStyle === 'less' || importLess) {
+  if (importStyle === 'less' || importStyle === 'CSSinJS' || importLess) {
     const styleDir = getStyleDir(compName)
     return `${packageName}/${lib}/${styleDir}/style`
   }
