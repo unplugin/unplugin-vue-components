@@ -246,7 +246,7 @@ function getSideEffects(compName: string, options: AntDesignVueResolverOptions):
   const lib = options.cjs ? 'lib' : 'es'
   const packageName = options?.packageName || 'ant-design-vue'
 
-  if (importStyle === 'less' || importStyle === 'CSSinJS' || importLess) {
+  if (importStyle === 'less' || importStyle === 'css-in-js' || importLess) {
     const styleDir = getStyleDir(compName)
     return `${packageName}/${lib}/${styleDir}/style`
   }
