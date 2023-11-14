@@ -182,7 +182,7 @@ export interface AntDesignVueResolverOptions {
    *
    * @default 'css'
    */
-  importStyle?: boolean | 'css' | 'less'| 'CSSinJS'
+  importStyle?: boolean | 'css' | 'less' | 'CSSinJS'
   /**
    * resolve `ant-design-vue' icons
    *
