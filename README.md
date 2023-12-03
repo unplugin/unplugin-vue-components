@@ -69,7 +69,6 @@ export default {
 <details>
 <summary>Webpack</summary><br>
 
-From version `v0.26.0+` you need to use `default` export:
 ```ts
 // webpack.config.js
 module.exports = {
@@ -80,40 +79,17 @@ module.exports = {
 }
 ```
 
-If you are using a version earlier than `v0.26.0`:
-```ts
-// webpack.config.js
-module.exports = {
-  /* ... */
-  plugins: [
-    require('unplugin-vue-components/webpack')({ /* options */ }),
-  ],
-}
-```
-
 <br></details>
 
 <details>
 <summary>Rspack</summary><br>
 
-From version `v0.26.0+` you need to use `default` export:
 ```ts
 // rspack.config.js
 module.exports = {
   /* ... */
   plugins: [
     require('unplugin-vue-components/rspack').default({ /* options */ }),
-  ],
-}
-```
-
-If you are using a version earlier than `v0.26.0`:
-```ts
-// rspack.config.js
-module.exports = {
-  /* ... */
-  plugins: [
-    require('unplugin-vue-components/rspack')({ /* options */ }),
   ],
 }
 ```
@@ -130,7 +106,6 @@ You might not need this plugin for Nuxt. Use [`@nuxt/components`](https://github
 <details>
 <summary>Vue CLI</summary><br>
 
-From version `v0.26.0+` you need to use `default` export:
 ```ts
 // vue.config.js
 module.exports = {
@@ -141,7 +116,7 @@ module.exports = {
 }
 ```
 
-or you can rename the Vue configuration file to `vue.config.mjs` and use static import syntax (you should use latest `@vue/cli-service ^5.0.8`):
+You can also rename the Vue configuration file to `vue.config.mjs` and use static import syntax (you should use latest `@vue/cli-service ^5.0.8`):
 ```ts
 // vue.config.mjs
 import Components from 'unplugin-vue-components/webpack'
@@ -150,18 +125,6 @@ export default {
   configureWebpack: {
     plugins: [
       Components({ /* options */ }),
-    ],
-  },
-}
-```
-
-If you are using a version earlier than `v0.26.0`:
-```ts
-// vue.config.js
-module.exports = {
-  configureWebpack: {
-    plugins: [
-      require('unplugin-vue-components/webpack')({ /* options */ }),
     ],
   },
 }
