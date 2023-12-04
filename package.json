@@ -1,6 +1,7 @@
 {
   "name": "unplugin-vue-components",
-  "version": "0.25.4",
+  "type": "module",
+  "version": "0.26.0",
   "packageManager": "pnpm@8.7.5",
   "description": "Components auto importing for Vue",
   "author": "antfu <anthonyfu117@hotmail.com>",
@@ -14,54 +15,45 @@
   "bugs": "https://github.com/unplugin/unplugin-vue-components/issues",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./nuxt": {
-      "types": "./dist/nuxt.d.ts",
-      "import": "./dist/nuxt.mjs",
-      "require": "./dist/nuxt.js"
+      "import": "./dist/nuxt.js",
+      "require": "./dist/nuxt.cjs"
     },
     "./resolvers": {
-      "types": "./dist/resolvers.d.ts",
-      "import": "./dist/resolvers.mjs",
-      "require": "./dist/resolvers.js"
+      "import": "./dist/resolvers.js",
+      "require": "./dist/resolvers.cjs"
     },
     "./rollup": {
-      "types": "./dist/rollup.d.ts",
-      "import": "./dist/rollup.mjs",
-      "require": "./dist/rollup.js"
+      "import": "./dist/rollup.js",
+      "require": "./dist/rollup.cjs"
     },
     "./types": {
-      "types": "./dist/types.d.ts",
-      "import": "./dist/types.mjs",
-      "require": "./dist/types.js"
+      "import": "./dist/types.js",
+      "require": "./dist/types.cjs"
     },
     "./vite": {
-      "types": "./dist/vite.d.ts",
-      "import": "./dist/vite.mjs",
-      "require": "./dist/vite.js"
+      "import": "./dist/vite.js",
+      "require": "./dist/vite.cjs"
     },
     "./webpack": {
-      "types": "./dist/webpack.d.ts",
-      "import": "./dist/webpack.mjs",
-      "require": "./dist/webpack.js"
+      "import": "./dist/webpack.js",
+      "require": "./dist/webpack.cjs"
     },
     "./rspack": {
-      "types": "./dist/rspack.d.ts",
-      "import": "./dist/rspack.mjs",
-      "require": "./dist/rspack.js"
+      "import": "./dist/rspack.js",
+      "require": "./dist/rspack.cjs"
     },
     "./esbuild": {
-      "types": "./dist/esbuild.d.ts",
-      "import": "./dist/esbuild.mjs",
-      "require": "./dist/esbuild.js"
+      "import": "./dist/esbuild.js",
+      "require": "./dist/esbuild.cjs"
     },
     "./*": "./*"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "index.d.ts",
   "typesVersions": {
     "*": {
@@ -77,7 +69,7 @@
     "node": ">=14"
   },
   "scripts": {
-    "build": "tsup && esno scripts/postbuild.ts",
+    "build": "tsup",
     "dev": "tsup --watch src",
     "example:build": "npm -C examples/vite-vue3 run build",
     "example:dev": "npm -C examples/vite-vue3 run dev",

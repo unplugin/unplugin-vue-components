@@ -74,7 +74,7 @@ export default {
 module.exports = {
   /* ... */
   plugins: [
-    require('unplugin-vue-components/webpack')({ /* options */ }),
+    require('unplugin-vue-components/webpack').default({ /* options */ }),
   ],
 }
 ```
@@ -89,7 +89,7 @@ module.exports = {
 module.exports = {
   /* ... */
   plugins: [
-    require('unplugin-vue-components/rspack')({ /* options */ }),
+    require('unplugin-vue-components/rspack').default({ /* options */ }),
   ],
 }
 ```
@@ -109,9 +109,22 @@ You might not need this plugin for Nuxt. Use [`@nuxt/components`](https://github
 ```ts
 // vue.config.js
 module.exports = {
+  /* ... */
+  plugins: [
+    require('unplugin-vue-components/webpack').default({ /* options */ }),
+  ],
+}
+```
+
+You can also rename the Vue configuration file to `vue.config.mjs` and use static import syntax (you should use latest `@vue/cli-service ^5.0.8`):
+```ts
+// vue.config.mjs
+import Components from 'unplugin-vue-components/webpack'
+
+export default {
   configureWebpack: {
     plugins: [
-      require('unplugin-vue-components/webpack')({ /* options */ }),
+      Components({ /* options */ }),
     ],
   },
 }
@@ -125,11 +138,12 @@ module.exports = {
 ```ts
 // esbuild.config.js
 import { build } from 'esbuild'
+import Components from 'unplugin-vue-components/esbuild'
 
 build({
   /* ... */
   plugins: [
-    require('unplugin-vue-components/esbuild')({
+    Components({
       /* options */
     }),
   ],
