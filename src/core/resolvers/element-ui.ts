@@ -16,24 +16,43 @@ export interface ElementUiResolverOptions {
    * exclude component name, if match do not resolve the name
    */
   exclude?: RegExp
+
+  /**
+   * theme name, like '@qzdata/element-theme-qzdata'
+   */
+  themeName?: string
 }
 
 function getSideEffects(
   partialName: string,
   options: ElementUiResolverOptions,
 ): SideEffectsInfo | undefined {
-  const { importStyle = 'css' } = options
+  const { importStyle = 'css', themeName } = options
 
   if (!importStyle)
     return
 
   if (importStyle === 'sass') {
+    if (themeName) {
+      return [
+        `${themeName}/src/base.scss`,
+        `${themeName}/src/${partialName}.scss`,
+      ]
+    }
+
     return [
       'element-ui/packages/theme-chalk/src/base.scss',
       `element-ui/packages/theme-chalk/src/${partialName}.scss`,
     ]
   }
   else {
+    if (themeName) {
+      return [
+        `${themeName}/lib/base.css`,
+        `${themeName}/lib/${partialName}.css`,
+      ]
+    }
+
     return [
       'element-ui/lib/theme-chalk/base.css',
       `element-ui/lib/theme-chalk/${partialName}.css`,
