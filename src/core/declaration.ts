@@ -142,6 +142,17 @@ ${head}`
   }`
   }
   code += '\n}\n'
+
+  if (ctx.options.instanceType) {
+    if (Object.keys(declarations.component).length > 0) {
+      const instanceTypes = declarations.component.map(str => `type ${str.replace(': typeof import', 'Instance = InstanceType<typeof import')}>`)
+      code += `
+declare global {
+  ${instanceTypes.join('\n  ')}
+}\n`
+    }
+  }
+
   return code
 }
 
