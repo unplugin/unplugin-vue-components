@@ -1,5 +1,7 @@
+import { resolveModule } from 'local-pkg'
+import { compare } from 'compare-versions'
 import type { ComponentResolver } from '../../types'
-import { kebabCase } from '../utils'
+import { getPkgVersion, kebabCase } from '../utils'
 
 const specialComponents: Record<string, string> = {
   CdkVirtualScroll: 'scroll',
@@ -36,8 +38,8 @@ export interface IduxResolverOptions {
   importStyle?: 'css' | 'less'
   /**
    * theme for import style
-   *
-   * @default 'default'
+   * 
+   * @default 'default' for 1.x version
    */
   importStyleTheme?: string
 
@@ -47,6 +49,13 @@ export interface IduxResolverOptions {
    * @default '@idux'
    */
   scope?: string
+
+  /**
+   * specify idux version to load style
+   *
+   * @default installed version
+   */
+  version?: string
 }
 
 /**
@@ -57,14 +66,17 @@ export interface IduxResolverOptions {
 export function IduxResolver(options: IduxResolverOptions = {}): ComponentResolver {
   return {
     type: 'component',
-    resolve: (name: string) => {
-      const { importStyle, importStyleTheme = 'default', exclude = [], scope = '@idux' } = options
+    resolve: async (name: string) => {
+      const { importStyle, importStyleTheme, exclude = [], scope = '@idux' } = options
+
       if (exclude.includes(name))
         return
 
       const packageName = getPackageName(name)
       if (!packageName)
         return
+
+      const resolvedVersion = await getPkgVersion(`${scope}/${packageName}`, '2.0.0')
 
       let dirname = specialComponents[name]
       if (!dirname) {
@@ -74,9 +86,7 @@ export function IduxResolver(options: IduxResolverOptions = {}): ComponentResolv
 
       const path = `${scope}/${packageName}/${dirname}`
 
-      let sideEffects: string | undefined
-      if (packageName !== 'cdk' && importStyle)
-        sideEffects = `${path}/style/themes/${importStyle === 'css' ? `${importStyleTheme}_css` : importStyleTheme}`
+      const sideEffects = packageName === 'cdk' ? undefined : getSideEffects(resolvedVersion, path, importStyle, importStyleTheme)
 
       return { name, from: path, sideEffects }
     },
@@ -94,4 +104,33 @@ function getPackageName(name: string) {
     packageName = 'components'
 
   return packageName
+}
+
+function getSideEffects(version: string, path: string, importStyle?: 'css' | 'less', importStyleTheme?: string): string | string[] | undefined {
+  if (!importStyle)
+    return
+
+  if (compare(version, '2.0.0-beta.0', '<'))
+    return getLegacySideEffects(path, importStyle, importStyleTheme)
+
+  const styleRoot = `${path}/style`
+  const themeRoot = `${path}/theme`
+
+  const styleImport = `${styleRoot}/${importStyle === 'css' ? 'index_css' : 'index'}`
+  if (!resolveModule(styleImport))
+    return
+
+  const themeImport = `${themeRoot}/${importStyleTheme}.css`
+  if (!importStyleTheme || !resolveModule(themeImport))
+    return styleImport
+
+  return [styleImport, `${themeRoot}/${importStyleTheme}`]
+}
+
+function getLegacySideEffects(path: string, importStyle: 'css' | 'less', importStyleTheme: string = 'default'): string | undefined {
+  const styleImport = `${path}/style/themes/${importStyle === 'css' ? `${importStyleTheme}_css` : importStyleTheme}`
+  if (!resolveModule(styleImport))
+    return
+
+  return styleImport
 }
