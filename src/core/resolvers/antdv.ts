@@ -279,7 +279,7 @@ function getStyleDir(compName: string): string {
 
 function getSideEffects(compName: string, options: AntDesignVueResolverOptions): SideEffectsInfo {
   const {
-    importStyle = true,
+    importStyle = false,
     importLess = false,
   } = options
 
