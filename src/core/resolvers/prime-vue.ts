@@ -41,6 +41,7 @@ const components = [
   'Image',
   'InlineMessage',
   'Inplace',
+  'InputGroup',
   'InputMask',
   'InputNumber',
   'InputSwitch',
