@@ -42,6 +42,7 @@ const components = [
   'InlineMessage',
   'Inplace',
   'InputGroup',
+  'InputGroupAddon',
   'InputMask',
   'InputNumber',
   'InputSwitch',
