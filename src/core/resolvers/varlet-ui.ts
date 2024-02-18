@@ -18,6 +18,13 @@ export interface VarletUIResolverOptions {
   importStyle?: boolean | 'css' | 'less'
 
   /**
+   * style entry file extname
+   *
+   * @default '.mjs'
+   */
+  styleExtname?: string
+
+  /**
    * auto import for directives
    *
    * @default true
@@ -48,10 +55,11 @@ const varDirectives = ['Ripple', 'Lazy', 'Hover']
 export function getResolved(name: string, options: VarletUIResolverOptions): ComponentResolveResult {
   const {
     importStyle = 'css',
-    importCss = true,
-    importLess,
+    styleExtname = '.mjs',
     autoImport = false,
     version = 'vue3',
+    importCss = true,
+    importLess,
   } = options
 
   const path = version === 'vue2' ? '@varlet-vue2/ui' : '@varlet/ui'
@@ -61,7 +69,7 @@ export function getResolved(name: string, options: VarletUIResolverOptions): Com
     if (importStyle === 'less' || importLess)
       sideEffects.push(`${path}/es/${kebabCase(name)}/style/less`)
     else
-      sideEffects.push(`${path}/es/${kebabCase(name)}/style/index`)
+      sideEffects.push(`${path}/es/${kebabCase(name)}/style/index${styleExtname}`)
   }
 
   return {
