@@ -395,7 +395,8 @@ Components({
   // Allow for components to override other components with the same name
   allowOverrides: false,
 
-  // filters for transforming targets
+  // Filters for transforming targets
+  // Your filters config will merge into default config
   include: [/\.vue$/, /\.vue\?vue/],
   exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
 

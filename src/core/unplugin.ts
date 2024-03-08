@@ -12,9 +12,12 @@ import { shouldTransform, stringifyComponentImport } from './utils'
 const PLUGIN_NAME = 'unplugin:webpack'
 
 export default createUnplugin<Options>((options = {}) => {
+  const include = Array.isArray(options.include) ? options.include : [options.include]
+  const exclude = Array.isArray(options.exclude) ? options.exclude : [options.exclude]
+
   const filter = createFilter(
-    options.include || [/\.vue$/, /\.vue\?vue/, /\.vue\?v=/],
-    options.exclude || [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
+    [/\.vue$/, /\.vue\?vue/, /\.vue\?v=/, ...include],
+    [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/, ...exclude],
   )
   const ctx: Context = new Context(options)
 
