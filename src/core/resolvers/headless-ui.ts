@@ -1,5 +1,6 @@
 import type { ComponentResolver } from '../../types'
 
+// @keep-sorted
 const components = [
   'Combobox',
   'ComboboxButton',
@@ -10,8 +11,8 @@ const components = [
   'Dialog',
   'DialogDescription',
   'DialogOverlay',
-  'DialogTitle',
   'DialogPanel',
+  'DialogTitle',
   'Disclosure',
   'DisclosureButton',
   'DisclosurePanel',
@@ -40,13 +41,13 @@ const components = [
   'SwitchDescription',
   'SwitchGroup',
   'SwitchLabel',
-  'TransitionChild',
-  'TransitionRoot',
+  'Tab',
   'TabGroup',
   'TabList',
-  'Tab',
-  'TabPanels',
   'TabPanel',
+  'TabPanels',
+  'TransitionChild',
+  'TransitionRoot',
 ]
 
 export interface HeadlessUiResolverOptions {

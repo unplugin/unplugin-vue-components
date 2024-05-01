@@ -9,28 +9,29 @@ export interface BootstrapVueResolverOptions {
   directives?: boolean
 }
 
+// @keep-sorted
 const COMPONENT_ALIASES: Record<string, string> = {
   BBtn: 'BButton',
   BBtnClose: 'BButtonClose',
   BBtnGroup: 'BButtonGroup',
   BBtnToolbar: 'BButtonToolbar',
   BCheck: 'BFormCheckbox',
+  BCheckGroup: 'BFormCheckboxGroup',
   BCheckbox: 'BFormCheckbox',
   BCheckboxGroup: 'BFormCheckboxGroup',
-  BCheckGroup: 'BFormCheckboxGroup',
   BDatalist: 'BFormDatalist',
+  BDatepicker: 'BFormDatepicker',
   BDd: 'BDropdown',
   BDdDivider: 'BDropdownDivider',
   BDdForm: 'BDropdownForm',
   BDdGroup: 'BDropdownGroup',
   BDdHeader: 'BDropdownHeader',
   BDdItem: 'BDropdownItem',
-  BDdItemButton: 'BDropdownItemButton',
   BDdItemBtn: 'BDropdownItemButton',
+  BDdItemButton: 'BDropdownItemButton',
   BDdText: 'BDropdownText',
   BDropdownItemBtn: 'BDropdownItemButton',
   BFile: 'BFormFile',
-  BDatepicker: 'BFormDatepicker',
   BInput: 'BFormInput',
   BNavDd: 'BNavItemDropdown',
   BNavDropdown: 'BNavItemDropdown',

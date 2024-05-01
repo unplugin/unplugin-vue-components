@@ -3,26 +3,27 @@ import { compare } from 'compare-versions'
 import type { ComponentResolver } from '../../types'
 import { getPkgVersion, kebabCase } from '../utils'
 
+// @keep-sorted
 const specialComponents: Record<string, string> = {
-  CdkVirtualScroll: 'scroll',
   CdkClickOutside: 'click-outside',
   CdkDraggable: 'drag-drop',
   CdkResizable: 'resize',
   CdkResizableHandle: 'resize',
   CdkResizeObserver: 'resize',
+  CdkVirtualScroll: 'scroll',
   IxAutoComplete: 'auto-complete',
   IxBackTop: 'back-top',
+  IxCol: 'grid',
   IxDatePicker: 'date-picker',
   IxDateRangePicker: 'date-picker',
-  IxCol: 'grid',
-  IxRow: 'grid',
   IxInputNumber: 'input-number',
-  IxTab: 'tabs',
-  IxTreeSelect: 'tree-select',
-  IxTimePicker: 'time-picker',
-  IxTimeRangePicker: 'time-picker',
   IxLoadingBar: 'loading-bar',
   IxLoadingBarProvider: 'loading-bar',
+  IxRow: 'grid',
+  IxTab: 'tabs',
+  IxTimePicker: 'time-picker',
+  IxTimeRangePicker: 'time-picker',
+  IxTreeSelect: 'tree-select',
 }
 
 export interface IduxResolverOptions {

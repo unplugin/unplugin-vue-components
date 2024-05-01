@@ -1,5 +1,6 @@
 import type { ComponentResolver, SideEffectsInfo } from '../../types'
 
+// @keep-sorted
 const components = [
   'Accordion',
   'AccordionTab',
@@ -40,8 +41,8 @@ const components = [
   'FullCalendar',
   'Galleria',
   'IconField',
-  'Image',
   'IconField',
+  'Image',
   'InlineMessage',
   'Inplace',
   'InputGroup',

@@ -4,6 +4,7 @@ import type { ComponentResolver } from '../../types'
  * source: https://github.com/nuxt-modules/ionic/blob/main/src/imports.ts
  * @author @danielroe
  */
+// @keep-sorted
 export const IonicBuiltInComponents = [
   'IonAccordion',
   'IonAccordionGroup',
