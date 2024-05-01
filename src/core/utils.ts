@@ -159,12 +159,13 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
         for (const fileOrFolderName of namespaced) {
           let cumulativePrefix = ''
           let didCollapse = false
+          const pascalCasedName = pascalCase(fileOrFolderName)
 
           for (const parentFolder of [...collapsed].reverse()) {
-            cumulativePrefix = `${capitalize(parentFolder)}${cumulativePrefix}`
+            cumulativePrefix = `${parentFolder}${cumulativePrefix}`
 
-            if (pascalCase(fileOrFolderName).startsWith(pascalCase(cumulativePrefix))) {
-              const collapseSamePrefix = fileOrFolderName.slice(cumulativePrefix.length)
+            if (pascalCasedName.startsWith(cumulativePrefix)) {
+              const collapseSamePrefix = pascalCasedName.slice(cumulativePrefix.length)
 
               collapsed.push(collapseSamePrefix)
 
@@ -174,7 +175,7 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
           }
 
           if (!didCollapse)
-            collapsed.push(fileOrFolderName)
+            collapsed.push(pascalCasedName)
         }
 
         namespaced = collapsed

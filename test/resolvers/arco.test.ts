@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { ArcoResolver } from '../../src/resolvers'
 
 import type { ComponentResolveResult, ComponentResolverObject } from '../../src'
@@ -11,15 +11,15 @@ function testNoIconComponentResolve(resolver: ComponentResolverObject) {
   })
 }
 
-describe('ArcoResolver', () => {
-  test('Resolve component except icon', async () => {
+describe('arcoResolver', () => {
+  it('resolve component except icon', async () => {
     const resolver = ArcoResolver() as ComponentResolverObject
     expect(typeof resolver).toEqual('object')
     testNoIconComponentResolve(resolver)
     expect(resolver.resolve('IconStar')).toBeFalsy()
   })
 
-  test('Can resolve icon component', () => {
+  it('can resolve icon component', () => {
     const resolver = ArcoResolver({ resolveIcons: true }) as ComponentResolverObject
     testNoIconComponentResolve(resolver)
     expect(resolver.resolve('IconStar')).toEqual<ComponentResolveResult>({
@@ -29,7 +29,7 @@ describe('ArcoResolver', () => {
     })
   })
 
-  test('Can resolve icon component with custom icon prefix', () => {
+  it('can resolve icon component with custom icon prefix', () => {
     const resolver = ArcoResolver({ resolveIcons: { enable: true, iconPrefix: 'arco' } }) as ComponentResolverObject
     testNoIconComponentResolve(resolver)
     expect(resolver.resolve('ArcoIconStar')).toEqual<ComponentResolveResult>({

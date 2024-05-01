@@ -41,6 +41,7 @@ const components = [
   'Galleria',
   'IconField',
   'Image',
+  'IconField',
   'InlineMessage',
   'Inplace',
   'InputGroup',

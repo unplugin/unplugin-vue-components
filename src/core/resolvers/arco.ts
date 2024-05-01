@@ -165,7 +165,7 @@ function getResolveIconPrefix(options?: ResolveIconsOption) {
 }
 
 export type DisallowResolveIconOption = undefined | false | { enable: false }
-export type AllowResolveIconOption = true | { enable: true; iconPrefix?: string }
+export type AllowResolveIconOption = true | { enable: true, iconPrefix?: string }
 export type ResolveIconsOption = DisallowResolveIconOption | AllowResolveIconOption
 
 export interface ArcoResolverOptions {
