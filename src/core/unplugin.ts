@@ -46,7 +46,7 @@ export default createUnplugin<Options>((options = {}) => {
         return result
       }
       catch (e) {
-        this.error(e)
+        this.error(e as any)
       }
     },
 
@@ -74,7 +74,7 @@ export default createUnplugin<Options>((options = {}) => {
 
     webpack(compiler) {
       let watcher: Watching
-      let fileDepQueue: { path: string; type: 'unlink' | 'add' }[] = []
+      let fileDepQueue: { path: string, type: 'unlink' | 'add' }[] = []
       compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
         // ensure watcher is ready(supported since webpack@5.0.0-rc.1)
         if (!watcher && compiler.watching) {

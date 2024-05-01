@@ -46,7 +46,7 @@ export interface ElementPlusResolverOptions {
 }
 
 type ElementPlusResolverOptionsResolved = Required<Omit<ElementPlusResolverOptions, 'exclude'>> &
-Pick<ElementPlusResolverOptions, 'exclude'>
+  Pick<ElementPlusResolverOptions, 'exclude'>
 
 /**
  * @deprecated
@@ -137,7 +137,7 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
   if (!options.directives)
     return
 
-  const directives: Record<string, { importName: string; styleName: string }> = {
+  const directives: Record<string, { importName: string, styleName: string }> = {
     Loading: { importName: 'ElLoadingDirective', styleName: 'loading' },
     Popover: { importName: 'ElPopoverDirective', styleName: 'popover' },
     InfiniteScroll: { importName: 'ElInfiniteScroll', styleName: 'infinite-scroll' },

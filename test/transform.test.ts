@@ -86,7 +86,7 @@ describe('transform', () => {
   })
 })
 
-describe('Component and directive as same name', () => {
+describe('component and directive as same name', () => {
   it('vue2 transform should work', async () => {
     const code = `
     var render = function () {
