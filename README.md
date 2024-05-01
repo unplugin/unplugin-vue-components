@@ -65,7 +65,6 @@ export default {
 
 <br></details>
 
-
 <details>
 <summary>Webpack</summary><br>
 
@@ -117,6 +116,7 @@ module.exports = {
 ```
 
 You can also rename the Vue configuration file to `vue.config.mjs` and use static import syntax (you should use latest `@vue/cli-service ^5.0.8`):
+
 ```ts
 // vue.config.mjs
 import Components from 'unplugin-vue-components/webpack'
@@ -166,9 +166,9 @@ It will automatically turn this
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+  export default {
+    name: 'App',
+  }
 </script>
 ```
 
@@ -182,16 +182,17 @@ into this
 </template>
 
 <script>
-import HelloWorld from './src/components/HelloWorld.vue'
+  import HelloWorld from './src/components/HelloWorld.vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  export default {
+    name: 'App',
+    components: {
+      HelloWorld,
+    },
   }
-}
 </script>
 ```
+
 > **Note**
 > By default this plugin will import components in the `src/components` path. You can customize it using the `dirs` option.
 

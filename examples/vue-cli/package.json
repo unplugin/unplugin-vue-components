@@ -8,15 +8,15 @@
   },
   "dependencies": {
     "@vue/composition-api": "^1.7.2",
-    "core-js": "^3.32.2",
-    "vue": "^3.2.45"
+    "core-js": "^3.37.0",
+    "vue": "^3.4.26"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-typescript": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
-    "typescript": "^5.2.2",
-    "unplugin-icons": "^0.17.0",
+    "typescript": "^5.4.5",
+    "unplugin-icons": "^0.18.5",
     "unplugin-vue-components": "workspace:*",
     "unplugin-vue2-script-setup": "^0.11.4"
   }
