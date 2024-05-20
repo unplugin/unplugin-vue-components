@@ -74,17 +74,23 @@ function getSideEffects(name: string, filename: string) {
   if (['splitter-pane'].includes(name))
     return resolveDirectory('splitter', filename)
 
-  if (["option"].includes(name))
+  if (['option', 'option-group'].includes(name))
     return resolveDirectory("select", filename);
 
-  if (["modal-header"].includes(name))
+  if (['modal-header', 'modal-footer'].includes(name))
     return resolveDirectory("modal", filename);
 
-  if (["breadcrumb-item"].includes(name))
+  if (['breadcrumb-item'].includes(name))
     return resolveDirectory("breadcrumb", filename);
 
-  if (["skeleton-item"].includes(name))
+  if (['skeleton-item'].includes(name))
     return resolveDirectory("skeleton", filename);
+
+  if (['button-group'].includes(name))
+    return resolveDirectory("button", filename);
+
+  if (['checkbox-group'].includes(name))
+    return resolveDirectory("checkbox", filename);
 
   return resolveDirectory(name, filename)
 }
