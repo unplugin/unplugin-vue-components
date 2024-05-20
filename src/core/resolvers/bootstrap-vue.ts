@@ -92,12 +92,16 @@ export function BootstrapVueResolver(_options: BootstrapVueResolverOptions = {})
  * @link https://github.com/bootstrap-vue/bootstrap-vue-next
  */
 export function BootstrapVueNextResolver(_options: BootstrapVueResolverOptions = {}): Array<ComponentResolver> {
-  const options = { directives: true, ..._options }
+  const options = { directives: true, aliases: {}, ..._options }
   const resolvers: Array<ComponentResolver> = [{
     type: 'component',
     resolve: (name) => {
-      if (name.match(/^B[A-Z]/))
-        return { name, from: 'bootstrap-vue-next' }
+      if (name.match(/^B[A-Z]/)) {
+        return {
+          name: options.aliases[name] || name,
+          from: 'bootstrap-vue-next'
+        }
+      }
     },
   }]
 
