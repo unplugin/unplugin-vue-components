@@ -53,7 +53,7 @@ function getSideEffects(name: string, filename: string) {
   if (['tabs', 'tab'].includes(name))
     return resolveDirectory('tabs', filename)
 
-  if (['form', 'form-item'].includes(name))
+  if (['form', 'form-item', 'form-operation'].includes(name))
     return resolveDirectory('form', filename)
 
   if (['collapse', 'collapse-item'].includes(name))
@@ -73,6 +73,18 @@ function getSideEffects(name: string, filename: string) {
 
   if (['splitter-pane'].includes(name))
     return resolveDirectory('splitter', filename)
+
+  if (["option"].includes(name))
+    return resolveDirectory("select", filename);
+
+  if (["modal-header"].includes(name))
+    return resolveDirectory("modal", filename);
+
+  if (["breadcrumb-item"].includes(name))
+    return resolveDirectory("breadcrumb", filename);
+
+  if (["skeleton-item"].includes(name))
+    return resolveDirectory("skeleton", filename);
 
   return resolveDirectory(name, filename)
 }
