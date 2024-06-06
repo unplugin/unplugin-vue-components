@@ -1,5 +1,3 @@
-import { promises as fs } from 'node:fs'
-import { resolveModule } from 'local-pkg'
 import type { ComponentResolver } from '../../types'
 
 /**
@@ -14,9 +12,12 @@ export function QuasarResolver(): ComponentResolver {
     type: 'component',
     resolve: async (name: string) => {
       if (!components.length) {
-        const quasarApiListPath = resolveModule('quasar/dist/transforms/api-list.json')
-        if (quasarApiListPath)
-          components = JSON.parse(await fs.readFile(quasarApiListPath, 'utf-8'))
+        ({
+          default: components,
+        } // @ts-expect-error no quasar types
+          = await import('quasar/dist/transforms/api-list.json', {
+            assert: { type: 'json' },
+          }))
       }
 
       if (components.includes(name))

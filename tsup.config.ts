@@ -5,6 +5,7 @@ export const tsup: Options = {
     'src/*.ts',
   ],
   format: ['cjs', 'esm'],
+  external: ['quasar'],
   dts: true,
   splitting: true,
   clean: true,
