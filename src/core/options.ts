@@ -84,7 +84,9 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
 }
 
 function getVueVersion(root: string): 2 | 2.7 | 3 {
-  const raw = getPackageInfoSync('vue', { paths: [root] })?.version || '3'
+  // To fixed [mlly] issue: https://github.com/unjs/mlly/issues/158
+  const fixedRoot = root.endsWith('/') ? root : `${root}/`
+  const raw = getPackageInfoSync('vue', { paths: [fixedRoot] })?.version || '3'
   const version = +(raw.split('.').slice(0, 2).join('.'))
   if (version === 2.7)
     return 2.7
