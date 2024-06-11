@@ -97,6 +97,7 @@
     "@rollup/pluginutils": "^5.1.0",
     "chokidar": "^3.6.0",
     "debug": "^4.3.4",
+    "braces": "^3.0.3",
     "fast-glob": "^3.3.2",
     "local-pkg": "^0.5.0",
     "magic-string": "^0.30.10",
