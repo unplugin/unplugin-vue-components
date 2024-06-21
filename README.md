@@ -359,6 +359,7 @@ Components({
 
   // Glob patterns to match file names to be detected as components.
   // When specified, the `dirs` and `extensions` options will be ignored.
+  // If want to exclude file in `components.d.ts`, add `!` before path like ['!path-want-exclude/*.vue']
   globs: ['src/components/*.{vue}'],
 
   // search for subdirectories
@@ -398,6 +399,7 @@ Components({
 
   // filters for transforming targets
   include: [/\.vue$/, /\.vue\?vue/],
+  // If want to exclude file in `components.d.ts`, please use globs
   exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
 
   // Vue version of project. It will detect automatically if not specified.
