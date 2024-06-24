@@ -101,7 +101,7 @@
     "local-pkg": "^0.5.0",
     "magic-string": "^0.30.10",
     "minimatch": "^9.0.4",
-    "resolve": "^1.22.8",
+    "mlly": "^1.7.1",
     "unplugin": "^1.10.1"
   },
   "devDependencies": {
@@ -112,7 +112,6 @@
     "@types/debug": "^4.1.12",
     "@types/minimatch": "^5.1.2",
     "@types/node": "^20.12.7",
-    "@types/resolve": "^1.20.6",
     "bumpp": "^9.4.1",
     "compare-versions": "^6.1.0",
     "element-plus": "^2.7.2",

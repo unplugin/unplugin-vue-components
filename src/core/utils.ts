@@ -1,7 +1,7 @@
 import { parse } from 'node:path'
 import process from 'node:process'
 import { minimatch } from 'minimatch'
-import resolve from 'resolve'
+import { resolvePathSync } from 'mlly'
 import { slash, toArray } from '@antfu/utils'
 import {
   getPackageInfo,
@@ -223,7 +223,5 @@ export function shouldTransform(code: string) {
 }
 
 export function resolveImportPath(importName: string): string | undefined {
-  return resolve.sync(importName, {
-    preserveSymlinks: false,
-  })
+  return resolvePathSync(importName)
 }
