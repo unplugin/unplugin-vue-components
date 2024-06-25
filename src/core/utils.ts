@@ -1,7 +1,6 @@
 import { parse } from 'node:path'
 import process from 'node:process'
 import { minimatch } from 'minimatch'
-import resolve from 'resolve'
 import { slash, toArray } from '@antfu/utils'
 import {
   getPackageInfo,
@@ -220,10 +219,4 @@ export function shouldTransform(code: string) {
   if (code.includes(DISABLE_COMMENT))
     return false
   return true
-}
-
-export function resolveImportPath(importName: string): string | undefined {
-  return resolve.sync(importName, {
-    preserveSymlinks: false,
-  })
 }
