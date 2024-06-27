@@ -100,7 +100,7 @@ export interface LayuiVueResolverOptions {
 
 const layuiRE = /^Lay[A-Z]/
 const layerRE = /^(layer|LayLayer)$/
-const iconsRE = /^([A-Z][\w]+Icon|LayIcon)$/
+const iconsRE = /^([A-Z]\w+Icon)$/
 let libName = '@layui/layui-vue'
 
 function lowerCamelCase(str: string) {
