@@ -179,7 +179,7 @@ export interface Options {
 }
 
 export type ResolvedOptions = Omit<
-Required<Options>,
+  Required<Options>,
 'resolvers' | 'extensions' | 'dirs' | 'globalComponentsDeclaration'
 > & {
   resolvers: ComponentResolverObject[]

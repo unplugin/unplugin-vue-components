@@ -7,10 +7,11 @@ import type { Context } from './context'
 import { getTransformedPath } from './utils'
 import { resolveTypeImports } from './type-imports/detect'
 
-const multilineCommentsRE = /\/\*.*?\*\//gms
+const multilineCommentsRE = /\/\*.*?\*\//gs
 const singlelineCommentsRE = /\/\/.*$/gm
 
 function extractImports(code: string) {
+  // eslint-disable-next-line regexp/no-super-linear-backtracking, regexp/no-misleading-capturing-group
   return Object.fromEntries(Array.from(code.matchAll(/['"]?([^\s'"]+)['"]?\s*:\s*(.+?)[,;\n]/g)).map(i => [i[1], i[2]]))
 }
 
@@ -26,11 +27,11 @@ export function parseDeclaration(code: string): DeclarationImports | undefined {
     component: {},
     directive: {},
   }
-  const componentDeclaration = /export\s+interface\s+GlobalComponents\s*{(.*?)}/s.exec(code)?.[0]
+  const componentDeclaration = /export\s+interface\s+GlobalComponents\s*\{.*?\}/s.exec(code)?.[0]
   if (componentDeclaration)
     imports.component = extractImports(componentDeclaration)
 
-  const directiveDeclaration = /export\s+interface\s+ComponentCustomProperties\s*{(.*?)}/s.exec(code)?.[0]
+  const directiveDeclaration = /export\s+interface\s+ComponentCustomProperties\s*\{.*?\}/s.exec(code)?.[0]
   if (directiveDeclaration)
     imports.directive = extractImports(directiveDeclaration)
 
