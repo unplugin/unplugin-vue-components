@@ -58,8 +58,10 @@ export function isEmpty(value: any) {
 
 export function matchGlobs(filepath: string, globs: string[]) {
   for (const glob of globs) {
-    if (minimatch(slash(filepath), glob))
-      return true
+    const isNegated = glob.startsWith('!')
+    const match = minimatch(slash(filepath), isNegated ? glob.slice(1) : glob)
+    if (match)
+      return !isNegated
   }
   return false
 }
@@ -143,7 +145,7 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
     if (globalNamespaces.some((name: string) => folders.includes(name)))
       folders = folders.filter(f => !globalNamespaces.includes(f))
 
-    folders = folders.map(f => f.replace(/[^a-zA-Z0-9\-]/g, ''))
+    folders = folders.map(f => f.replace(/[^a-z0-9\-]/gi, ''))
 
     if (filename.toLowerCase() === 'index')
       filename = ''
