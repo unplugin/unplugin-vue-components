@@ -73,11 +73,11 @@ export function VeuiResolver(options: VeuiResolverOptions = {}): ComponentResolv
 
   if (!components) {
     try {
-      /* eslint-disable ts/no-var-requires, ts/no-require-imports */
+      // eslint-disable-next-line ts/no-require-imports
       const componentsData = require(`${alias}/components.json`) as ComponentInfo[]
       components = new Set(componentsData.map(({ name }) => name))
     }
-    catch (e) {
+    catch {
       throw new Error('[unplugin-vue-components:veui] VEUI is not installed')
     }
   }
@@ -113,7 +113,7 @@ function assertPeerPath(peerPath: string) {
       resolvePathSync(peerPath)
       peerPaths.set(peerPath, true)
     }
-    catch (e) {
+    catch {
       peerPaths.set(peerPath, false)
     }
   }
