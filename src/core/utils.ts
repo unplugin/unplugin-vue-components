@@ -58,8 +58,10 @@ export function isEmpty(value: any) {
 
 export function matchGlobs(filepath: string, globs: string[]) {
   for (const glob of globs) {
-    if (minimatch(slash(filepath), glob))
-      return true
+    const isNegated = glob.startsWith('!')
+    const match = minimatch(slash(filepath), isNegated ? glob.slice(1) : glob)
+    if (match)
+      return !isNegated
   }
   return false
 }
