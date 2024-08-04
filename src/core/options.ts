@@ -35,7 +35,7 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   const resolved = Object.assign({}, defaultOptions, options) as ResolvedOptions
   resolved.resolvers = normalizeResolvers(resolved.resolvers)
   resolved.extensions = toArray(resolved.extensions)
-  resolved.excludeNames = createFilter(resolved.excludeNames)
+  resolved.excludeNames = createFilter(undefined, resolved.excludeNames)
 
   if (resolved.globs) {
     resolved.globs = toArray(resolved.globs).map((glob: string) => slash(resolveGlobsExclude(root, glob)))
