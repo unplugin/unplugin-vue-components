@@ -92,6 +92,9 @@ function componentsResolver(name: string, { ssr }: DevResolverOptions): Componen
 }
 
 function directivesResolver(name: string, { ssr }: DevResolverOptions): ComponentInfo | undefined {
+  if (!name.match(/^D[A-Z]/))
+    return
+  
   const resolveId = kebabCase(name)
 
   return {
