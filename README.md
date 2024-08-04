@@ -358,7 +358,7 @@ Components({
   extensions: ['vue'],
 
   // Glob patterns to match file names to be detected as components.
-  // When specified, the `dirs` and `extensions` options will be ignored.
+  // When specified, the `dirs`, `extensions`, and `directoryAsNamespace` options will be ignored.
   // If you want to exclude components being registered, use negative globs with leading `!`.
   globs: ['src/components/*.{vue}'],
 
@@ -398,9 +398,13 @@ Components({
   allowOverrides: false,
 
   // Filters for transforming targets (components to insert the auto import)
-  // Note these are NOT about including/excluding components registered - use `globs` for that
+  // Note these are NOT about including/excluding components registered - use `globs` or `excludeNames` for that
   include: [/\.vue$/, /\.vue\?vue/],
   exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
+
+  // Filters for component names that will not be imported
+  // Use for globally imported async components or other conflicts that the plugin cannot detect
+  excludeNames: [/^Async.+/],
 
   // Vue version of project. It will detect automatically if not specified.
   // Acceptable value: 2 | 2.7 | 3

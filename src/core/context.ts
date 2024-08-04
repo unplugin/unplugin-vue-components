@@ -203,6 +203,10 @@ export class Context {
       .from(this._componentPaths)
       .forEach((path) => {
         const name = pascalCase(getNameFromFilePath(path, this.options))
+        if (this.options.excludeNames(name)) {
+          debug.components('exclude', name)
+          return
+        }
         if (this._componentNameMap[name] && !this.options.allowOverrides) {
           console.warn(`[unplugin-vue-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
           return
