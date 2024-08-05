@@ -1,7 +1,6 @@
 import Debug from 'debug'
 import type { ComponentInfo, ComponentResolver } from '../../types'
-import { kebabCase, pascalCase } from '../utils'
-import { isExclude } from './_utils'
+import { isExclude, kebabCase, pascalCase } from '../utils'
 
 const debug = Debug('unplugin-vue-components:resolvers:arco')
 
