@@ -72,7 +72,7 @@ export interface Options {
   exclude?: FilterPattern
 
   /**
-   * RegExp or glob to match component names that will NOT be imported
+   * RegExp or string to match component names that will NOT be imported
    */
   excludeNames?: FilterPattern
 
@@ -185,7 +185,7 @@ export interface Options {
 
 export type ResolvedOptions = Omit<
   Required<Options>,
-'resolvers' | 'extensions' | 'dirs' | 'globalComponentsDeclaration' | 'excludeNames'
+'resolvers' | 'extensions' | 'dirs' | 'globalComponentsDeclaration'
 > & {
   resolvers: ComponentResolverObject[]
   extensions: string[]
@@ -194,7 +194,6 @@ export type ResolvedOptions = Omit<
   globs: string[]
   dts: string | false
   root: string
-  excludeNames: (id: unknown) => boolean
 }
 
 export type ComponentsImportMap = Record<string, string[] | undefined>

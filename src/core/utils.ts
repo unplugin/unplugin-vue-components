@@ -6,6 +6,7 @@ import {
   getPackageInfo,
   isPackageExists,
 } from 'local-pkg'
+import type { FilterPattern } from '@rollup/pluginutils'
 import type { ComponentInfo, ImportInfo, ImportInfoLegacy, Options, ResolvedOptions } from '../types'
 import type { Context } from './context'
 import { DISABLE_COMMENT } from './constants'
@@ -221,4 +222,23 @@ export function shouldTransform(code: string) {
   if (code.includes(DISABLE_COMMENT))
     return false
   return true
+}
+
+export function isExclude(name: string, exclude?: FilterPattern): boolean {
+  if (!exclude)
+    return false
+
+  if (typeof exclude === 'string')
+    return name === exclude
+
+  if (exclude instanceof RegExp)
+    return !!name.match(exclude)
+
+  if (Array.isArray(exclude)) {
+    for (const item of exclude) {
+      if (name === item || name.match(item))
+        return true
+    }
+  }
+  return false
 }

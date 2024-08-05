@@ -1,7 +1,6 @@
 import { join, resolve } from 'node:path'
 import { slash, toArray } from '@antfu/utils'
 import { getPackageInfoSync, isPackageExists } from 'local-pkg'
-import { createFilter } from '@rollup/pluginutils'
 import type { ComponentResolver, ComponentResolverObject, Options, ResolvedOptions } from '../types'
 import { detectTypeImports } from './type-imports/detect'
 
@@ -35,7 +34,6 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   const resolved = Object.assign({}, defaultOptions, options) as ResolvedOptions
   resolved.resolvers = normalizeResolvers(resolved.resolvers)
   resolved.extensions = toArray(resolved.extensions)
-  resolved.excludeNames = createFilter(undefined, resolved.excludeNames, { resolve: false })
 
   if (resolved.globs) {
     resolved.globs = toArray(resolved.globs).map((glob: string) => slash(resolveGlobsExclude(root, glob)))
