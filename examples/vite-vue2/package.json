@@ -12,6 +12,6 @@
     "@vitejs/plugin-vue2": "^2.3.1",
     "cross-env": "^7.0.3",
     "unplugin-vue-components": "workspace:*",
-    "vite": "^5.3.4"
+    "vite": "^5.4.0"
   }
 }
