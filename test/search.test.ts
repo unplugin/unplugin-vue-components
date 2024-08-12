@@ -69,4 +69,15 @@ describe('search', () => {
 
     expect(cleanup(ctx.componentNameMap).map(i => i.as)).not.toEqual(expect.arrayContaining(['Book']))
   })
+
+  it('should excludeNames', () => {
+    const ctx = new Context({
+      dirs: ['src/components'],
+      excludeNames: ['Book'],
+    })
+    ctx.setRoot(root)
+    ctx.searchGlob()
+
+    expect(cleanup(ctx.componentNameMap).map(i => i.as)).not.toEqual(expect.arrayContaining(['Book']))
+  })
 })

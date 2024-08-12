@@ -6,7 +6,7 @@ import type { UpdatePayload, ViteDevServer } from 'vite'
 import { slash, throttle, toArray } from '@antfu/utils'
 import type { ComponentInfo, Options, ResolvedOptions, Transformer } from '../types'
 import { DIRECTIVE_IMPORT_PREFIX } from './constants'
-import { getNameFromFilePath, matchGlobs, normalizeComponentInfo, parseId, pascalCase, resolveAlias } from './utils'
+import { getNameFromFilePath, isExclude, matchGlobs, normalizeComponentInfo, parseId, pascalCase, resolveAlias } from './utils'
 import { resolveOptions } from './options'
 import { searchComponents } from './fs/glob'
 import { writeDeclaration } from './declaration'
@@ -203,6 +203,10 @@ export class Context {
       .from(this._componentPaths)
       .forEach((path) => {
         const name = pascalCase(getNameFromFilePath(path, this.options))
+        if (isExclude(name, this.options.excludeNames)) {
+          debug.components('exclude', name)
+          return
+        }
         if (this._componentNameMap[name] && !this.options.allowOverrides) {
           console.warn(`[unplugin-vue-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
           return
