@@ -155,6 +155,12 @@ export interface Options {
   dts?: boolean | string
 
   /**
+   * Generate TypeScript declaration for components InstanceType.
+   * @default false
+   */
+  instanceType?: boolean
+
+  /**
    * Do not emit warning on component overriding
    *
    * @default false
