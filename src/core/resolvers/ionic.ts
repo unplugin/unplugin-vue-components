@@ -79,6 +79,8 @@ export const IonicBuiltInComponents = [
   'IonSearchbar',
   'IonSegment',
   'IonSegmentButton',
+  'IonSegmentContent',
+  'IonSegmentView',
   'IonSelect',
   'IonSelectOption',
   'IonSkeletonText',
