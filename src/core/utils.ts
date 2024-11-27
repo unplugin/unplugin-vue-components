@@ -1,14 +1,14 @@
+import type { FilterPattern } from '@rollup/pluginutils'
+import type { ComponentInfo, ImportInfo, ImportInfoLegacy, Options, ResolvedOptions } from '../types'
+import type { Context } from './context'
 import { parse } from 'node:path'
 import process from 'node:process'
-import { minimatch } from 'minimatch'
 import { slash, toArray } from '@antfu/utils'
 import {
   getPackageInfo,
   isPackageExists,
 } from 'local-pkg'
-import type { FilterPattern } from '@rollup/pluginutils'
-import type { ComponentInfo, ImportInfo, ImportInfoLegacy, Options, ResolvedOptions } from '../types'
-import type { Context } from './context'
+import { minimatch } from 'minimatch'
 import { DISABLE_COMMENT } from './constants'
 
 export const isSSR = Boolean(process.env.SSR || process.env.SSG || process.env.VITE_SSR || process.env.VITE_SSG)

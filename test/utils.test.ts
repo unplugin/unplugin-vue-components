@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import type { ResolvedOptions } from '../src'
+import { describe, expect, it } from 'vitest'
 import { getNameFromFilePath } from '../src/core/utils'
 
 describe('getNameFromFilePath', () => {

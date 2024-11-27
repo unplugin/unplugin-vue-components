@@ -1,9 +1,9 @@
-import Debug from 'debug'
 import type MagicString from 'magic-string'
-import { pascalCase, stringifyComponentImport } from '../../utils'
-import type { Context } from '../../context'
 import type { SupportedTransformer } from '../../..'
+import type { Context } from '../../context'
+import Debug from 'debug'
 import { DIRECTIVE_IMPORT_PREFIX } from '../../constants'
+import { pascalCase, stringifyComponentImport } from '../../utils'
 import vue2Resolver from './vue2'
 import vue3Resolver from './vue3'
 

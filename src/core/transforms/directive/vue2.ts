@@ -8,8 +8,8 @@ import type {
   VariableDeclaration,
 } from '@babel/types'
 import type MagicString from 'magic-string'
-import { importModule, isPackageExists } from 'local-pkg'
 import type { ResolveResult } from '../../transformer'
+import { importModule, isPackageExists } from 'local-pkg'
 
 /**
  * Get Vue 2 render function position

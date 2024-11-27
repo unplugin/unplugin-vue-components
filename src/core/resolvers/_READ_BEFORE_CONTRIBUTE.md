@@ -9,9 +9,9 @@ Instead, we suggest UI libraries to maintain and publish their own resolvers, as
 We recommend to have it under a submodule, or publish as a separate package.
 
 ```ts
-import Components from 'unplugin-vue-components'
-
 import MyLibResolver from 'my-lib/auto-import-resolver' // <--
+
+import Components from 'unplugin-vue-components'
 
 export default defineConfig({
   plugins: [

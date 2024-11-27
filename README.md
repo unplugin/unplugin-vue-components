@@ -241,13 +241,13 @@ Supported Resolvers:
 - [Dev UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/devui.ts)
 
 ```ts
-// vite.config.js
-import Components from 'unplugin-vue-components/vite'
 import {
   AntDesignVueResolver,
   ElementPlusResolver,
   VantResolver,
 } from 'unplugin-vue-components/resolvers'
+// vite.config.js
+import Components from 'unplugin-vue-components/vite'
 
 // your plugin installation
 Components({

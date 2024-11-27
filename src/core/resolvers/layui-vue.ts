@@ -1,6 +1,6 @@
 import type { FilterPattern } from '@rollup/pluginutils'
-import { isExclude } from '../utils'
 import type { ComponentInfo, ComponentResolver, SideEffectsInfo } from '../../types'
+import { isExclude } from '../utils'
 
 const matchComponents = [
   {

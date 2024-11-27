@@ -1,7 +1,7 @@
+import type { ComponentResolver } from '../src'
 import { readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
-import type { ComponentResolver } from '../src'
 import { Context } from '../src/core/context'
 import { getDeclaration, parseDeclaration } from '../src/core/declaration'
 

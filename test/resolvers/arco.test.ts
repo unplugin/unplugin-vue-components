@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest'
-import { ArcoResolver } from '../../src/resolvers'
-
 import type { ComponentResolveResult, ComponentResolverObject } from '../../src'
+import { describe, expect, it } from 'vitest'
+
+import { ArcoResolver } from '../../src/resolvers'
 
 function testNoIconComponentResolve(resolver: ComponentResolverObject) {
   expect(resolver.resolve('AButton')).toEqual<ComponentResolveResult>({

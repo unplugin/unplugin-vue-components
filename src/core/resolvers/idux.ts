@@ -1,6 +1,6 @@
-import { resolveModule } from 'local-pkg'
-import { compare } from 'compare-versions'
 import type { ComponentResolver } from '../../types'
+import { compare } from 'compare-versions'
+import { resolveModule } from 'local-pkg'
 import { getPkgVersion, kebabCase } from '../utils'
 
 // @keep-sorted

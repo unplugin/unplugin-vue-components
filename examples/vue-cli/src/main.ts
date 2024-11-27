@@ -1,5 +1,5 @@
-import Vue from 'vue'
 import VueCompostionAPI from '@vue/composition-api'
+import Vue from 'vue'
 import App from './App.vue'
 import './index.css'
 

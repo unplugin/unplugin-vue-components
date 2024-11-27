@@ -1,6 +1,6 @@
+import type { ComponentResolver, SideEffectsInfo } from '../../types'
 import { join, normalize } from 'node:path'
 import { resolvePathSync } from 'mlly'
-import type { ComponentResolver, SideEffectsInfo } from '../../types'
 import { camelCase, kebabCase, pascalCase } from '../utils'
 
 interface VeuiPeerConfig {

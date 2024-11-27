@@ -1,11 +1,11 @@
-import { dirname, isAbsolute, relative } from 'node:path'
-import { existsSync } from 'node:fs'
-import { mkdir, readFile, writeFile as writeFile_ } from 'node:fs/promises'
-import { notNullish, slash } from '@antfu/utils'
 import type { ComponentInfo, Options } from '../types'
 import type { Context } from './context'
-import { getTransformedPath } from './utils'
+import { existsSync } from 'node:fs'
+import { mkdir, readFile, writeFile as writeFile_ } from 'node:fs/promises'
+import { dirname, isAbsolute, relative } from 'node:path'
+import { notNullish, slash } from '@antfu/utils'
 import { resolveTypeImports } from './type-imports/detect'
+import { getTransformedPath } from './utils'
 
 const multilineCommentsRE = /\/\*.*?\*\//gs
 const singlelineCommentsRE = /\/\/.*$/gm
