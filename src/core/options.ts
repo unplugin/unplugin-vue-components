@@ -59,11 +59,11 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   resolved.dts = !resolved.dts
     ? false
     : resolve(
-      root,
-      typeof resolved.dts === 'string'
-        ? resolved.dts
-        : 'components.d.ts',
-    )
+        root,
+        typeof resolved.dts === 'string'
+          ? resolved.dts
+          : 'components.d.ts',
+      )
 
   if (!resolved.types && resolved.dts)
     resolved.types = detectTypeImports()
