@@ -46,9 +46,9 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
         }
       }
 
-      if (name.startsWith('TTypography')) {
+      if (name.startsWith('TTypography') || name.startsWith('Typography')) {
         return {
-          name: name.slice(11),
+          name: name.slice(name.startsWith('TTypography') ? 11 : 10),
           from: `tdesign-${library}${importFrom}`,
         }
       }
