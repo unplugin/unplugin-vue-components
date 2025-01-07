@@ -46,6 +46,13 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
         }
       }
 
+      if (name.startsWith('TTypography')) {
+        return {
+          name: name.slice(11),
+          from: `tdesign-${library}${importFrom}`,
+        }
+      }
+
       if (name.match(/^T[A-Z]/) || pluginList.includes(name)) {
         const importName = name.match(/^T[A-Z]/) ? name.slice(1) : name
 
