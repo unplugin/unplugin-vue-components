@@ -1,6 +1,6 @@
+import type { Awaitable } from '@antfu/utils'
 import type { FilterPattern } from '@rollup/pluginutils'
 import type { TransformResult } from 'unplugin'
-import type { Awaitable } from '@antfu/utils'
 
 export interface ImportInfoLegacy {
   /**

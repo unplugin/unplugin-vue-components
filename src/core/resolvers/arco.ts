@@ -1,5 +1,5 @@
-import Debug from 'debug'
 import type { ComponentInfo, ComponentResolver } from '../../types'
+import Debug from 'debug'
 import { isExclude, kebabCase, pascalCase } from '../utils'
 
 const debug = Debug('unplugin-vue-components:resolvers:arco')

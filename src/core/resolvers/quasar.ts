@@ -1,6 +1,6 @@
+import type { ComponentResolver } from '../../types'
 import { promises as fs } from 'node:fs'
 import { resolveModule } from 'local-pkg'
-import type { ComponentResolver } from '../../types'
 
 /**
  * Resolver for Quasar

@@ -1,10 +1,10 @@
-import Debug from 'debug'
-import MagicString from 'magic-string'
 import type { TransformResult } from 'unplugin'
 import type { SupportedTransformer } from '..'
 import type { Transformer } from '../types'
-import { DISABLE_COMMENT } from './constants'
 import type { Context } from './context'
+import Debug from 'debug'
+import MagicString from 'magic-string'
+import { DISABLE_COMMENT } from './constants'
 import transformComponent from './transforms/component'
 import transformDirectives from './transforms/directive'
 

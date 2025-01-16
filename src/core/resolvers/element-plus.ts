@@ -1,5 +1,5 @@
-import { compare } from 'compare-versions'
 import type { ComponentInfo, ComponentResolver, SideEffectsInfo } from '../../types'
+import { compare } from 'compare-versions'
 import { getPkgVersion, kebabCase } from '../utils'
 
 export interface ElementPlusResolverOptions {

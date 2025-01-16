@@ -1,6 +1,6 @@
-import fg from 'fast-glob'
-import Debug from 'debug'
 import type { Context } from '../context'
+import Debug from 'debug'
+import fg from 'fast-glob'
 
 const debug = Debug('unplugin-vue-components:glob')
 

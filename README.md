@@ -230,7 +230,9 @@ Supported Resolvers:
 - [Quasar](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/quasar.ts)
 - [TDesign](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/tdesign.ts)
 - [Vant](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vant.ts)
+  - [`@vant/auto-import-resolver`](https://github.com/youzan/vant/blob/main/packages/vant-auto-import-resolver/README.md) - Vant's own auto-import resolver
 - [Varlet UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/varlet-ui.ts)
+  - [`@varlet/import-resolver`](https://github.com/varletjs/varlet/blob/dev/packages/varlet-import-resolver/README.md) - Varlet's own auto-import resolver
 - [VEUI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/veui.ts)
 - [View UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/view-ui.ts)
 - [Vuetify](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vuetify.ts) &mdash; Prefer first-party plugins when possible: [v3 + vite](https://www.npmjs.com/package/vite-plugin-vuetify), [v3 + webpack](https://www.npmjs.com/package/webpack-plugin-vuetify), [v2 + webpack](https://npmjs.com/package/vuetify-loader)
@@ -239,13 +241,13 @@ Supported Resolvers:
 - [Dev UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/devui.ts)
 
 ```ts
-// vite.config.js
-import Components from 'unplugin-vue-components/vite'
 import {
   AntDesignVueResolver,
   ElementPlusResolver,
   VantResolver,
 } from 'unplugin-vue-components/resolvers'
+// vite.config.js
+import Components from 'unplugin-vue-components/vite'
 
 // your plugin installation
 Components({

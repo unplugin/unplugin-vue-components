@@ -1,7 +1,7 @@
+import type { ComponentResolver, ComponentResolverObject, Options, ResolvedOptions } from '../types'
 import { join, resolve } from 'node:path'
 import { slash, toArray } from '@antfu/utils'
 import { getPackageInfoSync, isPackageExists } from 'local-pkg'
-import type { ComponentResolver, ComponentResolverObject, Options, ResolvedOptions } from '../types'
 import { detectTypeImports } from './type-imports/detect'
 
 export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'excludeNames' | 'transformer' | 'globs' | 'directives' | 'types' | 'version'> = {
@@ -59,11 +59,11 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   resolved.dts = !resolved.dts
     ? false
     : resolve(
-      root,
-      typeof resolved.dts === 'string'
-        ? resolved.dts
-        : 'components.d.ts',
-    )
+        root,
+        typeof resolved.dts === 'string'
+          ? resolved.dts
+          : 'components.d.ts',
+      )
 
   if (!resolved.types && resolved.dts)
     resolved.types = detectTypeImports()
