@@ -1,4 +1,4 @@
-import type { FilterPattern } from '@rollup/pluginutils'
+import type { FilterPattern } from 'unplugin-utils'
 import type { ComponentInfo, ComponentResolver, SideEffectsInfo } from '../../types'
 import { isExclude } from '../utils'
 

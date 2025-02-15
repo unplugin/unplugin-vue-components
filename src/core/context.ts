@@ -291,7 +291,9 @@ export class Context {
     return writeDeclaration(this, this.options.dts, removeUnused)
   }
 
-  generateDeclaration
+  generateDeclaration(removeUnused = !this._server): void {
+    this._generateDeclaration(removeUnused)
+  }
 
   get componentNameMap() {
     return this._componentNameMap

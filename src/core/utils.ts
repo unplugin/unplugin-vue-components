@@ -1,4 +1,4 @@
-import type { FilterPattern } from '@rollup/pluginutils'
+import type { FilterPattern } from 'unplugin-utils'
 import type { ComponentInfo, ImportInfo, ImportInfoLegacy, Options, ResolvedOptions } from '../types'
 import type { Context } from './context'
 import { parse } from 'node:path'

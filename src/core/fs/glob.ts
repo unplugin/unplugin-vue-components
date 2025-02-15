@@ -1,13 +1,13 @@
 import type { Context } from '../context'
 import Debug from 'debug'
-import fg from 'fast-glob'
+import { globSync } from 'tinyglobby'
 
 const debug = Debug('unplugin-vue-components:glob')
 
 export function searchComponents(ctx: Context) {
   debug(`started with: [${ctx.options.globs.join(', ')}]`)
   const root = ctx.root
-  const files = fg.sync(ctx.options.globs, {
+  const files = globSync(ctx.options.globs, {
     ignore: ['node_modules'],
     onlyFiles: true,
     cwd: root,
