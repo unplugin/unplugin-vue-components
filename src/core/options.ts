@@ -33,26 +33,30 @@ function resolveGlobsExclude(root: string, glob: string) {
 export function resolveOptions(options: Options, root: string): ResolvedOptions {
   const resolved = Object.assign({}, defaultOptions, options) as ResolvedOptions
   resolved.resolvers = normalizeResolvers(resolved.resolvers)
-  resolved.extensions = toArray(resolved.extensions)
+  resolved.resolvedExtensions = toArray(resolved.extensions)
+    .map(i => i.startsWith('.') ? i : `.${i}`)
+    // sort extensions by length to ensure that the longest one is used first
+    // e.g. ['.vue', '.page.vue'] -> ['.page.vue', '.vue'] as both would match and order matters
+    .sort((a, b) => b.length - a.length)
 
   if (resolved.globs) {
     resolved.globs = toArray(resolved.globs).map((glob: string) => slash(resolveGlobsExclude(root, glob)))
     resolved.resolvedDirs = []
   }
   else {
-    const extsGlob = resolved.extensions.length === 1
-      ? resolved.extensions
-      : `{${resolved.extensions.join(',')}}`
+    const extsGlob = resolved.resolvedExtensions.length === 1
+      ? resolved.resolvedExtensions
+      : `{${resolved.resolvedExtensions.join(',')}}`
 
     resolved.dirs = toArray(resolved.dirs)
     resolved.resolvedDirs = resolved.dirs.map(i => slash(resolveGlobsExclude(root, i)))
 
     resolved.globs = resolved.resolvedDirs.map(i => resolved.deep
-      ? slash(join(i, `**/*.${extsGlob}`))
-      : slash(join(i, `*.${extsGlob}`)),
+      ? slash(join(i, `**/*${extsGlob}`))
+      : slash(join(i, `*${extsGlob}`)),
     )
 
-    if (!resolved.extensions.length)
+    if (!resolved.resolvedExtensions.length)
       throw new Error('[unplugin-vue-components] `extensions` option is required to search for components')
   }
 
