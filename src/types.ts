@@ -96,6 +96,13 @@ export interface Options {
   globs?: string | string[]
 
   /**
+   * Negated glob patterns to exclude files from being detected as components.
+   *
+   * @default []
+   */
+  globsExclude?: string | string[]
+
+  /**
    * Search for subdirectories
    * @default true
    */

@@ -15,6 +15,7 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'ex
   globalNamespaces: [],
 
   resolvers: [],
+  globsExclude: [],
 
   importPathTransform: v => v,
 
