@@ -206,6 +206,7 @@ export type ResolvedOptions = Omit<
 > & {
   resolvers: ComponentResolverObject[]
   extensions: string[]
+  resolvedExtensions: string[]
   dirs: string[]
   resolvedDirs: string[]
   globs: string[]

@@ -1,7 +1,7 @@
 import type { FilterPattern } from 'unplugin-utils'
 import type { ComponentInfo, ImportInfo, ImportInfoLegacy, Options, ResolvedOptions } from '../types'
 import type { Context } from './context'
-import { parse } from 'node:path'
+import { basename, parse } from 'node:path'
 import process from 'node:process'
 import { slash, toArray } from '@antfu/utils'
 import {
@@ -114,7 +114,7 @@ export function stringifyComponentImport({ as: name, from: path, name: importNam
 }
 
 export function getNameFromFilePath(filePath: string, options: ResolvedOptions): string {
-  const { resolvedDirs, directoryAsNamespace, globalNamespaces, collapseSamePrefixes, root } = options
+  const { resolvedDirs, directoryAsNamespace, globalNamespaces, collapseSamePrefixes, root, resolvedExtensions } = options
 
   const parsedFilePath = parse(slash(filePath))
 
@@ -129,11 +129,14 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
   }
 
   let folders = strippedPath.slice(1).split('/').filter(Boolean)
-  let filename = parsedFilePath.name
+  // when using `globs` option, `resolvedDirs` will always empty, and ignoring extensions is the expected behavior
+  let filename = isEmpty(resolvedDirs)
+    ? parsedFilePath.name
+    : basename(parsedFilePath.base, resolvedExtensions?.find(ext => parsedFilePath.base.endsWith(ext)))
 
   // set parent directory as filename if it is index
   if (filename === 'index' && !directoryAsNamespace) {
-    // when use `globs` option, `resolvedDirs` will always empty, and `folders` will also empty
+    // when using `globs` option, `resolvedDirs` will always empty, and `folders` will also empty
     if (isEmpty(folders))
       folders = parsedFilePath.dir.slice(root.length + 1).split('/').filter(Boolean)
 
