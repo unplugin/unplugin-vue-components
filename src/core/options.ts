@@ -38,7 +38,8 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   resolved.extensions = toArray(resolved.extensions)
 
   if (resolved.globs) {
-    resolved.globs = toArray(resolved.globs).map((glob: string) => resolveGlobsExclude(root, glob))
+    resolved.globs = toArray(resolved.globs)
+      .map(glob => resolveGlobsExclude(root, glob))
     resolved.resolvedDirs = []
   }
   else {
@@ -59,7 +60,17 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   }
 
   if (!resolved.globsExclude)
-    resolved.globsExclude = [resolveGlobsExclude(root, `**/node_modules/**`)]
+    resolved.globsExclude = [`**/node_modules/**`]
+  resolved.globsExclude = toArray(resolved.globsExclude || [])
+    .map(i => resolveGlobsExclude(root, i))
+
+  // Move negated globs to globsExclude
+  resolved.globs = resolved.globs.filter((i) => {
+    if (!i.startsWith('!'))
+      return true
+    resolved.globsExclude.push(i.slice(1))
+    return false
+  })
 
   resolved.dts = !resolved.dts
     ? false

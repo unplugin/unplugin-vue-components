@@ -209,6 +209,7 @@ export type ResolvedOptions = Omit<
   dirs: string[]
   resolvedDirs: string[]
   globs: string[]
+  globsExclude: string[]
   dts: string | false
   root: string
 }
