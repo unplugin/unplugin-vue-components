@@ -48,12 +48,20 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
       : `{${resolved.extensions.join(',')}}`
 
     resolved.dirs = toArray(resolved.dirs)
-    resolved.resolvedDirs = resolved.dirs.map(i => resolveGlobsExclude(root, i))
 
-    resolved.globs = resolved.resolvedDirs.map(i => resolved.deep
-      ? slash(join(i, `**/*.${extsGlob}`))
-      : slash(join(i, `*.${extsGlob}`)),
-    )
+    const globs = resolved.dirs.map(i => resolveGlobsExclude(root, i))
+
+    resolved.resolvedDirs = globs.filter(i => !i.startsWith('!'))
+    resolved.globs = globs.map((i) => {
+      let prefix = ''
+      if (i.startsWith('!')) {
+        prefix = '!'
+        i = i.slice(1)
+      }
+      return resolved.deep
+        ? prefix + slash(join(i, `**/*.${extsGlob}`))
+        : prefix + slash(join(i, `*.${extsGlob}`))
+    })
 
     if (!resolved.extensions.length)
       throw new Error('[unplugin-vue-components] `extensions` option is required to search for components')

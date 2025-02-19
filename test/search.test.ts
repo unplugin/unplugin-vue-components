@@ -61,7 +61,7 @@ describe('search', () => {
     const ctx = new Context({
       dirs: [
         'src/components',
-        '!src/components/book/**',
+        '!src/components/book',
       ],
     })
 
