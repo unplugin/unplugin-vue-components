@@ -15,12 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v4
+
       - name: Set node
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
-
-      - run: corepack enable
 
       - name: Setup
         run: npm i -g @antfu/ni
@@ -43,12 +43,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v4
+
       - name: Set node version to ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-
-      - run: corepack enable
 
       - name: Setup
         run: npm i -g @antfu/ni
