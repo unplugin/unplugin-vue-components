@@ -14,6 +14,8 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'ex
   collapseSamePrefixes: false,
   globalNamespaces: [],
 
+  transformerUserResolveFunctions: true,
+
   resolvers: [],
   globsExclude: [],
 

@@ -103,7 +103,7 @@ exports[`transform > vue2 transform with jsx should work 1`] = `
 }
 `;
 
-exports[`transform > vue3 transform should work 1`] = `
+exports[`transform > vue3 transform should work > no-user-resolve 1`] = `
 {
   "code": "/* unplugin-vue-components disabled */import __unplugin_directives_0 from 'test/directive/Loading';
 import __unplugin_components_0 from 'test/component/TestComp';
@@ -111,9 +111,35 @@ import __unplugin_components_0 from 'test/component/TestComp';
     const render = (_ctx, _cache) => {
       const _component_test_comp = __unplugin_components_0
       const _directive_loading = __unplugin_directives_0
-    
+      
+      const _resolveNoUnderscore = resolveComponent("test-comp")
+
       return _withDirectives(
         (_openBlock(),
+        _createBlock(_resolveNoUnderscore, null, null, 512 /* NEED_PATCH */)),
+        _createBlock(_component_test_comp, null, null, 512 /* NEED_PATCH */)),
+        [[_directive_loading, 123]]
+      )
+    }
+    ",
+}
+`;
+
+exports[`transform > vue3 transform should work > with-user-resolve 1`] = `
+{
+  "code": "/* unplugin-vue-components disabled */import __unplugin_directives_0 from 'test/directive/Loading';
+import __unplugin_components_1 from 'test/component/TestComp';
+import __unplugin_components_0 from 'test/component/TestComp';
+
+    const render = (_ctx, _cache) => {
+      const _component_test_comp = __unplugin_components_0
+      const _directive_loading = __unplugin_directives_0
+      
+      const _resolveNoUnderscore = __unplugin_components_1
+
+      return _withDirectives(
+        (_openBlock(),
+        _createBlock(_resolveNoUnderscore, null, null, 512 /* NEED_PATCH */)),
         _createBlock(_component_test_comp, null, null, 512 /* NEED_PATCH */)),
         [[_directive_loading, 123]]
       )

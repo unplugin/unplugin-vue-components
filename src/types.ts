@@ -151,6 +151,16 @@ export interface Options {
   transformer?: SupportedTransformer
 
   /**
+   * Tranform users' usage of resolveComponent/resolveDirective as well
+   *
+   * If disabled, only components inside templates (which compiles to `_resolveComponent` etc.)
+   * will be transformed.
+   *
+   * @default true
+   */
+  transformerUserResolveFunctions?: boolean
+
+  /**
    * Generate TypeScript declaration for global components
    *
    * Accept boolean or a path related to project root

@@ -24,13 +24,20 @@ function resolveVue2(code: string, s: MagicString) {
   return results
 }
 
-function resolveVue3(code: string, s: MagicString) {
+function resolveVue3(
+  code: string,
+  s: MagicString,
+  transformerUserResolveFunctions: boolean,
+) {
   const results: ResolveResult[] = []
 
   /**
    * when using some plugin like plugin-vue-jsx, resolveComponent will be imported as resolveComponent1 to avoid duplicate import
    */
-  for (const match of code.matchAll(/_resolveComponent\d*\("(.+?)"\)/g)) {
+  for (const match of code.matchAll(/_?resolveComponent\d*\("(.+?)"\)/g)) {
+    if (!transformerUserResolveFunctions && !match[0].startsWith('_')) {
+      continue
+    }
     const matchedName = match[1]
     if (match.index != null && matchedName && !matchedName.startsWith('_')) {
       const start = match.index
@@ -48,7 +55,9 @@ function resolveVue3(code: string, s: MagicString) {
 export default async function transformComponent(code: string, transformer: SupportedTransformer, s: MagicString, ctx: Context, sfcPath: string) {
   let no = 0
 
-  const results = transformer === 'vue2' ? resolveVue2(code, s) : resolveVue3(code, s)
+  const results = transformer === 'vue2'
+    ? resolveVue2(code, s)
+    : resolveVue3(code, s, ctx.options.transformerUserResolveFunctions)
 
   for (const { rawName, replace } of results) {
     debug(`| ${rawName}`)

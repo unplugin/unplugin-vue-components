@@ -67,22 +67,35 @@ describe('transform', () => {
     const render = (_ctx, _cache) => {
       const _component_test_comp = _resolveComponent("test-comp")
       const _directive_loading = _resolveDirective("loading")
-    
+      
+      const _resolveNoUnderscore = resolveComponent("test-comp")
+
       return _withDirectives(
         (_openBlock(),
+        _createBlock(_resolveNoUnderscore, null, null, 512 /* NEED_PATCH */)),
         _createBlock(_component_test_comp, null, null, 512 /* NEED_PATCH */)),
         [[_directive_loading, 123]]
       )
     }
     `
 
-    const ctx = new Context({
+    let ctx = new Context({
       resolvers: [resolver],
       transformer: 'vue3',
+      transformerUserResolveFunctions: false,
       directives: true,
     })
     ctx.sourcemap = false
-    expect(await ctx.transform(code, '')).toMatchSnapshot()
+    expect(await ctx.transform(code, '')).toMatchSnapshot('no-user-resolve')
+
+    ctx = new Context({
+      resolvers: [resolver],
+      transformer: 'vue3',
+      transformerUserResolveFunctions: true,
+      directives: true,
+    })
+    ctx.sourcemap = false
+    expect(await ctx.transform(code, '')).toMatchSnapshot('with-user-resolve')
   })
 })
 
