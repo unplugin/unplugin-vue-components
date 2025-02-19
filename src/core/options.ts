@@ -4,7 +4,7 @@ import { slash, toArray } from '@antfu/utils'
 import { getPackageInfoSync, isPackageExists } from 'local-pkg'
 import { detectTypeImports } from './type-imports/detect'
 
-export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'excludeNames' | 'transformer' | 'globs' | 'directives' | 'types' | 'version'> = {
+export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'excludeNames' | 'transformer' | 'globs' | 'globsExclude' | 'directives' | 'types' | 'version'> = {
   dirs: 'src/components',
   extensions: 'vue',
   deep: true,
@@ -17,7 +17,6 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'ex
   transformerUserResolveFunctions: true,
 
   resolvers: [],
-  globsExclude: [],
 
   importPathTransform: v => v,
 
@@ -30,7 +29,7 @@ function normalizeResolvers(resolvers: (ComponentResolver | ComponentResolver[])
 
 function resolveGlobsExclude(root: string, glob: string) {
   const excludeReg = /^!/
-  return `${excludeReg.test(glob) ? '!' : ''}${resolve(root, glob.replace(excludeReg, ''))}`
+  return slash(`${excludeReg.test(glob) ? '!' : ''}${resolve(root, glob.replace(excludeReg, ''))}`)
 }
 
 export function resolveOptions(options: Options, root: string): ResolvedOptions {
@@ -39,7 +38,8 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   resolved.extensions = toArray(resolved.extensions)
 
   if (resolved.globs) {
-    resolved.globs = toArray(resolved.globs).map((glob: string) => slash(resolveGlobsExclude(root, glob)))
+    resolved.globs = toArray(resolved.globs)
+      .map(glob => resolveGlobsExclude(root, glob))
     resolved.resolvedDirs = []
   }
   else {
@@ -48,16 +48,37 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
       : `{${resolved.extensions.join(',')}}`
 
     resolved.dirs = toArray(resolved.dirs)
-    resolved.resolvedDirs = resolved.dirs.map(i => slash(resolveGlobsExclude(root, i)))
 
-    resolved.globs = resolved.resolvedDirs.map(i => resolved.deep
-      ? slash(join(i, `**/*.${extsGlob}`))
-      : slash(join(i, `*.${extsGlob}`)),
-    )
+    const globs = resolved.dirs.map(i => resolveGlobsExclude(root, i))
+
+    resolved.resolvedDirs = globs.filter(i => !i.startsWith('!'))
+    resolved.globs = globs.map((i) => {
+      let prefix = ''
+      if (i.startsWith('!')) {
+        prefix = '!'
+        i = i.slice(1)
+      }
+      return resolved.deep
+        ? prefix + slash(join(i, `**/*.${extsGlob}`))
+        : prefix + slash(join(i, `*.${extsGlob}`))
+    })
 
     if (!resolved.extensions.length)
       throw new Error('[unplugin-vue-components] `extensions` option is required to search for components')
   }
+
+  if (!resolved.globsExclude)
+    resolved.globsExclude = [`**/node_modules/**`]
+  resolved.globsExclude = toArray(resolved.globsExclude || [])
+    .map(i => resolveGlobsExclude(root, i))
+
+  // Move negated globs to globsExclude
+  resolved.globs = resolved.globs.filter((i) => {
+    if (!i.startsWith('!'))
+      return true
+    resolved.globsExclude.push(i.slice(1))
+    return false
+  })
 
   resolved.dts = !resolved.dts
     ? false

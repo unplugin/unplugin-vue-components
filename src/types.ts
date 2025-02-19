@@ -98,7 +98,7 @@ export interface Options {
   /**
    * Negated glob patterns to exclude files from being detected as components.
    *
-   * @default []
+   * @default ['<root>/**\/node_modules/**']
    */
   globsExclude?: string | string[]
 
@@ -209,6 +209,7 @@ export type ResolvedOptions = Omit<
   dirs: string[]
   resolvedDirs: string[]
   globs: string[]
+  globsExclude: string[]
   dts: string | false
   root: string
 }
