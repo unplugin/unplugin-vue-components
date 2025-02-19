@@ -29,7 +29,7 @@ function normalizeResolvers(resolvers: (ComponentResolver | ComponentResolver[])
 
 function resolveGlobsExclude(root: string, glob: string) {
   const excludeReg = /^!/
-  return `${excludeReg.test(glob) ? '!' : ''}${resolve(root, glob.replace(excludeReg, ''))}`
+  return slash(`${excludeReg.test(glob) ? '!' : ''}${resolve(root, glob.replace(excludeReg, ''))}`)
 }
 
 export function resolveOptions(options: Options, root: string): ResolvedOptions {
@@ -38,7 +38,7 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   resolved.extensions = toArray(resolved.extensions)
 
   if (resolved.globs) {
-    resolved.globs = toArray(resolved.globs).map((glob: string) => slash(resolveGlobsExclude(root, glob)))
+    resolved.globs = toArray(resolved.globs).map((glob: string) => resolveGlobsExclude(root, glob))
     resolved.resolvedDirs = []
   }
   else {
@@ -47,7 +47,7 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
       : `{${resolved.extensions.join(',')}}`
 
     resolved.dirs = toArray(resolved.dirs)
-    resolved.resolvedDirs = resolved.dirs.map(i => slash(resolveGlobsExclude(root, i)))
+    resolved.resolvedDirs = resolved.dirs.map(i => resolveGlobsExclude(root, i))
 
     resolved.globs = resolved.resolvedDirs.map(i => resolved.deep
       ? slash(join(i, `**/*.${extsGlob}`))
@@ -59,7 +59,7 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   }
 
   if (!resolved.globsExclude)
-    resolved.globsExclude = [`${root}/**/node_modules/**`]
+    resolved.globsExclude = [resolveGlobsExclude(root, `**/node_modules/**`)]
 
   resolved.dts = !resolved.dts
     ? false
