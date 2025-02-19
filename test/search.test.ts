@@ -1,5 +1,5 @@
 import { relative, resolve } from 'pathe'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, onTestFailed } from 'vitest'
 import { Context } from '../src/core/context'
 
 const root = resolve(__dirname, '../examples/vite-vue3')
@@ -61,9 +61,15 @@ describe('search', () => {
     const ctx = new Context({
       dirs: [
         'src/components',
-        '!src/components/book',
+        '!src/components/book/**',
       ],
     })
+
+    onTestFailed(() => {
+      console.error('resolved options')
+      console.error(ctx.options)
+    })
+
     ctx.setRoot(root)
     ctx.searchGlob()
 
