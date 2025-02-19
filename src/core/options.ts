@@ -4,7 +4,7 @@ import { slash, toArray } from '@antfu/utils'
 import { getPackageInfoSync, isPackageExists } from 'local-pkg'
 import { detectTypeImports } from './type-imports/detect'
 
-export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'excludeNames' | 'transformer' | 'globs' | 'directives' | 'types' | 'version'> = {
+export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'excludeNames' | 'transformer' | 'globs' | 'globsExclude' | 'directives' | 'types' | 'version'> = {
   dirs: 'src/components',
   extensions: 'vue',
   deep: true,
@@ -17,7 +17,6 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'ex
   transformerUserResolveFunctions: true,
 
   resolvers: [],
-  globsExclude: [],
 
   importPathTransform: v => v,
 
@@ -58,6 +57,9 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
     if (!resolved.extensions.length)
       throw new Error('[unplugin-vue-components] `extensions` option is required to search for components')
   }
+
+  if (!resolved.globsExclude)
+    resolved.globsExclude = [`${root}/**/node_modules/**`]
 
   resolved.dts = !resolved.dts
     ? false
