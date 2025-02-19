@@ -12,6 +12,7 @@ export function searchComponents(ctx: Context) {
     onlyFiles: true,
     cwd: root,
     absolute: true,
+    expandDirectories: false,
   })
 
   if (!files.length && !ctx.options.resolvers?.length)
