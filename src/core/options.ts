@@ -67,8 +67,6 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
       throw new Error('[unplugin-vue-components] `extensions` option is required to search for components')
   }
 
-  if (!resolved.globsExclude)
-    resolved.globsExclude = [`**/node_modules/**`]
   resolved.globsExclude = toArray(resolved.globsExclude || [])
     .map(i => resolveGlobsExclude(root, i))
 
