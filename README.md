@@ -341,7 +341,7 @@ export default {
 
       // `customLoaderMatcher` is depreacted, use `include` instead
 -     customLoaderMatcher: id => id.endsWith('.md'),
-+     include: [/\.vue$/, /\.vue(\.[tj]sx?)?\?vue/, /\.md$/],
++     include: [/\.vue$/, /\.vue\?vue/, /\.vue\.[tj]sx?\?vue/, /\.md$/],
     }),
   ],
 }
@@ -401,7 +401,7 @@ Components({
 
   // Filters for transforming targets (components to insert the auto import)
   // Note these are NOT about including/excluding components registered - use `globs` or `excludeNames` for that
-  include: [/\.vue$/, /\.vue(\.[tj]sx?)?\?vue/],
+  include: [/\.vue$/, /\.vue\?vue/, /\.vue\.[tj]sx?\?vue/],
   exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
 
   // Filters for component names that will not be imported
