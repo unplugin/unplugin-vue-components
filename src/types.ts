@@ -205,6 +205,16 @@ export interface Options {
    * @default true
    */
   sourcemap?: boolean
+
+  /**
+   * Save unimport components into a JSON file for other tools to consume.
+   * Provide a filepath to save the JSON file.
+   *
+   * When set to `true`, it will save to `./.unimport-components.json`
+   *
+   * @default false
+   */
+  dumpUnimportComponents?: boolean | string
 }
 
 export type ResolvedOptions = Omit<
