@@ -39,6 +39,7 @@ export class Context {
     private rawOptions: Options,
   ) {
     this.options = resolveOptions(rawOptions, this.root)
+    this.sourcemap = rawOptions.sourcemap ?? true
     this.generateDeclaration = throttle(500, this._generateDeclaration.bind(this), { noLeading: false })
     this.setTransformer(this.options.transformer)
   }
