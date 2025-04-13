@@ -45,7 +45,7 @@ export class Context {
 
     if (this.options.dumpComponentsInfo) {
       const dumpComponentsInfo = this.options.dumpComponentsInfo === true
-        ? './.unimport-components.json'
+        ? './.components-info.json'
         : this.options.dumpComponentsInfo ?? false
 
       this.dumpComponentsInfoPath = dumpComponentsInfo
@@ -312,7 +312,7 @@ export class Context {
     if (!Object.keys(this._componentNameMap).length)
       return
 
-    debug.components('generating components.json')
+    debug.components('generating components-info')
     return writeComponentsJson(this, removeUnused)
   }
 

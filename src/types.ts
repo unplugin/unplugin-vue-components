@@ -210,7 +210,7 @@ export interface Options {
    * Save unimport components into a JSON file for other tools to consume.
    * Provide a filepath to save the JSON file.
    *
-   * When set to `true`, it will save to `./.unimport-components.json`
+   * When set to `true`, it will save to `./.components-info.json`
    *
    * @default false
    */
