@@ -70,8 +70,8 @@ export default createUnplugin<Options>((options = {}) => {
             ctx.generateDeclaration()
         }
 
-        if (ctx.options.dumpUnimportComponents && ctx.dumpUnimportComponentsPath) {
-          if (!existsSync(ctx.dumpUnimportComponentsPath))
+        if (ctx.options.dumpComponentsInfo && ctx.dumpComponentsInfoPath) {
+          if (!existsSync(ctx.dumpComponentsInfoPath))
             ctx.generateComponentsJson()
         }
 

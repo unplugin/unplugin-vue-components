@@ -158,7 +158,7 @@ export async function writeDeclaration(ctx: Context, filepath: string, removeUnu
 }
 
 export async function writeComponentsJson(ctx: Context, _removeUnused = false) {
-  if (!ctx.dumpUnimportComponentsPath)
+  if (!ctx.dumpComponentsInfoPath)
     return
 
   const components = [
@@ -173,5 +173,5 @@ export async function writeComponentsJson(ctx: Context, _removeUnused = false) {
     ...resolveTypeImports(ctx.options.types),
   ]
 
-  await writeFile(ctx.dumpUnimportComponentsPath, JSON.stringify(components, null, 2))
+  await writeFile(ctx.dumpComponentsInfoPath, JSON.stringify(components, null, 2))
 }

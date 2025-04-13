@@ -34,7 +34,7 @@ export class Context {
   root = process.cwd()
   sourcemap: string | boolean = true
   alias: Record<string, string> = {}
-  dumpUnimportComponentsPath: string | undefined
+  dumpComponentsInfoPath: string | undefined
 
   constructor(
     private rawOptions: Options,
@@ -43,12 +43,12 @@ export class Context {
     this.sourcemap = rawOptions.sourcemap ?? true
     this.generateDeclaration = throttle(500, this._generateDeclaration.bind(this), { noLeading: false })
 
-    if (this.options.dumpUnimportComponents) {
-      const dumpUnimportComponents = this.options.dumpUnimportComponents === true
+    if (this.options.dumpComponentsInfo) {
+      const dumpComponentsInfo = this.options.dumpComponentsInfo === true
         ? './.unimport-components.json'
-        : this.options.dumpUnimportComponents ?? false
+        : this.options.dumpComponentsInfo ?? false
 
-      this.dumpUnimportComponentsPath = dumpUnimportComponents
+      this.dumpComponentsInfoPath = dumpComponentsInfo
       this.generateComponentsJson = throttle(500, this._generateComponentsJson.bind(this), { noLeading: false })
     }
 

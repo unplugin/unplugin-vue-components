@@ -214,7 +214,7 @@ export interface Options {
    *
    * @default false
    */
-  dumpUnimportComponents?: boolean | string
+  dumpComponentsInfo?: boolean | string
 }
 
 export type ResolvedOptions = Omit<
