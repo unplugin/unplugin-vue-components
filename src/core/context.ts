@@ -180,6 +180,7 @@ export class Context {
 
   onUpdate(path: string) {
     this.generateDeclaration()
+    this.generateComponentsJson()
 
     if (!this._server)
       return
