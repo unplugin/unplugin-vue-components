@@ -132,6 +132,9 @@ declare module 'vue' {`
   }
   if (Object.keys(declarations.directive).length > 0) {
     code += `
+  export interface GlobalDirectives {
+    ${declarations.directive.join('\n    ')}
+  }
   export interface ComponentCustomProperties {
     ${declarations.directive.join('\n    ')}
   }`

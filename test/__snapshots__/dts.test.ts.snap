@@ -29,6 +29,9 @@ export {}
 
 /* prettier-ignore */
 declare module 'vue' {
+  export interface GlobalDirectives {
+    vLoading: typeof import('test/directive/Loading')['default']
+  }
   export interface ComponentCustomProperties {
     vLoading: typeof import('test/directive/Loading')['default']
   }
@@ -50,6 +53,9 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TestComp: typeof import('test/component/TestComp')['default']
+  }
+  export interface GlobalDirectives {
+    vLoading: typeof import('test/directive/Loading')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('test/directive/Loading')['default']
@@ -130,6 +136,11 @@ declare module 'vue' {
     SomeComp: typeof import('test/component/SomeComp')['default']
     TestComp: typeof import('test/component/TestComp')['default']
   }
+  export interface GlobalDirectives {
+    vDirective: typeof import('foo')
+    vLoading: typeof import('test/directive/Loading')['default']
+    vSome: typeof import('test/directive/Some')['default']
+  }
   export interface ComponentCustomProperties {
     vDirective: typeof import('foo')
     vLoading: typeof import('test/directive/Loading')['default']
@@ -153,6 +164,9 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TestComp: typeof import('test/component/TestComp')['default']
+  }
+  export interface GlobalDirectives {
+    vLoading: typeof import('test/directive/Loading')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('test/directive/Loading')['default']
