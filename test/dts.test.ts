@@ -57,7 +57,7 @@ declare module 'vue' {
     SomeComp: typeof import('test/component/SomeComp')['default']
     TestComp: typeof import('test/component/OldComp')['default']
   }
-  export   interface   ComponentCustomProperties{
+  export   interface   GlobalDirectives{
     // with comment: b
     // a:
     vSome: typeof import('test/directive/Some')['default'];vDirective:typeof import('foo')
@@ -179,7 +179,7 @@ declare module 'vue' {
     IMdiLightAlarm: typeof import('~icons/mdi-light/alarm')['default']
   }
 
-  export interface ComponentCustomProperties {
+  export interface GlobalDirectives {
     vDirective: typeof import('foo')
     vLoading: typeof import('test/directive/Loading')['default']
     vSome: typeof import('test/directive/Some')['default']

@@ -31,7 +31,7 @@ export function parseDeclaration(code: string): DeclarationImports | undefined {
   if (componentDeclaration)
     imports.component = extractImports(componentDeclaration)
 
-  const directiveDeclaration = /export\s+interface\s+ComponentCustomProperties\s*\{.*?\}/s.exec(code)?.[0]
+  const directiveDeclaration = /export\s+interface\s+GlobalDirectives\s*\{.*?\}/s.exec(code)?.[0]
   if (directiveDeclaration)
     imports.directive = extractImports(directiveDeclaration)
 
@@ -133,9 +133,6 @@ declare module 'vue' {`
   if (Object.keys(declarations.directive).length > 0) {
     code += `
   export interface GlobalDirectives {
-    ${declarations.directive.join('\n    ')}
-  }
-  export interface ComponentCustomProperties {
     ${declarations.directive.join('\n    ')}
   }`
   }
