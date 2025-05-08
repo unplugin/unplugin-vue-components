@@ -1,4 +1,4 @@
-import type { ComponentInfo, Options } from '../types'
+import type { ComponentInfo, DtsConfigure, DtsDeclarationType, Options } from '../types'
 import type { Context } from './context'
 import { existsSync } from 'node:fs'
 import { mkdir, readFile, writeFile as writeFile_ } from 'node:fs/promises'
@@ -39,31 +39,48 @@ export function parseDeclaration(code: string): DeclarationImports | undefined {
 }
 
 /**
- * Converts `ComponentInfo` to an array
+ * Converts `ComponentInfo` to an import info.
  *
- * `[name, "typeof import(path)[importName]"]`
+ * `{name, entry: "typeof import(path)[importName]", filepath}`
  */
-function stringifyComponentInfo(filepath: string, { from: path, as: name, name: importName }: ComponentInfo, importPathTransform?: Options['importPathTransform']): [string, string] | undefined {
+function stringifyComponentInfo(dts: DtsConfigure, info: ComponentInfo, declarationType: DtsDeclarationType, importPathTransform?: Options['importPathTransform']): Record<'name' | 'entry' | 'filepath', string> | undefined {
+  const { from: path, as: name, name: importName } = info
+
   if (!name)
     return undefined
-  path = getTransformedPath(path, importPathTransform)
-  const related = isAbsolute(path)
-    ? `./${relative(dirname(filepath), path)}`
-    : path
+
+  const filepath = dts(info, declarationType)
+  if (!filepath)
+    return undefined
+
+  const transformedPath = getTransformedPath(path, importPathTransform)
+  const related = isAbsolute(transformedPath)
+    ? `./${relative(dirname(filepath), transformedPath)}`
+    : transformedPath
   const entry = `typeof import('${slash(related)}')['${importName || 'default'}']`
-  return [name, entry]
+  return { name, entry, filepath }
 }
 
 /**
- * Converts array of `ComponentInfo` to an import map
+ * Converts array of `ComponentInfo` to a filepath grouped import map.
  *
- * `{ name: "typeof import(path)[importName]", ... }`
+ * `{ filepath: { name: "typeof import(path)[importName]", ... } }`
  */
-export function stringifyComponentsInfo(filepath: string, components: ComponentInfo[], importPathTransform?: Options['importPathTransform']): Record<string, string> {
-  return Object.fromEntries(
-    components.map(info => stringifyComponentInfo(filepath, info, importPathTransform))
-      .filter(notNullish),
-  )
+export function stringifyComponentsInfo(dts: DtsConfigure, components: ComponentInfo[], declarationType: DtsDeclarationType, importPathTransform?: Options['importPathTransform']): Record<string, Record<string, string>> {
+  const stringified = components.map(info => stringifyComponentInfo(dts, info, declarationType, importPathTransform)).filter(notNullish)
+
+  const filepathMap: Record<string, Record<string, string>> = {}
+
+  for (const info of stringified) {
+    const { name, entry, filepath } = info
+
+    if (!filepathMap[filepath])
+      filepathMap[filepath] = {}
+
+    filepathMap[filepath][name] = entry
+  }
+
+  return filepathMap
 }
 
 export interface DeclarationImports {
@@ -71,27 +88,55 @@ export interface DeclarationImports {
   directive: Record<string, string>
 }
 
-export function getDeclarationImports(ctx: Context, filepath: string): DeclarationImports | undefined {
-  const component = stringifyComponentsInfo(filepath, [
+export function getDeclarationImports(ctx: Context): Record<string, DeclarationImports> | undefined {
+  if (!ctx.options.dts)
+    return undefined
+
+  const componentMap = stringifyComponentsInfo(ctx.options.dts, [
     ...Object.values({
       ...ctx.componentNameMap,
       ...ctx.componentCustomMap,
     }),
     ...resolveTypeImports(ctx.options.types),
-  ], ctx.options.importPathTransform)
+  ], 'component', ctx.options.importPathTransform)
 
-  const directive = stringifyComponentsInfo(
-    filepath,
+  const directiveMap = stringifyComponentsInfo(
+    ctx.options.dts,
     Object.values(ctx.directiveCustomMap),
+    'directive',
     ctx.options.importPathTransform,
   )
 
-  if (
-    (Object.keys(component).length + Object.keys(directive).length) === 0
-  )
-    return
+  const declarationMap: Record<string, DeclarationImports> = {}
 
-  return { component, directive }
+  for (const [filepath, component] of Object.entries(componentMap)) {
+    if (!declarationMap[filepath])
+      declarationMap[filepath] = { component: {}, directive: {} }
+
+    declarationMap[filepath].component = {
+      ...declarationMap[filepath].component,
+      ...component,
+    }
+  }
+
+  for (const [filepath, directive] of Object.entries(directiveMap)) {
+    if (!declarationMap[filepath])
+      declarationMap[filepath] = { component: {}, directive: {} }
+
+    declarationMap[filepath].directive = {
+      ...declarationMap[filepath].directive,
+      ...directive,
+    }
+  }
+
+  for (const [filepath, { component, directive }] of Object.entries(declarationMap)) {
+    if (
+      (Object.keys(component).length + Object.keys(directive).length) === 0
+    )
+      delete declarationMap[filepath]
+  }
+
+  return declarationMap
 }
 
 export function stringifyDeclarationImports(imports: Record<string, string>) {
@@ -104,11 +149,7 @@ export function stringifyDeclarationImports(imports: Record<string, string>) {
     })
 }
 
-export function getDeclaration(ctx: Context, filepath: string, originalImports?: DeclarationImports) {
-  const imports = getDeclarationImports(ctx, filepath)
-  if (!imports)
-    return
-
+function getDeclaration(imports: DeclarationImports, originalImports?: DeclarationImports): string {
   const declarations = {
     component: stringifyDeclarationImports({ ...originalImports?.component, ...imports.component }),
     directive: stringifyDeclarationImports({ ...originalImports?.directive, ...imports.directive }),
@@ -140,21 +181,40 @@ declare module 'vue' {`
   return code
 }
 
+export async function getDeclarations(ctx: Context, removeUnused: boolean): Promise<Record<string, string> | undefined> {
+  const importsMap = getDeclarationImports(ctx)
+  if (!importsMap || !Object.keys(importsMap).length)
+    return undefined
+
+  const results = await Promise.all(Object.entries(importsMap).map(async ([filepath, imports]) => {
+    const originalContent = existsSync(filepath) ? await readFile(filepath, 'utf-8') : ''
+    const originalImports = removeUnused ? undefined : parseDeclaration(originalContent)
+
+    const code = getDeclaration(imports, originalImports)
+
+    if (code !== originalContent) {
+      return [filepath, code]
+    }
+  }))
+
+  return Object.fromEntries(results.filter(notNullish))
+}
+
 async function writeFile(filePath: string, content: string) {
   await mkdir(dirname(filePath), { recursive: true })
   return await writeFile_(filePath, content, 'utf-8')
 }
 
-export async function writeDeclaration(ctx: Context, filepath: string, removeUnused = false) {
-  const originalContent = existsSync(filepath) ? await readFile(filepath, 'utf-8') : ''
-  const originalImports = removeUnused ? undefined : parseDeclaration(originalContent)
-
-  const code = getDeclaration(ctx, filepath, originalImports)
-  if (!code)
+export async function writeDeclaration(ctx: Context, removeUnused = false) {
+  const declarations = await getDeclarations(ctx, removeUnused)
+  if (!declarations || !Object.keys(declarations).length)
     return
 
-  if (code !== originalContent)
-    await writeFile(filepath, code)
+  await Promise.all(
+    Object.entries(declarations).map(async ([filepath, code]) => {
+      return writeFile(filepath, code)
+    }),
+  )
 }
 
 export async function writeComponentsJson(ctx: Context, _removeUnused = false) {
