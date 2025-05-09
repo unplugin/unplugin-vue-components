@@ -27,7 +27,7 @@ const _component_test_comp = _resolveComponent("test-comp")
 const _directive_loading = _resolveDirective("loading")`
     await ctx.transform(code, '')
 
-    const declarations = await getDeclarations(ctx, false)
+    const declarations = await getDeclarations(ctx)
     expect(Object.values(declarations ?? {})).toMatchSnapshot()
   })
 
@@ -92,7 +92,7 @@ const _directive_loading = _resolveDirective("loading")`
     const code = 'const _component_test_comp = _resolveComponent("test-comp")'
     await ctx.transform(code, '')
 
-    const declarations = await getDeclarations(ctx, false)
+    const declarations = await getDeclarations(ctx)
     expect(Object.values(declarations ?? {})).toMatchSnapshot()
   })
 
@@ -106,7 +106,7 @@ const _directive_loading = _resolveDirective("loading")`
     const code = 'const _component_test_comp = _c("test-comp")'
     await ctx.transform(code, '')
 
-    const declarations = await getDeclarations(ctx, false)
+    const declarations = await getDeclarations(ctx)
     expect(Object.values(declarations ?? {})).toMatchSnapshot()
   })
 
@@ -120,7 +120,7 @@ const _directive_loading = _resolveDirective("loading")`
     const code = 'const _directive_loading = _resolveDirective("loading")'
     await ctx.transform(code, '')
 
-    const declarations = await getDeclarations(ctx, false)
+    const declarations = await getDeclarations(ctx)
     expect(Object.values(declarations ?? {})).toMatchSnapshot()
   })
 

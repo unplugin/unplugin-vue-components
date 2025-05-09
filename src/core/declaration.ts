@@ -181,7 +181,7 @@ declare module 'vue' {`
   return code
 }
 
-export async function getDeclarations(ctx: Context, removeUnused: boolean): Promise<Record<string, string> | undefined> {
+export async function getDeclarations(ctx: Context, removeUnused = false): Promise<Record<string, string> | undefined> {
   const importsMap = getDeclarationImports(ctx)
   if (!importsMap || !Object.keys(importsMap).length)
     return undefined
