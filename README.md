@@ -210,6 +210,22 @@ Once the setup is done, a `components.d.ts` will be generated and updates automa
 
 > **Make sure you also add `components.d.ts` to your `tsconfig.json` under `include`.**
 
+We also provide a way to generate multiple `d.ts` files for components or directives. You can pass a function to `dts` option, which will be called with the component info and type. You can return a string or a boolean to indicate whether to generate it to a file or not.
+
+```ts
+Components({
+  dts: (componentInfo, type) => {
+    if (type === 'component') {
+      return 'components.d.ts'
+    }
+    else if (type === 'directive') {
+      return 'directives.d.ts'
+    }
+    return false
+  },
+})
+```
+
 ## Importing from UI Libraries
 
 We have several built-in resolvers for popular UI libraries like **Vuetify**, **Ant Design Vue**, and **Element Plus**, where you can enable them by:
@@ -371,7 +387,7 @@ Components({
   resolvers: [],
 
   // generate `components.d.ts` global declarations,
-  // also accepts a path for custom filename
+  // also accepts a path, a custom filename or a function that returns a path or a boolean
   // default: `true` if package typescript is installed
   dts: false,
 
