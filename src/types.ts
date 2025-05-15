@@ -198,6 +198,23 @@ export interface Options {
    * Vue version of project. It will detect automatically if not specified.
    */
   version?: 2 | 2.7 | 3
+
+  /**
+   * Generate sourcemap for the transformed code.
+   *
+   * @default true
+   */
+  sourcemap?: boolean
+
+  /**
+   * Save component information into a JSON file for other tools to consume.
+   * Provide a filepath to save the JSON file.
+   *
+   * When set to `true`, it will save to `./.components-info.json`
+   *
+   * @default false
+   */
+  dumpComponentsInfo?: boolean | string
 }
 
 export type ResolvedOptions = Omit<
