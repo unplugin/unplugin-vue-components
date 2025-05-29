@@ -1,9 +1,9 @@
-import type { ComponentResolver } from '../src'
+import type { ComponentInfo, ComponentResolver, DtsDeclarationType } from '../src'
 import { readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { Context } from '../src/core/context'
-import { getDeclaration, parseDeclaration } from '../src/core/declaration'
+import { getDeclarations, parseDeclaration } from '../src/core/declaration'
 
 const resolver: ComponentResolver[] = [
   {
@@ -27,8 +27,112 @@ const _component_test_comp = _resolveComponent("test-comp")
 const _directive_loading = _resolveDirective("loading")`
     await ctx.transform(code, '')
 
-    const declarations = getDeclaration(ctx, 'test.d.ts')
-    expect(declarations).toMatchSnapshot()
+    const declarations = await getDeclarations(ctx)
+    expect(Object.values(declarations ?? {})).toMatchSnapshot()
+  })
+
+  it('getDeclaration - function expression', async () => {
+    const ctx = new Context({
+      resolvers: resolver,
+      directives: true,
+      dts: () => 'test.d.ts',
+    })
+
+    const filepath = path.resolve(__dirname, '../test.d.ts')
+
+    const code = `
+const _component_test_comp = _resolveComponent("test-comp")
+const _directive_loading = _resolveDirective("loading")`
+    await ctx.transform(code, '')
+
+    const declarations = await getDeclarations(ctx)
+
+    expect(Object.keys(declarations ?? {})).toEqual([filepath])
+    expect(Object.values(declarations ?? {})).toMatchSnapshot()
+  })
+
+  it('getDeclaration - return absolute path', async () => {
+    const filepath = path.resolve(__dirname, 'test.d.ts')
+
+    const ctx = new Context({
+      resolvers: resolver,
+      directives: true,
+      dts: () => filepath,
+    })
+
+    const code = `
+const _component_test_comp = _resolveComponent("test-comp")
+const _directive_loading = _resolveDirective("loading")`
+    await ctx.transform(code, '')
+
+    const declarations = await getDeclarations(ctx)
+
+    expect(Object.keys(declarations ?? {})).toEqual([filepath])
+    expect(Object.values(declarations ?? {})).toMatchSnapshot()
+  })
+
+  it('getDeclaration - return false', async () => {
+    const ctx = new Context({
+      resolvers: resolver,
+      directives: true,
+      dts: () => false,
+    })
+
+    const code = `
+const _component_test_comp = _resolveComponent("test-comp")
+const _directive_loading = _resolveDirective("loading")`
+    await ctx.transform(code, '')
+    const declarations = await getDeclarations(ctx)
+    expect(declarations).toBeUndefined()
+  })
+
+  it('getDeclaration - multiple files', async () => {
+    const fn = vi.fn().mockImplementation((_info: ComponentInfo, type: DtsDeclarationType) => {
+      return type === 'component' ? 'test.d.ts' : 'test2.d.ts'
+    })
+
+    const ctx = new Context({
+      resolvers: resolver,
+      directives: true,
+      dts: fn,
+    })
+
+    const filepath = path.resolve(__dirname, '../test.d.ts')
+    const filepath2 = path.resolve(__dirname, '../test2.d.ts')
+
+    const code = `
+const _component_test_comp = _resolveComponent("test-comp")
+const _directive_loading = _resolveDirective("loading")`
+
+    await ctx.transform(code, '')
+
+    const declarations = await getDeclarations(ctx)
+
+    expect(fn).toBeCalledTimes(4)
+    expect(fn).toBeCalledWith({ as: 'TestComp', from: 'test/component/TestComp' } satisfies ComponentInfo, 'component')
+    expect(fn).toBeCalledWith({ as: 'vLoading', from: 'test/directive/Loading' } satisfies ComponentInfo, 'directive')
+    expect(fn).toBeCalledWith({ from: 'vue-router', name: 'RouterView', as: 'RouterView' } satisfies ComponentInfo, 'component')
+    expect(fn).toBeCalledWith({ from: 'vue-router', name: 'RouterLink', as: 'RouterLink' } satisfies ComponentInfo, 'component')
+
+    expect(Object.keys(declarations ?? {})).toEqual([filepath, filepath2])
+    expect(Object.values(declarations ?? {})).toMatchSnapshot()
+  })
+
+  it('getDeclaration - filter', async () => {
+    const ctx = new Context({
+      resolvers: resolver,
+      directives: true,
+      dts: (_, type) => type === 'component' ? 'test.d.ts' : false,
+    })
+
+    const code = `
+const _component_test_comp = _resolveComponent("test-comp")
+const _directive_loading = _resolveDirective("loading")`
+    await ctx.transform(code, '')
+
+    const declarations = await getDeclarations(ctx)
+
+    expect(Object.values(declarations ?? {})).toMatchSnapshot()
   })
 
   it('writeDeclaration', async () => {
@@ -83,42 +187,65 @@ const _directive_loading = _resolveDirective("loading")`
     expect(contents).toContain('vSome')
   })
 
+  it('writeDeclaration - multiple files', async () => {
+    const filepath = path.resolve(__dirname, 'tmp/dts-test.d.ts')
+    const filepath2 = path.resolve(__dirname, 'tmp/dts-test2.d.ts')
+
+    const ctx = new Context({
+      resolvers: resolver,
+      directives: true,
+      dts: (_, type) => (type === 'component' ? filepath : filepath2),
+    })
+
+    const code = `
+const _component_test_comp = _resolveComponent("test-comp")
+const _directive_loading = _resolveDirective("loading")`
+    await ctx.transform(code, '')
+    await ctx._generateDeclaration()
+
+    expect(await readFile(filepath, 'utf-8')).matchSnapshot()
+    expect(await readFile(filepath2, 'utf-8')).matchSnapshot()
+  })
+
   it('components only', async () => {
     const ctx = new Context({
       resolvers: resolver,
       directives: true,
+      dts: 'test.d.ts',
     })
     const code = 'const _component_test_comp = _resolveComponent("test-comp")'
     await ctx.transform(code, '')
 
-    const declarations = getDeclaration(ctx, 'test.d.ts')
-    expect(declarations).toMatchSnapshot()
+    const declarations = await getDeclarations(ctx)
+    expect(Object.values(declarations ?? {})).toMatchSnapshot()
   })
 
   it('vue 2.7 components only', async () => {
     const ctx = new Context({
       resolvers: resolver,
       directives: true,
+      dts: 'test.d.ts',
       version: 2.7,
     })
     const code = 'const _component_test_comp = _c("test-comp")'
     await ctx.transform(code, '')
 
-    const declarations = getDeclaration(ctx, 'test.d.ts')
-    expect(declarations).toMatchSnapshot()
+    const declarations = await getDeclarations(ctx)
+    expect(Object.values(declarations ?? {})).toMatchSnapshot()
   })
 
   it('directive only', async () => {
     const ctx = new Context({
       resolvers: resolver,
       directives: true,
+      dts: 'test.d.ts',
       types: [],
     })
     const code = 'const _directive_loading = _resolveDirective("loading")'
     await ctx.transform(code, '')
 
-    const declarations = getDeclaration(ctx, 'test.d.ts')
-    expect(declarations).toMatchSnapshot()
+    const declarations = await getDeclarations(ctx)
+    expect(Object.values(declarations ?? {})).toMatchSnapshot()
   })
 
   it('parseDeclaration', async () => {

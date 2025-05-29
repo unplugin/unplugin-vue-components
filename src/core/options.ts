@@ -1,4 +1,4 @@
-import type { ComponentResolver, ComponentResolverObject, Options, ResolvedOptions } from '../types'
+import type { ComponentResolver, ComponentResolverObject, DtsConfigure, Options, ResolvedOptions } from '../types'
 import { join, resolve } from 'node:path'
 import { slash, toArray } from '@antfu/utils'
 import { getPackageInfoSync, isPackageExists } from 'local-pkg'
@@ -21,6 +21,8 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'ex
   importPathTransform: v => v,
 
   allowOverrides: false,
+  sourcemap: true,
+  dumpComponentsInfo: false,
 }
 
 function normalizeResolvers(resolvers: (ComponentResolver | ComponentResolver[])[]): ComponentResolverObject[] {
@@ -78,14 +80,16 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
     return false
   })
 
-  resolved.dts = !resolved.dts
+  const originalDts = resolved.dts
+
+  resolved.dts = !originalDts
     ? false
-    : resolve(
-        root,
-        typeof resolved.dts === 'string'
-          ? resolved.dts
-          : 'components.d.ts',
-      )
+    : ((...args) => {
+        const res = typeof originalDts === 'function' ? originalDts(...args) : originalDts
+        if (!res)
+          return false
+        return resolve(root, typeof res === 'string' ? res : 'components.d.ts')
+      }) as DtsConfigure
 
   if (!resolved.types && resolved.dts)
     resolved.types = detectTypeImports()
