@@ -360,9 +360,10 @@ Components({
   extensions: ['vue'],
 
   // Glob patterns to match file names to be detected as components.
+  // You can also specify multiple like this: `src/components/*.{vue,tsx}`
   // When specified, the `dirs`, `extensions`, and `directoryAsNamespace` options will be ignored.
   // If you want to exclude components being registered, use negative globs with leading `!`.
-  globs: ['src/components/*.{vue}'],
+  globs: ['src/components/*.vue'],
 
   // search for subdirectories
   deep: true,
