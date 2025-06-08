@@ -46,6 +46,10 @@ export type Transformer = (code: string, id: string, path: string, query: Record
 
 export type SupportedTransformer = 'vue3' | 'vue2'
 
+export type DtsDeclarationType = 'component' | 'directive'
+
+export type DtsConfigure = (info: ComponentInfo, declarationType: DtsDeclarationType) => string | false
+
 export interface PublicPluginAPI {
   /**
    * Resolves a component using the configured resolvers.
@@ -163,13 +167,13 @@ export interface Options {
   /**
    * Generate TypeScript declaration for global components
    *
-   * Accept boolean or a path related to project root
+   * Accept boolean, a path related to project root or a function that returns boolean or a path.
    *
    * @see https://github.com/vuejs/core/pull/3399
    * @see https://github.com/johnsoncodehk/volar#using
    * @default true
    */
-  dts?: boolean | string
+  dts?: boolean | string | DtsConfigure
 
   /**
    * Do not emit warning on component overriding
@@ -227,7 +231,7 @@ export type ResolvedOptions = Omit<
   resolvedDirs: string[]
   globs: string[]
   globsExclude: string[]
-  dts: string | false
+  dts: false | DtsConfigure
   root: string
 }
 

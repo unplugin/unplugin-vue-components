@@ -301,7 +301,7 @@ export class Context {
       return
 
     debug.declaration('generating dts')
-    return writeDeclaration(this, this.options.dts, removeUnused)
+    return writeDeclaration(this, removeUnused)
   }
 
   generateDeclaration(removeUnused = !this._server): void {

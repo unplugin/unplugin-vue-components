@@ -66,8 +66,7 @@ export default createUnplugin<Options>((options = {}) => {
 
         if (ctx.options.dts) {
           ctx.searchGlob()
-          if (!existsSync(ctx.options.dts))
-            ctx.generateDeclaration()
+          ctx.generateDeclaration()
         }
 
         if (ctx.options.dumpComponentsInfo && ctx.dumpComponentsInfoPath) {
