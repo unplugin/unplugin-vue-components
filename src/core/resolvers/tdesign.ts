@@ -55,10 +55,15 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
 
       if (name.match(/^T[A-Z]/) || pluginList.includes(name)) {
         const importName = name.match(/^T[A-Z]/) ? name.slice(1) : name
+        let libraryFrom =`tdesign-${library}${importFrom}`
 
+        if(library === 'vue-next' && importName.startsWith('Chat')) {
+          libraryFrom = `@tdesign-vue-next/chat${importFrom}`
+        }
+        
         return {
           name: importName,
-          from: `tdesign-${library}${importFrom}`,
+          from: libraryFrom,
         }
       }
     },
