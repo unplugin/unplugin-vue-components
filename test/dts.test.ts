@@ -190,7 +190,7 @@ declare module 'vue' {
     expect(imports).matchSnapshot()
   })
 
-  it.only('generate components with prefix', async () => {
+  it('generate components with prefix', async () => {
     const ctx = new Context({
       resolvers: resolver,
       directives: true,
