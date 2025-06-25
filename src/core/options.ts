@@ -21,6 +21,9 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'ex
   importPathTransform: v => v,
 
   allowOverrides: false,
+
+  sourcemap: true,
+  dumpComponentsInfo: false,
 }
 
 function normalizeResolvers(resolvers: (ComponentResolver | ComponentResolver[])[]): ComponentResolverObject[] {
