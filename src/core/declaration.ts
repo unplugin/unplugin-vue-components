@@ -69,9 +69,9 @@ function stringifyComponentInfo(filepath: string, { from: path, as: name, name: 
  *
  * `{ name: "typeof import(path)[importName]", ... }`
  */
-export function stringifyComponentsInfo(filepath: string, components: ComponentInfo[], importPathTransform?: Options['importPathTransform'], prefix?: string): Record<string, string> {
+export function stringifyComponentsInfo(filepath: string, components: ComponentInfo[], importPathTransform?: Options['importPathTransform']): Record<string, string> {
   return Object.fromEntries(
-    components.map(info => stringifyComponentInfo(filepath, addComponentPrefix(info, prefix), importPathTransform))
+    components.map(info => stringifyComponentInfo(filepath, info, importPathTransform))
       .filter(notNullish),
   )
 }
@@ -82,13 +82,12 @@ export interface DeclarationImports {
 }
 
 export function getDeclarationImports(ctx: Context, filepath: string): DeclarationImports | undefined {
+  const prefixComponentNameMap = Object.values(ctx.componentNameMap).map(info => addComponentPrefix(info, ctx.options.prefix))
   const component = stringifyComponentsInfo(filepath, [
-    ...Object.values({
-      ...ctx.componentNameMap,
-      ...ctx.componentCustomMap,
-    }),
+    ...Object.values(ctx.componentCustomMap),
+    ...prefixComponentNameMap,
     ...resolveTypeImports(ctx.options.types),
-  ], ctx.options.importPathTransform, ctx.options.prefix)
+  ], ctx.options.importPathTransform)
 
   const directive = stringifyComponentsInfo(
     filepath,
