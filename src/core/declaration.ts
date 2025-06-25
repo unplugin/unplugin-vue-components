@@ -38,6 +38,16 @@ export function parseDeclaration(code: string): DeclarationImports | undefined {
   return imports
 }
 
+function addComponentPrefix(component: ComponentInfo, prefix?: string) {
+  if (!component.as || !prefix)
+    return component
+
+  return {
+    ...component,
+    as: `${prefix}${component.as}`,
+  }
+}
+
 /**
  * Converts `ComponentInfo` to an array
  *
@@ -59,9 +69,9 @@ function stringifyComponentInfo(filepath: string, { from: path, as: name, name: 
  *
  * `{ name: "typeof import(path)[importName]", ... }`
  */
-export function stringifyComponentsInfo(filepath: string, components: ComponentInfo[], importPathTransform?: Options['importPathTransform']): Record<string, string> {
+export function stringifyComponentsInfo(filepath: string, components: ComponentInfo[], importPathTransform?: Options['importPathTransform'], prefix?: string): Record<string, string> {
   return Object.fromEntries(
-    components.map(info => stringifyComponentInfo(filepath, info, importPathTransform))
+    components.map(info => stringifyComponentInfo(filepath, addComponentPrefix(info, prefix), importPathTransform))
       .filter(notNullish),
   )
 }
@@ -78,7 +88,7 @@ export function getDeclarationImports(ctx: Context, filepath: string): Declarati
       ...ctx.componentCustomMap,
     }),
     ...resolveTypeImports(ctx.options.types),
-  ], ctx.options.importPathTransform)
+  ], ctx.options.importPathTransform, ctx.options.prefix)
 
   const directive = stringifyComponentsInfo(
     filepath,

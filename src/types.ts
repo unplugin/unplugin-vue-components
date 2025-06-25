@@ -115,6 +115,11 @@ export interface Options {
   directoryAsNamespace?: boolean
 
   /**
+   * Generate components with prefix.
+   */
+  prefix?: string
+
+  /**
    * Collapse same prefixes (camel-sensitive) of folders and components
    * to prevent duplication inside namespaced component name.
    *

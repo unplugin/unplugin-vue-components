@@ -189,4 +189,19 @@ declare module 'vue' {
     const imports = parseDeclaration(code)
     expect(imports).matchSnapshot()
   })
+
+  it.only('generate components with prefix', async () => {
+    const ctx = new Context({
+      resolvers: resolver,
+      directives: true,
+      prefix: 'CustomPrefix',
+    })
+    const code = `
+const _component_test_comp = _resolveComponent("test-comp")
+const _directive_loading = _resolveDirective("loading")`
+    await ctx.transform(code, '')
+
+    const declarations = getDeclaration(ctx, 'test.d.ts')
+    expect(declarations).toMatchSnapshot()
+  })
 })
