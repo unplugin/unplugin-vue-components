@@ -75,6 +75,7 @@
     "example:dev": "npm -C examples/vite-vue3 run dev",
     "prepublishOnly": "npm run build",
     "lint": "eslint .",
+    "typecheck": "tsc",
     "release": "bumpp && npm publish",
     "test": "vitest",
     "test:update": "vitest --u"
