@@ -22,6 +22,8 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'ex
 
   allowOverrides: false,
 
+  sourcemap: true,
+  dumpComponentsInfo: false,
   prefix: '',
 }
 
