@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest'
 import { Context } from '../src/core/context'
 import { getDeclaration, parseDeclaration } from '../src/core/declaration'
 
+const root = path.resolve(__dirname, '../examples/vite-vue3')
 const resolver: ComponentResolver[] = [
   {
     type: 'component',
@@ -188,5 +189,22 @@ declare module 'vue' {
 
     const imports = parseDeclaration(code)
     expect(imports).matchSnapshot()
+  })
+
+  it('generate components with prefix', async () => {
+    const ctx = new Context({
+      resolvers: resolver,
+      directives: true,
+      prefix: 'CustomPrefix',
+      dirs: ['src/components'],
+    })
+    ctx.setRoot(root)
+    const code = `
+const _component_test_comp = _resolveComponent("test-comp")
+const _directive_loading = _resolveDirective("loading")`
+    await ctx.transform(code, '')
+
+    const declarations = getDeclaration(ctx, 'test.d.ts')
+    expect(declarations).toMatchSnapshot()
   })
 })
