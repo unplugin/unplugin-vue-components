@@ -12,7 +12,7 @@ const singlelineCommentsRE = /\/\/.*$/gm
 
 function extractImports(code: string) {
   // eslint-disable-next-line regexp/no-super-linear-backtracking, regexp/no-misleading-capturing-group
-  return Object.fromEntries(Array.from(code.matchAll(/['"]?([^\s'"]+)['"]?\s*:\s*(.+?)[,;\n]/g)).map(i => [i[1], i[2]]))
+  return Object.fromEntries(Array.from(code.matchAll(/['"]?([^\s'"]+)['"]?\s*:\s*(.+?)[,;\r\n]/g)).map(i => [i[1], i[2]]))
 }
 
 export function parseDeclaration(code: string): DeclarationImports | undefined {
