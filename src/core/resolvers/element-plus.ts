@@ -45,8 +45,8 @@ export interface ElementPlusResolverOptions {
   nightly?: boolean
 }
 
-type ElementPlusResolverOptionsResolved = Required<Omit<ElementPlusResolverOptions, 'exclude'>> &
-  Pick<ElementPlusResolverOptions, 'exclude'>
+type ElementPlusResolverOptionsResolved = Required<Omit<ElementPlusResolverOptions, 'exclude'>>
+  & Pick<ElementPlusResolverOptions, 'exclude'>
 
 /**
  * @deprecated
