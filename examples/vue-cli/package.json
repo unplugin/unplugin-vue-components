@@ -9,7 +9,7 @@
   "dependencies": {
     "@vue/composition-api": "^1.7.2",
     "core-js": "^3.43.0",
-    "vue": "^3.5.17"
+    "vue": "2.7.16"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^5.0.8",
