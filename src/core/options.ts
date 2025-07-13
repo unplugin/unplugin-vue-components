@@ -3,6 +3,7 @@ import { join, resolve } from 'node:path'
 import { slash, toArray } from '@antfu/utils'
 import { getPackageInfoSync, isPackageExists } from 'local-pkg'
 import { detectTypeImports } from './type-imports/detect'
+import { escapeSpecialChars } from './utils'
 
 export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'excludeNames' | 'transformer' | 'globs' | 'globsExclude' | 'directives' | 'types' | 'version'> = {
   dirs: 'src/components',
@@ -63,8 +64,8 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
         i = i.slice(1)
       }
       return resolved.deep
-        ? prefix + slash(join((i), `**/*.${extsGlob}`))
-        : prefix + slash(join((i), `*.${extsGlob}`))
+        ? prefix + escapeSpecialChars((join(i, `**/*.${extsGlob}`)))
+        : prefix + escapeSpecialChars((join(i, `*.${extsGlob}`)))
     })
 
     if (!resolved.extensions.length)
