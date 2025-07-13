@@ -2,6 +2,7 @@ import type { ComponentResolver, ComponentResolverObject, Options, ResolvedOptio
 import { join, resolve } from 'node:path'
 import { slash, toArray } from '@antfu/utils'
 import { getPackageInfoSync, isPackageExists } from 'local-pkg'
+import { escapePath } from 'tinyglobby'
 import { detectTypeImports } from './type-imports/detect'
 
 export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'excludeNames' | 'transformer' | 'globs' | 'globsExclude' | 'directives' | 'types' | 'version'> = {
@@ -63,8 +64,8 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
         i = i.slice(1)
       }
       return resolved.deep
-        ? prefix + slash(join(i, `**/*.${extsGlob}`))
-        : prefix + slash(join(i, `*.${extsGlob}`))
+        ? prefix + (join(escapePath(slash(i)), `**/*.${extsGlob}`))
+        : prefix + (join(escapePath(slash(i)), `*.${extsGlob}`))
     })
 
     if (!resolved.extensions.length)
