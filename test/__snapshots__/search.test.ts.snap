@@ -124,7 +124,7 @@ exports[`search > should with namespace 1`] = `
 
 exports[`search > should work 1`] = `
 [
-  "/Users/ilyal/f/unplugin-vue-components/examples/vite-vue3/src/components/**/*.vue",
+  "D:/a/unplugin-vue-components/unplugin-vue-components/examples/vite-vue3/src/components/**/*.vue",
 ]
 `;
 

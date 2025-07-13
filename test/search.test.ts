@@ -18,7 +18,7 @@ describe('search', () => {
     ctx.setRoot(root)
     ctx.searchGlob()
 
-    expect(ctx.options.globs).toMatch('D:/a/unplugin-vue-components/unplugin-vue-components/examples/vite-vue3/src/components/**/*.vue')
+    expect(ctx.options.globs).toMatchSnapshot()
     expect(cleanup(ctx.componentNameMap)).toMatchSnapshot()
   })
 
