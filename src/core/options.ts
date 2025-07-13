@@ -63,8 +63,8 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
         i = i.slice(1)
       }
       return resolved.deep
-        ? prefix + (join(slash(i), slash(`**/*.${extsGlob}`)))
-        : prefix + (join(slash(i), slash(`*.${extsGlob}`)))
+        ? prefix + slash(join((i), `**/*.${extsGlob}`))
+        : prefix + slash(join((i), `*.${extsGlob}`))
     })
 
     if (!resolved.extensions.length)

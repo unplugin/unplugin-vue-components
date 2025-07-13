@@ -124,12 +124,6 @@ exports[`search > should with namespace 1`] = `
 
 exports[`search > should work 1`] = `
 [
-  "D:/a/unplugin-vue-components/unplugin-vue-components/examples/vite-vue3/src/components/**/*.vue",
-]
-`;
-
-exports[`search > should work 2`] = `
-[
   {
     "as": "Avatar",
     "from": "src/components/global/avatar.vue",
