@@ -18,6 +18,7 @@ describe('search', () => {
     ctx.setRoot(root)
     ctx.searchGlob()
 
+    expect(ctx.options.globs).toMatchSnapshot()
     expect(cleanup(ctx.componentNameMap)).toMatchSnapshot()
   })
 
