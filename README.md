@@ -414,7 +414,10 @@ Components({
   version: 2.7,
 
   // Only provide types of components in library (registered globally)
-  types: []
+  // see https://github.com/unplugin/unplugin-vue-components/blob/main/src/core/type-imports/index.ts
+  types: [
+    /* ... */
+  ],
 })
 ```
 
