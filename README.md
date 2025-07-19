@@ -133,6 +133,36 @@ export default {
 <br></details>
 
 <details>
+<summary>Quasar</summary><br>
+
+```ts
+// vite.config.js [Vite]
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    Components({ /* options */ })
+  ]
+})
+```
+
+```ts
+// quasar.config.js
+export default defineConfig(() => {
+  return {
+    build: {
+      vitePlugins: [
+        ['unplugin-vue-components/vite', { /* options */ }],
+      ]
+    },
+  }
+})
+```
+
+<br></details>
+
+<details>
 <summary>esbuild</summary><br>
 
 ```ts
