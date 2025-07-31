@@ -63,6 +63,28 @@ import __unplugin_components_0 from 'test/component/ElInfiniteScroll';
 }
 `;
 
+exports[`prefix transform > transform with prefix should work 1`] = `
+{
+  "code": "/* unplugin-vue-components disabled */import __unplugin_components_2 from 'test/component/test-comp.vue';
+import __unplugin_components_1 from 'test/component/test-comp.vue';
+import __unplugin_components_0 from 'test/component/test-comp.vue';
+
+    const render = (_ctx, _cache) => {
+      const _component_test_comp = __unplugin_components_0
+      const _component_testComp = __unplugin_components_1
+      const _component_testComp = __unplugin_components_2
+
+      return _withDirectives(
+        (_openBlock(),
+        _createBlock(_component_test_comp, null, null, 512 /* NEED_PATCH */)),
+        _createBlock(_component_testComp, null, null, 512 /* NEED_PATCH */)),
+        _createBlock(_component_TestComp, null, null, 512 /* NEED_PATCH */))
+      )
+    }
+    ",
+}
+`;
+
 exports[`transform > vue2 transform should work 1`] = `
 {
   "code": "/* unplugin-vue-components disabled */import __unplugin_directives_0 from 'test/directive/Loading';
