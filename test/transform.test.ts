@@ -1,5 +1,6 @@
 import type { ComponentResolver } from '../src'
 import { describe, expect, it } from 'vitest'
+import { pascalCase } from '../src'
 import { Context } from '../src/core/context'
 
 const resolver: ComponentResolver[] = [
@@ -170,6 +171,41 @@ describe('component and directive as same name', () => {
       directives: true,
     })
     ctx.sourcemap = false
+    expect(await ctx.transform(code, '')).toMatchSnapshot()
+  })
+})
+
+describe('prefix transform', () => {
+  it('transform with prefix should work', async () => {
+    const code = `
+    const render = (_ctx, _cache) => {
+      const _component_test_comp = _resolveComponent("custom-prefix-test-comp")
+      const _component_testComp = _resolveComponent("CustomPrefixTestComp")
+      const _component_testComp = _resolveComponent("customPrefixTestComp")
+
+      return _withDirectives(
+        (_openBlock(),
+        _createBlock(_component_test_comp, null, null, 512 /* NEED_PATCH */)),
+        _createBlock(_component_testComp, null, null, 512 /* NEED_PATCH */)),
+        _createBlock(_component_TestComp, null, null, 512 /* NEED_PATCH */))
+      )
+    }
+    `
+
+    const ctx = new Context({
+      prefix: 'CustomPrefix',
+      directives: true,
+    })
+    ctx.sourcemap = false
+    const componentName = 'TestComp'
+    const name = `${pascalCase(ctx.options.prefix)}${pascalCase(componentName)}`
+    // @ts-expect-error for test
+    ctx._componentNameMap = {
+      [name]: {
+        as: name,
+        from: 'test/component/test-comp.vue',
+      },
+    }
     expect(await ctx.transform(code, '')).toMatchSnapshot()
   })
 })

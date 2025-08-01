@@ -215,7 +215,10 @@ export class Context {
     Array
       .from(this._componentPaths)
       .forEach((path) => {
-        const name = pascalCase(getNameFromFilePath(path, this.options))
+        const fileName = getNameFromFilePath(path, this.options)
+        const name = this.options.prefix
+          ? `${pascalCase(this.options.prefix)}${pascalCase(fileName)}`
+          : pascalCase(fileName)
         if (isExclude(name, this.options.excludeNames)) {
           debug.components('exclude', name)
           return
