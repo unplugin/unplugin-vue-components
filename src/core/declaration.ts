@@ -38,16 +38,6 @@ export function parseDeclaration(code: string): DeclarationImports | undefined {
   return imports
 }
 
-function addComponentPrefix(component: ComponentInfo, prefix?: string) {
-  if (!component.as || !prefix)
-    return component
-
-  return {
-    ...component,
-    as: `${prefix}${component.as}`,
-  }
-}
-
 /**
  * Converts `ComponentInfo` to an array
  *
@@ -82,10 +72,11 @@ export interface DeclarationImports {
 }
 
 export function getDeclarationImports(ctx: Context, filepath: string): DeclarationImports | undefined {
-  const prefixComponentNameMap = Object.values(ctx.componentNameMap).map(info => addComponentPrefix(info, ctx.options.prefix))
   const component = stringifyComponentsInfo(filepath, [
-    ...Object.values(ctx.componentCustomMap),
-    ...prefixComponentNameMap,
+    ...Object.values({
+      ...ctx.componentNameMap,
+      ...ctx.componentCustomMap,
+    }),
     ...resolveTypeImports(ctx.options.types),
   ], ctx.options.importPathTransform)
 
