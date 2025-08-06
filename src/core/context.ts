@@ -299,7 +299,7 @@ export class Context {
     this._searched = true
   }
 
-  _generateDeclaration(removeUnused = !this._server) {
+  _generateDeclaration(removeUnused = !!this._server) {
     if (!this.options.dts)
       return
 
@@ -307,11 +307,11 @@ export class Context {
     return writeDeclaration(this, this.options.dts, removeUnused)
   }
 
-  generateDeclaration(removeUnused = !this._server): void {
+  generateDeclaration(removeUnused = !!this._server): void {
     this._generateDeclaration(removeUnused)
   }
 
-  _generateComponentsJson(removeUnused = !this._server) {
+  _generateComponentsJson(removeUnused = !!this._server) {
     if (!Object.keys(this._componentNameMap).length)
       return
 
@@ -319,7 +319,7 @@ export class Context {
     return writeComponentsJson(this, removeUnused)
   }
 
-  generateComponentsJson(removeUnused = !this._server): void {
+  generateComponentsJson(removeUnused = !!this._server): void {
     this._generateComponentsJson(removeUnused)
   }
 
