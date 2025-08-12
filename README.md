@@ -66,6 +66,22 @@ export default {
 <br></details>
 
 <details>
+<summary>Rolldown</summary><br>
+
+```ts
+// rolldown.config.js
+import Components from 'unplugin-vue-components/rolldown'
+
+export default {
+  plugins: [
+    Components({ /* options */ }),
+  ],
+}
+```
+
+<br></details>
+
+<details>
 <summary>Webpack</summary><br>
 
 ```ts

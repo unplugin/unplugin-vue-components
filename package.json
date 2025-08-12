@@ -30,6 +30,10 @@
       "import": "./dist/rollup.js",
       "require": "./dist/rollup.cjs"
     },
+    "./rolldown": {
+      "import": "./dist/rolldown.js",
+      "require": "./dist/rolldown.cjs"
+    },
     "./types": {
       "import": "./dist/types.js",
       "require": "./dist/types.cjs"
@@ -122,6 +126,7 @@
     "estree-walker": "^3.0.3",
     "minimatch": "^10.0.3",
     "pathe": "^2.0.3",
+    "rolldown": "^1.0.0-beta.32",
     "rollup": "^4.46.2",
     "tsdown": "^0.13.3",
     "typescript": "^5.8.3",
