@@ -53,6 +53,13 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
         }
       }
 
+      if (name.startsWith('TQrcode')) {
+        return {
+          name: 'QRCode',
+          from: `tdesign-${library}${importFrom}`,
+        }
+      }
+
       if (name.match(/^T[A-Z]/) || pluginList.includes(name)) {
         const importName = name.match(/^T[A-Z]/) ? name.slice(1) : name
 
