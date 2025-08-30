@@ -53,7 +53,7 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
         }
       }
 
-      if (name.startsWith('TQrcode') || name.startsWith('Qrcode')) {
+      if (name.startsWith('TQrcode')) {
         return {
           name: 'QRCode',
           from: `tdesign-${library}${importFrom}`,
