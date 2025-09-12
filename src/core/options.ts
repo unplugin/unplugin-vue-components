@@ -25,6 +25,7 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'ex
 
   sourcemap: true,
   dumpComponentsInfo: false,
+  syncMode: 'default',
   prefix: '',
 }
 

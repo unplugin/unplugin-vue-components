@@ -220,6 +220,16 @@ export interface Options {
    * @default false
    */
   dumpComponentsInfo?: boolean | string
+
+  /**
+   * The mode for syncing the components.d.ts and .components-info.json file.
+   * - `append`: only append the new components to the existing files.
+   * - `overwrite`: overwrite the whole existing files with the current components.
+   * - `default`: use `append` strategy when using dev server, `overwrite` strategy when using build.
+   *
+   * @default 'default'
+   */
+  syncMode?: 'default' | 'append' | 'overwrite'
 }
 
 export type ResolvedOptions = Omit<

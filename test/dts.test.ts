@@ -48,8 +48,8 @@ const _directive_loading = _resolveDirective("loading")`
     expect(await readFile(filepath, 'utf-8')).matchSnapshot()
   })
 
-  it('writeDeclaration - keep unused', async () => {
-    const filepath = path.resolve(__dirname, 'tmp/dts-keep-unused.d.ts')
+  it.each(['append', 'overwrite'] as const)('writeDeclaration - %s', async (syncMode) => {
+    const filepath = path.resolve(__dirname, 'tmp/dts-test-sync-mode.d.ts')
     await writeFile(
       filepath,
       `
@@ -70,18 +70,16 @@ declare module 'vue' {
       resolvers: resolver,
       directives: true,
       dts: filepath,
+      syncMode,
     })
     const code = `
 const _component_test_comp = _resolveComponent("test-comp")
 const _directive_loading = _resolveDirective("loading")`
     await ctx.transform(code, '')
-    await ctx._generateDeclaration(false)
+    await ctx._generateDeclaration()
 
     const contents = await readFile(filepath, 'utf-8')
     expect(contents).matchSnapshot()
-    expect(contents).not.toContain('OldComp')
-    expect(contents).not.toContain('comment')
-    expect(contents).toContain('vSome')
   })
 
   it('components only', async () => {
