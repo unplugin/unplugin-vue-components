@@ -1,5 +1,10 @@
 packages:
   - examples/*
+
+ignoreWorkspaceRootCheck: true
+shamefullyHoist: true
+strictPeerDependencies: false
+
 onlyBuiltDependencies:
   - core-js
   - esbuild
