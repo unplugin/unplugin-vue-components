@@ -29,6 +29,7 @@ export class Context {
   private _componentUsageMap: Record<string, Set<string>> = {}
   private _componentCustomMap: Record<string, ComponentInfo> = {}
   private _directiveCustomMap: Record<string, ComponentInfo> = {}
+  private _removeUnused = false
   private _server: ViteDevServer | undefined
 
   root = process.cwd()
@@ -42,6 +43,7 @@ export class Context {
     this.options = resolveOptions(rawOptions, this.root)
     this.sourcemap = rawOptions.sourcemap ?? true
     this.generateDeclaration = throttle(500, this._generateDeclaration.bind(this), { noLeading: false })
+    this._removeUnused = this.options.syncMode === 'overwrite'
 
     if (this.options.dumpComponentsInfo) {
       const dumpComponentsInfo = this.options.dumpComponentsInfo === true
@@ -78,6 +80,7 @@ export class Context {
       return
 
     this._server = server
+    this._removeUnused = this.options.syncMode !== 'append'
     this.setupWatcher(server.watcher)
   }
 
@@ -299,7 +302,7 @@ export class Context {
     this._searched = true
   }
 
-  _generateDeclaration(removeUnused = !this._server) {
+  _generateDeclaration(removeUnused = this._removeUnused) {
     if (!this.options.dts)
       return
 
@@ -307,11 +310,11 @@ export class Context {
     return writeDeclaration(this, this.options.dts, removeUnused)
   }
 
-  generateDeclaration(removeUnused = !this._server): void {
+  generateDeclaration(removeUnused = this._removeUnused): void {
     this._generateDeclaration(removeUnused)
   }
 
-  _generateComponentsJson(removeUnused = !this._server) {
+  _generateComponentsJson(removeUnused = this._removeUnused) {
     if (!Object.keys(this._componentNameMap).length)
       return
 
@@ -319,7 +322,7 @@ export class Context {
     return writeComponentsJson(this, removeUnused)
   }
 
-  generateComponentsJson(removeUnused = !this._server): void {
+  generateComponentsJson(removeUnused = this._removeUnused): void {
     this._generateComponentsJson(removeUnused)
   }
 
