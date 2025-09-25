@@ -215,27 +215,27 @@ export class Context {
   private updateComponentNameMap() {
     this._componentNameMap = {}
 
-    Array
-      .from(this._componentPaths)
-      .forEach((path) => {
-        const fileName = getNameFromFilePath(path, this.options)
-        const name = this.options.prefix
-          ? `${pascalCase(this.options.prefix)}${pascalCase(fileName)}`
-          : pascalCase(fileName)
-        if (isExclude(name, this.options.excludeNames)) {
-          debug.components('exclude', name)
-          return
-        }
-        if (this._componentNameMap[name] && !this.options.allowOverrides) {
-          console.warn(`[unplugin-vue-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
-          return
-        }
+    const files = Array.from(this._componentPaths)
 
-        this._componentNameMap[name] = {
-          as: name,
-          from: path,
-        }
-      })
+    ;(this.options.sort?.(this.options.root, files) || files).forEach((path) => {
+      const fileName = getNameFromFilePath(path, this.options)
+      const name = this.options.prefix
+        ? `${pascalCase(this.options.prefix)}${pascalCase(fileName)}`
+        : pascalCase(fileName)
+      if (isExclude(name, this.options.excludeNames)) {
+        debug.components('exclude', name)
+        return
+      }
+      if (this._componentNameMap[name] && !this.options.allowOverrides) {
+        console.warn(`[unplugin-vue-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
+        return
+      }
+
+      this._componentNameMap[name] = {
+        as: name,
+        from: path,
+      }
+    })
   }
 
   async findComponent(name: string, type: 'component' | 'directive', excludePaths: string[] = []): Promise<ComponentInfo | undefined> {

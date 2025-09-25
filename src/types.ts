@@ -230,6 +230,8 @@ export interface Options {
    * @default 'default'
    */
   syncMode?: 'default' | 'append' | 'overwrite'
+
+  sort?: (root: string, files: string[]) => string[]
 }
 
 export type ResolvedOptions = Omit<
