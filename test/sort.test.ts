@@ -36,9 +36,8 @@ describe('sort', () => {
       ]
     `)
 
-    // simulate the watcher adding a components
+    // simulate the watcher adding a component
     ctx.addComponents(resolve(root, 'src/components/book/index.vue').replace(/\\/g, '/'))
-    ctx.searchGlob()
 
     expect(cleanup(ctx.componentNameMap)).toMatchInlineSnapshot(`
       [
@@ -77,10 +76,9 @@ describe('sort', () => {
       ]
     `)
 
-    // simulate the watcher adding a components
+    // simulate the watcher adding some components
     ctx.addComponents(resolve(root, 'src/components/ui/button.vue').replace(/\\/g, '/'))
     ctx.addComponents(resolve(root, 'src/components/ui/nested/checkbox.vue').replace(/\\/g, '/'))
-    ctx.searchGlob()
 
     expect(cleanup(ctx.componentNameMap)).toMatchInlineSnapshot(`
       [
