@@ -104,7 +104,7 @@
     "local-pkg": "^1.1.2",
     "magic-string": "^0.30.19",
     "mlly": "^1.8.0",
-    "tinyglobby": "file:tinyglobby-0.2.15.tgz",
+    "tinyglobby": "https://pkg.pr.new/tinyglobby@bc64566",
     "unplugin": "^2.3.10",
     "unplugin-utils": "^0.3.0"
   },
