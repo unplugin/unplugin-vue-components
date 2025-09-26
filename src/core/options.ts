@@ -5,7 +5,7 @@ import { getPackageInfoSync, isPackageExists } from 'local-pkg'
 import { detectTypeImports } from './type-imports/detect'
 import { escapeSpecialChars } from './utils'
 
-export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'excludeNames' | 'transformer' | 'globs' | 'globsExclude' | 'directives' | 'types' | 'version' | 'sort'> = {
+export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'excludeNames' | 'transformer' | 'globs' | 'globsExclude' | 'directives' | 'types' | 'version' | 'sortByGlob' | 'sort'> = {
   dirs: 'src/components',
   extensions: 'vue',
   deep: true,

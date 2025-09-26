@@ -7,7 +7,7 @@ import { slash, throttle, toArray } from '@antfu/utils'
 import Debug from 'debug'
 import { DIRECTIVE_IMPORT_PREFIX } from './constants'
 import { writeComponentsJson, writeDeclaration } from './declaration'
-import { searchComponents } from './fs/glob'
+import { searchComponents, sortFilesByGlobPrecedence } from './fs/glob'
 import { resolveOptions } from './options'
 import transformer from './transformer'
 import { getNameFromFilePath, isExclude, matchGlobs, normalizeComponentInfo, parseId, pascalCase, resolveAlias } from './utils'
@@ -212,30 +212,48 @@ export class Context {
       this._server.ws.send(payload)
   }
 
+  private* preparePaths(): Generator<string, undefined, void> {
+    if (this.options.sortByGlob) {
+      yield* sortFilesByGlobPrecedence(this, this._componentPaths)
+    }
+    else {
+      yield* this._componentPaths
+    }
+  }
+
+  private* applyPathsSorting(files: Iterable<string>): Generator<string, undefined, void> {
+    const generator = this.options.sort
+    if (generator) {
+      yield* generator(this.options.root, Array.from(files))
+    }
+    else {
+      yield* files
+    }
+  }
+
   private updateComponentNameMap() {
     this._componentNameMap = {}
 
-    const files = Array.from(this._componentPaths)
-
-    ;(this.options.sort?.(this.options.root, files) || files).forEach((path) => {
+    const { prefix, excludeNames, allowOverrides } = this.options
+    for (const path of this.applyPathsSorting(this.preparePaths())) {
       const fileName = getNameFromFilePath(path, this.options)
-      const name = this.options.prefix
-        ? `${pascalCase(this.options.prefix)}${pascalCase(fileName)}`
+      const name = prefix
+        ? `${pascalCase(prefix)}${pascalCase(fileName)}`
         : pascalCase(fileName)
-      if (isExclude(name, this.options.excludeNames)) {
+      if (isExclude(name, excludeNames)) {
         debug.components('exclude', name)
-        return
+        continue
       }
-      if (this._componentNameMap[name] && !this.options.allowOverrides) {
+      if (this._componentNameMap[name] && !allowOverrides) {
         console.warn(`[unplugin-vue-components] component "${name}"(${path}) has naming conflicts with other components, ignored.`)
-        return
+        continue
       }
 
       this._componentNameMap[name] = {
         as: name,
         from: path,
       }
-    })
+    }
   }
 
   async findComponent(name: string, type: 'component' | 'directive', excludePaths: string[] = []): Promise<ComponentInfo | undefined> {

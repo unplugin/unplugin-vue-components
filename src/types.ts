@@ -231,7 +231,27 @@ export interface Options {
    */
   syncMode?: 'default' | 'append' | 'overwrite'
 
-  sort?: (root: string, files: string[]) => string[]
+  /**
+   * Enable `globs` sort for scanned files.
+   *
+   * `unplugin-vue-components` using `tinyglobby` to scan files, which is non-deterministic.
+   */
+  sortByGlob?: true
+
+  /**
+   * Generator to provide files before preparing the components.
+   *
+   * For example, you can sort the files in descending order providing the following sort option:
+   * ```ts
+   * sort(_root, files): Generator<string, undefined, void> {
+   *   yield* files.sort((a, b) => b.localeCompare(a))
+   * },
+   * ```
+   *
+   * @param root The root folder of the project.
+   * @param files The scanned files (it is a new array).
+   */
+  sort?: (root: string, files: string[]) => Generator<string, undefined, void>
 }
 
 export type ResolvedOptions = Omit<

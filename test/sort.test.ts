@@ -13,88 +13,78 @@ function cleanup(data: any) {
 }
 
 describe('sort', () => {
-  it('sort ascending works', async () => {
-    const ctx = new Context({
-      dirs: ['src/components/ui'],
-      sort(_, files) {
-        return files.toSorted((a, b) => a.localeCompare(b))
-      },
+  const cases = [
+    {
+      name: 'ascending',
+      sortByGlob: undefined,
+      sortFn: (a: string, b: string) => a.localeCompare(b),
+      initialDirs: ['src/components/ui'],
+      filesToAdd: ['src/components/book/index.vue'],
+      withSort: true,
+    },
+    {
+      name: 'descending',
+      sortByGlob: undefined,
+      sortFn: (a: string, b: string) => b.localeCompare(a),
+      initialDirs: ['src/components/book'],
+      filesToAdd: [
+        'src/components/ui/button.vue',
+        'src/components/ui/nested/checkbox.vue',
+      ],
+      withSort: true,
+    },
+    {
+      name: 'compileGlobs disabled',
+      sortByGlob: undefined,
+      sortFn: () => -1,
+      initialDirs: ['src/components/ui', 'src/components/book'],
+      filesToAdd: [],
+      withSort: false,
+    },
+    {
+      name: 'compileGlobs enabled',
+      sortByGlob: true,
+      sortFn: () => -1,
+      initialDirs: ['src/components/ui', 'src/components/book'],
+      filesToAdd: [],
+      withSort: false,
+    },
+  ]
+
+  cases.forEach(({
+    name,
+    sortFn,
+    initialDirs,
+    filesToAdd,
+    withSort,
+    sortByGlob,
+  }) => {
+    it(`sort ${name} works`, async () => {
+      const ctx = new Context({
+        dirs: withSort ? initialDirs : undefined,
+        globs: withSort ? undefined : initialDirs.map(i => `${i}/**/*.vue`),
+        sortByGlob: sortByGlob === true ? true : undefined,
+        * sort(_options, files): Generator<string, undefined, void> {
+          if (withSort) {
+            yield* files.sort(sortFn)
+          }
+          else {
+            yield* files
+          }
+        },
+      })
+      ctx.setRoot(root)
+      ctx.searchGlob()
+
+      expect(cleanup(ctx.componentNameMap)).toMatchSnapshot(filesToAdd.length > 0 ? 'initial' : undefined)
+
+      if (filesToAdd.length > 0) {
+        for (const file of filesToAdd) {
+          ctx.addComponents(resolve(root, file).replace(/\\/g, '/'))
+        }
+
+        expect(cleanup(ctx.componentNameMap)).toMatchSnapshot('updated')
+      }
     })
-    ctx.setRoot(root)
-    ctx.searchGlob()
-
-    expect(cleanup(ctx.componentNameMap)).toMatchInlineSnapshot(`
-      [
-        {
-          "as": "Button",
-          "from": "src/components/ui/button.vue",
-        },
-        {
-          "as": "Checkbox",
-          "from": "src/components/ui/nested/checkbox.vue",
-        },
-      ]
-    `)
-
-    // simulate the watcher adding a component
-    ctx.addComponents(resolve(root, 'src/components/book/index.vue').replace(/\\/g, '/'))
-
-    expect(cleanup(ctx.componentNameMap)).toMatchInlineSnapshot(`
-      [
-        {
-          "as": "Book",
-          "from": "src/components/book/index.vue",
-        },
-        {
-          "as": "Button",
-          "from": "src/components/ui/button.vue",
-        },
-        {
-          "as": "Checkbox",
-          "from": "src/components/ui/nested/checkbox.vue",
-        },
-      ]
-    `)
-  })
-
-  it('sort descending works', async () => {
-    const ctx = new Context({
-      dirs: ['src/components/book'],
-      sort(_, files) {
-        return files.toSorted((a, b) => b.localeCompare(a))
-      },
-    })
-    ctx.setRoot(root)
-    ctx.searchGlob()
-
-    expect(cleanup(ctx.componentNameMap)).toMatchInlineSnapshot(`
-      [
-        {
-          "as": "Book",
-          "from": "src/components/book/index.vue",
-        },
-      ]
-    `)
-
-    // simulate the watcher adding some components
-    ctx.addComponents(resolve(root, 'src/components/ui/button.vue').replace(/\\/g, '/'))
-    ctx.addComponents(resolve(root, 'src/components/ui/nested/checkbox.vue').replace(/\\/g, '/'))
-
-    expect(cleanup(ctx.componentNameMap)).toMatchInlineSnapshot(`
-      [
-        {
-          "as": "Checkbox",
-          "from": "src/components/ui/nested/checkbox.vue",
-        },
-        {
-          "as": "Button",
-          "from": "src/components/ui/button.vue",
-        },
-        {
-          "as": "Book",
-          "from": "src/components/book/index.vue",
-        },
-      ]
-    `)
   })
 })
