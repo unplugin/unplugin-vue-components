@@ -1,5 +1,6 @@
 import type { ComponentResolver, ComponentResolverObject, Options, ResolvedOptions } from '../types'
 import { join, resolve } from 'node:path'
+import process from 'node:process'
 import { slash, toArray } from '@antfu/utils'
 import { getPackageInfoSync, isPackageExists } from 'local-pkg'
 import { detectTypeImports } from './type-imports/detect'
@@ -71,6 +72,11 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
 
     if (!resolved.extensions.length)
       throw new Error('[unplugin-vue-components] `extensions` option is required to search for components')
+  }
+
+  // syncMode - `default`: use `append` strategy when using dev server, `overwrite` strategy when using build.
+  if (resolved.syncMode === 'default') {
+    resolved.syncMode = process.env.NODE_ENV === 'development' ? 'append' : 'overwrite'
   }
 
   resolved.globsExclude = toArray(resolved.globsExclude || [])

@@ -80,7 +80,6 @@ export class Context {
       return
 
     this._server = server
-    this._removeUnused = this.options.syncMode !== 'append'
     this.setupWatcher(server.watcher)
   }
 
