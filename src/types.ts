@@ -243,7 +243,7 @@ export interface Options {
    *
    * For example, you can sort the files in descending order providing the following sort option:
    * ```ts
-   * sort(_root, files): Generator<string, undefined, void> {
+   * sort: function* (_root, files): Generator<string, undefined, void> {
    *   yield* files.sort((a, b) => b.localeCompare(a))
    * },
    * ```
