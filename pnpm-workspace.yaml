@@ -3,6 +3,7 @@ packages:
 
 ignoreWorkspaceRootCheck: true
 shamefullyHoist: true
+shellEmulator: true
 strictPeerDependencies: false
 
 onlyBuiltDependencies:
