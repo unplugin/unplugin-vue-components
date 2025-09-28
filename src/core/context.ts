@@ -43,7 +43,7 @@ export class Context {
     this.options = resolveOptions(rawOptions, this.root)
     this.sourcemap = rawOptions.sourcemap ?? true
     this.generateDeclaration = throttle(500, this._generateDeclaration.bind(this), { noLeading: false })
-    this._removeUnused = this.options.syncMode === 'overwrite'
+    this._removeUnused = this.options.syncMode !== 'append'
 
     if (this.options.dumpComponentsInfo) {
       const dumpComponentsInfo = this.options.dumpComponentsInfo === true
@@ -80,13 +80,13 @@ export class Context {
       return
 
     this._server = server
-    this._removeUnused = this.options.syncMode !== 'append'
+    this._removeUnused = this.options.syncMode === 'overwrite'
     this.setupWatcher(server.watcher)
   }
 
   setupWatcher(watcher: fs.FSWatcher) {
     const { globs } = this.options
-
+    this._removeUnused = this.options.syncMode === 'overwrite'
     watcher
       .on('unlink', (path) => {
         if (!matchGlobs(path, globs))
@@ -112,7 +112,7 @@ export class Context {
    */
   setupWatcherWebpack(watcher: fs.FSWatcher, emitUpdate: (path: string, type: 'unlink' | 'add') => void) {
     const { globs } = this.options
-
+    this._removeUnused = this.options.syncMode === 'overwrite'
     watcher
       .on('unlink', (path) => {
         if (!matchGlobs(path, globs))
