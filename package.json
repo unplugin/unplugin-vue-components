@@ -98,7 +98,7 @@
     }
   },
   "dependencies": {
-    "chokidar": "^3.6.0",
+    "chokidar": "^4.0.3",
     "debug": "^4.4.3",
     "local-pkg": "^1.1.2",
     "magic-string": "^0.30.19",
