@@ -12,17 +12,17 @@
     "vant": "^4.9.21"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.386",
+    "@iconify/json": "^2.2.397",
     "@vitejs/plugin-vue": "^6.0.1",
-    "@vue/compiler-sfc": "^3.5.21",
-    "cross-env": "^10.0.0",
+    "@vue/compiler-sfc": "^3.5.22",
+    "cross-env": "^10.1.0",
     "has-pkg": "^0.0.1",
-    "typescript": "^5.9.2",
-    "unplugin-icons": "^22.3.0",
+    "typescript": "^5.9.3",
+    "unplugin-icons": "^22.5.0",
     "unplugin-vue-components": "workspace:*",
-    "unplugin-vue-markdown": "^29.1.0",
-    "vite": "^7.1.6",
+    "unplugin-vue-markdown": "^29.2.0",
+    "vite": "^7.1.10",
     "vite-plugin-inspect": "^11.3.3",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.6.3"
   }
 }

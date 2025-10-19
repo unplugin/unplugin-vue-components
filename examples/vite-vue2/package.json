@@ -10,9 +10,9 @@
     "vue": "2.7.16"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue2": "^2.3.3",
-    "cross-env": "^10.0.0",
+    "@vitejs/plugin-vue2": "^2.3.4",
+    "cross-env": "^10.1.0",
     "unplugin-vue-components": "workspace:*",
-    "vite": "^7.1.6"
+    "vite": "^7.1.10"
   }
 }
