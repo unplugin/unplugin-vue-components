@@ -177,6 +177,14 @@ export interface Options {
   dts?: boolean | string
 
   /**
+   * Generate TypeScript declaration for global components
+   * For TSX support
+   *
+   * @default true if `@vitejs/plugin-vue-jsx` is installed
+   */
+  dtsTsx?: boolean
+
+  /**
    * Do not emit warning on component overriding
    *
    * @default false
@@ -243,6 +251,7 @@ export type ResolvedOptions = Omit<
   globs: string[]
   globsExclude: string[]
   dts: string | false
+  dtsTsx: boolean
   root: string
 }
 
