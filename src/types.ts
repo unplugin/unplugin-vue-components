@@ -1,6 +1,6 @@
-import type { FilterPattern } from '@rollup/pluginutils'
-import type { TransformResult } from 'unplugin'
 import type { Awaitable } from '@antfu/utils'
+import type { TransformResult } from 'unplugin'
+import type { FilterPattern } from 'unplugin-utils'
 
 export interface ImportInfoLegacy {
   /**
@@ -72,6 +72,11 @@ export interface Options {
   exclude?: FilterPattern
 
   /**
+   * RegExp or string to match component names that will NOT be imported
+   */
+  excludeNames?: FilterPattern
+
+  /**
    * Relative paths to the directory to search for components.
    * @default 'src/components'
    */
@@ -86,9 +91,16 @@ export interface Options {
   /**
    * Glob patterns to match file names to be detected as components.
    *
-   * When specified, the `dirs` and `extensions` options will be ignored.
+   * When specified, the `dirs`, `extensions`, and `directoryAsNamespace` options will be ignored.
    */
   globs?: string | string[]
+
+  /**
+   * Negated glob patterns to exclude files from being detected as components.
+   *
+   * @default []
+   */
+  globsExclude?: string | string[]
 
   /**
    * Search for subdirectories
@@ -101,6 +113,11 @@ export interface Options {
    * @default false
    */
   directoryAsNamespace?: boolean
+
+  /**
+   * Generate components with prefix.
+   */
+  prefix?: string
 
   /**
    * Collapse same prefixes (camel-sensitive) of folders and components
@@ -139,6 +156,16 @@ export interface Options {
   transformer?: SupportedTransformer
 
   /**
+   * Tranform users' usage of resolveComponent/resolveDirective as well
+   *
+   * If disabled, only components inside templates (which compiles to `_resolveComponent` etc.)
+   * will be transformed.
+   *
+   * @default true
+   */
+  transformerUserResolveFunctions?: boolean
+
+  /**
    * Generate TypeScript declaration for global components
    *
    * Accept boolean or a path related to project root
@@ -169,17 +196,44 @@ export interface Options {
 
   /**
    * Only provide types of components in library (registered globally)
-   **/
+   */
   types?: TypeImport[]
 
   /**
    * Vue version of project. It will detect automatically if not specified.
    */
   version?: 2 | 2.7 | 3
+
+  /**
+   * Generate sourcemap for the transformed code.
+   *
+   * @default true
+   */
+  sourcemap?: boolean
+
+  /**
+   * Save component information into a JSON file for other tools to consume.
+   * Provide a filepath to save the JSON file.
+   *
+   * When set to `true`, it will save to `./.components-info.json`
+   *
+   * @default false
+   */
+  dumpComponentsInfo?: boolean | string
+
+  /**
+   * The mode for syncing the components.d.ts and .components-info.json file.
+   * - `append`: only append the new components to the existing files.
+   * - `overwrite`: overwrite the whole existing files with the current components.
+   * - `default`: use `append` strategy when using dev server, `overwrite` strategy when using build.
+   *
+   * @default 'default'
+   */
+  syncMode?: 'default' | 'append' | 'overwrite'
 }
 
 export type ResolvedOptions = Omit<
-Required<Options>,
+  Required<Options>,
 'resolvers' | 'extensions' | 'dirs' | 'globalComponentsDeclaration'
 > & {
   resolvers: ComponentResolverObject[]
@@ -187,6 +241,7 @@ Required<Options>,
   dirs: string[]
   resolvedDirs: string[]
   globs: string[]
+  globsExclude: string[]
   dts: string | false
   root: string
 }

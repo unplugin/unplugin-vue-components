@@ -4,6 +4,7 @@ import type { ComponentResolver } from '../../types'
  * source: https://github.com/nuxt-modules/ionic/blob/main/src/imports.ts
  * @author @danielroe
  */
+// @keep-sorted
 export const IonicBuiltInComponents = [
   'IonAccordion',
   'IonAccordionGroup',
@@ -40,6 +41,8 @@ export const IonicBuiltInComponents = [
   'IonInfiniteScroll',
   'IonInfiniteScrollContent',
   'IonInput',
+  'IonInputOtp',
+  'IonInputPasswordToggle',
   'IonItem',
   'IonItemDivider',
   'IonItemGroup',
@@ -59,6 +62,9 @@ export const IonicBuiltInComponents = [
   'IonNote',
   'IonPage',
   'IonPicker',
+  'IonPickerColumn',
+  'IonPickerColumnOption',
+  'IonPickerLegacy',
   'IonPopover',
   'IonProgressBar',
   'IonRadio',
@@ -74,11 +80,15 @@ export const IonicBuiltInComponents = [
   'IonSearchbar',
   'IonSegment',
   'IonSegmentButton',
+  'IonSegmentContent',
+  'IonSegmentView',
   'IonSelect',
+  'IonSelectModal',
   'IonSelectOption',
   'IonSkeletonText',
   'IonSpinner',
   'IonSplitPane',
+  'IonTab',
   'IonTabBar',
   'IonTabButton',
   'IonTabs',

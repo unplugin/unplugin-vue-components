@@ -9,6 +9,7 @@ export interface BootstrapVueResolverOptions {
   directives?: boolean
 }
 
+// @keep-sorted
 const COMPONENT_ALIASES: Record<string, string> = {
   BBtn: 'BButton',
   BBtnClose: 'BButtonClose',
@@ -19,18 +20,18 @@ const COMPONENT_ALIASES: Record<string, string> = {
   BCheckboxGroup: 'BFormCheckboxGroup',
   BCheckGroup: 'BFormCheckboxGroup',
   BDatalist: 'BFormDatalist',
+  BDatepicker: 'BFormDatepicker',
   BDd: 'BDropdown',
   BDdDivider: 'BDropdownDivider',
   BDdForm: 'BDropdownForm',
   BDdGroup: 'BDropdownGroup',
   BDdHeader: 'BDropdownHeader',
   BDdItem: 'BDropdownItem',
-  BDdItemButton: 'BDropdownItemButton',
   BDdItemBtn: 'BDropdownItemButton',
+  BDdItemButton: 'BDropdownItemButton',
   BDdText: 'BDropdownText',
   BDropdownItemBtn: 'BDropdownItemButton',
   BFile: 'BFormFile',
-  BDatepicker: 'BFormDatepicker',
   BInput: 'BFormInput',
   BNavDd: 'BNavItemDropdown',
   BNavDropdown: 'BNavItemDropdown',
@@ -89,6 +90,8 @@ export function BootstrapVueResolver(_options: BootstrapVueResolverOptions = {})
  * Resolver for BootstrapVueNext
  *
  * @link https://github.com/bootstrap-vue/bootstrap-vue-next
+ *
+ * @deprecated use `import { BootstrapVueNextResolver } from 'bootstrap-vue-next'` instead
  */
 export function BootstrapVueNextResolver(_options: BootstrapVueResolverOptions = {}): Array<ComponentResolver> {
   const options = { directives: true, ..._options }

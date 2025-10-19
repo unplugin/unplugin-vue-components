@@ -1,4 +1,6 @@
+import type { FilterPattern } from 'unplugin-utils'
 import type { ComponentResolver } from '../../types'
+import { isExclude } from '../utils'
 
 export interface TDesignResolverOptions {
   /**
@@ -23,7 +25,7 @@ export interface TDesignResolverOptions {
    * exclude component name, if match do not resolve the name
    *
    */
-  exclude?: string | RegExp | (string | RegExp)[]
+  exclude?: FilterPattern
 }
 
 export function TDesignResolver(options: TDesignResolverOptions = {}): ComponentResolver {
@@ -34,13 +36,27 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
       const { library = 'vue', exclude } = options
       const importFrom = options.esm ? '/esm' : ''
 
-      if (options.exclude && isExclude(name, exclude))
+      if (isExclude(name, exclude))
         return
 
       if (options.resolveIcons && name.match(/[a-z]Icon$/)) {
         return {
           name,
           from: `tdesign-icons-${library}${importFrom}`,
+        }
+      }
+
+      if (name.startsWith('TTypography') || name.startsWith('Typography')) {
+        return {
+          name: name.slice(name.startsWith('TTypography') ? 11 : 10),
+          from: `tdesign-${library}${importFrom}`,
+        }
+      }
+
+      if (name.startsWith('TQrcode')) {
+        return {
+          name: 'QRCode',
+          from: `tdesign-${library}${importFrom}`,
         }
       }
 
@@ -54,20 +70,4 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
       }
     },
   }
-}
-
-function isExclude(name: string, exclude: string | RegExp | (string | RegExp)[] | undefined): boolean {
-  if (typeof exclude === 'string')
-    return name === exclude
-
-  if (exclude instanceof RegExp)
-    return !!name.match(exclude)
-
-  if (Array.isArray(exclude)) {
-    for (const item of exclude) {
-      if (name === item || name.match(item))
-        return true
-    }
-  }
-  return false
 }

@@ -1,7 +1,6 @@
-import Debug from 'debug'
 import type { ComponentInfo, ComponentResolver } from '../../types'
-import { kebabCase, pascalCase } from '../utils'
-import { isExclude } from './_utils'
+import Debug from 'debug'
+import { isExclude, kebabCase, pascalCase } from '../utils'
 
 const debug = Debug('unplugin-vue-components:resolvers:arco')
 
@@ -165,7 +164,7 @@ function getResolveIconPrefix(options?: ResolveIconsOption) {
 }
 
 export type DisallowResolveIconOption = undefined | false | { enable: false }
-export type AllowResolveIconOption = true | { enable: true; iconPrefix?: string }
+export type AllowResolveIconOption = true | { enable: true, iconPrefix?: string }
 export type ResolveIconsOption = DisallowResolveIconOption | AllowResolveIconOption
 
 export interface ArcoResolverOptions {

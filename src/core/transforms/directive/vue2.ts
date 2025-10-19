@@ -1,20 +1,24 @@
 import type {
-  BlockStatement, CallExpression, FunctionExpression, Node, ObjectProperty, Program, VariableDeclaration,
+  BlockStatement,
+  CallExpression,
+  FunctionExpression,
+  Node,
+  ObjectProperty,
+  Program,
+  VariableDeclaration,
 } from '@babel/types'
 import type MagicString from 'magic-string'
-import { importModule, isPackageExists } from 'local-pkg'
 import type { ResolveResult } from '../../transformer'
+import { importModule, isPackageExists } from 'local-pkg'
 
 /**
- * get Vue 2 render function position
- * @param ast
- * @returns
+ * Get Vue 2 render function position
  */
 function getRenderFnStart(program: Program): number {
   const renderFn = program.body.find((node): node is VariableDeclaration =>
     node.type === 'VariableDeclaration'
-      && node.declarations[0].id.type === 'Identifier'
-      && ['render', '_sfc_render'].includes(node.declarations[0].id.name),
+    && node.declarations[0].id.type === 'Identifier'
+    && ['render', '_sfc_render'].includes(node.declarations[0].id.name),
   )
   const start = (((renderFn?.declarations[0].init as FunctionExpression)?.body) as BlockStatement)?.start
   if (start === null || start === undefined)
@@ -61,8 +65,8 @@ export default async function resolveVue2(code: string, s: MagicString): Promise
     const directives = args[1].properties.find(
       (property): property is ObjectProperty =>
         property.type === 'ObjectProperty'
-          && property.key.type === 'Identifier'
-          && property.key.name === 'directives',
+        && property.key.type === 'Identifier'
+        && property.key.name === 'directives',
     )?.value
     if (!directives || directives.type !== 'ArrayExpression')
       continue
@@ -74,8 +78,8 @@ export default async function resolveVue2(code: string, s: MagicString): Promise
       const nameNode = directive.properties.find(
         (p): p is ObjectProperty =>
           p.type === 'ObjectProperty'
-            && p.key.type === 'Identifier'
-            && p.key.name === 'name',
+          && p.key.type === 'Identifier'
+          && p.key.name === 'name',
       )?.value
       if (nameNode?.type !== 'StringLiteral')
         continue

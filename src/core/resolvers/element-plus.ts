@@ -1,5 +1,5 @@
-import { compare } from 'compare-versions'
 import type { ComponentInfo, ComponentResolver, SideEffectsInfo } from '../../types'
+import { compare } from 'compare-versions'
 import { getPkgVersion, kebabCase } from '../utils'
 
 export interface ElementPlusResolverOptions {
@@ -41,19 +41,17 @@ export interface ElementPlusResolverOptions {
 
   /**
    * nightly version
-  */
+   */
   nightly?: boolean
 }
 
-type ElementPlusResolverOptionsResolved = Required<Omit<ElementPlusResolverOptions, 'exclude'>> &
-Pick<ElementPlusResolverOptions, 'exclude'>
+type ElementPlusResolverOptionsResolved = Required<Omit<ElementPlusResolverOptions, 'exclude'>>
+  & Pick<ElementPlusResolverOptions, 'exclude'>
 
 /**
  * @deprecated
  * @param partialName
  * @param options
- *
- * @returns
  */
 function getSideEffectsLegacy(
   partialName: string,
@@ -139,7 +137,7 @@ function resolveDirective(name: string, options: ElementPlusResolverOptionsResol
   if (!options.directives)
     return
 
-  const directives: Record<string, { importName: string; styleName: string }> = {
+  const directives: Record<string, { importName: string, styleName: string }> = {
     Loading: { importName: 'ElLoadingDirective', styleName: 'loading' },
     Popover: { importName: 'ElPopoverDirective', styleName: 'popover' },
     InfiniteScroll: { importName: 'ElInfiniteScroll', styleName: 'infinite-scroll' },

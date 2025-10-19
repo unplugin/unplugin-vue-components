@@ -1,11 +1,11 @@
-import path from 'node:path'
 import type { UserConfig } from 'vite'
+import path from 'node:path'
 import Vue from '@vitejs/plugin-vue'
-import Components from 'unplugin-vue-components/vite'
-import { VantResolver } from 'unplugin-vue-components/resolvers'
-import Markdown from 'vite-plugin-vue-markdown'
-import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
+import Icons from 'unplugin-icons/vite'
+import { VantResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+import Markdown from 'unplugin-vue-markdown/vite'
 import Inspect from 'vite-plugin-inspect'
 
 const config: UserConfig = {
@@ -18,7 +18,7 @@ const config: UserConfig = {
     Vue({
       include: [/\.vue$/, /\.md$/],
     }),
-    Markdown(),
+    Markdown({}),
     Icons(),
     Inspect(),
     Components({
@@ -37,6 +37,7 @@ const config: UserConfig = {
           componentPrefix: 'i',
         }),
       ],
+      dumpComponentsInfo: true,
     }),
   ],
   build: {

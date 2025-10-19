@@ -1,15 +1,15 @@
-import Debug from 'debug'
 import type MagicString from 'magic-string'
-import { pascalCase, stringifyComponentImport } from '../utils'
+import type { SupportedTransformer } from '../..'
 import type { Context } from '../context'
 import type { ResolveResult } from '../transformer'
-import type { SupportedTransformer } from '../..'
+import Debug from 'debug'
+import { pascalCase, stringifyComponentImport } from '../utils'
 
 const debug = Debug('unplugin-vue-components:transform:component')
 
 function resolveVue2(code: string, s: MagicString) {
   const results: ResolveResult[] = []
-  for (const match of code.matchAll(/\b(_c|h)\([\s\n\t]*['"](.+?)["']([,)])/g)) {
+  for (const match of code.matchAll(/\b(_c|h)\(\s*['"](.+?)["']([,)])/g)) {
     const [full, renderFunctionName, matchedName, append] = match
     if (match.index != null && matchedName && !matchedName.startsWith('_')) {
       const start = match.index
@@ -24,13 +24,20 @@ function resolveVue2(code: string, s: MagicString) {
   return results
 }
 
-function resolveVue3(code: string, s: MagicString) {
+function resolveVue3(
+  code: string,
+  s: MagicString,
+  transformerUserResolveFunctions: boolean,
+) {
   const results: ResolveResult[] = []
 
   /**
    * when using some plugin like plugin-vue-jsx, resolveComponent will be imported as resolveComponent1 to avoid duplicate import
    */
-  for (const match of code.matchAll(/_resolveComponent[0-9]*\("(.+?)"\)/g)) {
+  for (const match of code.matchAll(/_?resolveComponent\d*\("(.+?)"\)/g)) {
+    if (!transformerUserResolveFunctions && !match[0].startsWith('_')) {
+      continue
+    }
     const matchedName = match[1]
     if (match.index != null && matchedName && !matchedName.startsWith('_')) {
       const start = match.index
@@ -48,7 +55,9 @@ function resolveVue3(code: string, s: MagicString) {
 export default async function transformComponent(code: string, transformer: SupportedTransformer, s: MagicString, ctx: Context, sfcPath: string) {
   let no = 0
 
-  const results = transformer === 'vue2' ? resolveVue2(code, s) : resolveVue3(code, s)
+  const results = transformer === 'vue2'
+    ? resolveVue2(code, s)
+    : resolveVue3(code, s, ctx.options.transformerUserResolveFunctions)
 
   for (const { rawName, replace } of results) {
     debug(`| ${rawName}`)

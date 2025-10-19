@@ -39,6 +39,14 @@ exports[`search > should with namespace & collapse 1`] = `
     "from": "src/components/ComponentD.vue",
   },
   {
+    "as": "KebabCaseCollapseFile",
+    "from": "src/components/kebab-case/kebab-case-collapse/KebabCaseCollapseFile.vue",
+  },
+  {
+    "as": "KebabCaseFile",
+    "from": "src/components/kebab-case/KebabCaseFile.vue",
+  },
+  {
     "as": "Recursive",
     "from": "src/components/Recursive.vue",
   },
@@ -90,6 +98,14 @@ exports[`search > should with namespace 1`] = `
   {
     "as": "ComponentD",
     "from": "src/components/ComponentD.vue",
+  },
+  {
+    "as": "KebabCaseKebabCaseCollapseKebabCaseCollapseFile",
+    "from": "src/components/kebab-case/kebab-case-collapse/KebabCaseCollapseFile.vue",
+  },
+  {
+    "as": "KebabCaseKebabCaseFile",
+    "from": "src/components/kebab-case/KebabCaseFile.vue",
   },
   {
     "as": "Recursive",
@@ -151,6 +167,14 @@ exports[`search > should work 1`] = `
   {
     "as": "FolderAndComponentPartially",
     "from": "src/components/collapse/collapseFolder/FolderAndComponentPartially.vue",
+  },
+  {
+    "as": "KebabCaseCollapseFile",
+    "from": "src/components/kebab-case/kebab-case-collapse/KebabCaseCollapseFile.vue",
+  },
+  {
+    "as": "KebabCaseFile",
+    "from": "src/components/kebab-case/KebabCaseFile.vue",
   },
   {
     "as": "Recursive",

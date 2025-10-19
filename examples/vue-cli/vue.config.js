@@ -1,6 +1,6 @@
-const ScriptSetup = require('unplugin-vue2-script-setup/webpack')
-const Icons = require('unplugin-icons/webpack')
-const IconsResolver = require('unplugin-icons/resolver')
+const IconsResolver = require('unplugin-icons/resolver').default
+const Icons = require('unplugin-icons/webpack').default
+const ScriptSetup = require('unplugin-vue2-script-setup/webpack').default
 const Components = require('unplugin-vue-components/webpack')
 
 /**

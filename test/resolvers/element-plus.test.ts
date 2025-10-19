@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { ElementPlusResolver } from '../../src/resolvers'
 import { Context } from '../../src/core/context'
+import { ElementPlusResolver } from '../../src/resolvers'
 
-describe('Element Plus Resolver', () => {
+describe('element Plus Resolver', () => {
   it('components and directives should be transformed', async () => {
     const code = `
 (_ctx, _cache) => {

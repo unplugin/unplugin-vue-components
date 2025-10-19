@@ -1,11 +1,11 @@
-import { existsSync } from 'node:fs'
-import process from 'node:process'
-import { createUnplugin } from 'unplugin'
-import { createFilter } from '@rollup/pluginutils'
-import chokidar from 'chokidar'
 import type { ResolvedConfig, ViteDevServer } from 'vite'
 import type { Watching } from 'webpack'
 import type { Options, PublicPluginAPI } from '../types'
+import { existsSync } from 'node:fs'
+import process from 'node:process'
+import chokidar from 'chokidar'
+import { createUnplugin } from 'unplugin'
+import { createFilter } from 'unplugin-utils'
 import { Context } from './context'
 import { shouldTransform, stringifyComponentImport } from './utils'
 
@@ -13,7 +13,12 @@ const PLUGIN_NAME = 'unplugin:webpack'
 
 export default createUnplugin<Options>((options = {}) => {
   const filter = createFilter(
-    options.include || [/\.vue$/, /\.vue\?vue/, /\.vue\?v=/],
+    options.include || [
+      /\.vue$/,
+      /\.vue\?vue/,
+      /\.vue\.[tj]sx?\?vue/, // for vue-loader with experimentalInlineMatchResource enabled
+      /\.vue\?v=/,
+    ],
     options.exclude || [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
   )
   const ctx: Context = new Context(options)
@@ -43,10 +48,11 @@ export default createUnplugin<Options>((options = {}) => {
       try {
         const result = await ctx.transform(code, id)
         ctx.generateDeclaration()
+        ctx.generateComponentsJson()
         return result
       }
       catch (e) {
-        this.error(e)
+        this.error(e as any)
       }
     },
 
@@ -64,6 +70,11 @@ export default createUnplugin<Options>((options = {}) => {
             ctx.generateDeclaration()
         }
 
+        if (ctx.options.dumpComponentsInfo && ctx.dumpComponentsInfoPath) {
+          if (!existsSync(ctx.dumpComponentsInfoPath))
+            ctx.generateComponentsJson()
+        }
+
         if (config.build.watch && config.command === 'build')
           ctx.setupWatcher(chokidar.watch(ctx.options.globs))
       },
@@ -74,7 +85,7 @@ export default createUnplugin<Options>((options = {}) => {
 
     webpack(compiler) {
       let watcher: Watching
-      let fileDepQueue: { path: string; type: 'unlink' | 'add' }[] = []
+      let fileDepQueue: { path: string, type: 'unlink' | 'add' }[] = []
       compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
         // ensure watcher is ready(supported since webpack@5.0.0-rc.1)
         if (!watcher && compiler.watching) {

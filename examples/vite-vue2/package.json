@@ -1,16 +1,18 @@
 {
+  "name": "example-vite-vue2",
+  "type": "module",
   "private": true,
   "scripts": {
     "build": "cross-env DEBUG=unplugin-vue-components:* vite build",
     "dev": "cross-env DEBUG=unplugin-vue-components:* vite"
   },
   "dependencies": {
-    "vue": "^2.7.14"
+    "vue": "2.7.16"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue2": "^2.2.0",
-    "cross-env": "^7.0.3",
+    "@vitejs/plugin-vue2": "^2.3.3",
+    "cross-env": "^10.0.0",
     "unplugin-vue-components": "workspace:*",
-    "vite": "^4.4.4"
+    "vite": "^7.1.6"
   }
 }

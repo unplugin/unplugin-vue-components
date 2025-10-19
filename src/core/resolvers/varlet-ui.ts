@@ -1,4 +1,4 @@
-import type { ComponentResolveResult, ComponentResolver } from '../../types'
+import type { ComponentResolver, ComponentResolveResult } from '../../types'
 import { kebabCase } from '../utils'
 
 export interface VarletUIResolverOptions {
@@ -16,6 +16,13 @@ export interface VarletUIResolverOptions {
    * @default 'css'
    */
   importStyle?: boolean | 'css' | 'less'
+
+  /**
+   * style entry file extname
+   *
+   * @default '.mjs'
+   */
+  styleExtname?: string
 
   /**
    * auto import for directives
@@ -50,6 +57,7 @@ export function getResolved(name: string, options: VarletUIResolverOptions): Com
     importStyle = 'css',
     importCss = true,
     importLess,
+    styleExtname = '.mjs',
     autoImport = false,
     version = 'vue3',
   } = options
@@ -61,7 +69,7 @@ export function getResolved(name: string, options: VarletUIResolverOptions): Com
     if (importStyle === 'less' || importLess)
       sideEffects.push(`${path}/es/${kebabCase(name)}/style/less`)
     else
-      sideEffects.push(`${path}/es/${kebabCase(name)}/style/index`)
+      sideEffects.push(`${path}/es/${kebabCase(name)}/style/index${styleExtname}`)
   }
 
   return {

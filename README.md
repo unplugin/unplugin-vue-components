@@ -65,6 +65,21 @@ export default {
 
 <br></details>
 
+<details>
+<summary>Rolldown</summary><br>
+
+```ts
+// rolldown.config.js
+import Components from 'unplugin-vue-components/rolldown'
+
+export default {
+  plugins: [
+    Components({ /* options */ }),
+  ],
+}
+```
+
+<br></details>
 
 <details>
 <summary>Webpack</summary><br>
@@ -109,12 +124,56 @@ You might not need this plugin for Nuxt. Use [`@nuxt/components`](https://github
 ```ts
 // vue.config.js
 module.exports = {
+  /* ... */
+  plugins: [
+    require('unplugin-vue-components/webpack')({ /* options */ }),
+  ],
+}
+```
+
+You can also rename the Vue configuration file to `vue.config.mjs` and use static import syntax (you should use latest `@vue/cli-service ^5.0.8`):
+
+```ts
+// vue.config.mjs
+import Components from 'unplugin-vue-components/webpack'
+
+export default {
   configureWebpack: {
     plugins: [
-      require('unplugin-vue-components/webpack')({ /* options */ }),
+      Components({ /* options */ }),
     ],
   },
 }
+```
+
+<br></details>
+
+<details>
+<summary>Quasar</summary><br>
+
+```ts
+// vite.config.js [Vite]
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    Components({ /* options */ })
+  ]
+})
+```
+
+```ts
+// quasar.config.js
+export default defineConfig(() => {
+  return {
+    build: {
+      vitePlugins: [
+        ['unplugin-vue-components/vite', { /* options */ }],
+      ]
+    },
+  }
+})
 ```
 
 <br></details>
@@ -125,11 +184,12 @@ module.exports = {
 ```ts
 // esbuild.config.js
 import { build } from 'esbuild'
+import Components from 'unplugin-vue-components/esbuild'
 
 build({
   /* ... */
   plugins: [
-    require('unplugin-vue-components/esbuild')({
+    Components({
       /* options */
     }),
   ],
@@ -152,9 +212,9 @@ It will automatically turn this
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+  export default {
+    name: 'App',
+  }
 </script>
 ```
 
@@ -168,16 +228,17 @@ into this
 </template>
 
 <script>
-import HelloWorld from './src/components/HelloWorld.vue'
+  import HelloWorld from './src/components/HelloWorld.vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  export default {
+    name: 'App',
+    components: {
+      HelloWorld,
+    },
   }
-}
 </script>
 ```
+
 > **Note**
 > By default this plugin will import components in the `src/components` path. You can customize it using the `dirs` option.
 
@@ -214,8 +275,11 @@ Supported Resolvers:
 - [Prime Vue](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/prime-vue.ts)
 - [Quasar](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/quasar.ts)
 - [TDesign](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/tdesign.ts)
+  - [`@tdesign-vue-next/auto-import-resolver`](https://github.com/Tencent/tdesign-vue-next/blob/develop/packages/auto-import-resolver/README.md) - TDesign's own auto-import resolver
 - [Vant](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vant.ts)
+  - [`@vant/auto-import-resolver`](https://github.com/youzan/vant/blob/main/packages/vant-auto-import-resolver/README.md) - Vant's own auto-import resolver
 - [Varlet UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/varlet-ui.ts)
+  - [`@varlet/import-resolver`](https://github.com/varletjs/varlet/blob/dev/packages/varlet-import-resolver/README.md) - Varlet's own auto-import resolver
 - [VEUI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/veui.ts)
 - [View UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/view-ui.ts)
 - [Vuetify](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/vuetify.ts) &mdash; Prefer first-party plugins when possible: [v3 + vite](https://www.npmjs.com/package/vite-plugin-vuetify), [v3 + webpack](https://www.npmjs.com/package/webpack-plugin-vuetify), [v2 + webpack](https://npmjs.com/package/vuetify-loader)
@@ -224,13 +288,13 @@ Supported Resolvers:
 - [Dev UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/devui.ts)
 
 ```ts
-// vite.config.js
-import Components from 'unplugin-vue-components/vite'
 import {
   AntDesignVueResolver,
   ElementPlusResolver,
   VantResolver,
 } from 'unplugin-vue-components/resolvers'
+// vite.config.js
+import Components from 'unplugin-vue-components/vite'
 
 // your plugin installation
 Components({
@@ -324,7 +388,7 @@ export default {
 
       // `customLoaderMatcher` is depreacted, use `include` instead
 -     customLoaderMatcher: id => id.endsWith('.md'),
-+     include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
++     include: [/\.vue$/, /\.vue\?vue/, /\.vue\.[tj]sx?\?vue/, /\.md$/],
     }),
   ],
 }
@@ -343,8 +407,10 @@ Components({
   extensions: ['vue'],
 
   // Glob patterns to match file names to be detected as components.
-  // When specified, the `dirs` and `extensions` options will be ignored.
-  globs: ['src/components/*.{vue}'],
+  // You can also specify multiple like this: `src/components/*.{vue,tsx}`
+  // When specified, the `dirs`, `extensions`, and `directoryAsNamespace` options will be ignored.
+  // If you want to exclude components being registered, use negative globs with leading `!`.
+  globs: ['src/components/*.vue'],
 
   // search for subdirectories
   deep: true,
@@ -381,16 +447,35 @@ Components({
   // Allow for components to override other components with the same name
   allowOverrides: false,
 
-  // filters for transforming targets
-  include: [/\.vue$/, /\.vue\?vue/],
+  // Filters for transforming targets (components to insert the auto import)
+  // Note these are NOT about including/excluding components registered - use `globs` or `excludeNames` for that
+  include: [/\.vue$/, /\.vue\?vue/, /\.vue\.[tj]sx?\?vue/],
   exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
+
+  // Filters for component names that will not be imported
+  // Use for globally imported async components or other conflicts that the plugin cannot detect
+  excludeNames: [/^Async.+/],
 
   // Vue version of project. It will detect automatically if not specified.
   // Acceptable value: 2 | 2.7 | 3
   version: 2.7,
 
   // Only provide types of components in library (registered globally)
-  types: []
+  // see https://github.com/unplugin/unplugin-vue-components/blob/main/src/core/type-imports/index.ts
+  types: [
+    /* ... */
+  ],
+
+  // Save component information into a JSON file for other tools to consume.
+  // Provide a filepath to save the JSON file.
+  // When set to `true`, it will save to `./.components-info.json`
+  dumpComponentsInfo: false,
+
+  // The mode for syncing the components.d.ts and .components-info.json file.
+  // 'append': only append the new components to the existing files.
+  // 'overwrite': overwrite the whole existing files with the current components.
+  // 'default': use 'append' strategy when using dev server, 'overwrite' strategy when using build.
+  syncMode: 'default',
 })
 ```
 
@@ -404,4 +489,4 @@ Thanks to [@brattonross](https://github.com/brattonross), this project is heavil
 
 ## License
 
-MIT License © 2020-PRESENT [Anthony Fu](https://github.com/antfu)
+[MIT](./LICENSE) License © 2020-PRESENT [Anthony Fu](https://github.com/antfu)

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Element Plus Resolver > components and directives should be transformed 1`] = `
+exports[`element Plus Resolver > components and directives should be transformed 1`] = `
 {
   "code": "/* unplugin-vue-components disabled */import { ElLoadingDirective as __unplugin_directives_0 } from 'element-plus/es';import 'element-plus/es/components/base/style/css';import 'element-plus/es/components/loading/style/css';
 import { Apple as __unplugin_components_1 } from '@element-plus/icons-vue';
@@ -14,7 +14,7 @@ import { ElButton as __unplugin_components_0 } from 'element-plus/es';import 'el
   return (_openBlock(), _createElementBlock(_Fragment, null, [
     _createVNode(_component_el_button),
     _createVNode(_component_el_icon_apple),
-    _withDirectives(_createElementVNode(\\"div\\", null, null, 512 /* NEED_PATCH */), [
+    _withDirectives(_createElementVNode("div", null, null, 512 /* NEED_PATCH */), [
       [_directive_loading, true]
     ])
   ], 64 /* STABLE_FRAGMENT */))

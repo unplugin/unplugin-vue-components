@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "module": "esnext",
+    "target": "es2022",
+    "jsx": "preserve",
     "lib": ["esnext", "DOM"],
+    "module": "esnext",
     "moduleResolution": "node",
-    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "strict": true,
     "strictNullChecks": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "jsx": "preserve"
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "exclude": [
     "examples/**"

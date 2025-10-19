@@ -1,4 +1,6 @@
+import type { FilterPattern } from 'unplugin-utils'
 import type { ComponentInfo, ComponentResolver, SideEffectsInfo } from '../../types'
+import { isExclude } from '../utils'
 
 const matchComponents = [
   {
@@ -95,12 +97,12 @@ export interface LayuiVueResolverOptions {
    * exclude components that do not require automatic import
    *
    */
-  exclude?: Array<string | RegExp>
+  exclude?: FilterPattern
 }
 
 const layuiRE = /^Lay[A-Z]/
 const layerRE = /^(layer|LayLayer)$/
-const iconsRE = /^([A-Z][\w]+Icon|LayIcon)$/
+const iconsRE = /^[A-Z]\w+Icon$/
 let libName = '@layui/layui-vue'
 
 function lowerCamelCase(str: string) {
@@ -132,7 +134,7 @@ function getSideEffects(importName: string, options: LayuiVueResolverOptions): S
 function resolveComponent(importName: string, options: LayuiVueResolverOptions): ComponentInfo | undefined {
   let name: string | undefined
 
-  if (options.exclude && isExclude(importName, options.exclude))
+  if (isExclude(importName, options.exclude))
     return undefined
 
   if (options.resolveIcons && importName.match(iconsRE)) {
@@ -150,14 +152,6 @@ function resolveComponent(importName: string, options: LayuiVueResolverOptions):
   return name
     ? { name, from: libName, sideEffects: getSideEffects(name, options) }
     : undefined
-}
-
-function isExclude(name: string, exclude: Array<string | RegExp>): boolean {
-  for (const item of exclude) {
-    if (name === item || name.match(item))
-      return true
-  }
-  return false
 }
 
 /**

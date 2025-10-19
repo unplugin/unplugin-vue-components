@@ -1,5 +1,5 @@
 import { relative, resolve } from 'pathe'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, onTestFailed } from 'vitest'
 import { Context } from '../src/core/context'
 
 const root = resolve(__dirname, '../examples/vite-vue3')
@@ -63,6 +63,25 @@ describe('search', () => {
         'src/components',
         '!src/components/book',
       ],
+    })
+
+    onTestFailed(() => {
+      console.error('resolved options')
+      console.error(ctx.options)
+    })
+
+    ctx.setRoot(root)
+    ctx.searchGlob()
+
+    expect(cleanup(ctx.componentNameMap).map(i => i.as))
+      .not
+      .contain('Book')
+  })
+
+  it('should excludeNames', () => {
+    const ctx = new Context({
+      dirs: ['src/components'],
+      excludeNames: ['Book'],
     })
     ctx.setRoot(root)
     ctx.searchGlob()

@@ -1,2 +1,12 @@
 packages:
   - examples/*
+
+ignoreWorkspaceRootCheck: true
+shamefullyHoist: true
+strictPeerDependencies: false
+
+onlyBuiltDependencies:
+  - core-js
+  - esbuild
+  - unrs-resolver
+  - vue-demi

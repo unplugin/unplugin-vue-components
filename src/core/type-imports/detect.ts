@@ -1,6 +1,6 @@
-import { isPackageExists } from 'local-pkg'
-import { notNullish } from '@antfu/utils'
 import type { ComponentInfo, TypeImport } from '../../types'
+import { notNullish } from '@antfu/utils'
+import { isPackageExists } from 'local-pkg'
 import { TypeImportPresets } from '.'
 
 export function detectTypeImports(): TypeImport[] {

@@ -1,14 +1,14 @@
+import type { FilterPattern } from 'unplugin-utils'
+import type { ComponentInfo, ImportInfo, ImportInfoLegacy, Options, ResolvedOptions } from '../types'
+import type { Context } from './context'
 import { parse } from 'node:path'
 import process from 'node:process'
-import { minimatch } from 'minimatch'
-import resolve from 'resolve'
 import { slash, toArray } from '@antfu/utils'
 import {
   getPackageInfo,
   isPackageExists,
 } from 'local-pkg'
-import type { ComponentInfo, ImportInfo, ImportInfoLegacy, Options, ResolvedOptions } from '../types'
-import type { Context } from './context'
+import { minimatch } from 'minimatch'
 import { DISABLE_COMMENT } from './constants'
 
 export const isSSR = Boolean(process.env.SSR || process.env.SSG || process.env.VITE_SSR || process.env.VITE_SSG)
@@ -59,8 +59,10 @@ export function isEmpty(value: any) {
 
 export function matchGlobs(filepath: string, globs: string[]) {
   for (const glob of globs) {
-    if (minimatch(slash(filepath), glob))
-      return true
+    const isNegated = glob.startsWith('!')
+    const match = minimatch(slash(filepath), isNegated ? glob.slice(1) : glob)
+    if (match)
+      return !isNegated
   }
   return false
 }
@@ -144,7 +146,7 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
     if (globalNamespaces.some((name: string) => folders.includes(name)))
       folders = folders.filter(f => !globalNamespaces.includes(f))
 
-    folders = folders.map(f => f.replace(/[^a-zA-Z0-9\-]/g, ''))
+    folders = folders.map(f => f.replace(/[^a-z0-9\-]/gi, ''))
 
     if (filename.toLowerCase() === 'index')
       filename = ''
@@ -159,12 +161,13 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
         for (const fileOrFolderName of namespaced) {
           let cumulativePrefix = ''
           let didCollapse = false
+          const pascalCasedName = pascalCase(fileOrFolderName)
 
           for (const parentFolder of [...collapsed].reverse()) {
-            cumulativePrefix = `${capitalize(parentFolder)}${cumulativePrefix}`
+            cumulativePrefix = `${parentFolder}${cumulativePrefix}`
 
-            if (pascalCase(fileOrFolderName).startsWith(pascalCase(cumulativePrefix))) {
-              const collapseSamePrefix = fileOrFolderName.slice(cumulativePrefix.length)
+            if (pascalCasedName.startsWith(cumulativePrefix)) {
+              const collapseSamePrefix = pascalCasedName.slice(cumulativePrefix.length)
 
               collapsed.push(collapseSamePrefix)
 
@@ -174,7 +177,7 @@ export function getNameFromFilePath(filePath: string, options: ResolvedOptions):
           }
 
           if (!didCollapse)
-            collapsed.push(fileOrFolderName)
+            collapsed.push(pascalCasedName)
         }
 
         namespaced = collapsed
@@ -221,8 +224,27 @@ export function shouldTransform(code: string) {
   return true
 }
 
-export function resolveImportPath(importName: string): string | undefined {
-  return resolve.sync(importName, {
-    preserveSymlinks: false,
-  })
+export function isExclude(name: string, exclude?: FilterPattern): boolean {
+  if (!exclude)
+    return false
+
+  if (typeof exclude === 'string')
+    return name === exclude
+
+  if (exclude instanceof RegExp)
+    return !!name.match(exclude)
+
+  if (Array.isArray(exclude)) {
+    for (const item of exclude) {
+      if (name === item || name.match(item))
+        return true
+    }
+  }
+  return false
+}
+
+const ESCAPE_PARENTHESES_REGEX = /[()]/g
+
+export function escapeSpecialChars(str: string): string {
+  return str.replace(ESCAPE_PARENTHESES_REGEX, '\\$&')
 }
