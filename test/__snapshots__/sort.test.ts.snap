@@ -1,0 +1,91 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sort > sort ascending works > initial 1`] = `
+[
+  {
+    "as": "Button",
+    "from": "src/components/ui/button.vue",
+  },
+  {
+    "as": "Checkbox",
+    "from": "src/components/ui/nested/checkbox.vue",
+  },
+]
+`;
+
+exports[`sort > sort ascending works > updated 1`] = `
+[
+  {
+    "as": "Book",
+    "from": "src/components/book/index.vue",
+  },
+  {
+    "as": "Button",
+    "from": "src/components/ui/button.vue",
+  },
+  {
+    "as": "Checkbox",
+    "from": "src/components/ui/nested/checkbox.vue",
+  },
+]
+`;
+
+exports[`sort > sort compileGlobs disabled works 1`] = `
+[
+  {
+    "as": "Book",
+    "from": "src/components/book/index.vue",
+  },
+  {
+    "as": "Button",
+    "from": "src/components/ui/button.vue",
+  },
+  {
+    "as": "Checkbox",
+    "from": "src/components/ui/nested/checkbox.vue",
+  },
+]
+`;
+
+exports[`sort > sort compileGlobs enabled works 1`] = `
+[
+  {
+    "as": "Button",
+    "from": "src/components/ui/button.vue",
+  },
+  {
+    "as": "Checkbox",
+    "from": "src/components/ui/nested/checkbox.vue",
+  },
+  {
+    "as": "Book",
+    "from": "src/components/book/index.vue",
+  },
+]
+`;
+
+exports[`sort > sort descending works > initial 1`] = `
+[
+  {
+    "as": "Book",
+    "from": "src/components/book/index.vue",
+  },
+]
+`;
+
+exports[`sort > sort descending works > updated 1`] = `
+[
+  {
+    "as": "Checkbox",
+    "from": "src/components/ui/nested/checkbox.vue",
+  },
+  {
+    "as": "Button",
+    "from": "src/components/ui/button.vue",
+  },
+  {
+    "as": "Book",
+    "from": "src/components/book/index.vue",
+  },
+]
+`;
