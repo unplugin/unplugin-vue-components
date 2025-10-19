@@ -32,6 +32,22 @@ const _directive_loading = _resolveDirective("loading")`
     expect(declarations).toMatchSnapshot()
   })
 
+  it('tsx', async () => {
+    const ctx = new Context({
+      resolvers: resolver,
+      directives: true,
+      dts: true,
+      dtsTsx: true,
+    })
+    const code = `
+const _component_test_comp = _resolveComponent("test-comp")
+const _directive_loading = _resolveDirective("loading")`
+    await ctx.transform(code, '')
+
+    const declarations = getDeclaration(ctx, 'test.d.ts')
+    expect(declarations).toMatchSnapshot()
+  })
+
   it('writeDeclaration', async () => {
     const filepath = path.resolve(__dirname, 'tmp/dts-test.d.ts')
     const ctx = new Context({

@@ -10,6 +10,7 @@ export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'ex
   extensions: 'vue',
   deep: true,
   dts: isPackageExists('typescript'),
+  dtsTsx: isPackageExists('@vitejs/plugin-vue-jsx'),
 
   directoryAsNamespace: false,
   collapseSamePrefixes: false,

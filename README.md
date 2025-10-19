@@ -423,6 +423,10 @@ Components({
   // default: `true` if package typescript is installed
   dts: false,
 
+  // generate dts with TSX support
+  // default: `true` if `@vitejs/plugin-vue-jsx` is installed
+  dtsTsx: false,
+
   // Allow subdirectories as namespace prefix for components.
   directoryAsNamespace: false,
 
