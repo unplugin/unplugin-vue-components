@@ -98,7 +98,7 @@
     }
   },
   "dependencies": {
-    "chokidar": "^3.6.0",
+    "chokidar": "^4.0.3",
     "debug": "^4.4.3",
     "local-pkg": "^1.1.2",
     "magic-string": "^0.30.19",
@@ -115,7 +115,6 @@
     "@nuxt/kit": "^4.1.3",
     "@nuxt/schema": "^4.1.3",
     "@types/debug": "^4.1.12",
-    "@types/minimatch": "^6.0.0",
     "@types/node": "^24.8.1",
     "bumpp": "^10.3.1",
     "compare-versions": "^6.1.1",

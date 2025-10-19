@@ -1,3 +1,4 @@
+import type { FSWatcher } from 'chokidar'
 import type fs from 'node:fs'
 import type { UpdatePayload, ViteDevServer } from 'vite'
 import type { ComponentInfo, Options, ResolvedOptions, Transformer } from '../types'
@@ -84,7 +85,7 @@ export class Context {
     this.setupWatcher(server.watcher)
   }
 
-  setupWatcher(watcher: fs.FSWatcher) {
+  setupWatcher(watcher: FSWatcher | fs.FSWatcher) {
     const { globs } = this.options
     this._removeUnused = this.options.syncMode === 'overwrite'
     watcher
@@ -110,7 +111,7 @@ export class Context {
   /**
    * start watcher for webpack
    */
-  setupWatcherWebpack(watcher: fs.FSWatcher, emitUpdate: (path: string, type: 'unlink' | 'add') => void) {
+  setupWatcherWebpack(watcher: FSWatcher, emitUpdate: (path: string, type: 'unlink' | 'add') => void) {
     const { globs } = this.options
     this._removeUnused = this.options.syncMode === 'overwrite'
     watcher

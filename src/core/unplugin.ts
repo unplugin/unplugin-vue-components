@@ -4,6 +4,7 @@ import type { Options, PublicPluginAPI } from '../types'
 import { existsSync } from 'node:fs'
 import process from 'node:process'
 import chokidar from 'chokidar'
+import { glob } from 'tinyglobby'
 import { createUnplugin } from 'unplugin'
 import { createFilter } from 'unplugin-utils'
 import { Context } from './context'
@@ -57,7 +58,7 @@ export default createUnplugin<Options>((options = {}) => {
     },
 
     vite: {
-      configResolved(config: ResolvedConfig) {
+      async configResolved(config: ResolvedConfig) {
         ctx.setRoot(config.root)
         ctx.sourcemap = true
 
@@ -76,7 +77,7 @@ export default createUnplugin<Options>((options = {}) => {
         }
 
         if (config.build.watch && config.command === 'build')
-          ctx.setupWatcher(chokidar.watch(ctx.options.globs))
+          ctx.setupWatcher(chokidar.watch(await glob(ctx.options.globs)))
       },
       configureServer(server: ViteDevServer) {
         ctx.setupViteServer(server)
@@ -86,17 +87,20 @@ export default createUnplugin<Options>((options = {}) => {
     webpack(compiler) {
       let watcher: Watching
       let fileDepQueue: { path: string, type: 'unlink' | 'add' }[] = []
-      compiler.hooks.watchRun.tap(PLUGIN_NAME, () => {
+      compiler.hooks.watchRun.tapAsync(PLUGIN_NAME, async () => {
         // ensure watcher is ready(supported since webpack@5.0.0-rc.1)
         if (!watcher && compiler.watching) {
           watcher = compiler.watching
-          ctx.setupWatcherWebpack(chokidar.watch(ctx.options.globs), (path: string, type: 'unlink' | 'add') => {
-            fileDepQueue.push({ path, type })
-            // process.nextTick is for aggregated file change event
-            process.nextTick(() => {
-              watcher.invalidate()
-            })
-          })
+          ctx.setupWatcherWebpack(
+            chokidar.watch(await glob(ctx.options.globs)),
+            (path: string, type: 'unlink' | 'add') => {
+              fileDepQueue.push({ path, type })
+              // process.nextTick is for aggregated file change event
+              process.nextTick(() => {
+                watcher.invalidate()
+              })
+            },
+          )
         }
       })
       compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
