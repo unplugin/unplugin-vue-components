@@ -117,7 +117,7 @@ function getSideEffects(version: string, path: string, importStyle?: 'css' | 'le
   const styleRoot = `${path}/style`
   const themeRoot = `${path}/theme`
 
-  const styleImport = `${styleRoot}/${importStyle === 'css' ? 'index_css' : 'index'}`
+  const styleImport = `${styleRoot}/${importStyle === 'css' ? 'index.css' : 'index'}`
   if (!resolveModule(styleImport))
     return
 
