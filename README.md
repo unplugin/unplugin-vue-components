@@ -86,6 +86,7 @@ export default {
 
 ```ts
 // webpack.config.js
+// unplugin-vue-components removed support for CommonJS after version 29.1.0
 module.exports = {
   /* ... */
   plugins: [
@@ -101,6 +102,7 @@ module.exports = {
 
 ```ts
 // rspack.config.js
+// unplugin-vue-components removed support for CommonJS after version 29.1.0
 module.exports = {
   /* ... */
   plugins: [
@@ -122,6 +124,7 @@ You might not need this plugin for Nuxt. Use [`@nuxt/components`](https://github
 <summary>Vue CLI</summary><br>
 
 ```ts
+// unplugin-vue-components removed support for CommonJS after version 29.1.0
 // vue.config.js
 module.exports = {
   /* ... */
