@@ -83,6 +83,12 @@ export interface Options {
   dirs?: string | string[]
 
   /**
+   * remove include directories from filepath by caocao
+   * @default []
+   */
+  resolvedDirs?: string | string[];
+
+  /**
    * Valid file extensions for components.
    * @default ['vue']
    */
