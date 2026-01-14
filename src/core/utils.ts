@@ -8,7 +8,7 @@ import {
   getPackageInfo,
   isPackageExists,
 } from 'local-pkg'
-import { minimatch } from 'minimatch'
+import picomatch from 'picomatch'
 import { DISABLE_COMMENT } from './constants'
 
 export const isSSR = Boolean(process.env.SSR || process.env.SSG || process.env.VITE_SSR || process.env.VITE_SSG)
@@ -59,8 +59,8 @@ export function isEmpty(value: any) {
 
 export function matchGlobs(filepath: string, globs: string[]) {
   for (const glob of globs) {
-    const isNegated = glob.startsWith('!')
-    const match = minimatch(slash(filepath), isNegated ? glob.slice(1) : glob)
+    const isNegated = glob[0] === '!'
+    const match = picomatch(isNegated ? glob.slice(1) : glob)(slash(filepath))
     if (match)
       return !isNegated
   }
