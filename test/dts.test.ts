@@ -110,19 +110,6 @@ const _directive_loading = _resolveDirective("loading")`
     expect(declarations).toMatchSnapshot()
   })
 
-  it('vue 2.7 components only', async () => {
-    const ctx = new Context({
-      resolvers: resolver,
-      directives: true,
-      version: 2.7,
-    })
-    const code = 'const _component_test_comp = _c("test-comp")'
-    await ctx.transform(code, '')
-
-    const declarations = getDeclaration(ctx, 'test.d.ts')
-    expect(declarations).toMatchSnapshot()
-  })
-
   it('directive only', async () => {
     const ctx = new Context({
       resolvers: resolver,

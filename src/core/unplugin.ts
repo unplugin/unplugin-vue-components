@@ -62,9 +62,6 @@ export default createUnplugin<Options>((options = {}) => {
         ctx.setRoot(config.root)
         ctx.sourcemap = true
 
-        if (config.plugins.find(i => i.name === 'vite-plugin-vue2'))
-          ctx.setTransformer('vue2')
-
         if (ctx.options.dts) {
           ctx.searchGlob()
           if (!existsSync(ctx.options.dts))

@@ -3,14 +3,6 @@ import { kebabCase } from '../utils'
 
 export interface VarletUIResolverOptions {
   /**
-   * support vue version
-   * vue3 use @varlet/ui, vue2 use @varlet-vue2/ui
-   *
-   * @default 'vue3'
-   */
-  version?: 'vue3' | 'vue2'
-
-  /**
    * import style along with components
    *
    * @default 'css'
@@ -59,10 +51,9 @@ export function getResolved(name: string, options: VarletUIResolverOptions): Com
     importLess,
     styleExtname = '.mjs',
     autoImport = false,
-    version = 'vue3',
   } = options
 
-  const path = version === 'vue2' ? '@varlet-vue2/ui' : '@varlet/ui'
+  const path = '@varlet/ui'
   const sideEffects = []
 
   if (importStyle || importCss) {
@@ -83,7 +74,6 @@ export function getResolved(name: string, options: VarletUIResolverOptions): Com
  * Resolver for VarletUI
  *
  * @link https://github.com/varletjs/varlet
- * @link https://github.com/varletjs/varlet-vue2
  */
 export function VarletUIResolver(options: VarletUIResolverOptions = {}): ComponentResolver[] {
   return [

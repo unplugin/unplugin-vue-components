@@ -4,11 +4,7 @@ export default defineConfig({
   entry: ['src/*.ts'],
   dts: true,
   exports: true,
-  inlineOnly: [
-    '@antfu/utils',
-    'compare-versions',
-    'estree-walker',
-  ],
+  inlineOnly: ['@antfu/utils', 'compare-versions'],
   external: [
     // dts
     'webpack',

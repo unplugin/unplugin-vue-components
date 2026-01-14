@@ -55,7 +55,7 @@ export class Context {
       this.generateComponentsJson = throttle(500, this._generateComponentsJson.bind(this), { noLeading: false })
     }
 
-    this.setTransformer(this.options.transformer)
+    this.transformer = transformer(this)
   }
 
   setRoot(root: string) {
@@ -64,11 +64,6 @@ export class Context {
     debug.env('root', root)
     this.root = root
     this.options = resolveOptions(this.rawOptions, this.root)
-  }
-
-  setTransformer(name: Options['transformer']) {
-    debug.env('transformer', name)
-    this.transformer = transformer(this, name || 'vue3')
   }
 
   transform(code: string, id: string) {

@@ -6,7 +6,7 @@ On-demand components auto importing for Vue.
 
 ###### Features
 
-- 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
+- 💚 Supports Vue 3 out-of-the-box.
 - ✨ Supports both components and directives.
 - ⚡️ Supports Vite, Webpack, Rspack, Vue CLI, Rollup, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
 - 🏝 Tree-shakable, only registers the components you use.
@@ -443,9 +443,6 @@ Components({
   globalNamespaces: [],
 
   // auto import for directives
-  // default: `true` for Vue 3, `false` for Vue 2
-  // Babel is needed to do the transformation for Vue 2, it's disabled by default for performance concerns.
-  // To install Babel, run: `npm install -D @babel/parser`
   directives: true,
 
   // Transform path before resolving

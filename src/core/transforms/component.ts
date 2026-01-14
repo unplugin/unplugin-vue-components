@@ -1,28 +1,10 @@
 import type MagicString from 'magic-string'
-import type { SupportedTransformer } from '../..'
 import type { Context } from '../context'
 import type { ResolveResult } from '../transformer'
 import { createDebug } from 'obug'
 import { pascalCase, stringifyComponentImport } from '../utils'
 
 const debug = createDebug('unplugin-vue-components:transform:component')
-
-function resolveVue2(code: string, s: MagicString) {
-  const results: ResolveResult[] = []
-  for (const match of code.matchAll(/\b(_c|h)\(\s*['"](.+?)["']([,)])/g)) {
-    const [full, renderFunctionName, matchedName, append] = match
-    if (match.index != null && matchedName && !matchedName.startsWith('_')) {
-      const start = match.index
-      const end = start + full.length
-      results.push({
-        rawName: matchedName,
-        replace: resolved => s.overwrite(start, end, `${renderFunctionName}(${resolved}${append}`),
-      })
-    }
-  }
-
-  return results
-}
 
 function resolveVue3(
   code: string,
@@ -52,12 +34,10 @@ function resolveVue3(
   return results
 }
 
-export default async function transformComponent(code: string, transformer: SupportedTransformer, s: MagicString, ctx: Context, sfcPath: string) {
+export default async function transformComponent(code: string, s: MagicString, ctx: Context, sfcPath: string) {
   let no = 0
 
-  const results = transformer === 'vue2'
-    ? resolveVue2(code, s)
-    : resolveVue3(code, s, ctx.options.transformerUserResolveFunctions)
+  const results = resolveVue3(code, s, ctx.options.transformerUserResolveFunctions)
 
   for (const { rawName, replace } of results) {
     debug(`| ${rawName}`)

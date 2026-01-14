@@ -44,8 +44,6 @@ export type Matcher = (id: string) => boolean | null | undefined
 
 export type Transformer = (code: string, id: string, path: string, query: Record<string, string>) => Awaitable<TransformResult | null>
 
-export type SupportedTransformer = 'vue3' | 'vue2'
-
 export interface PublicPluginAPI {
   /**
    * Resolves a component using the configured resolvers.
@@ -149,13 +147,6 @@ export interface Options {
   importPathTransform?: (path: string) => string | undefined
 
   /**
-   * Transformer to apply
-   *
-   * @default 'vue3'
-   */
-  transformer?: SupportedTransformer
-
-  /**
    * Tranform users' usage of resolveComponent/resolveDirective as well
    *
    * If disabled, only components inside templates (which compiles to `_resolveComponent` etc.)
@@ -193,12 +184,7 @@ export interface Options {
 
   /**
    * auto import for directives.
-   *
-   * default: `true` for Vue 3, `false` for Vue 2
-   *
-   * Babel is needed to do the transformation for Vue 2, it's disabled by default for performance concerns.
-   * To install Babel, run: `npm install -D @babel/parser`
-   * @default undefined
+   * @default true
    */
   directives?: boolean
 
@@ -206,11 +192,6 @@ export interface Options {
    * Only provide types of components in library (registered globally)
    */
   types?: TypeImport[]
-
-  /**
-   * Vue version of project. It will detect automatically if not specified.
-   */
-  version?: 2 | 2.7 | 3
 
   /**
    * Generate sourcemap for the transformed code.
