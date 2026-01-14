@@ -2,13 +2,13 @@ import type { TransformResult } from 'unplugin'
 import type { SupportedTransformer } from '..'
 import type { Transformer } from '../types'
 import type { Context } from './context'
-import Debug from 'debug'
 import MagicString from 'magic-string'
+import { createDebug } from 'obug'
 import { DISABLE_COMMENT } from './constants'
 import transformComponent from './transforms/component'
 import transformDirectives from './transforms/directive'
 
-const debug = Debug('unplugin-vue-components:transformer')
+const debug = createDebug('unplugin-vue-components:transformer')
 
 export interface ResolveResult {
   rawName: string

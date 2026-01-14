@@ -67,10 +67,10 @@
   },
   "dependencies": {
     "chokidar": "^5.0.0",
-    "debug": "^4.4.3",
     "local-pkg": "^1.1.2",
     "magic-string": "^0.30.21",
     "mlly": "^1.8.0",
+    "obug": "^2.1.1",
     "tinyglobby": "^0.2.15",
     "unplugin": "^2.3.11",
     "unplugin-utils": "^0.3.1"
@@ -82,7 +82,6 @@
     "@babel/types": "^7.28.6",
     "@nuxt/kit": "^4.2.2",
     "@nuxt/schema": "^4.2.2",
-    "@types/debug": "^4.1.12",
     "@types/node": "^25.0.8",
     "bumpp": "^10.4.0",
     "compare-versions": "^6.1.1",

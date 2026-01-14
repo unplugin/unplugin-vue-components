@@ -2,10 +2,10 @@ import type MagicString from 'magic-string'
 import type { SupportedTransformer } from '../..'
 import type { Context } from '../context'
 import type { ResolveResult } from '../transformer'
-import Debug from 'debug'
+import { createDebug } from 'obug'
 import { pascalCase, stringifyComponentImport } from '../utils'
 
-const debug = Debug('unplugin-vue-components:transform:component')
+const debug = createDebug('unplugin-vue-components:transform:component')
 
 function resolveVue2(code: string, s: MagicString) {
   const results: ResolveResult[] = []

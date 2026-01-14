@@ -5,7 +5,7 @@ import type { ComponentInfo, Options, ResolvedOptions, Transformer } from '../ty
 import { relative } from 'node:path'
 import process from 'node:process'
 import { slash, throttle, toArray } from '@antfu/utils'
-import Debug from 'debug'
+import { createDebug } from 'obug'
 import { DIRECTIVE_IMPORT_PREFIX } from './constants'
 import { writeComponentsJson, writeDeclaration } from './declaration'
 import { searchComponents } from './fs/glob'
@@ -14,11 +14,11 @@ import transformer from './transformer'
 import { getNameFromFilePath, isExclude, matchGlobs, normalizeComponentInfo, parseId, pascalCase, resolveAlias } from './utils'
 
 const debug = {
-  components: Debug('unplugin-vue-components:context:components'),
-  search: Debug('unplugin-vue-components:context:search'),
-  hmr: Debug('unplugin-vue-components:context:hmr'),
-  declaration: Debug('unplugin-vue-components:declaration'),
-  env: Debug('unplugin-vue-components:env'),
+  components: createDebug('unplugin-vue-components:context:components'),
+  search: createDebug('unplugin-vue-components:context:search'),
+  hmr: createDebug('unplugin-vue-components:context:hmr'),
+  declaration: createDebug('unplugin-vue-components:declaration'),
+  env: createDebug('unplugin-vue-components:env'),
 }
 
 export class Context {

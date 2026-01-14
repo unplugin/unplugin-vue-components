@@ -1,8 +1,8 @@
 import type { ComponentInfo, ComponentResolver } from '../../types'
-import Debug from 'debug'
+import { createDebug } from 'obug'
 import { isExclude, kebabCase, pascalCase } from '../utils'
 
-const debug = Debug('unplugin-vue-components:resolvers:arco')
+const debug = createDebug('unplugin-vue-components:resolvers:arco')
 
 const matchComponents = [
   {

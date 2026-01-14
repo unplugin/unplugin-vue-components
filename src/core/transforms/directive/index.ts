@@ -1,13 +1,13 @@
 import type MagicString from 'magic-string'
 import type { SupportedTransformer } from '../../..'
 import type { Context } from '../../context'
-import Debug from 'debug'
+import { createDebug } from 'obug'
 import { DIRECTIVE_IMPORT_PREFIX } from '../../constants'
 import { pascalCase, stringifyComponentImport } from '../../utils'
 import vue2Resolver from './vue2'
 import vue3Resolver from './vue3'
 
-const debug = Debug('unplugin-vue-components:transform:directive')
+const debug = createDebug('unplugin-vue-components:transform:directive')
 
 export default async function transformDirective(code: string, transformer: SupportedTransformer, s: MagicString, ctx: Context, sfcPath: string) {
   let no = 0
