@@ -14,21 +14,19 @@
   },
   "bugs": "https://github.com/unplugin/unplugin-vue-components/issues",
   "exports": {
-    ".": "./dist/index.js",
-    "./nuxt": "./dist/nuxt.js",
-    "./resolvers": "./dist/resolvers.js",
-    "./rollup": "./dist/rollup.js",
-    "./rolldown": "./dist/rolldown.js",
-    "./types": "./dist/types.js",
-    "./vite": "./dist/vite.js",
-    "./webpack": "./dist/webpack.js",
-    "./rspack": "./dist/rspack.js",
-    "./esbuild": "./dist/esbuild.js",
-    "./*": "./*"
+    ".": "./dist/index.mjs",
+    "./esbuild": "./dist/esbuild.mjs",
+    "./nuxt": "./dist/nuxt.mjs",
+    "./resolvers": "./dist/resolvers.mjs",
+    "./rolldown": "./dist/rolldown.mjs",
+    "./rollup": "./dist/rollup.mjs",
+    "./rspack": "./dist/rspack.mjs",
+    "./types": "./dist/types.mjs",
+    "./vite": "./dist/vite.mjs",
+    "./webpack": "./dist/webpack.mjs",
+    "./package.json": "./package.json"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "index.d.ts",
+  "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
@@ -97,7 +95,7 @@
     "pathe": "^2.0.3",
     "rolldown": "^1.0.0-beta.43",
     "rollup": "^4.52.5",
-    "tsdown": "^0.15.8",
+    "tsdown": "^0.20.0-beta.3",
     "typescript": "^5.9.3",
     "vite": "^7.1.10",
     "vitest": "^3.2.4",
