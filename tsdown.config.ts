@@ -2,7 +2,7 @@ import { defineConfig } from 'tsdown'
 
 export default defineConfig({
   entry: ['src/*.ts'],
-  dts: true,
+  dts: { tsgo: true },
   exports: true,
   inlineOnly: ['@antfu/utils', 'compare-versions'],
   external: [
