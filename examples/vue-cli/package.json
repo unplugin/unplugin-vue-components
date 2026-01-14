@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@vue/composition-api": "^1.7.2",
-    "core-js": "^3.46.0",
+    "core-js": "^3.47.0",
     "vue": "2.7.16"
   },
   "devDependencies": {
@@ -16,7 +16,7 @@
     "@vue/cli-plugin-typescript": "^5.0.9",
     "@vue/cli-service": "^5.0.9",
     "typescript": "^5.9.3",
-    "unplugin-icons": "^22.5.0",
+    "unplugin-icons": "^23.0.1",
     "unplugin-vue-components": "workspace:*",
     "unplugin-vue2-script-setup": "^0.11.4"
   }

@@ -9,20 +9,20 @@
     "preview": "cross-env DEBUG=unplugin-vue-components:* vite preview"
   },
   "dependencies": {
-    "vant": "^4.9.21"
+    "vant": "^4.9.22"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.397",
-    "@vitejs/plugin-vue": "^6.0.1",
-    "@vue/compiler-sfc": "^3.5.22",
+    "@iconify/json": "^2.2.428",
+    "@vitejs/plugin-vue": "^6.0.3",
+    "@vue/compiler-sfc": "^3.5.26",
     "cross-env": "^10.1.0",
     "has-pkg": "^0.0.1",
     "typescript": "^5.9.3",
-    "unplugin-icons": "^22.5.0",
+    "unplugin-icons": "^23.0.1",
     "unplugin-vue-components": "workspace:*",
     "unplugin-vue-markdown": "^29.2.0",
-    "vite": "^7.1.10",
+    "vite": "^7.3.1",
     "vite-plugin-inspect": "^11.3.3",
-    "vue-router": "^4.6.3"
+    "vue-router": "^4.6.4"
   }
 }
