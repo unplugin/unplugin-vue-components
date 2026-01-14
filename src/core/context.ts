@@ -23,7 +23,7 @@ const debug = {
 
 export class Context {
   options: ResolvedOptions
-  transformer: Transformer = undefined!
+  transformer: Transformer
 
   private _componentPaths = new Set<string>()
   private _componentNameMap: Record<string, ComponentInfo> = {}
