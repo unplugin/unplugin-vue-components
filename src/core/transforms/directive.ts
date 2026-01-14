@@ -1,16 +1,16 @@
 import type MagicString from 'magic-string'
-import type { Context } from '../../context'
-import type { ResolveResult } from '../../transformer'
+import type { Context } from '../context'
+import type { ResolveResult } from '../transformer'
 import { createDebug } from 'obug'
-import { DIRECTIVE_IMPORT_PREFIX } from '../../constants'
-import { pascalCase, stringifyComponentImport } from '../../utils'
+import { DIRECTIVE_IMPORT_PREFIX } from '../constants'
+import { pascalCase, stringifyComponentImport } from '../utils'
 
 const debug = createDebug('unplugin-vue-components:transform:directive')
 
 export default async function transformDirective(code: string, s: MagicString, ctx: Context, sfcPath: string) {
   let no = 0
 
-  const results = resolveVue3(code, s)
+  const results = resolveVue3(code, s, ctx.options.transformerUserResolveFunctions)
   for (const { rawName, replace } of results) {
     debug(`| ${rawName}`)
     const name = `${DIRECTIVE_IMPORT_PREFIX}${pascalCase(rawName)}`
