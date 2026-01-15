@@ -5,7 +5,7 @@ import type { ComponentInfo, Options, ResolvedOptions, Transformer } from '../ty
 import { relative } from 'node:path'
 import process from 'node:process'
 import { slash, throttle, toArray } from '@antfu/utils'
-import Debug from 'debug'
+import { createDebug } from 'obug'
 import { DIRECTIVE_IMPORT_PREFIX } from './constants'
 import { writeComponentsJson, writeDeclaration } from './declaration'
 import { searchComponents } from './fs/glob'
@@ -14,16 +14,16 @@ import transformer from './transformer'
 import { getNameFromFilePath, isExclude, matchGlobs, normalizeComponentInfo, parseId, pascalCase, resolveAlias } from './utils'
 
 const debug = {
-  components: Debug('unplugin-vue-components:context:components'),
-  search: Debug('unplugin-vue-components:context:search'),
-  hmr: Debug('unplugin-vue-components:context:hmr'),
-  declaration: Debug('unplugin-vue-components:declaration'),
-  env: Debug('unplugin-vue-components:env'),
+  components: createDebug('unplugin-vue-components:context:components'),
+  search: createDebug('unplugin-vue-components:context:search'),
+  hmr: createDebug('unplugin-vue-components:context:hmr'),
+  declaration: createDebug('unplugin-vue-components:declaration'),
+  env: createDebug('unplugin-vue-components:env'),
 }
 
 export class Context {
   options: ResolvedOptions
-  transformer: Transformer = undefined!
+  transformer: Transformer
 
   private _componentPaths = new Set<string>()
   private _componentNameMap: Record<string, ComponentInfo> = {}
@@ -55,7 +55,7 @@ export class Context {
       this.generateComponentsJson = throttle(500, this._generateComponentsJson.bind(this), { noLeading: false })
     }
 
-    this.setTransformer(this.options.transformer)
+    this.transformer = transformer(this)
   }
 
   setRoot(root: string) {
@@ -64,11 +64,6 @@ export class Context {
     debug.env('root', root)
     this.root = root
     this.options = resolveOptions(this.rawOptions, this.root)
-  }
-
-  setTransformer(name: Options['transformer']) {
-    debug.env('transformer', name)
-    this.transformer = transformer(this, name || 'vue3')
   }
 
   transform(code: string, id: string) {
@@ -88,24 +83,24 @@ export class Context {
   setupWatcher(watcher: FSWatcher | fs.FSWatcher) {
     const { globs } = this.options
     this._removeUnused = this.options.syncMode === 'overwrite'
-    watcher
-      .on('unlink', (path) => {
-        if (!matchGlobs(path, globs))
-          return
+    // @ts-expect-error fs.FSWatcher
+    watcher.on('unlink', (path) => {
+      if (!matchGlobs(path, globs))
+        return
 
-        path = slash(path)
-        this.removeComponents(path)
-        this.onUpdate(path)
-      })
-    watcher
-      .on('add', (path) => {
-        if (!matchGlobs(path, globs))
-          return
+      path = slash(path)
+      this.removeComponents(path)
+      this.onUpdate(path)
+    })
+    // @ts-expect-error fs.FSWatcher
+    watcher.on('add', (path) => {
+      if (!matchGlobs(path, globs))
+        return
 
-        path = slash(path)
-        this.addComponents(path)
-        this.onUpdate(path)
-      })
+      path = slash(path)
+      this.addComponents(path)
+      this.onUpdate(path)
+    })
   }
 
   /**

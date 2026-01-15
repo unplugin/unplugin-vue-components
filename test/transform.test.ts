@@ -15,54 +15,6 @@ const resolver: ComponentResolver[] = [
 ]
 
 describe('transform', () => {
-  it('vue2 transform should work', async () => {
-    const code = `
-    var render = function () {
-      var _vm = this
-      var _h = _vm.$createElement
-      var _c = _vm._self._c || _h
-      return _c("test-comp", {
-        directives: [
-          { name: "loading", rawName: "v-loading", value: 123, expression: "123" }
-        ]
-      })
-    }
-    var staticRenderFns = []
-    render._withStripped = true
-    export { render, staticRenderFns }
-    `
-
-    const ctx = new Context({
-      resolvers: [resolver],
-      transformer: 'vue2',
-      directives: true,
-    })
-    ctx.sourcemap = false
-    expect(await ctx.transform(code, '')).toMatchSnapshot()
-  })
-
-  it('vue2 transform with jsx should work', async () => {
-    const code = `
-    export default {
-      render(){
-        return h("test-comp", {
-        directives: [
-          { name: "loading", rawName: "v-loading", value: 123, expression: "123" }
-        ]
-      })
-      }
-    }
-    `
-
-    const ctx = new Context({
-      resolvers: [resolver],
-      transformer: 'vue2',
-      directives: true,
-    })
-    ctx.sourcemap = false
-    expect(await ctx.transform(code, '')).toMatchSnapshot()
-  })
-
   it('vue3 transform should work', async () => {
     const code = `
     const render = (_ctx, _cache) => {
@@ -82,7 +34,6 @@ describe('transform', () => {
 
     let ctx = new Context({
       resolvers: [resolver],
-      transformer: 'vue3',
       transformerUserResolveFunctions: false,
       directives: true,
     })
@@ -91,7 +42,6 @@ describe('transform', () => {
 
     ctx = new Context({
       resolvers: [resolver],
-      transformer: 'vue3',
       transformerUserResolveFunctions: true,
       directives: true,
     })
@@ -101,56 +51,6 @@ describe('transform', () => {
 })
 
 describe('component and directive as same name', () => {
-  it('vue2 transform should work', async () => {
-    const code = `
-    var render = function () {
-      var _vm = this
-      var _h = _vm.$createElement
-      var _c = _vm._self._c || _h
-      return _c("loading", {
-        directives: [
-          { name: "loading", rawName: "v-loading", value: 123, expression: "123" }
-        ]
-      })
-    }
-    var staticRenderFns = []
-    render._withStripped = true
-    export { render, staticRenderFns }
-    `
-
-    const ctx = new Context({
-      resolvers: [resolver],
-      transformer: 'vue2',
-      directives: true,
-    })
-    ctx.sourcemap = false
-    expect(await ctx.transform(code, '')).toMatchSnapshot()
-  })
-
-  it('vue2.7 transform should work', async () => {
-    const code = `
-    import { defineComponent as _defineComponent } from "vue";
-    const _sfc_main = /* @__PURE__ */ _defineComponent({
-      __name: "App",
-      setup(__props) {
-        return { __sfc: true };
-      }
-    });
-    var _sfc_render = function render() {
-      var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
-      return _c("div", { directives: [{ name: "loading", rawName: "v-loading", value: 123, expression: "123" }] }, [], 1);
-    };
-    `
-
-    const ctx = new Context({
-      resolvers: [resolver],
-      transformer: 'vue2',
-      directives: true,
-    })
-    ctx.sourcemap = false
-    expect(await ctx.transform(code, '')).toMatchSnapshot()
-  })
-
   it('vue3 transform should work', async () => {
     const code = `
     const render = (_ctx, _cache) => {
@@ -167,7 +67,6 @@ describe('component and directive as same name', () => {
 
     const ctx = new Context({
       resolvers: [resolver],
-      transformer: 'vue3',
       directives: true,
     })
     ctx.sourcemap = false

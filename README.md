@@ -6,9 +6,9 @@ On-demand components auto importing for Vue.
 
 ###### Features
 
-- 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
+- 💚 Supports Vue 3 out-of-the-box.
 - ✨ Supports both components and directives.
-- ⚡️ Supports Vite, Webpack, Rspack, Vue CLI, Rollup, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
+- ⚡️ Supports Vite, Webpack, Rspack, Rollup, Rolldown, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
 - 🏝 Tree-shakable, only registers the components you use.
 - 🪐 Folder names as namespaces.
 - 🦾 Full TypeScript support.
@@ -86,6 +86,7 @@ export default {
 
 ```ts
 // webpack.config.js
+// unplugin-vue-components removed support for CommonJS after version 29.1.0
 module.exports = {
   /* ... */
   plugins: [
@@ -101,6 +102,7 @@ module.exports = {
 
 ```ts
 // rspack.config.js
+// unplugin-vue-components removed support for CommonJS after version 29.1.0
 module.exports = {
   /* ... */
   plugins: [
@@ -115,36 +117,6 @@ module.exports = {
 <summary>Nuxt</summary><br>
 
 You might not need this plugin for Nuxt. Use [`@nuxt/components`](https://github.com/nuxt/components) instead.
-
-<br></details>
-
-<details>
-<summary>Vue CLI</summary><br>
-
-```ts
-// vue.config.js
-module.exports = {
-  /* ... */
-  plugins: [
-    require('unplugin-vue-components/webpack')({ /* options */ }),
-  ],
-}
-```
-
-You can also rename the Vue configuration file to `vue.config.mjs` and use static import syntax (you should use latest `@vue/cli-service ^5.0.8`):
-
-```ts
-// vue.config.mjs
-import Components from 'unplugin-vue-components/webpack'
-
-export default {
-  configureWebpack: {
-    plugins: [
-      Components({ /* options */ }),
-    ],
-  },
-}
-```
 
 <br></details>
 
@@ -266,7 +238,6 @@ Supported Resolvers:
 - [Arco Design Vue](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/arco.ts)
 - [BootstrapVue](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/bootstrap-vue.ts)
 - [Element Plus](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/element-plus.ts)
-- [Element UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/element-ui.ts)
 - [Headless UI](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/headless-ui.ts)
 - [IDux](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/idux.ts)
 - [Inkline](https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/inkline.ts)
@@ -440,9 +411,6 @@ Components({
   globalNamespaces: [],
 
   // auto import for directives
-  // default: `true` for Vue 3, `false` for Vue 2
-  // Babel is needed to do the transformation for Vue 2, it's disabled by default for performance concerns.
-  // To install Babel, run: `npm install -D @babel/parser`
   directives: true,
 
   // Transform path before resolving

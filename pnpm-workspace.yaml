@@ -1,12 +1,14 @@
+ignoreWorkspaceRootCheck: true
+shamefullyHoist: true
+shellEmulator: true
+
+trustPolicy: no-downgrade
+
 packages:
   - examples/*
 
-ignoreWorkspaceRootCheck: true
-shamefullyHoist: true
 strictPeerDependencies: false
 
-onlyBuiltDependencies:
-  - core-js
-  - esbuild
-  - unrs-resolver
-  - vue-demi
+allowBuilds:
+  esbuild: false
+  vue-demi: false

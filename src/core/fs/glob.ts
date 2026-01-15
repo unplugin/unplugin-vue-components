@@ -1,8 +1,8 @@
 import type { Context } from '../context'
-import Debug from 'debug'
+import { createDebug } from 'obug'
 import { globSync } from 'tinyglobby'
 
-const debug = Debug('unplugin-vue-components:glob')
+const debug = createDebug('unplugin-vue-components:glob')
 
 export function searchComponents(ctx: Context) {
   debug(`started with: [${ctx.options.globs.join(', ')}]`)

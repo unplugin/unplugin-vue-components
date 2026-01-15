@@ -22,7 +22,6 @@ describe('element Plus Resolver', () => {
 
     const ctx = new Context({
       resolvers: [ElementPlusResolver({})],
-      transformer: 'vue3',
       directives: true,
     })
     ctx.sourcemap = false
