@@ -7,6 +7,7 @@ import { escapeSpecialChars } from './utils'
 
 export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'excludeNames' | 'transformer' | 'globs' | 'globsExclude' | 'directives' | 'types' | 'version'> = {
   dirs: 'src/components',
+  resolvedDirs: [], // remove include directories from filepath by caocao
   extensions: 'vue',
   deep: true,
   dts: isPackageExists('typescript'),
@@ -47,7 +48,8 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
   if (resolved.globs) {
     resolved.globs = toArray(resolved.globs)
       .map(glob => resolveGlobsExclude(root, glob))
-    resolved.resolvedDirs = []
+    // resolved.resolvedDirs = [] // remove include directories from filepath by caocao
+    resolved.resolvedDirs = toArray(resolved.resolvedDirs).map((dir) => resolve(root, dir).replace(/\\/g, '/'));
   }
   else {
     const extsGlob = resolved.extensions.length === 1
