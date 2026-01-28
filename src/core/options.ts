@@ -85,6 +85,8 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
     return false
   })
 
+  // tinyglobby doesn't support sorting patterns, we just sort them
+  // check the WARNING added to sort option at types.ts
   const sort = options.sort
   switch (true) {
     case sort === 'pattern-asc':
