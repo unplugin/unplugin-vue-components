@@ -51,6 +51,14 @@ exports[`search > should with namespace & collapse 1`] = `
     "from": "src/components/Recursive.vue",
   },
   {
+    "as": "SortAComponentCollision",
+    "from": "src/components/sort-a/ComponentCollision.vue",
+  },
+  {
+    "as": "SortComponent",
+    "from": "src/components/sort/Component.vue",
+  },
+  {
     "as": "UiButton",
     "from": "src/components/ui/button.vue",
   },
@@ -112,6 +120,14 @@ exports[`search > should with namespace 1`] = `
     "from": "src/components/Recursive.vue",
   },
   {
+    "as": "SortAComponentCollision",
+    "from": "src/components/sort-a/ComponentCollision.vue",
+  },
+  {
+    "as": "SortComponent",
+    "from": "src/components/sort/Component.vue",
+  },
+  {
     "as": "UiButton",
     "from": "src/components/ui/button.vue",
   },
@@ -145,6 +161,10 @@ exports[`search > should work 1`] = `
     "from": "src/components/collapse/collapseFolder/CollapseFolderAndComponentFromRoot.vue",
   },
   {
+    "as": "Component",
+    "from": "src/components/sort/Component.vue",
+  },
+  {
     "as": "ComponentA",
     "from": "src/components/ComponentA.vue",
   },
@@ -159,6 +179,10 @@ exports[`search > should work 1`] = `
   {
     "as": "ComponentC",
     "from": "src/components/component-c.vue",
+  },
+  {
+    "as": "ComponentCollision",
+    "from": "src/components/sort-a/ComponentCollision.vue",
   },
   {
     "as": "ComponentD",

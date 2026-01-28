@@ -51,6 +51,7 @@
     "typecheck": "tsgo",
     "release": "bumpp",
     "test": "vitest",
+    "test:debug:sort": "DEBUG=unplugin-vue-components:glob vitest -t sort",
     "test:update": "vitest -u"
   },
   "peerDependencies": {
@@ -69,7 +70,7 @@
     "mlly": "^1.8.0",
     "obug": "^2.1.1",
     "picomatch": "^4.0.3",
-    "tinyglobby": "^0.2.15",
+    "tinyglobby": "https://pkg.pr.new/tinyglobby@46902a8",
     "unplugin": "^2.3.11",
     "unplugin-utils": "^0.3.1"
   },
