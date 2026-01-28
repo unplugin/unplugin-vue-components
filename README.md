@@ -188,7 +188,6 @@ It will automatically turn this
     name: 'App',
   }
 </script>
-
 ```
 
 into this
@@ -210,7 +209,6 @@ into this
     },
   }
 </script>
-
 ```
 
 > **Note**
