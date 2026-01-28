@@ -16,8 +16,6 @@ export function searchComponents(ctx: Context) {
     sort: ctx.options.sort,
   })
 
-  console.log(ctx.options.globs)
-  console.log(files)
   if (!files.length && !ctx.options.resolvers?.length) {
     console.warn('[unplugin-vue-components] no components found')
   }
