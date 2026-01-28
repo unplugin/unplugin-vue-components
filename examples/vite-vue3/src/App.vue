@@ -82,6 +82,10 @@ const radio = ref('1')
     <i-mdi:dice-d12 />
     <i-mdi-light-alarm />
   </div>
+
+  <div class="block">
+    <SortComponent />
+  </div>
 </template>
 
 <style scoped>

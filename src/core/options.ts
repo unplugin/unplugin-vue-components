@@ -5,7 +5,7 @@ import { isPackageExists } from 'local-pkg'
 import { detectTypeImports } from './type-imports/detect'
 import { escapeSpecialChars } from './utils'
 
-export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'excludeNames' | 'transformer' | 'globs' | 'globsExclude' | 'directives' | 'types' | 'version'> = {
+export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'excludeNames' | 'transformer' | 'globs' | 'globsExclude' | 'directives' | 'types' | 'version' | 'sort'> = {
   dirs: 'src/components',
   extensions: 'vue',
   deep: true,
@@ -84,6 +84,18 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
     resolved.globsExclude.push(i.slice(1))
     return false
   })
+
+  // tinyglobby doesn't support sorting patterns, we just sort them
+  // check the WARNING added to sort option at types.ts
+  const sort = options.sort
+  switch (true) {
+    case sort === 'pattern-asc':
+      resolved.globs.sort((a, b) => a.localeCompare(b))
+      break
+    case sort === 'pattern-desc':
+      resolved.globs.sort((a, b) => b.localeCompare(a))
+      break
+  }
 
   resolved.dts = !resolved.dts
     ? false

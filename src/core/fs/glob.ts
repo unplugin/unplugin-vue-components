@@ -13,11 +13,12 @@ export function searchComponents(ctx: Context) {
     cwd: root,
     absolute: true,
     expandDirectories: false,
+    sort: ctx.options.sort,
   })
 
-  if (!files.length && !ctx.options.resolvers?.length)
-
+  if (!files.length && !ctx.options.resolvers?.length) {
     console.warn('[unplugin-vue-components] no components found')
+  }
 
   debug(`${files.length} components found.`)
 
