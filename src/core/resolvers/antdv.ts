@@ -212,6 +212,8 @@ const matchComponents: IMatcher[] = [
   },
 ]
 
+export type AntDesignVueResolveDateLibrary = 'dayjs' | 'date-fns' | 'moment'
+
 export interface AntDesignVueResolverOptions {
   /**
    * exclude components that do not require automatic import
@@ -259,6 +261,13 @@ export interface AntDesignVueResolverOptions {
    * @default 'A'
    */
   prefix?: string
+
+  /**
+   * Custom date library.
+   *
+   * @default 'dayjs'
+   */
+  resolveDateLibrary?: AntDesignVueResolveDateLibrary
 }
 
 function getStyleDir(compName: string): string {
@@ -320,6 +329,15 @@ function getImportName(compName: string): string {
   return compName
 }
 
+function getDateLibraryComponent(compName: string) {
+  if (compName.match(/^Calendar$/))
+    return 'calendar'
+  if (compName.match(/^DatePicker$/) || compName.match(/^(?:Month|Week|Range|Quarter)Picker$/))
+    return 'date-picker'
+  if (compName.match(/^Time(?:Range)?Picker$/))
+    return 'time-picker'
+}
+
 /**
  * Resolver for Ant Design Vue
  *
@@ -348,6 +366,20 @@ export function AntDesignVueResolver(options: AntDesignVueResolverOptions = {
       if (prefix === originPrefix && isAntdv(compName) && !options?.exclude?.includes(compName)) {
         const { cjs = false, packageName = 'ant-design-vue' } = options
         const path = `${packageName}/${cjs ? 'lib' : 'es'}`
+        const dateComponent = getDateLibraryComponent(compName)
+        if (dateComponent) {
+          const dateLib = options.resolveDateLibrary ?? 'dayjs'
+          const dateLibPath = `${path}/${dateComponent}/${dateLib}`
+          const sideEffects = getSideEffects(compName, options)
+          if (compName === 'Calendar' || compName === 'DatePicker') {
+            return { from: dateLibPath, sideEffects }
+          }
+          return {
+            name: getImportName(compName),
+            from: dateLibPath,
+            sideEffects,
+          }
+        }
         return {
           name: getImportName(compName),
           from: path,
