@@ -27,8 +27,8 @@ importers:
         specifier: ^4.0.3
         version: 4.0.3
       tinyglobby:
-        specifier: ^0.2.15
-        version: 0.2.15
+        specifier: https://pkg.pr.new/tinyglobby@46902a8
+        version: https://pkg.pr.new/tinyglobby@46902a8
       unplugin:
         specifier: ^2.3.11
         version: 2.3.11
@@ -2531,6 +2531,11 @@ packages:
 
   tinyglobby@0.2.15:
     resolution: {integrity: sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==}
+    engines: {node: '>=12.0.0'}
+
+  tinyglobby@https://pkg.pr.new/tinyglobby@46902a8:
+    resolution: {integrity: sha512-QjD/HsXzmKZhkkpSxZai5POq4JLT2MaX+fsowSJEdZEHqj41PNsnP9lSFHmgRTWvRDRAOvhtDMrC8Ggz0G90Ig==, tarball: https://pkg.pr.new/tinyglobby@46902a8}
+    version: 0.2.15
     engines: {node: '>=12.0.0'}
 
   tinyrainbow@3.0.3:
@@ -5455,6 +5460,11 @@ snapshots:
   tinyexec@1.0.2: {}
 
   tinyglobby@0.2.15:
+    dependencies:
+      fdir: 6.5.0(picomatch@4.0.3)
+      picomatch: 4.0.3
+
+  tinyglobby@https://pkg.pr.new/tinyglobby@46902a8:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3

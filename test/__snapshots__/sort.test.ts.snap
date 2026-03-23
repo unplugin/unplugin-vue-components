@@ -1,0 +1,123 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sort > sort all pattern ascending works 1`] = `
+[
+  {
+    "as": "ComponentCollision",
+    "from": "src/components/sort-a/ComponentCollision.vue",
+  },
+]
+`;
+
+exports[`sort > sort all pattern descending works 1`] = `
+[
+  {
+    "as": "ComponentCollision",
+    "from": "src/layer-components/sort-b/ComponentCollision.vue",
+  },
+]
+`;
+
+exports[`sort > sort ascending works 1`] = `
+[
+  {
+    "as": "Book",
+    "from": "src/components/book/index.vue",
+  },
+  {
+    "as": "Button",
+    "from": "src/components/ui/button.vue",
+  },
+  {
+    "as": "Checkbox",
+    "from": "src/components/ui/nested/checkbox.vue",
+  },
+]
+`;
+
+exports[`sort > sort custom ascending works 1`] = `
+[
+  {
+    "as": "Book",
+    "from": "src/components/book/index.vue",
+  },
+  {
+    "as": "Button",
+    "from": "src/components/ui/button.vue",
+  },
+  {
+    "as": "Checkbox",
+    "from": "src/components/ui/nested/checkbox.vue",
+  },
+]
+`;
+
+exports[`sort > sort custom descending works 1`] = `
+[
+  {
+    "as": "Checkbox",
+    "from": "src/components/ui/nested/checkbox.vue",
+  },
+  {
+    "as": "Button",
+    "from": "src/components/ui/button.vue",
+  },
+  {
+    "as": "Book",
+    "from": "src/components/book/index.vue",
+  },
+]
+`;
+
+exports[`sort > sort descending works 1`] = `
+[
+  {
+    "as": "Checkbox",
+    "from": "src/components/ui/nested/checkbox.vue",
+  },
+  {
+    "as": "Button",
+    "from": "src/components/ui/button.vue",
+  },
+  {
+    "as": "Book",
+    "from": "src/components/book/index.vue",
+  },
+]
+`;
+
+exports[`sort > sort pattern (sort-a then sort-b) works 1`] = `
+[
+  {
+    "as": "ComponentCollision",
+    "from": "src/components/sort-a/ComponentCollision.vue",
+  },
+]
+`;
+
+exports[`sort > sort pattern (sort-b then sort-a) works 1`] = `
+[
+  {
+    "as": "ComponentCollision",
+    "from": "src/layer-components/sort-b/ComponentCollision.vue",
+  },
+]
+`;
+
+exports[`sort > sort pattern ascending works 1`] = `
+[
+  {
+    "as": "ComponentCollision",
+    "from": "src/components/sort-a/ComponentCollision.vue",
+  },
+]
+`;
+
+exports[`sort > sort pattern descending works 1`] = `
+[
+  {
+    "as": "ComponentCollision",
+    "from": "src/layer-components/sort-b/ComponentCollision.vue",
+  },
+]
+`;

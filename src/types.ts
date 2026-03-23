@@ -1,4 +1,5 @@
 import type { Awaitable } from '@antfu/utils'
+import type { Sort } from 'tinyglobby'
 import type { TransformResult } from 'unplugin'
 import type { FilterPattern } from 'unplugin-utils'
 
@@ -219,11 +220,35 @@ export interface Options {
    * @default 'default'
    */
   syncMode?: 'default' | 'append' | 'overwrite'
+
+  /**
+   * Sort the results.
+   * - `asc`: Sorts the results in ascending order.
+   * - `desc`: Sorts the results in descending order.
+   * - `pattern`: Sorts the results by pattern precedence.
+   * - `pattern-asc`: Sorts the results by pattern precedence and then ascending.
+   * - `pattern-desc`: Sorts the results by pattern precedence and then descending.
+   * - `(a: string, b: string) => number`: A custom sort function.
+   *
+   * **WARNING**: If you have multiple directories (e.g. layers), and you
+   * are using `pattern`, `pattern-asc` or `pattern-desc`, you must configure the
+   * `dirs` array carefully:
+   * - `pattern`: The files will be sorted using the entries in the `dirs` array: files for the first dir, then files for the second dir, and so on (the order matters).
+   * - `pattern-asc`: The `dirs` will be sorted ascending before the file search, so files will be sorted based on the new sorted `dirs` order.
+   * - `pattern-desc`: The `dirs` will be sorted descending before the file search, so files will be sorted based on the new sorted `dirs` order.
+   *
+   * Check the [src/component/sort-a](https://github.com/unplugin/unplugin-vue-components/tree/main/examples/vite-vue3/src/components/sort-a),
+   * [src/layer-component/sort-b](https://github.com/unplugin/unplugin-vue-components/tree/main/examples/vite-vue3/src/components/sort-a) and the
+   * [vite.config.ts](https://github.com/unplugin/unplugin-vue-components/blob/main/examples/vite-vue3/vite.config.ts) files.
+   *
+   * @default undefined
+   */
+  sort?: Sort
 }
 
 export type ResolvedOptions = Omit<
   Required<Options>,
-'resolvers' | 'extensions' | 'dirs' | 'globalComponentsDeclaration'
+  'resolvers' | 'extensions' | 'dirs' | 'globalComponentsDeclaration' | 'sort'
 > & {
   resolvers: ComponentResolverObject[]
   extensions: string[]
@@ -234,6 +259,7 @@ export type ResolvedOptions = Omit<
   dts: string | false
   dtsTsx: boolean
   root: string
+  sort?: Sort
 }
 
 export type ComponentsImportMap = Record<string, string[] | undefined>

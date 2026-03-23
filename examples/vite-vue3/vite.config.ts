@@ -22,10 +22,12 @@ const config: UserConfig = {
     Icons(),
     Inspect(),
     Components({
+      dirs: ['src/components', 'src/layer-components'],
       extensions: ['vue', 'md', 'svg'],
+      sort: 'pattern-desc',
       directoryAsNamespace: true,
       dts: true,
-      globalNamespaces: ['global'],
+      globalNamespaces: ['global', 'sort-a', 'sort-b'],
       include: [/\.vue($|\?)/, /\.md($|\?)/],
       resolvers: [
         (name) => {
