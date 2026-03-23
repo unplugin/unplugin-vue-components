@@ -6,5 +6,5 @@ export default antfu({
 })
   .removeRules(
     'e18e/prefer-static-regex',
-    'markdown/heading-increment'
+    'markdown/heading-increment',
   )
