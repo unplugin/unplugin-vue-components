@@ -223,7 +223,7 @@ export function ArcoResolver(
           }
         }
       }
-      if (name.match(/^A[A-Z]/) && !isExclude(name, options.exclude)) {
+      if (/^A[A-Z]/.test(name) && !isExclude(name, options.exclude)) {
         const importStyle = options.importStyle ?? 'css'
 
         const importName = name.slice(1)

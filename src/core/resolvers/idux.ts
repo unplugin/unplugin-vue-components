@@ -97,11 +97,11 @@ export function IduxResolver(options: IduxResolverOptions = {}): ComponentResolv
 function getPackageName(name: string) {
   let packageName: 'cdk' | 'components' | 'pro' | undefined
 
-  if (name.match(/^Cdk[A-Z]/))
+  if (/^Cdk[A-Z]/.test(name))
     packageName = 'cdk'
-  else if (name.match(/^IxPro[A-Z]/))
+  else if (/^IxPro[A-Z]/.test(name))
     packageName = 'pro'
-  else if (name.match(/^Ix[A-Z]/))
+  else if (/^Ix[A-Z]/.test(name))
     packageName = 'components'
 
   return packageName

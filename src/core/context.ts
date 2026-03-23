@@ -188,7 +188,7 @@ export class Context {
       type: 'update',
       updates: [],
     }
-    const timestamp = +new Date()
+    const timestamp = Date.now()
     const name = pascalCase(getNameFromFilePath(path, this.options))
 
     Object.entries(this._componentUsageMap)

@@ -85,7 +85,7 @@ export function VeuiResolver(options: VeuiResolverOptions = {}): ComponentResolv
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name.match(/^Veui[A-Z]/)) {
+      if (/^Veui[A-Z]/.test(name)) {
         const componentName = name.slice(4)
 
         if (!components!.has(componentName))

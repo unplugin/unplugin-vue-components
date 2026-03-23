@@ -101,7 +101,7 @@ export interface LayuiVueResolverOptions {
 }
 
 const layuiRE = /^Lay[A-Z]/
-const layerRE = /^(layer|LayLayer)$/
+const layerRE = /^(?:layer|LayLayer)$/
 const iconsRE = /^[A-Z]\w+Icon$/
 let libName = '@layui/layui-vue'
 
@@ -137,15 +137,15 @@ function resolveComponent(importName: string, options: LayuiVueResolverOptions):
   if (isExclude(importName, options.exclude))
     return undefined
 
-  if (options.resolveIcons && importName.match(iconsRE)) {
+  if (options.resolveIcons && iconsRE.test(importName)) {
     name = importName
     libName = '@layui/icons-vue'
   }
-  else if (importName.match(layerRE)) {
+  else if (layerRE.test(importName)) {
     name = importName
     libName = '@layui/layer-vue'
   }
-  else if (importName.match(layuiRE) && !importName.match(iconsRE)) {
+  else if (layuiRE.test(importName) && !iconsRE.test(importName)) {
     name = importName
     libName = '@layui/layui-vue'
   }

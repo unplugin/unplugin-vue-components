@@ -78,7 +78,7 @@ function getSideEffects(name: string, filename: string) {
 }
 
 function componentsResolver(name: string, { ssr }: DevResolverOptions): ComponentInfo | undefined {
-  if (!name.match(/^D[A-Z]/))
+  if (!/^D[A-Z]/.test(name))
     return
 
   // Alert => alert; DatePicker => date-picker

@@ -39,7 +39,7 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
       if (isExclude(name, exclude))
         return
 
-      if (options.resolveIcons && name.match(/[a-z]Icon$/)) {
+      if (options.resolveIcons && /[a-z]Icon$/.test(name)) {
         return {
           name,
           from: `tdesign-icons-${library}${importFrom}`,
@@ -60,8 +60,8 @@ export function TDesignResolver(options: TDesignResolverOptions = {}): Component
         }
       }
 
-      if (name.match(/^T[A-Z]/) || pluginList.includes(name)) {
-        const importName = name.match(/^T[A-Z]/) ? name.slice(1) : name
+      if (/^T[A-Z]/.test(name) || pluginList.includes(name)) {
+        const importName = /^T[A-Z]/.test(name) ? name.slice(1) : name
 
         return {
           name: importName,

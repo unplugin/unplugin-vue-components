@@ -53,7 +53,7 @@ export function ViewUiResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name.match(/^I[A-Z]/)) {
+      if (/^I[A-Z]/.test(name)) {
         const compName = name.slice(1)
         return {
           from: `view-design/src/components/${getCompDir(compName)}`,

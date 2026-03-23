@@ -10,7 +10,7 @@ export function InklineResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name.match(/^I[A-Z]/)) {
+      if (/^I[A-Z]/.test(name)) {
         return {
           name,
           from: '@inkline/inkline',

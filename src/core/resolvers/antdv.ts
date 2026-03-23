@@ -330,11 +330,11 @@ function getImportName(compName: string): string {
 }
 
 function getDateLibraryComponent(compName: string) {
-  if (compName.match(/^Calendar$/))
+  if (/^Calendar$/.test(compName))
     return 'calendar'
-  if (compName.match(/^DatePicker$/) || compName.match(/^(?:Month|Week|Range|Quarter)Picker$/))
+  if (/^DatePicker$/.test(compName) || /^(?:Month|Week|Range|Quarter)Picker$/.test(compName))
     return 'date-picker'
-  if (compName.match(/^Time(?:Range)?Picker$/))
+  if (/^Time(?:Range)?Picker$/.test(compName))
     return 'time-picker'
 }
 
@@ -355,7 +355,7 @@ export function AntDesignVueResolver(options: AntDesignVueResolverOptions = {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (options.resolveIcons && name.match(/(Outlined|Filled|TwoTone)$/)) {
+      if (options.resolveIcons && /(?:Outlined|Filled|TwoTone)$/.test(name)) {
         return {
           name,
           from: '@ant-design/icons-vue',

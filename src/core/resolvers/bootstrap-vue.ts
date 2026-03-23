@@ -60,7 +60,7 @@ export function BootstrapVueResolver(_options: BootstrapVueResolverOptions = {})
   const resolvers: ComponentResolver[] = [{
     type: 'component',
     resolve: (name) => {
-      if (name.match(/^B[A-Z]/)) {
+      if (/^B[A-Z]/.test(name)) {
         return {
           name: COMPONENT_ALIASES[name] || name,
           from: 'bootstrap-vue',
@@ -73,7 +73,7 @@ export function BootstrapVueResolver(_options: BootstrapVueResolverOptions = {})
     resolvers.push({
       type: 'directive',
       resolve: (name) => {
-        if (name.match(/^B[A-Z]/)) {
+        if (/^B[A-Z]/.test(name)) {
           return {
             name: `V${name}`,
             from: 'bootstrap-vue',
@@ -98,7 +98,7 @@ export function BootstrapVueNextResolver(_options: BootstrapVueResolverOptions =
   const resolvers: Array<ComponentResolver> = [{
     type: 'component',
     resolve: (name) => {
-      if (name.match(/^B[A-Z]/))
+      if (/^B[A-Z]/.test(name))
         return { name, from: 'bootstrap-vue-next' }
     },
   }]
@@ -107,7 +107,7 @@ export function BootstrapVueNextResolver(_options: BootstrapVueResolverOptions =
     resolvers.push({
       type: 'directive',
       resolve: (name) => {
-        if (name.match(/^B[A-Z]/))
+        if (/^B[A-Z]/.test(name))
           return { name: `v${name}`, from: 'bootstrap-vue-next' }
       },
     })
@@ -127,7 +127,7 @@ export function BootstrapVue3Resolver(_options: BootstrapVueResolverOptions = {}
   const resolvers: Array<ComponentResolver> = [{
     type: 'component',
     resolve: (name) => {
-      if (name.match(/^B[A-Z]/))
+      if (/^B[A-Z]/.test(name))
         return { name, from: 'bootstrap-vue-3' }
     },
   }]
@@ -136,7 +136,7 @@ export function BootstrapVue3Resolver(_options: BootstrapVueResolverOptions = {}
     resolvers.push({
       type: 'directive',
       resolve: (name) => {
-        if (name.match(/^B[A-Z]/))
+        if (/^B[A-Z]/.test(name))
           return { name: `V${name}`, from: 'bootstrap-vue-3' }
       },
     })

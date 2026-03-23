@@ -96,10 +96,10 @@ function resolveComponent(name: string, options: ElementPlusResolverOptionsResol
   if (options.exclude && name.match(options.exclude))
     return
 
-  if (!name.match(/^El[A-Z]/))
+  if (!/^El[A-Z]/.test(name))
     return
 
-  if (name.match(/^ElIcon.+/)) {
+  if (/^ElIcon.+/.test(name)) {
     return {
       name: name.replace(/^ElIcon/, ''),
       from: '@element-plus/icons-vue',
