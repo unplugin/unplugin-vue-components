@@ -84,7 +84,7 @@ export default createUnplugin<Options>((options = {}) => {
     webpack(compiler) {
       let watcher: Watching
       let fileDepQueue: { path: string, type: 'unlink' | 'add' }[] = []
-      compiler.hooks.watchRun.tapAsync(PLUGIN_NAME, async () => {
+      compiler.hooks.watchRun.tapPromise(PLUGIN_NAME, async () => {
         // ensure watcher is ready(supported since webpack@5.0.0-rc.1)
         if (!watcher && compiler.watching) {
           watcher = compiler.watching
