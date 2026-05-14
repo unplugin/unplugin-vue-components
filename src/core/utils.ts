@@ -58,9 +58,10 @@ export function isEmpty(value: any) {
 }
 
 export function matchGlobs(filepath: string, globs: string[]) {
+  const file = slash(filepath)
   for (const glob of globs) {
     const isNegated = glob[0] === '!'
-    const match = picomatch(isNegated ? glob.slice(1) : glob)(slash(filepath))
+    const match = picomatch(isNegated ? glob.slice(1) : glob)(file)
     if (match)
       return !isNegated
   }
