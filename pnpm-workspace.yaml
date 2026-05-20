@@ -1,4 +1,10 @@
 ignoreWorkspaceRootCheck: true
+minimumReleaseAgeExclude:
+  - '@iconify/json@2.2.476'
+  - '@types/node@25.9.1'
+  - '@vue/language-core@3.3.1'
+  - local-pkg@1.2.0
+  - vue-tsc@3.3.1
 shamefullyHoist: true
 shellEmulator: true
 
