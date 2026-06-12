@@ -12,7 +12,9 @@
     "type": "git",
     "url": "https://github.com/unplugin/unplugin-vue-components.git"
   },
-  "bugs": "https://github.com/unplugin/unplugin-vue-components/issues",
+  "bugs": {
+    "url": "https://github.com/unplugin/unplugin-vue-components/issues"
+  },
   "exports": {
     ".": "./dist/index.mjs",
     "./esbuild": "./dist/esbuild.mjs",
