@@ -74,6 +74,8 @@ export function getResolved(name: string, options: VarletUIResolverOptions): Com
  * Resolver for VarletUI
  *
  * @link https://github.com/varletjs/varlet
+ *
+ * @deprecated use `import { VarletImportResolver } from '@varlet/import-resolver'` instead
  */
 export function VarletUIResolver(options: VarletUIResolverOptions = {}): ComponentResolver[] {
   return [

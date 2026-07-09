@@ -31,6 +31,8 @@ function getSideEffects(dirName: string, options: VantResolverOptions): SideEffe
  * Resolver for Vant
  *
  * @link https://github.com/youzan/vant
+ *
+ * @deprecated use `import { VantResolver } from '@vant/auto-import-resolver'` instead
  */
 export function VantResolver(options: VantResolverOptions = {}): ComponentResolver {
   return {

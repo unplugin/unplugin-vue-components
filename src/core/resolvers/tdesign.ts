@@ -28,6 +28,13 @@ export interface TDesignResolverOptions {
   exclude?: FilterPattern
 }
 
+/**
+ * Resolver for TDesign
+ *
+ * @link https://github.com/Tencent/tdesign-vue-next
+ *
+ * @deprecated use `import { TDesignResolver } from '@tdesign-vue-next/auto-import-resolver'` instead
+ */
 export function TDesignResolver(options: TDesignResolverOptions = {}): ComponentResolver {
   const pluginList = ['DialogPlugin', 'LoadingPlugin', 'MessagePlugin', 'NotifyPlugin']
   return {

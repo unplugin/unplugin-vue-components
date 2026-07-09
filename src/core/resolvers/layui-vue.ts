@@ -159,6 +159,7 @@ function resolveComponent(importName: string, options: LayuiVueResolverOptions):
  *
  * @link http://www.layui-vue.com/ for layui-vue
  *
+ * @deprecated use `import { LayuiVueResolver } from '@layui/unplugin-vue-components/resolvers'` instead
  */
 export function LayuiVueResolver(
   options: LayuiVueResolverOptions = {},

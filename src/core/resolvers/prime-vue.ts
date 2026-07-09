@@ -143,6 +143,8 @@ export interface PrimeVueResolverOptions {
  * Resolver for PrimeVue - If you're using a component with the same tag as an native HTML element (e.g. button) the component must be in uppercase
  *
  * @link https://github.com/primefaces/primevue
+ *
+ * @deprecated use `import { PrimeVueResolver } from '@primevue/auto-import-resolver'` instead
  */
 export function PrimeVueResolver(options: PrimeVueResolverOptions = {}): ComponentResolver {
   return {
