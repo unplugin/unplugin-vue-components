@@ -13,6 +13,16 @@ import { DISABLE_COMMENT } from './constants'
 
 export const isSSR = Boolean(process.env.SSR || process.env.SSG || process.env.VITE_SSR || process.env.VITE_SSG)
 
+const warnedMessages = new Set<string>()
+
+export function warnOnce(message: string): void {
+  if (warnedMessages.has(message))
+    return
+
+  warnedMessages.add(message)
+  console.warn(`[unplugin-vue-components] ${message}`)
+}
+
 export interface ResolveComponent {
   filename: string
   namespace?: string

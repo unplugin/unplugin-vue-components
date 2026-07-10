@@ -1,5 +1,5 @@
 import type { ComponentResolver, ComponentResolveResult } from '../../types'
-import { kebabCase } from '../utils'
+import { kebabCase, warnOnce } from '../utils'
 
 export interface VarletUIResolverOptions {
   /**
@@ -74,8 +74,12 @@ export function getResolved(name: string, options: VarletUIResolverOptions): Com
  * Resolver for VarletUI
  *
  * @link https://github.com/varletjs/varlet
+ *
+ * @deprecated use `import { VarletImportResolver } from '@varlet/import-resolver'` instead
  */
 export function VarletUIResolver(options: VarletUIResolverOptions = {}): ComponentResolver[] {
+  warnOnce('VarletUIResolver is deprecated. Use `import { VarletImportResolver } from \'@varlet/import-resolver\'` instead.')
+
   return [
     {
       type: 'component',

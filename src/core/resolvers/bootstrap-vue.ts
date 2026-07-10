@@ -1,4 +1,5 @@
 import type { ComponentResolver } from '../../types'
+import { warnOnce } from '../utils'
 
 export interface BootstrapVueResolverOptions {
   /**
@@ -94,6 +95,8 @@ export function BootstrapVueResolver(_options: BootstrapVueResolverOptions = {})
  * @deprecated use `import { BootstrapVueNextResolver } from 'bootstrap-vue-next'` instead
  */
 export function BootstrapVueNextResolver(_options: BootstrapVueResolverOptions = {}): Array<ComponentResolver> {
+  warnOnce('BootstrapVueNextResolver is deprecated. Use `import { BootstrapVueNextResolver } from \'bootstrap-vue-next\'` instead.')
+
   const options = { directives: true, ..._options }
   const resolvers: Array<ComponentResolver> = [{
     type: 'component',
