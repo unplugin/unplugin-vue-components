@@ -1,4 +1,5 @@
 import type { ComponentResolver, SideEffectsInfo } from '../../types'
+import { warnOnce } from '../utils'
 
 // @keep-sorted
 const components = [
@@ -147,6 +148,8 @@ export interface PrimeVueResolverOptions {
  * @deprecated use `import { PrimeVueResolver } from '@primevue/auto-import-resolver'` instead
  */
 export function PrimeVueResolver(options: PrimeVueResolverOptions = {}): ComponentResolver {
+  warnOnce('PrimeVueResolver is deprecated. Use `import { PrimeVueResolver } from \'@primevue/auto-import-resolver\'` instead.')
+
   return {
     type: 'component',
     resolve: (name: string) => {

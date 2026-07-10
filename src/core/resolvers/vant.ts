@@ -1,5 +1,5 @@
 import type { ComponentResolver, SideEffectsInfo } from '../../types'
-import { isSSR, kebabCase } from '../utils'
+import { isSSR, kebabCase, warnOnce } from '../utils'
 
 const moduleType = isSSR ? 'lib' : 'es'
 
@@ -35,6 +35,8 @@ function getSideEffects(dirName: string, options: VantResolverOptions): SideEffe
  * @deprecated use `import { VantResolver } from '@vant/auto-import-resolver'` instead
  */
 export function VantResolver(options: VantResolverOptions = {}): ComponentResolver {
+  warnOnce('VantResolver is deprecated. Use `import { VantResolver } from \'@vant/auto-import-resolver\'` instead.')
+
   return {
     type: 'component',
     resolve: (name: string) => {

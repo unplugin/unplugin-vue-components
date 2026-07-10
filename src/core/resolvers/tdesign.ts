@@ -1,6 +1,6 @@
 import type { FilterPattern } from 'unplugin-utils'
 import type { ComponentResolver } from '../../types'
-import { isExclude } from '../utils'
+import { isExclude, warnOnce } from '../utils'
 
 export interface TDesignResolverOptions {
   /**
@@ -36,6 +36,8 @@ export interface TDesignResolverOptions {
  * @deprecated use `import { TDesignResolver } from '@tdesign-vue-next/auto-import-resolver'` instead
  */
 export function TDesignResolver(options: TDesignResolverOptions = {}): ComponentResolver {
+  warnOnce('TDesignResolver is deprecated. Use `import { TDesignResolver } from \'@tdesign-vue-next/auto-import-resolver\'` instead.')
+
   const pluginList = ['DialogPlugin', 'LoadingPlugin', 'MessagePlugin', 'NotifyPlugin']
   return {
     type: 'component',

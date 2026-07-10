@@ -1,6 +1,6 @@
 import type { FilterPattern } from 'unplugin-utils'
 import type { ComponentInfo, ComponentResolver, SideEffectsInfo } from '../../types'
-import { isExclude } from '../utils'
+import { isExclude, warnOnce } from '../utils'
 
 const matchComponents = [
   {
@@ -164,6 +164,8 @@ function resolveComponent(importName: string, options: LayuiVueResolverOptions):
 export function LayuiVueResolver(
   options: LayuiVueResolverOptions = {},
 ): ComponentResolver {
+  warnOnce('LayuiVueResolver is deprecated. Use `import { LayuiVueResolver } from \'@layui/unplugin-vue-components/resolvers\'` instead.')
+
   return {
     type: 'component',
     resolve: (name: string) => {
