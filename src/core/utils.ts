@@ -243,8 +243,8 @@ export function isExclude(name: string, exclude?: FilterPattern): boolean {
   return false
 }
 
-const ESCAPE_PARENTHESES_REGEX = /[()]/g
+const ESCAPE_SPECIAL_CHARS_REGEX = /[()|]/g
 
 export function escapeSpecialChars(str: string): string {
-  return str.replace(ESCAPE_PARENTHESES_REGEX, '\\$&')
+  return str.replace(ESCAPE_SPECIAL_CHARS_REGEX, '\\$&')
 }

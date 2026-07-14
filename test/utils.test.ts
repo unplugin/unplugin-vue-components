@@ -1,6 +1,6 @@
 import type { ResolvedOptions } from '../src'
 import { describe, expect, it } from 'vitest'
-import { escapeSpecialChars, getNameFromFilePath } from '../src/core/utils'
+import { escapeSpecialChars, getNameFromFilePath, matchGlobs } from '../src/core/utils'
 
 describe('getNameFromFilePath', () => {
   const options: Partial<ResolvedOptions> = {
@@ -24,5 +24,11 @@ describe('getNameFromFilePath', () => {
 describe('escapeSpecialChars', () => {
   it('should escape parentheses', () => {
     expect(escapeSpecialChars('component()')).toBe('component\\(\\)')
+  })
+
+  it('should escape pipes in glob paths', () => {
+    const glob = escapeSpecialChars('/work/|presentation/components/**/*.vue')
+
+    expect(matchGlobs('/work/|presentation/components/Foo.vue', [glob])).toBe(true)
   })
 })
