@@ -1,6 +1,6 @@
 import type { ResolvedOptions } from '../src'
 import { describe, expect, it } from 'vitest'
-import { escapeSpecialChars, getNameFromFilePath } from '../src/core/utils'
+import { escapeSpecialChars, getNameFromFilePath, matchGlobs } from '../src/core/utils'
 
 describe('getNameFromFilePath', () => {
   const options: Partial<ResolvedOptions> = {
@@ -24,5 +24,23 @@ describe('getNameFromFilePath', () => {
 describe('escapeSpecialChars', () => {
   it('should escape parentheses', () => {
     expect(escapeSpecialChars('component()')).toBe('component\\(\\)')
+  })
+
+  it('should escape square brackets so they are not treated as character classes', () => {
+    expect(escapeSpecialChars('/proj/[Foo]/src')).toBe('/proj/\\[Foo\\]/src')
+  })
+})
+
+describe('matchGlobs', () => {
+  it('matches a path whose resolved base contains square brackets', () => {
+    const filepath = '/Github/Project/[Foo]/ui/src/component/Button.vue'
+    const glob = escapeSpecialChars('/Github/Project/[Foo]/ui/src/component/**/*.vue')
+    expect(matchGlobs(filepath, [glob])).toBe(true)
+  })
+
+  it('matches a path whose directory name is a picomatch character-class range', () => {
+    const filepath = '/Github/Project/[a-z]/ui/src/component/Button.vue'
+    const glob = escapeSpecialChars('/Github/Project/[a-z]/ui/src/component/**/*.vue')
+    expect(matchGlobs(filepath, [glob])).toBe(true)
   })
 })
