@@ -3,7 +3,7 @@ import { join, resolve } from 'node:path'
 import { slash, toArray } from '@antfu/utils'
 import { isPackageExists } from 'local-pkg'
 import { detectTypeImports } from './type-imports/detect'
-import { escapeSpecialChars } from './utils'
+import { escapeGlobRootPrefix } from './utils'
 
 export const defaultOptions: Omit<Required<Options>, 'include' | 'exclude' | 'excludeNames' | 'transformer' | 'globs' | 'globsExclude' | 'directives' | 'types' | 'version'> = {
   dirs: 'src/components',
@@ -65,9 +65,8 @@ export function resolveOptions(options: Options, root: string): ResolvedOptions 
         prefix = '!'
         i = i.slice(1)
       }
-      return resolved.deep
-        ? prefix + escapeSpecialChars(slash(join(i, `**/*.${extsGlob}`)))
-        : prefix + escapeSpecialChars(slash(join(i, `*.${extsGlob}`)))
+      const joined = slash(join(i, resolved.deep ? `**/*.${extsGlob}` : `*.${extsGlob}`))
+      return prefix + escapeGlobRootPrefix(joined, slash(root))
     })
 
     if (!resolved.extensions.length)
