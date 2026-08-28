@@ -1,6 +1,6 @@
 import type { ResolvedOptions } from '../src'
 import { describe, expect, it } from 'vitest'
-import { escapeSpecialChars, getNameFromFilePath, matchGlobs } from '../src/core/utils'
+import { escapeGlobRootPrefix, escapeSpecialChars, getNameFromFilePath, matchGlobs } from '../src/core/utils'
 
 describe('getNameFromFilePath', () => {
   const options: Partial<ResolvedOptions> = {
@@ -42,5 +42,28 @@ describe('matchGlobs', () => {
     const filepath = '/Github/Project/[a-z]/ui/src/component/Button.vue'
     const glob = escapeSpecialChars('/Github/Project/[a-z]/ui/src/component/**/*.vue')
     expect(matchGlobs(filepath, [glob])).toBe(true)
+  })
+})
+
+describe('escapeGlobRootPrefix', () => {
+  it('escapes metacharacters in the root prefix', () => {
+    expect(escapeGlobRootPrefix('/proj/[Foo]/src/**/*.vue', '/proj/[Foo]'))
+      .toBe('/proj/\\[Foo\\]/src/**/*.vue')
+  })
+
+  it('leaves user-supplied glob syntax after the root untouched', () => {
+    // `dirs: ['src/[ab]']` under a plain root must still behave as a character
+    // class, so only the root prefix may be escaped.
+    const glob = escapeGlobRootPrefix('/proj/src/[ab]/**/*.vue', '/proj')
+    expect(glob).toBe('/proj/src/[ab]/**/*.vue')
+    expect(matchGlobs('/proj/src/a/Button.vue', [glob])).toBe(true)
+    expect(matchGlobs('/proj/src/b/Button.vue', [glob])).toBe(true)
+    expect(matchGlobs('/proj/src/c/Button.vue', [glob])).toBe(false)
+  })
+
+  it('handles both at once: metacharacters in the root and a glob after it', () => {
+    const glob = escapeGlobRootPrefix('/proj/Code(T)/src/[ab]/**/*.vue', '/proj/Code(T)')
+    expect(matchGlobs('/proj/Code(T)/src/a/Button.vue', [glob])).toBe(true)
+    expect(matchGlobs('/proj/Code(T)/src/c/Button.vue', [glob])).toBe(false)
   })
 })

@@ -248,3 +248,17 @@ const ESCAPE_SPECIAL_CHARS_REGEX = /[()[\]]/g
 export function escapeSpecialChars(str: string): string {
   return str.replace(ESCAPE_SPECIAL_CHARS_REGEX, '\\$&')
 }
+
+/**
+ * Escape glob metacharacters in the `root` prefix of an already-joined path,
+ * leaving the rest untouched.
+ *
+ * `root` is a real filesystem path, so `()` and `[]` in it are always literal.
+ * What follows comes from the user's `dirs` option and may be deliberate glob
+ * syntax such as `dirs: ['src/[ab]']`, which must keep behaving as a glob.
+ */
+export function escapeGlobRootPrefix(glob: string, root: string): string {
+  if (!root || !glob.startsWith(root))
+    return escapeSpecialChars(glob)
+  return escapeSpecialChars(root) + glob.slice(root.length)
+}
