@@ -6,6 +6,7 @@ import { relative } from 'node:path'
 import process from 'node:process'
 import { slash, throttle, toArray } from '@antfu/utils'
 import { createDebug } from 'obug'
+import picomatch from 'picomatch'
 import { DIRECTIVE_IMPORT_PREFIX } from './constants'
 import { writeComponentsJson, writeDeclaration } from './declaration'
 import { searchComponents } from './fs/glob'
@@ -211,8 +212,18 @@ export class Context {
   private updateComponentNameMap() {
     this._componentNameMap = {}
 
-    Array
-      .from(this._componentPaths)
+    // Order by the first glob each path matches so `dirs`/`globs` order decides
+    // which component wins, regardless of filesystem walk or HMR add order.
+    // Paths that match no glob (e.g. passed to `addComponents` directly) sort last.
+    const matchers = this.options.globs.map(glob => picomatch(glob))
+    const paths = Array.from(this._componentPaths)
+    const priorities = new Map(paths.map((path) => {
+      const index = matchers.findIndex(isMatch => isMatch(slash(path)))
+      return [path, index === -1 ? matchers.length : index] as const
+    }))
+
+    paths
+      .sort((a, b) => priorities.get(a)! - priorities.get(b)! || a.localeCompare(b))
       .forEach((path) => {
         const fileName = getNameFromFilePath(path, this.options)
         const name = this.options.prefix
