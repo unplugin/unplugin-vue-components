@@ -48,6 +48,29 @@ const _directive_loading = _resolveDirective("loading")`
     expect(declarations).toMatchSnapshot()
   })
 
+  it('supports namespaced Vue components alongside TSX globals', async () => {
+    const ctx = new Context({
+      resolvers: resolver,
+      types: [],
+      dtsTsx: true,
+    })
+    const code = `
+const _component_test_comp = _resolveComponent("test-comp")
+const _component_icon = _resolveComponent("i-mdi:dice-d12")`
+    await ctx.transform(code, '')
+
+    const declarations = getDeclaration(ctx, 'test.d.ts')
+    expect(declarations).toContain(`
+  export interface GlobalComponents {
+    'IMdi:diceD12': typeof import('test/component/IMdi:diceD12')['default']
+    TestComp: typeof import('test/component/TestComp')['default']
+  }`)
+    expect(declarations).toContain(`
+declare global {
+  const TestComp: typeof import('test/component/TestComp')['default']
+}`)
+  })
+
   it('writeDeclaration', async () => {
     const filepath = path.resolve(__dirname, 'tmp/dts-test.d.ts')
     const ctx = new Context({
