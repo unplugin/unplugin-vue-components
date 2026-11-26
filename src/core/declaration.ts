@@ -9,6 +9,7 @@ import { getTransformedPath } from './utils'
 
 const multilineCommentsRE = /\/\*.*?\*\//gs
 const singlelineCommentsRE = /\/\/.*$/gm
+const tsxIdentifierRE = /^[$_\p{ID_Start}][$\u200C\u200D\p{ID_Continue}]*$/u
 
 function extractImports(code: string) {
   // eslint-disable-next-line regexp/no-super-linear-backtracking, regexp/no-misleading-capturing-group
@@ -109,8 +110,9 @@ export function getDeclaration(ctx: Context, filepath: string, originalImports?:
   if (!imports)
     return
 
+  const componentImports = { ...originalImports?.component, ...imports.component }
   const declarations = {
-    component: stringifyDeclarationImports({ ...originalImports?.component, ...imports.component }),
+    component: stringifyDeclarationImports(componentImports),
     directive: stringifyDeclarationImports({ ...originalImports?.directive, ...imports.directive }),
   }
 
@@ -141,13 +143,17 @@ declare module 'vue' {`
   }
   code += '\n}\n'
 
-  // for TSX support
+  // TSX global bindings require identifier names.
   if (ctx.options.dtsTsx) {
-    if (Object.keys(declarations.component).length > 0) {
+    const globals = Object.entries(componentImports)
+      .filter(([name]) => tsxIdentifierRE.test(name))
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([name, type]) => `const ${name}: ${type}`)
+    if (globals.length > 0) {
       code += `
 // For TSX support
 declare global {
-  ${declarations.component.map(d => d.replace(/(.+):/, 'const $1:')).join('\n  ')}
+  ${globals.join('\n  ')}
 }`
     }
   }
